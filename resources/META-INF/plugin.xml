@@ -1,0 +1,28 @@
+<idea-plugin version="2">
+  <id>edument.perl6-idea-plugin</id>
+  <name>Perl 6 Language Support</name>
+  <version>0.1</version>
+  <vendor email="jonathan@edument.se" url="http://www.edument.se/">Edument Central Europe sro.</vendor>
+
+  <description><![CDATA[
+      Language support for Perl 6.
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="145.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.lang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="edument.perl6idea.filetypes.Perl6FileTypeFactory"/>
+  </extensions>
+
+  <actions>
+  </actions>
+</idea-plugin>
