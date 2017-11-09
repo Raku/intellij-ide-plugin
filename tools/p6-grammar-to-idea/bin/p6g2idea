@@ -1,0 +1,10 @@
+use P6GrammarToIdea::Parser;
+use P6GrammarToIdea::Actions;
+
+sub MAIN($input-file where .IO.f) {
+    my $ast = P6GrammarToIdea::Parser.parse(
+        slurp($input-file),
+        :actions(P6GrammarToIdea::Actions)
+    ).ast;
+    say $ast.perl;
+}
