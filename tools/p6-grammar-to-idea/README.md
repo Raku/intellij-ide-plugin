@@ -35,20 +35,22 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * `||` for sequential alternation
 * `|` for LTM alternation
 * `[...]` grouping
-* <foo>, <.foo>
+* `<foo>` and `<.foo>`
 * The `*`, `+`, and `?` quantifiers 
-* The $ anchor
+* The `$` anchor
+* Single quotes (`'like this'`) for literals
+* `<?foo>`, `<!foo>`, `<?before ...>`, `<!before ...>`
+* Basic character classes, without ranges, only some backslash sequences and
+  only a single element, plus no negation
 
 Todo:
 
-* <?foo>, <?[x]>, <?before ...>, <!foo>, <![x]>, <!before ...>
-* Single quotes (`'like this'`) for literals
 * Proto tokens
-* Character classes (including A..Z)
-* ~ goal matching syntax
-* $<capture>=...
-* >> word boundary
 * Escape cclasses: \d, \w, \h, \s, \r, \n, \v, \\, uppercase negations
+* ~ goal matching syntax
+* >> word boundary
+* Character class ranges
+* $<capture>=...
 * The $$ anchor
 * % for separators
 * Some MARKER equivalent

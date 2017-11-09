@@ -13,18 +13,38 @@ grammar P6GrammarToIdea::Parser {
     rule production {
         $<kind>=< token rule > <name> '{'
         [
-        || <seqalt>
+        || <nibbler>
         || <.panic('Syntax error in production rule')>
         ]
         '}'
     }
 
+    token nibbler {
+        <.ws>
+        [
+          <!rxstopper>
+          [
+          |  '||'
+          |  '|'
+          |  '&&'
+          |  '&'
+          ] <.ws>
+        ]?
+        <seqalt>
+        [
+        || <?infixstopper>
+        || $$ <.panic('Regex notterminated')>
+        || (\W) {} <.panic("Unrecognized metachar: $/[0]")>
+        || <.panic('Regex notterminated')>
+        ]
+    }
+
     rule seqalt {
-        '||'? <alt>+ % [ '||' ]
+        <alt>+ % [ '||' ]
     }
 
     rule alt {
-        '|'? <termish>+ % [ '|' ]
+        <termish>+ % [ '|' ]
     }
 
     rule termish {
@@ -47,18 +67,75 @@ grammar P6GrammarToIdea::Parser {
     proto token metachar {*}
     token metachar:sym<$> { <sym> }
     rule metachar:sym<group> {
-        '[' <seqalt> ']'
+        '[' <nibbler> ']'
     }
     token metachar:sym<assert> {
         '<' ~ '>' <assertion>
+    }
+    token metachar:sym<'> {
+        "'"
+        <single-quote-string-part>*
+        [ "'" || <.panic: "Cannot find closing '"> ]
+    }
+
+    token single-quote-string-part {
+        <!before "'">
+        [
+        || '\\' $<esc>=.
+        || <-[\\']>+
+        ]
     }
 
     proto token assertion {*}
     token assertion:sym<name> {
         <name>
+            [
+            | <?before '>'>
+#            | '=' <assertion>
+#            | ':' <arglist>
+#            | '(' <arglist> ')'
+            | <.normspace> <nibbler>
+            ]?
     }
     token assertion:sym<method> {
-        '.' <name>
+        '.' <assertion>
+    }
+    token assertion:sym<?> {
+        '?' <assertion>
+    }
+    token assertion:sym<!> {
+        '!' <assertion>
+    }
+    token assertion:sym<[> {
+        <?before '['|'+'|'-'>
+        <cclass_elem>
+    }
+
+    token cclass_elem {
+        :my $*key;
+        $<sign>=['+'|'-'|<?>]
+        <.normspace>?
+        [
+        | '[' $<charspec>=(
+                  || \s* ( '\\' <cclass_backslash> || (<-[\]\\]>) )
+                     [
+                         \s* '..' \s*
+                         ( '\\' <cclass_backslash> || (<-[\]\\]>) )
+                     ]**0..1
+              )*
+          \s* ']'
+#        | $<name>=<identifier>
+        ]
+        <.normspace>?
+    }
+
+    proto token cclass_backslash {*}
+    token cclass_backslash:sym<nyi> {
+        <[dDnNsSwWbBeEfFrRtTvVoOxXcC0]>
+        <.panic("Backslash sequence $/ not implemented")>
+    }
+    token cclass_backslash:sym<any> {
+        .
     }
 
     token name {
@@ -69,6 +146,16 @@ grammar P6GrammarToIdea::Parser {
         die "$message near " ~ self.orig.substr(self.pos, 30).perl
     }
 
+    regex infixstopper {
+        [
+        | <?before <.[\) \} \]]> >
+        | <?before '>' <.-[>]> >
+        | <?rxstopper>
+        ]
+    }
+
+    token rxstopper { $ }
+
     token ws {
         | <!ww>
         | [
@@ -77,4 +164,6 @@ grammar P6GrammarToIdea::Parser {
             | \n
           ]*
     }
+
+    token normspace { <?[\s#]> <.ws> }
 }

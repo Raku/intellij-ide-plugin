@@ -10,7 +10,11 @@ class P6GrammarToIdea::Actions {
     }
 
     method production($/) {
-        make Production.new: name => ~$<name>, implementation => $<seqalt>.ast;
+        make Production.new: name => ~$<name>, implementation => $<nibbler>.ast;
+    }
+
+    method nibbler($/) {
+        make $<seqalt>.ast;
     }
 
     method seqalt($/) {
@@ -54,19 +58,78 @@ class P6GrammarToIdea::Actions {
     }
 
     method metachar:sym<group>($/) {
-        make $<seqalt>.ast;
+        make $<nibbler>.ast;
     }
 
     method metachar:sym<assert>($/) {
         make $<assertion>.ast;
     }
+    
+    method metachar:sym<'>($/) {
+        make Literal.new: value => $<single-quote-string-part>.map(*.ast).join;
+    }
+
+    method single-quote-string-part($/) {
+        make $<esc> ?? ~$<esc> !! ~$/;
+    }
 
     method assertion:sym<name>($/) {
         make Capture.new: name => ~$<name>, target =>
-            Subrule.new: name => ~$<name>;
+            Subrule.new: name => ~$<name>,
+                |(regex-arg => $<nibbler>.ast if $<nibbler>);
     }
 
     method assertion:sym<method>($/) {
-        make Subrule.new: name => ~$<name>;
+        my $target = $<assertion>.ast;
+        make $target ~~ Capture ?? $target.target !! $target;
+    }
+
+    method assertion:sym<?>($/) {
+        make Lookahead.new: :!negative, target => tweak-lookahead($<assertion>.ast);
+    }
+
+    method assertion:sym<!>($/) {
+        make Lookahead.new: :negative, target => tweak-lookahead($<assertion>.ast);
+    }
+
+    sub tweak-lookahead($ast is copy) {
+        if $ast ~~ Capture {
+            $ast .= target;
+        }
+        if $ast ~~ Subrule && $ast.name eq 'before' {
+            $ast .= regex-arg;
+        }
+        return $ast;
+    }
+
+    method assertion:sym<[>($/) {
+        make $<cclass_elem>.ast;
+    }
+
+    method cclass_elem($/) {
+        die "Negated cclasses NYI" if $<sign> eq '-';
+        my @chars;
+        for $<charspec> -> $c {
+            if $c[1] {
+                die "Ranges in cclasses NYI";
+            }
+            if $c[0]<cclass_backslash> {
+                my $cc = $c[0]<cclass_backslash>.ast;
+                if $cc ~~ EnumCharList {
+                    push @chars, $cc.chars;
+                }
+                else {
+                    die "Some backslash sequences in charclasses NYI";
+                }
+            }
+            else {
+                push @chars, ~$c[0];
+            }
+        }
+        make EnumCharList.new: chars => @chars.join;
+    }
+
+    method cclass_backslash:sym<any>($/) {
+        make EnumCharList.new: chars => ~$/;
     }
 }

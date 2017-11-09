@@ -6,5 +6,5 @@ sub MAIN($input-file where .IO.f) {
         slurp($input-file),
         :actions(P6GrammarToIdea::Actions)
     ).ast;
-    say $ast.perl;
+    say $ast.dump;
 }
