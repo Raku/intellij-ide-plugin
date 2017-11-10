@@ -157,7 +157,7 @@ grammar P6GrammarToIdea::Parser {
     }
 
     token name {
-        <ident>
+        <ident>+ % <[-']>
     }
 
     method panic($message) {
