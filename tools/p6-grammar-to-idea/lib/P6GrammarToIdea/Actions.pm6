@@ -69,8 +69,41 @@ class P6GrammarToIdea::Actions {
         make Literal.new: value => $<single-quote-string-part>.map(*.ast).join;
     }
 
+    method metachar:sym<bs>($/) {
+        make $<backslash>.ast;
+    }
+
     method single-quote-string-part($/) {
         make $<esc> ?? ~$<esc> !! ~$/;
+    }
+
+    method backslash:sym<s>($/) {
+        make BuiltinCharClass.new: class => SpaceChars, negative => $/ eq 'S';
+    }
+    method backslash:sym<d>($/) {
+        make BuiltinCharClass.new: class => DigitChars, negative => $/ eq 'D';
+    }
+    method backslash:sym<w>($/) {
+        make BuiltinCharClass.new: class => WordChars, negative => $/ eq 'W';
+    }
+    method backslash:sym<n>($/) {
+        make BuiltinCharClass.new: class => NewlineChars, negative => $/ eq 'N';
+    }
+    method backslash:sym<h>($/) {
+        make EnumCharList.new:
+            chars => "\x[09,20,a0,1680,180e,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,200a,202f,205f,3000]",
+            negative => $/ eq 'H';
+    }
+    method backslash:sym<v>($/) {
+        make EnumCharList.new:
+            chars => "\x[0a,0b,0c,0d,85,2028,2029]\r\n",
+            negative => $/ eq 'V';
+    }
+    method backslash:sym<r>($/) {
+        make EnumCharList.new: chars => "\r", negative => $/ eq 'R';
+    }
+    method backslash:sym<misc>($/) {
+        make Literal.new: value => ~$/;
     }
 
     method assertion:sym<name>($/) {

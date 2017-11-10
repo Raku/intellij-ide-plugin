@@ -42,13 +42,16 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * `<?foo>`, `<!foo>`, `<?before ...>`, `<!before ...>`
 * Basic character classes, without ranges, only some backslash sequences and
   only a single element, plus no negation
+* Escape character classes: `\d`, `\w`, `\h`, `\s`, `\r`, `\n`, `\v` and
+  their uppercase negative forms
+* Escapes of non-word characters (like `\\`)
 
 Todo:
 
 * Proto tokens
-* Escape cclasses: \d, \w, \h, \s, \r, \n, \v, \\, uppercase negations
 * ~ goal matching syntax
 * >> word boundary
+* Character class escapes
 * Character class ranges
 * $<capture>=...
 * The $$ anchor

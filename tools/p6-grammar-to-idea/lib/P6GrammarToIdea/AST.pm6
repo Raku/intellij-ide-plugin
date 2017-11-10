@@ -68,9 +68,20 @@ class Literal is export {
 
 class EnumCharList is export {
     has $.chars;
+    has $.negative;
 
     method dump($level = 0) {
-        i($level, "Enumerated Character List ($!chars)\n")
+        i($level, "Enumerated Character List ($!chars.perl()){$!negative ?? ' (NEG)' !! ''}\n")
+    }
+}
+
+enum CharClass is export <WordChars DigitChars SpaceChars NewlineChars>;
+class BuiltinCharClass is export {
+    has CharClass $.class;
+    has $.negative;
+
+    method dump($level = 0) {
+        i($level, "Builtin Character Class ($!class){$!negative ?? ' (NEG)' !! ''}\n")
     }
 }
 

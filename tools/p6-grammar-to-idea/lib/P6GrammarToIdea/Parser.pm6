@@ -77,6 +77,7 @@ grammar P6GrammarToIdea::Parser {
         <single-quote-string-part>*
         [ "'" || <.panic: "Cannot find closing '"> ]
     }
+    token metachar:sym<bs> { \\ <backslash> }
 
     token single-quote-string-part {
         <!before "'">
@@ -85,6 +86,17 @@ grammar P6GrammarToIdea::Parser {
         || <-[\\']>+
         ]
     }
+
+
+    proto token backslash { <...> }
+    token backslash:sym<s> { $<sym>=[<[sS]>] }
+    token backslash:sym<d> { $<sym>=[<[dD]>] }
+    token backslash:sym<w> { $<sym>=[<[wW]>] }
+    token backslash:sym<n> { $<sym>=[<[nN]>] }
+    token backslash:sym<h> { $<sym>=[<[hH]>] }
+    token backslash:sym<v> { $<sym>=[<[vV]>] }
+    token backslash:sym<r> { $<sym>=[<[rR]>] }
+    token backslash:sym<misc> { \W }
 
     proto token assertion {*}
     token assertion:sym<name> {
