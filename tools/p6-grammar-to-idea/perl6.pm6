@@ -30,6 +30,29 @@ grammar MAIN {
         ]
     }
 
+    token unsp {
+        \\ <?before \s | '#'>
+        [
+        | <.vws>
+        | <.unv>
+        | <.unsp>
+        ]*
+    }
+
+    token unv {
+        [
+        | \h+
+        | \h* <.comment>
+#        | <?before \h* '=' [ \w | '\\'] > ^^ <.pod_content_toplevel>
+        ]
+    }
+
+    token vnum {
+        \w+ | '*'
+    }
+
+    ## Top-level rules
+
     rule statementlist {
         <.ws>
         [
@@ -68,6 +91,8 @@ grammar MAIN {
     }
 
     token lambda { '->' | '<->' }
+
+    token sigil { <[$@%&]> }
 }
 
 grammar EXPR {
