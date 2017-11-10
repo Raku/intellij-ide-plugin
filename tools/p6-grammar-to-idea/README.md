@@ -45,13 +45,13 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * Escape character classes: `\d`, `\w`, `\h`, `\s`, `\r`, `\n`, `\v` and
   their uppercase negative forms
 * Escapes of non-word characters (like `\\`)
+* Proto tokens, together with the special rule `<sym>`
 
 Todo:
 
-* Proto tokens
+* Character class escapes
 * ~ goal matching syntax
 * >> word boundary
-* Character class escapes
 * Character class ranges
 * $<capture>=...
 * The $$ anchor

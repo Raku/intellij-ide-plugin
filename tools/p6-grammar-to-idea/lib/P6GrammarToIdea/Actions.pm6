@@ -10,7 +10,11 @@ class P6GrammarToIdea::Actions {
     }
 
     method production($/) {
-        make Production.new: name => ~$<name>, implementation => $<nibbler>.ast;
+        make $<proto>
+            ?? Production.new(:proto, name => ~$<name>)
+            !! Production.new(:!proto, name => ~$<name>,
+                    sym => ($<sym> ?? ~$<sym> !! Nil),
+                    implementation => $<nibbler>.ast);
     }
 
     method nibbler($/) {
@@ -107,9 +111,17 @@ class P6GrammarToIdea::Actions {
     }
 
     method assertion:sym<name>($/) {
-        make Capture.new: name => ~$<name>, target =>
-            Subrule.new: name => ~$<name>,
-                |(regex-arg => $<nibbler>.ast if $<nibbler>);
+        my $name = ~$<name>;
+        if $name eq 'sym' {
+            die "Saw <sym>, but enclosing token has no :sym<...>" unless $*SYM;
+            make Capture.new: name => 'sym', target =>
+                Literal.new: value => $*SYM;
+        }
+        else {
+            make Capture.new: name => $name, target =>
+                Subrule.new: name => $name,
+                    |(regex-arg => $<nibbler>.ast if $<nibbler>);
+        }
     }
 
     method assertion:sym<method>($/) {

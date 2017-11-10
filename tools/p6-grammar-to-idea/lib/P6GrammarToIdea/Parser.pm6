@@ -11,9 +11,15 @@ grammar P6GrammarToIdea::Parser {
     }
 
     rule production {
-        $<kind>=< token rule > <name> '{'
+        :my $*PROTO = False;
+        :my $*SYM;
+        [$<proto>='proto' { $*PROTO = True } ]?
+        $<kind>=< token rule >
+        <name>[<!{$*PROTO}>':sym<'$<sym>=[<-[>]>+]'>'{$*SYM = ~$<sym>}]?
+        '{'
         [
-        || <nibbler>
+        || <!{$*PROTO}> <nibbler>
+        || <?{$*PROTO}> ['<...>' || <.panic('Body of proto must be <...>')>]
         || <.panic('Syntax error in production rule')>
         ]
         '}'

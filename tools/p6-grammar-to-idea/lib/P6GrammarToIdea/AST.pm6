@@ -24,11 +24,19 @@ class Grammar is export {
 }
 
 class Production is export {
+    has $.proto;
     has $.name;
+    has $.sym;
     has $.implementation;
 
     method dump($level = 0) {
-        i($level, "Production $!name\n") ~ $!implementation.dump($level + 1)
+        if $!proto {
+            i($level, "Proto Production $!name\n")
+        }
+        else {
+            my $name = $!name ~ ($!sym ?? ":sym<$!sym>" !! "");
+            i($level, "Production $name\n") ~ $!implementation.dump($level + 1)
+        }
     }
 }
 
