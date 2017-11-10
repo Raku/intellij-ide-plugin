@@ -154,26 +154,57 @@ class P6GrammarToIdea::Actions {
     method cclass_elem($/) {
         die "Negated cclasses NYI" if $<sign> eq '-';
         my @chars;
+        my @alts;
         for $<charspec> -> $c {
             if $c[1] {
                 die "Ranges in cclasses NYI";
             }
             if $c[0]<cclass_backslash> {
                 my $cc = $c[0]<cclass_backslash>.ast;
-                if $cc ~~ EnumCharList {
+                if $cc ~~ EnumCharList && !$cc.negative {
                     push @chars, $cc.chars;
                 }
                 else {
-                    die "Some backslash sequences in charclasses NYI";
+                    push @alts, $cc;
                 }
             }
             else {
                 push @chars, ~$c[0];
             }
         }
-        make EnumCharList.new: chars => @chars.join;
+        if @chars {
+            push @alts, EnumCharList.new: chars => @chars.join;
+        }
+        make @alts == 1
+            ?? @alts[0]
+            !! Alt.new(alternatives => @alts);
     }
 
+    method cclass_backslash:sym<s>($/) {
+        make BuiltinCharClass.new: class => SpaceChars, negative => $/ eq 'S';
+    }
+    method cclass_backslash:sym<d>($/) {
+        make BuiltinCharClass.new: class => DigitChars, negative => $/ eq 'D';
+    }
+    method cclass_backslash:sym<w>($/) {
+        make BuiltinCharClass.new: class => WordChars, negative => $/ eq 'W';
+    }
+    method cclass_backslash:sym<n>($/) {
+        make BuiltinCharClass.new: class => NewlineChars, negative => $/ eq 'N';
+    }
+    method cclass_backslash:sym<h>($/) {
+        make EnumCharList.new:
+            chars => "\x[09,20,a0,1680,180e,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,200a,202f,205f,3000]",
+            negative => $/ eq 'H';
+    }
+    method cclass_backslash:sym<v>($/) {
+        make EnumCharList.new:
+            chars => "\x[0a,0b,0c,0d,85,2028,2029]\r\n",
+            negative => $/ eq 'V';
+    }
+    method cclass_backslash:sym<r>($/) {
+        make EnumCharList.new: chars => "\r", negative => $/ eq 'R';
+    }
     method cclass_backslash:sym<any>($/) {
         make EnumCharList.new: chars => ~$/;
     }

@@ -40,8 +40,8 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * The `$` anchor
 * Single quotes (`'like this'`) for literals
 * `<?foo>`, `<!foo>`, `<?before ...>`, `<!before ...>`
-* Basic character classes, without ranges, only some backslash sequences and
-  only a single element, plus no negation
+* Basic character classes, without ranges, common backslash sequences, but
+  only a single element and no negation
 * Escape character classes: `\d`, `\w`, `\h`, `\s`, `\r`, `\n`, `\v` and
   their uppercase negative forms
 * Escapes of non-word characters (like `\\`)
@@ -49,7 +49,6 @@ The following constructs inside of those behave as in Perl 6 grammars:
 
 Todo:
 
-* Character class escapes
 * ~ goal matching syntax
 * >> word boundary
 * Character class ranges

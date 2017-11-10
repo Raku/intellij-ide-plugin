@@ -149,9 +149,16 @@ grammar P6GrammarToIdea::Parser {
 
     proto token cclass_backslash {*}
     token cclass_backslash:sym<nyi> {
-        <[dDnNsSwWbBeEfFrRtTvVoOxXcC0]>
+        <[bBeEfFtToOxXcC0]> {}
         <.panic("Backslash sequence $/ not implemented")>
     }
+    token cclass_backslash:sym<s> { $<sym>=[<[sS]>] }
+    token cclass_backslash:sym<d> { $<sym>=[<[dD]>] }
+    token cclass_backslash:sym<w> { $<sym>=[<[wW]>] }
+    token cclass_backslash:sym<n> { $<sym>=[<[nN]>] }
+    token cclass_backslash:sym<h> { $<sym>=[<[hH]>] }
+    token cclass_backslash:sym<v> { $<sym>=[<[vV]>] }
+    token cclass_backslash:sym<r> { $<sym>=[<[rR]>] }
     token cclass_backslash:sym<any> {
         .
     }
