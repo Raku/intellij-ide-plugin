@@ -62,6 +62,26 @@ grammar MAIN {
         ]
     }
 
+    rule semilist {
+        ''
+        [
+        | <?[)\]}]>
+        | [<statement><.eat_terminator> ]*
+        ]
+    }
+
+    rule sequence {
+        ''
+        [
+        | <?before <.[)\]}]> >
+        | [<statement><.eat_terminator> ]*
+        ]
+    }
+
+    token label {
+        <identifier> ':' <?[\s]> <.ws>
+    }
+
     token statement {
         <!before <[\])}]> | $ >
         <!stopper>
@@ -180,6 +200,10 @@ grammar MAIN {
     token term:sym<self> { <sym> <.end_keyword> }
     token term:sym<now> { <sym> <.tok> }
     token term:sym<time> { <sym> <.tok> }
+    token term:sym<empty_set> { '∅' <!before <[ \( \\ ' \- ]> || \h* '=>'> }
+    token term:sym<dotty> { <dotty> }
+    token term:sym<capterm> { <capterm> }
+    token term:sym<onlystar> { '{*}' <?ENDSTMT> }
 
     proto token value { <...> }
     token value:sym<quote>  { <quote> }
@@ -190,6 +214,16 @@ grammar MAIN {
     token number:sym<numish>   { <numish> }
 
     token signed-number { <sign> <number> }
+
+    token signed-integer { <sign> <integer> }
+
+    token radint {
+        <integer>
+    }
+
+    token escale { <[Ee]> <sign> <decint> }
+
+    token sign { '+' | '-' | '−' | '' }
 }
 
 grammar EXPR {
