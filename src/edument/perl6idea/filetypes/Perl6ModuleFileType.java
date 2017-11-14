@@ -1,14 +1,21 @@
 package edument.perl6idea.filetypes;
 
-import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.VirtualFile;
 import edument.perl6idea.Perl6Icons;
+import edument.perl6idea.Perl6Language;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class Perl6ModuleFileType implements FileType {
+public class Perl6ModuleFileType extends LanguageFileType {
+    public static final Perl6ModuleFileType INSTANCE = new Perl6ModuleFileType();
+
+    private Perl6ModuleFileType() {
+        super(Perl6Language.INSTANCE);
+    }
+
     @NotNull
     @Override
     public String getName() {
@@ -31,11 +38,6 @@ public class Perl6ModuleFileType implements FileType {
     @Override
     public Icon getIcon() {
         return Perl6Icons.CAMELIA;
-    }
-
-    @Override
-    public boolean isBinary() {
-        return false;
     }
 
     @Override

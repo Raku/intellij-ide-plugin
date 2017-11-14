@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public class Perl6FileTypeFactory extends FileTypeFactory {
     @Override
     public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(new Perl6ScriptFileType());
-        consumer.consume(new Perl6ModuleFileType());
+        consumer.consume(Perl6ScriptFileType.INSTANCE);
+        consumer.consume(Perl6ModuleFileType.INSTANCE);
     }
 }
