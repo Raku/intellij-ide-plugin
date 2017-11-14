@@ -134,6 +134,18 @@ class Lookahead is export {
     }
 }
 
+class AnchorLeftWordBoundary is export {
+    method dump($level = 0) {
+        i($level, "Anchor (Left Word Boundary)\n")
+    }
+}
+
+class AnchorRightWordBoundary is export {
+    method dump($level = 0) {
+        i($level, "Anchor (Right Word Boundary)\n")
+    }
+}
+
 class AnchorEnd is export {
     method dump($level = 0) {
         i($level, "Anchor (End Of String)\n")

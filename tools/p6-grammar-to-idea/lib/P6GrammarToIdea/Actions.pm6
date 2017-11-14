@@ -77,6 +77,14 @@ class P6GrammarToIdea::Actions {
         make $<backslash>.ast;
     }
 
+    method metachar:sym<lwb>($/) {
+        make AnchorLeftWordBoundary.new
+    }
+
+    method metachar:sym<rwb>($/) {
+        make AnchorRightWordBoundary.new
+    }
+
     method single-quote-string-part($/) {
         make $<esc> ?? ~$<esc> !! ~$/;
     }

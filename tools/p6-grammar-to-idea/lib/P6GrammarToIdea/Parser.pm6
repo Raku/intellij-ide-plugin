@@ -84,6 +84,8 @@ grammar P6GrammarToIdea::Parser {
         [ "'" || <.panic: "Cannot find closing '"> ]
     }
     token metachar:sym<bs> { \\ <backslash> }
+    token metachar:sym<lwb> { $<sym>=['<<'|'«'] }
+    token metachar:sym<rwb> { $<sym>=['>>'|'»'] }
 
     token single-quote-string-part {
         <!before "'">
