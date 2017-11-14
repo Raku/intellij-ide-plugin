@@ -21,6 +21,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="edument.perl6idea.filetypes.Perl6FileTypeFactory"/>
+    <moduleType id="PERL6_MODULE_TYPE" implementationClass="edument.perl6idea.Perl6ModuleType"/>
   </extensions>
 
   <actions>
