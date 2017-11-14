@@ -47,10 +47,10 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * Escapes of non-word characters (like `\\`)
 * Proto tokens, together with the special rule `<sym>`
 * `>>`, `«'`, `<<`, and `»` word boundaries
+* `$<capture>=...` for named captures
 
 Todo:
 
-* $<capture>=...
 * ~ goal matching syntax
 * Character class ranges
 * The $$ anchor

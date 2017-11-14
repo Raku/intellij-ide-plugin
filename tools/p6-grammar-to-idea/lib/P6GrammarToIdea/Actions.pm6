@@ -73,6 +73,10 @@ class P6GrammarToIdea::Actions {
         make Literal.new: value => $<single-quote-string-part>.map(*.ast).join;
     }
 
+    method metachar:sym<var>($/) {
+        make Capture.new: name => ~$<name>, target => $<quantified-atom>.ast;
+    }
+
     method metachar:sym<bs>($/) {
         make $<backslash>.ast;
     }
