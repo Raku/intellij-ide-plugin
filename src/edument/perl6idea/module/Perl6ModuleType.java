@@ -1,10 +1,11 @@
-package edument.perl6idea;
+package edument.perl6idea.module;
 
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.ModuleTypeManager;
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
+import edument.perl6idea.Perl6Icons;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

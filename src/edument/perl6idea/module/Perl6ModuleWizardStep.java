@@ -1,4 +1,4 @@
-package edument.perl6idea;
+package edument.perl6idea.module;
 
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 
