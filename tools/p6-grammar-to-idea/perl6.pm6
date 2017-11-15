@@ -20,6 +20,30 @@ grammar MAIN {
         ]
     }
 
+    token deflongname {
+        <name> <colonpair>*
+    }
+
+    token subshortname {
+        <desigilname>
+    }
+
+    token sublongname {
+        <subshortname> <sigterm>?
+    }
+
+    token deftermnow { <defterm> }
+
+    token end_keyword {
+        » <!before <[ \( \\ ' \- ]> || \h* '=>'>
+    }
+
+    token end_prefix {
+        <.end_keyword> \s*
+    }
+
+    token spacey { <?[\s#]> }
+
     token desigilname {
         [
         | <?before <.sigil> <.sigil> > <variable>
@@ -134,6 +158,24 @@ grammar MAIN {
 
     proto rule statement_control { <...> }
 
+    token statement_control:sym<import> {
+        <sym> <.ws>
+        <module_name> [ <.spacey> <arglist> ]? <.ws>
+    }
+
+    token statement_control:sym<no> {
+        <sym> <.ws>
+        <module_name> [ <.spacey> <arglist> ]?
+        <.ws>
+    }
+
+    rule statement_control:sym<when> {
+        <sym><.kok> <xblock>
+    }
+    rule statement_control:sym<default> {
+        <sym><.kok> <block>
+    }
+
     proto token statement_prefix { <...> }
     token statement_prefix:sym<BEGIN>   { <sym><.kok> <blorst> }
     token statement_prefix:sym<COMPOSE> { <sym><.kok> <blorst> }
@@ -163,6 +205,18 @@ grammar MAIN {
     token statement_prefix:sym<supply>  { <sym><.kok> <blorst> }
     token statement_prefix:sym<react>   { <sym><.kok> <blorst> }
     token statement_prefix:sym<do>      { <sym><.kok> <blorst> }
+    token statement_prefix:sym<DOC>     {
+        <sym><.kok> $<phase>=['BEGIN' || 'CHECK' || 'INIT']<.end_keyword><.ws>
+        <blorst>
+    }
+
+    ## Statement modifiers
+
+    proto rule statement_mod_cond { <...> }
+
+    proto rule statement_mod_loop { <...> }
+
+    ## Terms
 
     proto token term { <...> }
     token term:sym<fatarrow>           { <fatarrow> }
@@ -182,6 +236,10 @@ grammar MAIN {
     token term:sym<value>              { <value> }
     token term:sym<!!>                 { '!!' <?before \s> }
     token term:sym<∞>                  { <sym> }
+
+    token term:sym<::?IDENT> {
+        $<sym> = [ '::?' <identifier> ] »
+    }
 
     token sigil { <[$@%&]> }
 
@@ -214,6 +272,20 @@ grammar MAIN {
     token number:sym<numish>   { <numish> }
 
     token signed-number { <sign> <number> }
+
+    token numish {
+        [
+        | 'NaN' >>
+        | <integer>
+        | <dec_number>
+        | <rad_number>
+        | <rat_number>
+        | <complex_number>
+        | 'Inf' >>
+        | $<uinf>='∞'
+#        | <unum=:No+:Nl>
+        ]
+    }
 
     token signed-integer { <sign> <integer> }
 
