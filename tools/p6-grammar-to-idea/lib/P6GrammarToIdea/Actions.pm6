@@ -124,7 +124,10 @@ class P6GrammarToIdea::Actions {
 
     method assertion:sym<name>($/) {
         my $name = ~$<name>;
-        if $name eq 'sym' {
+        if $<assertion> {
+            make Capture.new: name => $name, target => $<assertion>.ast;
+        }
+        elsif $name eq 'sym' {
             die "Saw <sym>, but enclosing token has no :sym<...>" unless $*SYM;
             make Capture.new: name => 'sym', target =>
                 Literal.new: value => $*SYM;

@@ -48,6 +48,7 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * Proto tokens, together with the special rule `<sym>`
 * `>>`, `«'`, `<<`, and `»` word boundaries
 * `$<capture>=...` for named captures
+* The `<foo=.bar>` name aliasing syntax
 
 Todo:
 
@@ -59,3 +60,4 @@ Todo:
 * Some way to report syntax errors, but the continue
 * Builtin rules: ident, sym
 * A way to call into another language
+* The `<:foo>` Unicode property syntax

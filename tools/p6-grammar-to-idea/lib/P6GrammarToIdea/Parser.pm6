@@ -116,7 +116,7 @@ grammar P6GrammarToIdea::Parser {
         <name>
             [
             | <?before '>'>
-#            | '=' <assertion>
+            | '=' <assertion>
 #            | ':' <arglist>
 #            | '(' <arglist> ')'
             | <.normspace> <nibbler>
