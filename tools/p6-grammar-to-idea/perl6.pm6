@@ -169,6 +169,16 @@ grammar MAIN {
         <.ws>
     }
 
+    rule statement_control:sym<require> {
+        <sym>
+        [
+        | <module_name>
+        | <file=.variable>
+        | <!sigil> <file=.term>
+        ]
+        <EXPR>?
+    }
+
     rule statement_control:sym<when> {
         <sym><.kok> <xblock>
     }
@@ -195,6 +205,27 @@ grammar MAIN {
     token statement_prefix:sym<POST>  { <sym><.kok> <blorst> }
     token statement_prefix:sym<CLOSE> { <sym><.kok> <blorst> }
 
+    token statement_prefix:sym<race> {
+        <sym><.kok>
+        [
+        | <?before 'for' <.kok>> <for=.statement_control>
+        | <blorst>
+        ]
+    }
+    token statement_prefix:sym<hyper> {
+        <sym><.kok>
+        [
+        | <?before 'for' <.kok>> <for=.statement_control>
+        | <blorst>
+        ]
+    }
+    token statement_prefix:sym<lazy> {
+        <sym><.kok>
+        [
+        | <?before 'for' <.kok>> <for=.statement_control>
+        | <blorst>
+        ]
+    }
     token statement_prefix:sym<eager>   { <sym><.kok> <blorst> }
     token statement_prefix:sym<sink>    { <sym><.kok> <blorst> }
     token statement_prefix:sym<try>     { <sym><.kok> <blorst> }
@@ -253,6 +284,32 @@ grammar MAIN {
     token twigil:sym<=> { <sym> <?before \w> }
     token twigil:sym<~> { <sym> <?before \w> }
 
+    proto token package_declarator { <...> }
+    token package_declarator:sym<package> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<module> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<class> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<grammar> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<role> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<knowhow> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<native> {
+        <sym><.kok> <package_def>
+    }
+    token package_declarator:sym<slang> {
+        <sym><.kok> <package_def>
+    }
+
     ## Terms
 
     token term:sym<self> { <sym> <.end_keyword> }
@@ -284,6 +341,14 @@ grammar MAIN {
         | 'Inf' >>
         | $<uinf>='∞'
 #        | <unum=:No+:Nl>
+        ]
+    }
+
+    token dec_number {
+        [
+        | $<coeff> = [               '.' <frac=.decint> ] <escale>?
+        | $<coeff> = [ <int=.decint> '.' <frac=.decint> ] <escale>?
+        | $<coeff> = [ <int=.decint>                    ] <escale>
         ]
     }
 
