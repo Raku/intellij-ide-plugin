@@ -49,10 +49,10 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * `>>`, `«'`, `<<`, and `»` word boundaries
 * `$<capture>=...` for named captures
 * The `<foo=.bar>` name aliasing syntax
+* `~` goal matching syntax
 
 Todo:
 
-* ~ goal matching syntax
 * Character class ranges
 * The $$ anchor
 * % for separators

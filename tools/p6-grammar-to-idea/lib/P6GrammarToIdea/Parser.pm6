@@ -91,6 +91,11 @@ grammar P6GrammarToIdea::Parser {
     token metachar:sym<bs> { \\ <backslash> }
     token metachar:sym<lwb> { $<sym>=['<<'|'«'] }
     token metachar:sym<rwb> { $<sym>=['>>'|'»'] }
+    token metachar:sym<~> {
+        <sym>
+        <.ws> <GOAL=.quantified-atom>
+        <.ws> <EXPR=.quantified-atom>
+    }
 
     token single-quote-string-part {
         <!before "'">

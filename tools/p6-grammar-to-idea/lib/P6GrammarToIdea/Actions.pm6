@@ -89,6 +89,16 @@ class P6GrammarToIdea::Actions {
         make AnchorRightWordBoundary.new
     }
 
+    method metachar:sym<~>($/) {
+        make Concat.new: terms => (
+            $<EXPR>.ast,
+            SeqAlt.new: alternatives => (
+                $<GOAL>.ast,
+                Subrule.new: name => 'FAILGOAL'
+            )
+        );
+    }
+
     method single-quote-string-part($/) {
         make $<esc> ?? ~$<esc> !! ~$/;
     }
