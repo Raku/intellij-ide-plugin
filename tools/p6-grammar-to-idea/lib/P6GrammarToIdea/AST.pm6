@@ -97,10 +97,14 @@ class Quantifier is export {
     has $.min;
     has $.max;
     has $.target;
+    has $.separator;
 
     method dump($level = 0) {
         i($level, "Quantifier (min=$!min, max=$!max)\n") ~
-            $!target.dump($level + 1)
+            $!target.dump($level + 1) ~
+            ($!separator
+                ?? i($level + 1, "Separator\n") ~ $!separator.dump($level + 2)
+                !! '')
     }
 }
 

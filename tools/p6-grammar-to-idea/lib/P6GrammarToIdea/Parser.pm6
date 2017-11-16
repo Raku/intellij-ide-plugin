@@ -58,7 +58,15 @@ grammar P6GrammarToIdea::Parser {
     }
 
     rule quantified-atom {
-        <atom> <quantifier>?
+        <atom>
+        [
+            <quantifier>
+            [ <.ws> <separator> ]?
+        ]?
+    }
+
+    rule separator {
+        '%' <quantified-atom>
     }
 
     token atom {

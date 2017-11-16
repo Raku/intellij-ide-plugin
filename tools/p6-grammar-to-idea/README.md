@@ -37,6 +37,7 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * `[...]` grouping
 * `<foo>` and `<.foo>`
 * The `*`, `+`, and `?` quantifiers 
+* `%` for separators between quantifiers
 * The `$` anchor
 * Single quotes (`'like this'`) for literals
 * `<?foo>`, `<!foo>`, `<?before ...>`, `<!before ...>`
@@ -55,7 +56,6 @@ Todo:
 
 * Character class ranges
 * The $$ anchor
-* % for separators
 * Some MARKER equivalent
 * Some way to report syntax errors, but the continue
 * Builtin rules: ident, sym

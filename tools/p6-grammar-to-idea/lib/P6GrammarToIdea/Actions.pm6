@@ -42,11 +42,16 @@ class P6GrammarToIdea::Actions {
     method quantified-atom($/) {
         if $<quantifier> {
             my $q = $<quantifier>.ast;
-            make Quantifier.new: min => $q.min, max => $q.max, target => $<atom>.ast;
+            make Quantifier.new: min => $q.min, max => $q.max, target => $<atom>.ast,
+                separator => $<separator> ?? $<separator>.ast !! Nil;
         }
         else { 
             make $<atom>.ast;
         }
+    }
+
+    method separator($/) {
+        make $<quantified-atom>.ast;
     }
 
     method quantifier:sym<?>($/) { make 0..1 }
