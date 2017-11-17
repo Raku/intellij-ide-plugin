@@ -160,11 +160,15 @@ class P6GrammarToIdea::Actions {
     }
 
     method assertion:sym<?>($/) {
-        make Lookahead.new: :!negative, target => tweak-lookahead($<assertion>.ast);
+        make $<assertion>
+            ?? Lookahead.new(:!negative, target => tweak-lookahead($<assertion>.ast))
+            !! AnchorPass.new;
     }
 
     method assertion:sym<!>($/) {
-        make Lookahead.new: :negative, target => tweak-lookahead($<assertion>.ast);
+        make $<assertion>
+            ?? Lookahead.new(:negative, target => tweak-lookahead($<assertion>.ast))
+            !! AnchorFail.new;
     }
 
     sub tweak-lookahead($ast is copy) {

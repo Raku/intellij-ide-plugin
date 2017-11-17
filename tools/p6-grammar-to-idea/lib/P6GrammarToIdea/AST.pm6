@@ -155,3 +155,15 @@ class AnchorEnd is export {
         i($level, "Anchor (End Of String)\n")
     }
 }
+
+class AnchorPass is export {
+    method dump($level = 0) {
+        i($level, "Anchor (Pass)\n")
+    }
+}
+
+class AnchorFail is export {
+    method dump($level = 0) {
+        i($level, "Anchor (Fail)\n")
+    }
+}

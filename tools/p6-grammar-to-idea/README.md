@@ -41,6 +41,7 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * The `$` anchor
 * Single quotes (`'like this'`) for literals
 * `<?foo>`, `<!foo>`, `<?before ...>`, `<!before ...>`
+* `<?>` and `<!>`
 * Basic character classes, without ranges, common backslash sequences, but
   only a single element and no negation
 * Escape character classes: `\d`, `\w`, `\h`, `\s`, `\r`, `\n`, `\v` and

@@ -139,10 +139,10 @@ grammar P6GrammarToIdea::Parser {
         '.' <assertion>
     }
     token assertion:sym<?> {
-        '?' <assertion>
+        '?' [ <?before '>' > | <assertion> ]
     }
     token assertion:sym<!> {
-        '!' <assertion>
+        '!' [ <?before '>' > | <assertion> ]
     }
     token assertion:sym<[> {
         <?before '['|'+'|'-'>
