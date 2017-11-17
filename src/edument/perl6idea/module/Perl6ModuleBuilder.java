@@ -14,13 +14,6 @@ public class Perl6ModuleBuilder extends ModuleBuilder {
 
     @Override
     public void setupRootModel(ModifiableRootModel model) throws ConfigurationException {
-        if (myJdk != null) {
-            model.setSdk(myJdk);
-        }
-        else {
-            model.inheritSdk();
-        }
-        doAddContentEntry(model);
     }
 
     @NotNull
