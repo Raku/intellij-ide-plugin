@@ -34,6 +34,11 @@ grammar MAIN {
 
     token deftermnow { <defterm> }
 
+    token module_name {
+        <longname>
+        [ <?[[]> '[' ~ ']' <arglist> ]?
+    }
+
     token end_keyword {
         » <!before <[ \( \\ ' \- ]> || \h* '=>'>
     }
@@ -73,6 +78,11 @@ grammar MAIN {
 
     token vnum {
         \w+ | '*'
+    }
+
+    token version {
+        <?before 'v'\d+\w*> 'v' $<vstr>=[<vnum>+ % '.' '+'?]
+        <!before '-'|\'>
     }
 
     ## Top-level rules
@@ -157,6 +167,14 @@ grammar MAIN {
     ## Statement control
 
     proto rule statement_control { <...> }
+
+    rule statement_control:sym<need> {
+        <sym>
+        [
+        | <version>
+        | <module_name>
+        ] +% ','
+    }
 
     token statement_control:sym<import> {
         <sym> <.ws>
@@ -272,7 +290,12 @@ grammar MAIN {
         $<sym> = [ '::?' <identifier> ] »
     }
 
-    token sigil { <[$@%&]> }
+    token contextualizer {
+        [
+        | <sigil> '(' ~ ')'    <coercee=sequence>
+        | <sigil> <?[ \[ \{ ]> <coercee=circumfix>
+        ]
+    }
 
     proto token twigil { <...> }
     token twigil:sym<.> { <sym> <?before \w> }
@@ -316,9 +339,16 @@ grammar MAIN {
     token term:sym<now> { <sym> <.tok> }
     token term:sym<time> { <sym> <.tok> }
     token term:sym<empty_set> { '∅' <!before <[ \( \\ ' \- ]> || \h* '=>'> }
+    token term:sym<???> { <sym> <args> }
+    token term:sym<!!!> { <sym> <args> }
     token term:sym<dotty> { <dotty> }
     token term:sym<capterm> { <capterm> }
     token term:sym<onlystar> { '{*}' <?ENDSTMT> }
+
+    token semiarglist {
+        <arglist>+ % ';'
+        <.ws>
+    }
 
     proto token value { <...> }
     token value:sym<quote>  { <quote> }
