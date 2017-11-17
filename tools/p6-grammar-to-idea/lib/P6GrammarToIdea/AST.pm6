@@ -156,6 +156,12 @@ class AnchorEnd is export {
     }
 }
 
+class AnchorLineEnd is export {
+    method dump($level = 0) {
+        i($level, "Anchor (End Of Line)\n")
+    }
+}
+
 class AnchorPass is export {
     method dump($level = 0) {
         i($level, "Anchor (Pass)\n")
