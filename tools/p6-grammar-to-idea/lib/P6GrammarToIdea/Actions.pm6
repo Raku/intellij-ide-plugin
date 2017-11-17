@@ -10,11 +10,16 @@ class P6GrammarToIdea::Actions {
     }
 
     method production($/) {
+        my @parameters = $<parameter>.map(*.ast);
         make $<proto>
-            ?? Production.new(:proto, name => ~$<name>)
-            !! Production.new(:!proto, name => ~$<name>,
+            ?? Production.new(:proto, name => ~$<name>, :@parameters)
+            !! Production.new(:!proto, name => ~$<name>, :@parameters,
                     sym => ($<sym> ?? ~$<sym> !! Nil),
                     implementation => $<nibbler>.ast);
+    }
+
+    method parameter($/) {
+        make ~$/;
     }
 
     method nibbler($/) {
@@ -79,7 +84,7 @@ class P6GrammarToIdea::Actions {
     }
     
     method metachar:sym<'>($/) {
-        make Literal.new: value => $<single-quote-string-part>.map(*.ast).join;
+        make Literal.new: value => $<single-quote-string>.ast;
     }
 
     method metachar:sym<var>($/) {
@@ -106,6 +111,10 @@ class P6GrammarToIdea::Actions {
                 Subrule.new: name => 'FAILGOAL'
             )
         );
+    }
+
+    method single-quote-string($/) {
+        make $<single-quote-string-part>.map(*.ast).join;
     }
 
     method single-quote-string-part($/) {
@@ -154,7 +163,8 @@ class P6GrammarToIdea::Actions {
         else {
             make Capture.new: name => $name, target =>
                 Subrule.new: name => $name,
-                    |(regex-arg => $<nibbler>.ast if $<nibbler>);
+                    |(regex-arg => $<nibbler>.ast if $<nibbler>),
+                    |(args => $<arglist>.ast if $<arglist>);
         }
     }
 
@@ -245,5 +255,16 @@ class P6GrammarToIdea::Actions {
     }
     method cclass_backslash:sym<any>($/) {
         make EnumCharList.new: chars => ~$/;
+    }
+
+    method arglist($/) {
+        make $<arg>.map(*.ast).list;
+    }
+
+    method arg:sym<string>($/) {
+        make StrArg.new: value => $<single-quote-string>.ast;
+    }
+    method arg:sym<integer>($/) {
+        make IntArg.new: value => $/.Int;
     }
 }

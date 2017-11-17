@@ -15,14 +15,22 @@ grammar P6GrammarToIdea::Parser {
         :my $*SYM;
         [$<proto>='proto' { $*PROTO = True } ]?
         $<kind>=< token rule >
-        <name>[<!{$*PROTO}>':sym<'$<sym>=[<-[>]>+]'>'{$*SYM = ~$<sym>}]?
-        '{'
         [
-        || <!{$*PROTO}> <nibbler>
-        || <?{$*PROTO}> ['<...>' || <.panic('Body of proto must be <...>')>]
-        || <.panic('Syntax error in production rule')>
+        || <name>[<!{$*PROTO}>':sym<'$<sym>=[<-[>]>+]'>'{$*SYM = ~$<sym>}]?
+            [ '(' ~ ')' <parameter>+ % [<.ws> ',' ] ]?
+            '{'
+            [
+            || <!{$*PROTO}> <nibbler>
+            || <?{$*PROTO}> ['<...>' || <.panic('Body of proto must be <...>')>]
+            || <.panic('Syntax error in production rule')>
+            ]
+            '}'
+        || <.panic('Malformed production rule')>
         ]
-        '}'
+    }
+
+    token parameter {
+        '$*' <name>
     }
 
     token nibbler {
@@ -88,9 +96,7 @@ grammar P6GrammarToIdea::Parser {
         '<' ~ '>' <assertion>
     }
     token metachar:sym<'> {
-        "'"
-        <single-quote-string-part>*
-        [ "'" || <.panic: "Cannot find closing '"> ]
+        <single-quote-string>
     }
     token metachar:sym<var> {
         '$<' $<name>=[<-[>]>+] '>'
@@ -106,6 +112,12 @@ grammar P6GrammarToIdea::Parser {
         <.ws> <EXPR=.quantified-atom>
     }
 
+    token single-quote-string {
+        "'"
+        <single-quote-string-part>*
+        [ "'" || <.panic: "Cannot find closing '"> ]
+    }
+
     token single-quote-string-part {
         <!before "'">
         [
@@ -113,7 +125,6 @@ grammar P6GrammarToIdea::Parser {
         || <-[\\']>+
         ]
     }
-
 
     proto token backslash { <...> }
     token backslash:sym<s> { $<sym>=[<[sS]>] }
@@ -131,8 +142,8 @@ grammar P6GrammarToIdea::Parser {
             [
             | <?before '>'>
             | '=' <assertion>
-#            | ':' <arglist>
-#            | '(' <arglist> ')'
+            | ':' <arglist>
+            | '(' <arglist> ')'
             | <.normspace> <nibbler>
             ]?
     }
@@ -182,6 +193,16 @@ grammar P6GrammarToIdea::Parser {
     token cclass_backslash:sym<r> { $<sym>=[<[rR]>] }
     token cclass_backslash:sym<any> {
         .
+    }
+
+    rule arglist { '' <arg> +% [',' ] }
+
+    proto token arg {*}
+    token arg:sym<string> {
+        <single-quote-string>
+    }
+    token arg:sym<integer> {
+        \d+
     }
 
     token name {

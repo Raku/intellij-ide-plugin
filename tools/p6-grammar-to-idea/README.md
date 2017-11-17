@@ -52,14 +52,13 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * `$<capture>=...` for named captures
 * The `<foo=.bar>` name aliasing syntax
 * `~` goal matching syntax
+* Signatures containing scalar dynamic variables (`token bar($*FOO) { }`)
+* Passing string and integer literal arguments (single quoted strings only)
 
 Todo:
-
-* Signatures containing dynamic variables
-* Passing string or integer literal arguments
 * Character class ranges
 * Some MARKER equivalent
-* Some way to report syntax errors, but the continue
+* Some way to report syntax errors, but then continue
 * Builtin rules: ident, sym
 * A way to call into another language
 * The `<:foo>` Unicode property syntax

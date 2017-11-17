@@ -27,15 +27,19 @@ class Production is export {
     has $.proto;
     has $.name;
     has $.sym;
+    has @.parameters;
     has $.implementation;
 
     method dump($level = 0) {
+        my $sig = @!parameters
+            ?? ' (' ~ @!parameters.join(', ') ~ ')'
+            !! '';
         if $!proto {
-            i($level, "Proto Production $!name\n")
+            i($level, "Proto Production $!name$sig\n")
         }
         else {
             my $name = $!name ~ ($!sym ?? ":sym<$!sym>" !! "");
-            i($level, "Production $name\n") ~ $!implementation.dump($level + 1)
+            i($level, "Production $name$sig\n") ~ $!implementation.dump($level + 1)
         }
     }
 }
@@ -120,11 +124,13 @@ class Capture is export {
 
 class Subrule is export {
     has $.name;
+    has @.args;
     has $.regex-arg;
 
     method dump($level = 0) {
         i($level, "Subrule ($!name)\n") ~
-            ($!regex-arg ?? $!regex-arg.dump($level + 1) !! '')
+            ($!regex-arg ?? $!regex-arg.dump($level + 1) !! '') ~
+            @!args.map(*.dump($level + 1)).join
     }
 }
 
@@ -171,5 +177,21 @@ class AnchorPass is export {
 class AnchorFail is export {
     method dump($level = 0) {
         i($level, "Anchor (Fail)\n")
+    }
+}
+
+class StrArg is export {
+    has $.value;
+
+    method dump($level = 0) {
+        i($level, "String Argument: $!value\n")
+    }
+}
+
+class IntArg is export {
+    has $.value;
+
+    method dump($level = 0) {
+        i($level, "Integer Argument: $!value\n")
     }
 }
