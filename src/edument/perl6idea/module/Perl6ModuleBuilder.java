@@ -67,11 +67,11 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
             if (sourceRoot != null)
                 contentEntry.addSourceFolder(sourceRoot, false, sourcePath.second);
             if (type == Perl6ProjectType.PERL6_SCRIPT) {
-                stubScript(moduleLibraryPath);
+                stubScript(moduleLibraryPath, this.scriptName);
             } else if (type == Perl6ProjectType.PERL6_MODULE) {
-                stubModule(moduleLibraryPath, false);
+                stubModule(moduleLibraryPath, this.moduleName, null);
             } else if (type == Perl6ProjectType.PERL6_APPLICATION) {
-                stubModule(moduleLibraryPath, true);
+                stubModule(moduleLibraryPath, this.moduleName, this.entryPointName);
                 stubEntryPoint(moduleLibraryPath);
             }
         }
@@ -87,12 +87,13 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         writeCodeToPath(entryPath, lines);
     }
 
-    private void stubModule(String moduleLibraryPath, boolean isApp) {
+    public static String stubModule(String moduleLibraryPath, String moduleName, @Nullable String entryPointName) {
         if (moduleLibraryPath.endsWith(separator + "lib")) {
-            writeMetaFile(moduleLibraryPath, isApp);
+            writeMetaFile(moduleLibraryPath, moduleName, entryPointName);
             String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))).toString() + ".pm6";
             new File(modulePath).getParentFile().mkdirs();
             writeCodeToPath(modulePath, Collections.singletonList(""));
+            return modulePath;
         } else if (moduleLibraryPath.endsWith(separator + "t")) {
             String testPath = String.format("%s%s00-sanity.t", moduleLibraryPath, separator);
             List<String> lines = Arrays.asList(
@@ -100,13 +101,15 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                     "use Test;", "", "done-testing;"
             );
             writeCodeToPath(testPath, lines);
+            return testPath;
         }
+        return moduleLibraryPath;
     }
 
-    private void writeMetaFile(String moduleLibraryPath, boolean isApp) {
+    private static void writeMetaFile(String moduleLibraryPath, String moduleName, @Nullable String entryPointName) {
         JSONObject providesSection = new JSONObject()
                 .put(moduleName, String.format("lib%s%s.pm6", separator, moduleName.replaceAll("::", separator)));
-        if (isApp)
+        if (entryPointName != null)
             providesSection.put(entryPointName, String.format("bin%s%s", separator, entryPointName));
         JSONObject metaJson = new JSONObject()
                 .put("perl", "6.*")
@@ -123,7 +126,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                 Collections.singletonList(metaJson.toString(4)));
     }
 
-    private void writeCodeToPath(String codePath, List<String> lines) {
+    private static void writeCodeToPath(String codePath, List<String> lines) {
         try {
             Files.write(Paths.get(codePath), lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -131,7 +134,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         }
     }
 
-    private void stubScript(String moduleLibraryPath) {
+    public static String stubScript(String moduleLibraryPath, String scriptName) {
         String scriptPath = moduleLibraryPath + separator + scriptName;
         if (!scriptPath.endsWith(".pl6") && !scriptPath.endsWith(".p6"))
             scriptPath = scriptPath + ".p6";
@@ -142,6 +145,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                 "sub MAIN() { }"
         );
         writeCodeToPath(scriptPath, lines);
+        return scriptPath;
     }
 
     @NotNull
