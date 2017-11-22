@@ -60,7 +60,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         for (final Pair<String, String> sourcePath : sourcePaths) {
             String moduleLibraryPath = sourcePath.first;
             File directory = new File(moduleLibraryPath);
-            if (!directory.mkdirs()) {
+            if (!directory.exists() && !directory.mkdirs()) {
                 throw new IllegalStateException("Could not create directory: " + directory);
             }
             VirtualFile sourceRoot = LocalFileSystem.getInstance().refreshAndFindFileByPath(FileUtil.toSystemDependentName(moduleLibraryPath));
