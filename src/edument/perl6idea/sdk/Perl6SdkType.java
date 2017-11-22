@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class Perl6SdkType extends SdkType {
     private static final String NAME = "Perl 6 SDK";
 
-    public Perl6SdkType() {
+    private Perl6SdkType() {
         super(NAME);
     }
 
