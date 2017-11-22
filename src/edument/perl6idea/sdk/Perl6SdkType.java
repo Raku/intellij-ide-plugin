@@ -110,10 +110,7 @@ public class Perl6SdkType extends SdkType {
     @NotNull
     @Override
     public String suggestSdkName(@Nullable String currentSdkName, @NotNull String sdkHome) {
-        System.out.println(currentSdkName);
-        System.out.println(sdkHome);
         String version = getVersionString(sdkHome);
-        System.out.println(version);
         if (version == null) {
             return "Unknown at " + sdkHome;
         }

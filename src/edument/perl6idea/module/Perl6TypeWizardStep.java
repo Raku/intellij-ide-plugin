@@ -29,7 +29,6 @@ class Perl6TypeWizardStep extends ModuleWizardStep implements Disposable {
         myPanel.add(scrollPane);
         myList.addListSelectionListener(e -> {
             if (e.getValueIsAdjusting()) return;
-            System.out.println(myList.getSelectedValue());
             builder.setType(Perl6ProjectType.fromTypeLabel(getSelectedType()));
         });
     }
