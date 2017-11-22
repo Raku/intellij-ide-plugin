@@ -91,8 +91,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         if (moduleLibraryPath.endsWith(separator + "lib")) {
             writeMetaFile(moduleLibraryPath, isApp);
             String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))).toString() + ".pm6";
-            if (!(new File(modulePath).getParentFile().mkdirs()))
-                throw new IllegalStateException("Could not create directory: " + modulePath);
+            new File(modulePath).getParentFile().mkdirs();
             writeCodeToPath(modulePath, Collections.singletonList(""));
         } else if (moduleLibraryPath.endsWith(separator + "t")) {
             String testPath = String.format("%s%s00-sanity.t", moduleLibraryPath, separator);
