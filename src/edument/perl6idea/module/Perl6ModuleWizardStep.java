@@ -95,14 +95,14 @@ class Perl6ModuleWizardStep extends ModuleWizardStep {
 
     private void checkEntryPointName() throws ConfigurationException {
         String name = myEntryName.getText();
-        if (!name.matches("^[A-Za-z0-9]++$")) {
+        if (!name.matches("^[A-Za-z0-9-]++$")) {
             throw new ConfigurationException("Entry point name is incorrect");
         }
     }
 
     private void checkModuleName() throws ConfigurationException {
         String name = myModuleName.getText();
-        if (!name.matches("^[A-Za-z0-9]++(::[A-Za-z0-9]++)*$")) {
+        if (!name.matches("^[A-Za-z0-9-']++(::[A-Za-z0-9-']++)*$")) {
             throw new ConfigurationException("Module name is incorrect");
         }
     }
