@@ -4,6 +4,7 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBTextField;
+import edument.perl6idea.utils.Patterns;
 import edument.perl6idea.utils.Perl6ProjectType;
 
 import javax.swing.*;
@@ -95,21 +96,21 @@ class Perl6ModuleWizardStep extends ModuleWizardStep {
 
     private void checkEntryPointName() throws ConfigurationException {
         String name = myEntryName.getText();
-        if (!name.matches("^[A-Za-z0-9-]++$")) {
+        if (!name.matches(Patterns.ENTRY_POINT_PATTERN)) {
             throw new ConfigurationException("Entry point name is incorrect");
         }
     }
 
     private void checkModuleName() throws ConfigurationException {
         String name = myModuleName.getText();
-        if (!name.matches("^[A-Za-z0-9-']++(::[A-Za-z0-9-']++)*$")) {
+        if (!name.matches(Patterns.MODULE_PATTERN)) {
             throw new ConfigurationException("Module name is incorrect");
         }
     }
 
     private void checkScriptName() throws ConfigurationException {
         String name = myScriptName.getText();
-        if (!name.matches("^[A-Za-z0-9]++(.(p6|pl6))?$")) {
+        if (!name.matches(Patterns.SCRIPT_PATTERN)) {
             throw new ConfigurationException("Script name must contain only letters and numbers");
         }
     }
