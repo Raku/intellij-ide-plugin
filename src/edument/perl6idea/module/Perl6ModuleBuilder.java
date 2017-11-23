@@ -1,9 +1,13 @@
 package edument.perl6idea.module;
 
+import com.intellij.ide.DataManager;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.ModifiableRootModel;
@@ -26,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,9 +74,9 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
             if (type == Perl6ProjectType.PERL6_SCRIPT) {
                 stubScript(moduleLibraryPath, this.scriptName);
             } else if (type == Perl6ProjectType.PERL6_MODULE) {
-                stubModule(moduleLibraryPath, this.moduleName, null);
+                stubModule(moduleLibraryPath, this.moduleName, null, true);
             } else if (type == Perl6ProjectType.PERL6_APPLICATION) {
-                stubModule(moduleLibraryPath, this.moduleName, this.entryPointName);
+                stubModule(moduleLibraryPath, this.moduleName, this.entryPointName, true);
                 stubEntryPoint(moduleLibraryPath);
             }
         }
@@ -79,7 +84,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
 
     private void stubEntryPoint(String moduleLibraryPath) {
         if (!moduleLibraryPath.endsWith(separator + "bin")) return;
-        String entryPath = moduleLibraryPath + separator + entryPointName;
+        Path entryPath = Paths.get(moduleLibraryPath, entryPointName);
         List<String> lines = Arrays.asList(
                 "#!/usr/bin/env perl6",
                 String.format("use %s;", moduleName)
@@ -87,26 +92,44 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         writeCodeToPath(entryPath, lines);
     }
 
-    public static String stubModule(String moduleLibraryPath, String moduleName, @Nullable String entryPointName) {
+    public static String stubModule(String moduleLibraryPath, String moduleName, @Nullable String entryPointName, boolean firstModule) {
         if (moduleLibraryPath.endsWith(separator + "lib")) {
-            writeMetaFile(moduleLibraryPath, moduleName, entryPointName);
-            String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))).toString() + ".pm6";
+            if (firstModule) {
+                writeMetaFile(moduleName, entryPointName);
+            } else {
+                addModuleToMetaFile(moduleName);
+            }
+            String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))) + ".pm6";
             new File(modulePath).getParentFile().mkdirs();
-            writeCodeToPath(modulePath, Collections.singletonList(""));
+            writeCodeToPath(Paths.get(modulePath), Collections.singletonList(""));
             return modulePath;
         } else if (moduleLibraryPath.endsWith(separator + "t")) {
-            String testPath = String.format("%s%s00-sanity.t", moduleLibraryPath, separator);
+            Path testPath = Paths.get(moduleLibraryPath, "00-sanity.t");
             List<String> lines = Arrays.asList(
                     String.format("use %s;", moduleName),
                     "use Test;", "", "done-testing;"
             );
             writeCodeToPath(testPath, lines);
-            return testPath;
+            return testPath.toString();
         }
         return moduleLibraryPath;
     }
 
-    private static void writeMetaFile(String moduleLibraryPath, String moduleName, @Nullable String entryPointName) {
+    private static void addModuleToMetaFile(String moduleName) {
+        try {
+            Path metaPath = getMETAFilePath();
+            String content = new String (Files.readAllBytes(metaPath));
+            JSONObject metaInfo = new JSONObject(content);
+            JSONObject providesSection = metaInfo.getJSONObject("provides");
+            providesSection.put(moduleName, String.format("lib%s%s.pm6", separator, moduleName.replaceAll("::", separator)));
+            metaInfo.put("provides", providesSection);
+            writeCodeToPath(metaPath, Collections.singletonList(metaInfo.toString(4)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeMetaFile(String moduleName, @Nullable String entryPointName) {
         JSONObject providesSection = new JSONObject()
                 .put(moduleName, String.format("lib%s%s.pm6", separator, moduleName.replaceAll("::", separator)));
         if (entryPointName != null)
@@ -122,13 +145,22 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                 .put("provides", providesSection)
                 .put("resources", new JSONArray())
                 .put("source-url", "Write me!");
-        writeCodeToPath(moduleLibraryPath.substring(0, moduleLibraryPath.length() - 4) + separator + "META6.json",
-                Collections.singletonList(metaJson.toString(4)));
+        writeCodeToPath(getMETAFilePath(), Collections.singletonList(metaJson.toString(4)));
     }
 
-    private static void writeCodeToPath(String codePath, List<String> lines) {
+    public static Path getMETAFilePath() {
+        DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
+        Project project = DataKeys.PROJECT.getData(dataContext);
+        if (project != null && project.getBaseDir() != null) {
+            return Paths.get(project.getBasePath(), "META6.json");
+        } else {
+            throw new IllegalStateException("Cannot write a META file for non-existent project.");
+        }
+    }
+
+    private static void writeCodeToPath(Path codePath, List<String> lines) {
         try {
-            Files.write(Paths.get(codePath), lines, StandardCharsets.UTF_8);
+            Files.write(codePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +176,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                 "", "",
                 "sub MAIN() { }"
         );
-        writeCodeToPath(scriptPath, lines);
+        writeCodeToPath(Paths.get(scriptPath), lines);
         return scriptPath;
     }
 
