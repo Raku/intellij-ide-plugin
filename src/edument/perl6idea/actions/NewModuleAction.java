@@ -36,6 +36,9 @@ public class NewModuleAction extends AnAction {
                     "What is new module name?",
                     "New Module Name",
                     Messages.getQuestionIcon(), null, validator);
+        // If user cancelled action.
+        if (moduleName == null)
+            return;
         VirtualFile baseDir = project.getBaseDir();
         String modulePath = Perl6ModuleBuilder.stubModule(baseDir.getCanonicalPath() + separator + "lib", moduleName, null);
         baseDir.refresh(false, true);

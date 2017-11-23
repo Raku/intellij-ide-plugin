@@ -33,6 +33,9 @@ public class NewScriptAction extends AnAction {
                     "What is new script name?",
                     "New Script Name",
                     Messages.getQuestionIcon(), null, validator);
+        // If user cancelled action.
+        if (fileName == null)
+            return;
         VirtualFile baseDir = project.getBaseDir();
         String scriptPath = Perl6ModuleBuilder.stubScript(baseDir.getCanonicalPath(), fileName);
         baseDir.refresh(false, true);
