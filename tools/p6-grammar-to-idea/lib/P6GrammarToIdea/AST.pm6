@@ -17,6 +17,18 @@ class Braids is export {
 class Grammar is export {
     has $.name;
     has @.productions;
+    has %!productions-by-name-cache;
+
+    method has-rule($name) {
+        self!ensure-productions-by-name-cache;
+        %!productions-by-name-cache{$name}:exists
+    }
+
+    method !ensure-productions-by-name-cache(--> Nil) {
+        unless %!productions-by-name-cache {
+            %!productions-by-name-cache = @!productions.map({ .name => $_ });
+        }
+    }
 
     method dump($level = 0) {
         i($level, "Grammar $!name\n") ~ @!productions.map(*.dump($level + 1)).join

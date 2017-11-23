@@ -1,10 +1,18 @@
 use P6GrammarToIdea::Parser;
 use P6GrammarToIdea::Actions;
+use P6GrammarToIdea::SanityCheck;
 
-sub MAIN($input-file where .IO.f) {
+multi sub MAIN('parse', $input-file where .IO.f) {
+    say P6GrammarToIdea::Parser.parse(
+        slurp($input-file),
+        :actions(P6GrammarToIdea::Actions)
+    ).ast.dump;
+}
+
+multi sub MAIN('generate', $input-file where .IO.f, $output-dir where .IO.d) {
     my $ast = P6GrammarToIdea::Parser.parse(
         slurp($input-file),
         :actions(P6GrammarToIdea::Actions)
     ).ast;
-    say $ast.dump;
+    sanity-check($ast);
 }
