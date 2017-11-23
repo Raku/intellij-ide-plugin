@@ -10,6 +10,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import edument.perl6idea.module.Perl6ModuleBuilder;
+import edument.perl6idea.utils.Patterns;
 
 public class NewScriptAction extends AnAction {
 
@@ -17,16 +18,15 @@ public class NewScriptAction extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         Project project = e.getData(PlatformDataKeys.PROJECT);
         if (project == null) return;
-        // XXX Check for already existing files here?
         InputValidator validator = new InputValidator() {
             @Override
             public boolean checkInput(String inputString) {
-                return inputString.matches("^[A-Za-z0-9-]++(.(p6|pl6))?$");
+                return inputString.matches(Patterns.SCRIPT_PATTERN);
             }
 
             @Override
             public boolean canClose(String inputString) {
-                return inputString.matches("^[A-Za-z0-9-]++(.(p6|pl6))?$");
+                return inputString.matches(Patterns.SCRIPT_PATTERN);
             }
         };
         String fileName = Messages.showInputDialog(project,
@@ -36,11 +36,9 @@ public class NewScriptAction extends AnAction {
         // If user cancelled action.
         if (fileName == null)
             return;
-        VirtualFile baseDir = project.getBaseDir();
-        String scriptPath = Perl6ModuleBuilder.stubScript(baseDir.getCanonicalPath(), fileName);
-        baseDir.refresh(false, true);
-        VirtualFile scriptFile = LocalFileSystem.getInstance().findFileByPath(scriptPath);
+        String scriptPath = Perl6ModuleBuilder.stubScript(project.getBaseDir().getCanonicalPath(), fileName);
+        VirtualFile scriptFile = LocalFileSystem.getInstance().refreshAndFindFileByPath(scriptPath);
+        assert scriptFile != null;
         FileEditorManager.getInstance(project).openFile(scriptFile, true);
-        Messages.showMessageDialog(project, "New script was created successfully!", "Information", Messages.getInformationIcon());
     }
 }
