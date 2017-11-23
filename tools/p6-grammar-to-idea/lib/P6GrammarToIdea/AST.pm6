@@ -24,6 +24,11 @@ class Grammar is export {
         %!productions-by-name-cache{$name}:exists
     }
 
+    method get-rule($name) {
+        self!ensure-productions-by-name-cache;
+        %!productions-by-name-cache{$name} // die "No such rule '$name'"
+    }
+
     method !ensure-productions-by-name-cache(--> Nil) {
         unless %!productions-by-name-cache {
             %!productions-by-name-cache = @!productions.map({ .name => $_ });
