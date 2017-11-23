@@ -27,11 +27,11 @@
 
   <actions>
     <action id="Perl6Plugin.NewModuleAction" class="edument.perl6idea.actions.NewModuleAction" text="Perl 6 Module"
-            description="Create new Perl 6 module in current project">
+            description="Create new Perl 6 module in current project" icon="/icons/camelia.png">
       <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
     </action>
     <action id="Perl6Plugin.NewScriptAction" class="edument.perl6idea.actions.NewScriptAction" text="Perl 6 Script"
-            description="Create new Perl 6 script in current project">
+            description="Create new Perl 6 script in current project" icon="/icons/camelia.png">
       <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
     </action>
   </actions>
