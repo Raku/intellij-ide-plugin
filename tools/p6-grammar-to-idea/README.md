@@ -56,6 +56,13 @@ The following constructs inside of those behave as in Perl 6 grammars:
 * Signatures containing scalar dynamic variables (`token bar($*FOO) { }`)
 * Passing string and integer literal arguments (single quoted strings only)
 
+The following rule names are built-in and special:
+
+* `start-token` - expects to be called with a string argument, specifying the
+  name of the token that starts here
+* `end-token` - expects to be called with a string argument, specifying the
+  name of the token that ends here
+
 Todo:
 * Character class ranges
 * Some MARKER equivalent
