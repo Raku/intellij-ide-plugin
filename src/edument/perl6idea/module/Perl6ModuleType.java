@@ -44,7 +44,6 @@ public class Perl6ModuleType extends ModuleType<Perl6ModuleBuilder> {
         return "Perl 6 modules are used for developing <b>Perl 6</b> applications.";
     }
 
-    @Override
     public Icon getBigIcon() {
         return Perl6Icons.CAMELIA;
     }
