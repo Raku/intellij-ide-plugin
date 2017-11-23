@@ -87,7 +87,7 @@ class EnumCharList is export {
     }
 }
 
-enum CharClass is export <WordChars DigitChars SpaceChars NewlineChars>;
+enum CharClass is export <AnyChar WordChars DigitChars SpaceChars NewlineChars>;
 class BuiltinCharClass is export {
     has CharClass $.class;
     has $.negative;

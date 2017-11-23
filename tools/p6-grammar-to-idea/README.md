@@ -32,6 +32,7 @@ doing the automatic insertion of `<.ws>` calls.
 The following constructs inside of those behave as in Perl 6 grammars:
 
 * Single line comments with `#`
+* `.` for matching any character
 * `||` for sequential alternation
 * `|` for LTM alternation
 * `[...]` grouping

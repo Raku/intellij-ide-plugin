@@ -87,6 +87,7 @@ grammar P6GrammarToIdea::Parser {
     token quantifier:sym<+> { <sym> }
 
     proto token metachar {*}
+    token metachar:sym<.> { <sym> }
     token metachar:sym<$> { <sym> }
     token metachar:sym<$$> { <sym> }
     rule metachar:sym<group> {

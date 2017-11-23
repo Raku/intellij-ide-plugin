@@ -67,6 +67,10 @@ class P6GrammarToIdea::Actions {
         make $<metachar>.ast;
     }
 
+    method metachar:sym<.>($/) {
+        make BuiltinCharClass.new: class => AnyChar, :!negative;
+    }
+
     method metachar:sym<$>($/) {
         make AnchorEnd.new
     }
