@@ -11,6 +11,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,18 +37,13 @@ public class Perl6SdkType extends SdkType {
     @NotNull
     @Override
     public Icon getIconForAddAction() {
-        // TODO get some another icon?
         return getIcon();
     }
 
     @Nullable
     @Override
     public String suggestHomePath() {
-        final String perl6fromPath = findPerl6InPath();
-        if (perl6fromPath != null) {
-            return perl6fromPath;
-        }
-        return null;
+        return findPerl6InPath();
     }
 
     @Nullable
@@ -63,8 +61,7 @@ public class Perl6SdkType extends SdkType {
     }
 
     public boolean isValidSdkHome(@NotNull String path) {
-        // FIXME: write a real check here
-        return true;
+        return Paths.get(path, "perl6") != null;
     }
 
     @Nullable
@@ -80,10 +77,10 @@ public class Perl6SdkType extends SdkType {
     @Nullable
     @Override
     public String getVersionString(@NotNull String home) {
-        String[] command = {home, "--version"};
+        Path binPath = Paths.get(home, "perl6");
+        String[] command = {binPath.normalize().toString(), "--version"};
         try {
-            File file = new File(home);
-            if (!file.isDirectory() && file.canExecute()) {
+            if (!Files.isDirectory(binPath) && Files.isExecutable(binPath)) {
                 Process p = Runtime.getRuntime().exec(command);
                 BufferedReader std = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String firstLine = std.readLine();
