@@ -14,10 +14,20 @@ use P6GrammarToIdea::AST;
 # It does this by performing an abstract interpretation of the grammar, which
 # means it also descends into rules.
 
+class X::P6GrammarToIdea::UncoveredByToken is Exception {
+    has $.production-name;
+    has $.uncovered;
+
+    method message() {
+        "No token covering $!uncovered in '$!production-name'"
+    }
+}
+
 sub check-and-get-tokens(Braids $braids) is export {
     my $*CURRENT-GRAMMAR = $braids.braids<MAIN>;
     my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule('TOP');
     my %*KNOWN-TOKENS;
+    my $*CURRENT-TOKEN;
     walk($*CURRENT-PRODUCTION);
     return %*KNOWN-TOKENS.keys;
 }
@@ -52,12 +62,15 @@ multi sub walk(Subrule $call) {
     given $call.name {
         when 'start-token' {
             my $token-name = get-token-name($call);
+            $*CURRENT-TOKEN = $token-name;
             %*KNOWN-TOKENS{$token-name} = True;
         }
         when 'end-token' {
+            $*CURRENT-TOKEN = Nil;
         }
         default {
-            walk($*CURRENT-GRAMMAR.get-rule($call.name));
+            my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule($call.name);
+            walk($*CURRENT-PRODUCTION);
         }
     }
 }
@@ -70,12 +83,22 @@ sub get-token-name($call) {
 }
 
 multi sub walk(Literal) {
+    ensure-covered('literal');
 }
 
 multi sub walk(EnumCharList) {
+    ensure-covered('enumerated character class');
 }
 
 multi sub walk(BuiltinCharClass) {
+    ensure-covered('built-in character class');
+}
+
+sub ensure-covered($what --> Nil) {
+    $*CURRENT-TOKEN or die X::P6GrammarToIdea::UncoveredByToken.new(
+        production-name => $*CURRENT-PRODUCTION.name,
+        uncovered => $what
+    );
 }
 
 # Ignore lookaheads and anchors, because they don't match any chars.

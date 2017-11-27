@@ -36,7 +36,7 @@ has-tokens Q:to/GRAMMAR/, <WORD WHITE_SPACE BAD_CHARACTER>, 'Tokens identified c
 
         token ws {
             <.start-token('WHITE_SPACE')>
-            \w+
+            \s+
             <.end-token('WHITE_SPACE')>
         }
 
@@ -44,6 +44,38 @@ has-tokens Q:to/GRAMMAR/, <WORD WHITE_SPACE BAD_CHARACTER>, 'Tokens identified c
             <.start-token('BAD_CHARACTER')>
             .
             <.end-token('BAD_CHARACTER')>
+        }
+    }
+    GRAMMAR
+
+fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::UncoveredByToken, 'Error on uncovered .';
+    grammar MAIN {
+        token TOP {
+            <.bad>
+        }
+
+        token bad {
+            .
+        }
+    }
+    GRAMMAR
+
+fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::UncoveredByToken, 'Error on uncovered \s+';
+    grammar MAIN {
+        token TOP {
+            [
+            <.word> | <.ws>
+            ]+
+        }
+
+        token word {
+            <.start-token('WORD')>
+            \w+
+            <.end-token('WORD')>
+        }
+
+        token ws {
+            \s+
         }
     }
     GRAMMAR
