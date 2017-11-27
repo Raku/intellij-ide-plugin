@@ -197,12 +197,19 @@ grammar MAIN {
         <EXPR>?
     }
 
+    rule statement_control:sym<given> {
+        <sym><.kok> <xblock(1)>
+    }
     rule statement_control:sym<when> {
         <sym><.kok> <xblock>
     }
     rule statement_control:sym<default> {
         <sym><.kok> <block>
     }
+
+    rule statement_control:sym<CATCH> {<sym> <block(1)> }
+    rule statement_control:sym<CONTROL> {<sym> <block(1)> }
+    rule statement_control:sym<QUIT> {<sym> <block(1)> }
 
     proto token statement_prefix { <...> }
     token statement_prefix:sym<BEGIN>   { <sym><.kok> <blorst> }
@@ -344,6 +351,15 @@ grammar MAIN {
     token term:sym<dotty> { <dotty> }
     token term:sym<capterm> { <capterm> }
     token term:sym<onlystar> { '{*}' <?ENDSTMT> }
+
+    token args {
+        [
+        | '(' ~ ')' <semiarglist>
+        | <.unsp> '(' ~ ')' <semiarglist>
+        | [ \s <arglist> ]
+        | <?>
+        ]
+    }
 
     token semiarglist {
         <arglist>+ % ';'
