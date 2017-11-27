@@ -29,7 +29,6 @@ public class Perl6CommandLineState extends CommandLineState {
         if (StringUtils.isNotBlank(args)) {
             this.command.addAll(Arrays.asList(args.split(" ")));
         }
-        System.out.println(this.command);
     }
 
     @NotNull
