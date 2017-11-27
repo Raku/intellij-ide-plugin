@@ -23,6 +23,16 @@ class X::P6GrammarToIdea::UncoveredByToken is Exception {
     }
 }
 
+class X::P6GrammarToIdea::OverlappingToken is Exception {
+    has $.existing;
+    has $.conflicting;
+    has $.production-name;
+
+    method message() {
+        "Token '$!conflicting' in '$!production-name' opens when '$!existing' unclosed"
+    }
+}
+
 sub check-and-get-tokens(Braids $braids) is export {
     my $*CURRENT-GRAMMAR = $braids.braids<MAIN>;
     my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule('TOP');
@@ -62,6 +72,12 @@ multi sub walk(Subrule $call) {
     given $call.name {
         when 'start-token' {
             my $token-name = get-token-name($call);
+            with $*CURRENT-TOKEN {
+                die X::P6GrammarToIdea::OverlappingToken.new:
+                    existing => $_,
+                    conflicting => $token-name,
+                    production-name => $*CURRENT-PRODUCTION.name
+            }
             $*CURRENT-TOKEN = $token-name;
             %*KNOWN-TOKENS{$token-name} = True;
         }

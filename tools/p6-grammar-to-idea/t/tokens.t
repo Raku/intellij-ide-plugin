@@ -11,12 +11,12 @@ sub has-tokens($grammar, @expected, $desc) {
     is-deeply check-and-get-tokens($ast).sort.list, @expected.sort.list, $desc;
 }
 
-sub fails-check($grammar, $expected-exception, $desc) {
+sub fails-check($grammar, $expected-exception, $desc, *%checks) {
     my $ast = P6GrammarToIdea::Parser.parse(
         $grammar,
         :actions(P6GrammarToIdea::Actions)
     ).ast;
-    throws-like { check-and-get-tokens($ast) }, $expected-exception, $desc;
+    throws-like { check-and-get-tokens($ast) }, $expected-exception, $desc, |%checks;
 }
 
 has-tokens Q:to/GRAMMAR/, <WORD WHITE_SPACE BAD_CHARACTER>, 'Tokens identified correctly';
@@ -79,5 +79,24 @@ fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::UncoveredByToken, 'Error on uncov
         }
     }
     GRAMMAR
+
+fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::OverlappingToken, 'Error on token overlap',
+    grammar MAIN {
+        token TOP {
+            <.start-token('THING')>
+            <.word>
+            <.end-token('THING')>
+        }
+
+        token word {
+            <.start-token('WORD')>
+            \w+
+            <.end-token('WORD')>
+        }
+    }
+    GRAMMAR
+    existing => 'THING',
+    conflicting => 'WORD',
+    production-name => 'word';
 
 done-testing;
