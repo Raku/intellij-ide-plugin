@@ -64,6 +64,9 @@ The following rule names are built-in and special:
   name of the token that ends here
 
 Todo:
+* Parameter defaults
+* Passing dynamics on as arguments
+* Cheating {} as an LTM terminator
 * Character class ranges
 * Some MARKER equivalent
 * Some way to report syntax errors, but then continue
