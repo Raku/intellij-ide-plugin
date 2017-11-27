@@ -99,4 +99,19 @@ fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::OverlappingToken, 'Error on token
     conflicting => 'WORD',
     production-name => 'word';
 
+fails-check Q:to/GRAMMAR/, X::P6GrammarToIdea::MissingEndToken, 'Error on missing end-token',
+    grammar MAIN {
+        token TOP {
+            <.word>
+        }
+
+        token word {
+            <.start-token('WORD')>
+            \w+
+        }
+    }
+    GRAMMAR
+    production-name => 'word',
+    token-name => 'WORD';
+
 done-testing;

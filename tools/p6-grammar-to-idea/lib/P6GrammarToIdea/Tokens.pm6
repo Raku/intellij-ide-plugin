@@ -33,12 +33,27 @@ class X::P6GrammarToIdea::OverlappingToken is Exception {
     }
 }
 
+class X::P6GrammarToIdea::MissingEndToken is Exception {
+    has $.production-name;
+    has $.token-name;
+
+    method message() {
+        "Token '$!token-name' in '$!production-name' has no end"
+    }
+}
+
 sub check-and-get-tokens(Braids $braids) is export {
     my $*CURRENT-GRAMMAR = $braids.braids<MAIN>;
     my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule('TOP');
     my %*KNOWN-TOKENS;
     my $*CURRENT-TOKEN;
+    my $*CURRENT-TOKEN-START-PRODUCTION;
     walk($*CURRENT-PRODUCTION);
+    with $*CURRENT-TOKEN {
+        die X::P6GrammarToIdea::MissingEndToken.new:
+            token-name => $_,
+            production-name => $*CURRENT-TOKEN-START-PRODUCTION.name;
+    }
     return %*KNOWN-TOKENS.keys;
 }
 
@@ -80,9 +95,11 @@ multi sub walk(Subrule $call) {
             }
             $*CURRENT-TOKEN = $token-name;
             %*KNOWN-TOKENS{$token-name} = True;
+            $*CURRENT-TOKEN-START-PRODUCTION = $*CURRENT-PRODUCTION;
         }
         when 'end-token' {
             $*CURRENT-TOKEN = Nil;
+            $*CURRENT-TOKEN-START-PRODUCTION = Nil;
         }
         default {
             my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule($call.name);
