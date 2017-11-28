@@ -56,27 +56,27 @@ public class Perl6RunConfiguration extends RunConfigurationBase {
         this.myScriptArgs = myScriptArgs;
     }
 
-  @Override
-  public void readExternal(Element element) throws InvalidDataException {
-      super.readExternal(element);
-      Element path = element.getChild(SCRIPT_PATH);
-      Element args = element.getChild(SCRIPT_ARGS);
-      if (path == null || args == null) {
-          throw new InvalidDataException();
-      } else {
-          myScriptPath = path.getText();
-          myScriptArgs = args.getText();
-      }
-  }
+    @Override
+    public void readExternal(Element element) throws InvalidDataException {
+        super.readExternal(element);
+        Element path = element.getChild(SCRIPT_PATH);
+        Element args = element.getChild(SCRIPT_ARGS);
+        if (path == null || args == null) {
+            throw new InvalidDataException();
+        } else {
+            myScriptPath = path.getText();
+            myScriptArgs = args.getText();
+        }
+    }
 
-  @Override
+    @Override
     public void writeExternal(Element element) throws WriteExternalException {
-      super.writeExternal(element);
-      Element path = new Element(SCRIPT_PATH);
-      path.setText(myScriptPath);
-      Element args = new Element(SCRIPT_ARGS);
-      args.setText(myScriptArgs);
-      element.addContent(path);
-      element.addContent(args);
-  }
+        super.writeExternal(element);
+        Element path = new Element(SCRIPT_PATH);
+        path.setText(myScriptPath);
+        Element args = new Element(SCRIPT_ARGS);
+        args.setText(myScriptArgs);
+        element.addContent(path);
+        element.addContent(args);
+    }
 }
