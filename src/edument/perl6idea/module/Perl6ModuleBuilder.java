@@ -1,10 +1,7 @@
 package edument.perl6idea.module;
 
-import com.intellij.ide.DataManager;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
@@ -58,6 +55,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
 
     @Override
     public void setupRootModel(ModifiableRootModel model) throws ConfigurationException {
+        Project project = model.getProject();
         ContentEntry contentEntry = this.doAddContentEntry(model);
         if (contentEntry == null) return;
         List<Pair<String, String>> sourcePaths = this.getSourcePaths();
@@ -74,9 +72,9 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
             if (type == Perl6ProjectType.PERL6_SCRIPT) {
                 stubScript(moduleLibraryPath, this.scriptName);
             } else if (type == Perl6ProjectType.PERL6_MODULE) {
-                stubModule(moduleLibraryPath, this.moduleName, null, true);
+                stubModule(project, moduleLibraryPath, this.moduleName, null, true);
             } else if (type == Perl6ProjectType.PERL6_APPLICATION) {
-                stubModule(moduleLibraryPath, this.moduleName, this.entryPointName, true);
+                stubModule(project, moduleLibraryPath, this.moduleName, this.entryPointName, true);
                 stubEntryPoint(moduleLibraryPath);
             }
         }
@@ -92,12 +90,12 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         writeCodeToPath(entryPath, lines);
     }
 
-    public static String stubModule(String moduleLibraryPath, String moduleName, @Nullable String entryPointName, boolean firstModule) {
+    public static String stubModule(Project project, String moduleLibraryPath, String moduleName, @Nullable String entryPointName, boolean firstModule) {
         if (moduleLibraryPath.endsWith(separator + "lib")) {
             if (firstModule) {
-                writeMetaFile(moduleName, entryPointName);
+                writeMetaFile(project, moduleName, entryPointName);
             } else {
-                addModuleToMetaFile(moduleName);
+                addModuleToMetaFile(project, moduleName);
             }
             String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))) + ".pm6";
             new File(modulePath).getParentFile().mkdirs();
@@ -115,9 +113,9 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         return moduleLibraryPath;
     }
 
-    private static void addModuleToMetaFile(String moduleName) {
+    private static void addModuleToMetaFile(Project project, String moduleName) {
         try {
-            Path metaPath = getMETAFilePath();
+            Path metaPath = getMETAFilePath(project);
             String content = new String (Files.readAllBytes(metaPath));
             JSONObject metaInfo = new JSONObject(content);
             JSONObject providesSection = metaInfo.getJSONObject("provides");
@@ -129,7 +127,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         }
     }
 
-    private static void writeMetaFile(String moduleName, @Nullable String entryPointName) {
+    private static void writeMetaFile(Project project, String moduleName, @Nullable String entryPointName) {
         JSONObject providesSection = new JSONObject()
                 .put(moduleName, String.format("lib%s%s.pm6", separator, moduleName.replaceAll("::", separator)));
         if (entryPointName != null)
@@ -145,17 +143,11 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
                 .put("provides", providesSection)
                 .put("resources", new JSONArray())
                 .put("source-url", "Write me!");
-        writeCodeToPath(getMETAFilePath(), Collections.singletonList(metaJson.toString(4)));
+        writeCodeToPath(getMETAFilePath(project), Collections.singletonList(metaJson.toString(4)));
     }
 
-    public static Path getMETAFilePath() {
-        DataContext dataContext = DataManager.getInstance().getDataContextFromFocus().getResult();
-        Project project = DataKeys.PROJECT.getData(dataContext);
-        if (project != null && project.getBaseDir() != null) {
-            return Paths.get(project.getBasePath(), "META6.json");
-        } else {
-            throw new IllegalStateException("Cannot write a META file for non-existent project.");
-        }
+    public static Path getMETAFilePath(Project project) {
+        return Paths.get(project.getBasePath(), "META6.json");
     }
 
     private static void writeCodeToPath(Path codePath, List<String> lines) {

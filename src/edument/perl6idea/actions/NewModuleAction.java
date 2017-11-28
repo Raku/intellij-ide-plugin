@@ -41,9 +41,9 @@ public class NewModuleAction extends AnAction {
 
         String baseDir = project.getBaseDir().getCanonicalPath();
         if (baseDir != null) {
-            String modulePath = Perl6ModuleBuilder.stubModule(Paths.get(baseDir, "lib").toString(),
+            String modulePath = Perl6ModuleBuilder.stubModule(project, Paths.get(baseDir, "lib").toString(),
                     moduleName, null,
-                    !Perl6ModuleBuilder.getMETAFilePath().toFile().exists());
+                    !Perl6ModuleBuilder.getMETAFilePath(project).toFile().exists());
             VirtualFile moduleFile = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(Paths.get(modulePath).toFile());
             assert moduleFile != null;
             FileEditorManager.getInstance(project).openFile(moduleFile, true);
