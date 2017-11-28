@@ -12,6 +12,10 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Perl6RunConfiguration extends RunConfigurationBase {
     private static final String SCRIPT_PATH = "Script_path";
     private static final String SCRIPT_ARGS = "Script_args";
@@ -79,5 +83,9 @@ public class Perl6RunConfiguration extends RunConfigurationBase {
 
     @Override
     public void checkConfiguration() throws RuntimeConfigurationException {
+        Path path = Paths.get(myScriptPath);
+        if (!(Files.exists(path))) {
+            throw new RuntimeConfigurationError("Path to main script must be specified");
+        }
     }
 }
