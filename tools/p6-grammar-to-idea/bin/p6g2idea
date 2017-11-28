@@ -3,6 +3,7 @@ use P6GrammarToIdea::Actions;
 use P6GrammarToIdea::SanityCheck;
 use P6GrammarToIdea::Tokens;
 use P6GrammarToIdea::GenerateTokenTypes;
+use P6GrammarToIdea::GenerateGrammar;
 
 multi sub MAIN('parse', $input-file where .IO.f) {
     say P6GrammarToIdea::Parser.parse(
@@ -16,7 +17,16 @@ multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d)
         slurp($input-file),
         :actions(P6GrammarToIdea::Actions)
     ).ast;
+
     sanity-check($ast);
     my @token-names = check-and-get-tokens($ast);
+
+    say "Generating Perl6TokenTypes.java";
     spurt $output-dir.add('Perl6TokenTypes.java'), generate-perl6-token-types(@token-names);
+
+    for $ast.braids.kv -> $name, $grammar {
+        my $filename = $name ~ 'Braid.java';
+        say "Generating $filename";
+        spurt $output-dir.add($filename), generate-grammar($grammar);
+    }
 }
