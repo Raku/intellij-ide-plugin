@@ -1,5 +1,7 @@
 package edument.perl6idea.parsing;
 
+import com.intellij.psi.tree.IElementType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class CursorStack {
     private List<Cursor> cursors = new ArrayList<Cursor>();
     public CharSequence target;
+    public IElementType token;
 
     public CursorStack(CharSequence target) {
         this.target = target;

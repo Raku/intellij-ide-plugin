@@ -80,16 +80,46 @@ my class GrammarCompiler {
 
     multi method compile(Subrule $rule) {
         given $rule.name {
+            my $append-to = $*CUR-STATEMENTS;
             when 'start-token' {
+                $append-to.push: this-call 'startToken',
+                    StaticVariable.new(:name($rule.args[0].value), :class<Perl6TokenTypes>);
             }
             when 'end-token' {
+                my $next = self!new-state();
+                $append-to.push: assign(field('state', 'int'), int-lit($next));
+                $append-to.push: ret(int-lit(END-TOKEN));
             }
             default {
+                my $next = self!new-state();
+                my $rule-number = %!rule-numbers{.name};
+                $append-to.push: assign(field('state', 'int'), int-lit($next));
+                $append-to.push: ret(int-lit($rule-number));
             }
         }
     }
 
     multi method compile(BuiltinCharClass $cclass) {
+        my $charType = do given $cclass.class {
+            when AnyChar {
+                die "Cannot have negated AnyChar" if $cclass.negative;
+                "any"
+            }
+            when WordChars {
+                "word"
+            }
+            when DigitChars {
+                "digit"
+            }
+            when SpaceChars {
+                "space"
+            }
+            when NewlineChars {
+                die "Newline char class NYI"
+            }
+        }
+        my $method = ($cclass.negative ?? "not$charType.tc()" !! $charType) ~ "Char";
+        $*CUR-STATEMENTS.push: unless(this-call($method), [ret(int-lit(FAIL))]);
     }
 
     multi method compile($unknown) {
@@ -122,6 +152,12 @@ my class GrammarCompiler {
     }
     sub ret($return) {
         Java::Generate::Statement::Return.new(:$return)
+    }
+    sub if($cond, @true) {
+        Java::Generate::Statement::If.new(:$cond, :@true)
+    }
+    sub unless($cond, @true) {
+        if(PrefixOp.new(:op<!>, :right($cond)), @true)
     }
 
     sub mangle($name) {
