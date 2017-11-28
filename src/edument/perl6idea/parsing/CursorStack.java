@@ -21,4 +21,16 @@ public class CursorStack {
     public Cursor peek() {
         return cursors.get(cursors.size() - 1);
     }
+
+    public void pop() {
+        int top = cursors.size() - 1;
+        Cursor result = cursors.get(top);
+        cursors.remove(top);
+        if (top != 0)
+            cursors.get(top - 1).lastResult = result;
+    }
+
+    public boolean isEmpty() {
+        return cursors.isEmpty();
+    }
 }

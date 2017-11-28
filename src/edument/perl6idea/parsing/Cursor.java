@@ -17,6 +17,9 @@ public abstract class Cursor<TCursor extends Cursor> {
     /* The current position in that string. */
     public int pos;
 
+    /* The result of the last subrule call this Cursor made. */
+    public Cursor lastResult;
+
     public TCursor initialize(CursorStack stack) {
         TCursor cursor = null;
         try {
