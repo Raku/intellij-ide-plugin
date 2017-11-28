@@ -2,6 +2,7 @@ use P6GrammarToIdea::Parser;
 use P6GrammarToIdea::Actions;
 use P6GrammarToIdea::SanityCheck;
 use P6GrammarToIdea::Tokens;
+use P6GrammarToIdea::GenerateTokenTypes;
 
 multi sub MAIN('parse', $input-file where .IO.f) {
     say P6GrammarToIdea::Parser.parse(
@@ -10,11 +11,12 @@ multi sub MAIN('parse', $input-file where .IO.f) {
     ).ast.dump;
 }
 
-multi sub MAIN('generate', $input-file where .IO.f, $output-dir where .IO.d) {
+multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d) {
     my $ast = P6GrammarToIdea::Parser.parse(
         slurp($input-file),
         :actions(P6GrammarToIdea::Actions)
     ).ast;
     sanity-check($ast);
     my @token-names = check-and-get-tokens($ast);
+    spurt $output-dir.add('Perl6TokenTypes.java'), generate-perl6-token-types(@token-names);
 }
