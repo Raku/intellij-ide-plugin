@@ -126,6 +126,10 @@ my class GrammarCompiler {
                 my $rule-number = %!rule-numbers{$rule.name};
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit($rule-number));
+                $*CUR-STATEMENTS.push: if(
+                    call(field('lastResult', 'cursor'), 'isFailed'),
+                    [backtrack()]
+                );
             }
         }
     }
@@ -150,15 +154,17 @@ my class GrammarCompiler {
             }
         }
         my $method = ($cclass.negative ?? "not$charType.tc()" !! $charType) ~ "Char";
-        $*CUR-STATEMENTS.push: unless(this-call($method), [
-            if(this-call("backtrack"),
-                [continue()],
-                [ret(int-lit(FAIL))])
-        ]);
+        $*CUR-STATEMENTS.push: unless(this-call($method), [backtrack()]);
     }
 
     multi method compile($unknown) {
         die "Unimplemented compilation of node type $unknown.^name()";
+    }
+
+    sub backtrack() {
+        if(this-call("backtrack"),
+            [continue()],
+            [ret(int-lit(FAIL))])
     }
 
     sub int-lit($value) {
@@ -181,6 +187,9 @@ my class GrammarCompiler {
     }
     sub assign($left, $right) {
         Assignment.new(:$left, :$right)
+    }
+    sub call($object, $name, *@arguments) {
+        MethodCall.new: :$object, :$name, :@arguments
     }
     sub this-call($name, *@arguments) {
         MethodCall.new: :object(local('this', 'Object')), :$name, :@arguments

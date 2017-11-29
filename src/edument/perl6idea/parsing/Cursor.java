@@ -25,6 +25,9 @@ public abstract class Cursor<TCursor extends Cursor> {
     /* The result of the last subrule call this Cursor made. */
     public Cursor lastResult;
 
+    /* Flag that is set when the rule passes. */
+    public boolean passed;
+
     /* The backtrack points stack, used to decide where to go upon a fail. Created lazily on
     * first need for it. */
     private List<Integer> backtrackStack;
@@ -55,6 +58,10 @@ public abstract class Cursor<TCursor extends Cursor> {
         cursor.state = 0;
         cursor.pos = this.pos;
         return cursor;
+    }
+
+    public boolean isFailed() {
+        return !passed;
     }
 
     public void pushBS(int state) {
