@@ -5,7 +5,7 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.Comparing;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.RawCommandLineEditor;
 import com.intellij.ui.components.JBPanel;
@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
     private JPanel myPanel;
@@ -35,7 +37,7 @@ public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
             @Override
             public boolean isFileVisible(VirtualFile file, boolean showHiddenFiles) {
                 return file.isDirectory() || file.getExtension() == null
-                        || Comparing.equal(file.getExtension(), "p6"); // Enforcing no ".pl6" extension here.
+                        || Arrays.asList("pm6", "pl6", "p6", "").contains(file.getExtension());
             }
         };
         fileField = new TextFieldWithBrowseButton();
@@ -69,12 +71,13 @@ public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
 
     @Override
     protected void applyEditorTo(@NotNull Perl6RunConfiguration conf) throws ConfigurationException {
-        if (myScriptParamsTextField.getText() != null) {
-            conf.setMyScriptPath(fileField.getText());
+        VirtualFile file = LocalFileSystem.getInstance().findFileByPath(fileField.getText());
+        if (file == null || !file.exists() || Objects.equals(fileField.getText(), "")) {
+            throw new ConfigurationException("Main script path is incorrect");
         } else {
-            throw new ConfigurationException("Main script path must be chosen");
+            conf.setMyScriptPath(fileField.getText());
+            conf.setMyScriptArgs(myScriptParamsTextField.getText());
         }
-        conf.setMyScriptArgs(myScriptParamsTextField.getText());
     }
 
     @NotNull
