@@ -67,6 +67,18 @@ public abstract class Cursor<TCursor extends Cursor> {
         backtrackStack.remove(backtrackStack.size() - 1);
     }
 
+    public boolean backtrack() {
+        if (backtrackStack != null && backtrackStack.size() > 0) {
+            int top = backtrackStack.size() - 1;
+            state = backtrackStack.get(top);
+            backtrackStack.remove(top);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public void startToken(IElementType token) {
         stack.token = token;
     }

@@ -100,7 +100,7 @@ my class GrammarCompiler {
             $stmts.splice: $idx, 0, [
                 this-call('popBS'),
                 assign(field('state', 'int'), int-lit($success)),
-                Java::Generate::Statement::Continue.new
+                continue()
             ];
         }
     }
@@ -150,7 +150,11 @@ my class GrammarCompiler {
             }
         }
         my $method = ($cclass.negative ?? "not$charType.tc()" !! $charType) ~ "Char";
-        $*CUR-STATEMENTS.push: unless(this-call($method), [ret(int-lit(FAIL))]);
+        $*CUR-STATEMENTS.push: unless(this-call($method), [
+            if(this-call("backtrack"),
+                [continue()],
+                [ret(int-lit(FAIL))])
+        ]);
     }
 
     multi method compile($unknown) {
@@ -184,11 +188,17 @@ my class GrammarCompiler {
     sub ret($return) {
         Java::Generate::Statement::Return.new(:$return)
     }
-    sub if($cond, @true) {
+    multi sub if($cond, @true) {
         Java::Generate::Statement::If.new(:$cond, :@true)
+    }
+    multi sub if($cond, @true, @false) {
+        Java::Generate::Statement::If.new(:$cond, :@true, :@false)
     }
     sub unless($cond, @true) {
         if(PrefixOp.new(:op<!>, :right($cond)), @true)
+    }
+    sub continue() {
+        Java::Generate::Statement::Continue.new
     }
 
     sub mangle($name) {
