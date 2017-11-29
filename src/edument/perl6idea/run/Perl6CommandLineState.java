@@ -21,13 +21,15 @@ import java.util.List;
 public class Perl6CommandLineState extends CommandLineState {
     private List<String> command;
 
-    protected Perl6CommandLineState(Project project, ExecutionEnvironment environment, String script, String args) {
+    protected Perl6CommandLineState(Project project, ExecutionEnvironment environment, String script, String args) throws ExecutionException {
         super(environment);
         this.command = new LinkedList<>();
         Sdk projectSdk = ProjectRootManager.getInstance(project).getProjectSdk();
-        assert projectSdk != null;
+        if (projectSdk == null)
+            throw new ExecutionException("Perl 6 SDK is not set for the project, please set one");
         String path = projectSdk.getHomePath();
-        assert path != null;
+        if (path == null)
+            throw new ExecutionException("Perl 6 SDK path is likely to be corrupt");
         this.command.add(Paths.get(path, "perl6").toAbsolutePath().toString());
         this.command.add(script);
         // To avoid a call like `perl6 script.p6 ""`
