@@ -53,10 +53,12 @@ my class GrammarCompiler {
         my $*CUR-STATEMENTS;
         self!new-state();
         self.compile($rule.implementation);
-        push @statements, Java::Generate::Statement::Switch.new:
-            switch => field('state', 'int'),
-            branches => @*STATE-STATEMENTS.pairs.map({ int-lit(.key) => .value });
-        push @statements, ret(int-lit(PASS));
+        $*CUR-STATEMENTS.push(ret(int-lit(PASS)));
+        push @statements, Java::Generate::Statement::While.new:
+            cond => BooleanLiteral.new(:value),
+            body => Java::Generate::Statement::Switch.new:
+                switch => field('state', 'int'),
+                branches => @*STATE-STATEMENTS.pairs.map({ int-lit(.key) => .value });
         return ClassMethod.new:
             :access<private>, :name(%!rule-methods{$rule.name}),
             :signature(JavaSignature.new), :return-type<int>, :@statements
@@ -71,6 +73,35 @@ my class GrammarCompiler {
     multi method compile(Concat $conc) {
         for $conc.terms {
             self.compile($_);
+        }
+    }
+
+    multi method compile(SeqAlt $alt) {
+        my @alts = $alt.alternatives;
+        my @insert-goto-statements;
+        my @insert-goto-indices;
+        while @alts > 1 {
+            # We need to insert a push onto the backtracking stack for the
+            # case where a non-final element of the alternation fails. Save
+            # the point to insert the push, then compile, then create a new
+            # state, then push it. Also save places that need to have the
+            # final state, after the alternation, to jump to.
+            my $insert = $*CUR-STATEMENTS;
+            my $insert-at = $*CUR-STATEMENTS.elems;
+            self.compile(@alts.shift);
+            push @insert-goto-statements, $*CUR-STATEMENTS;
+            push @insert-goto-indices, $*CUR-STATEMENTS.elems;
+            my $failed-state = self!new-state();
+            $insert.splice($insert-at, 0, [this-call('pushBS', int-lit($failed-state))]);
+        }
+        self.compile(@alts.shift);
+        my $success = self!new-state();
+        for @insert-goto-statements Z @insert-goto-indices -> ($stmts, $idx) {
+            $stmts.splice: $idx, 0, [
+                this-call('popBS'),
+                assign(field('state', 'int'), int-lit($success)),
+                Java::Generate::Statement::Continue.new
+            ];
         }
     }
 

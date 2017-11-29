@@ -2,6 +2,9 @@ package edument.perl6idea.parsing;
 
 import com.intellij.psi.tree.IElementType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This works much like the Cursor class in Perl 6: it is the base class for grammars, and contains the state of an
  * ongoing rule parse along with having a bunch of methods used to implement parsing.
@@ -21,6 +24,10 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     /* The result of the last subrule call this Cursor made. */
     public Cursor lastResult;
+
+    /* The backtrack points stack, used to decide where to go upon a fail. Created lazily on
+    * first need for it. */
+    private List<Integer> backtrackStack;
 
     public TCursor initialize(CursorStack stack) {
         TCursor cursor = null;
@@ -48,6 +55,16 @@ public abstract class Cursor<TCursor extends Cursor> {
         cursor.state = 0;
         cursor.pos = this.pos;
         return cursor;
+    }
+
+    public void pushBS(int state) {
+        if (backtrackStack == null)
+            backtrackStack = new ArrayList<>();
+        backtrackStack.add(state);
+    }
+
+    public void popBS() {
+        backtrackStack.remove(backtrackStack.size() - 1);
     }
 
     public void startToken(IElementType token) {
