@@ -4,6 +4,7 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBTextField;
+import edument.perl6idea.utils.GUIHelpers;
 import edument.perl6idea.utils.Patterns;
 import edument.perl6idea.utils.Perl6ProjectType;
 
@@ -41,30 +42,16 @@ class Perl6ModuleWizardStep extends ModuleWizardStep {
         myMainPanel.setLayout(layout);
         if (Objects.equals(builder.getType(), Perl6ProjectType.PERL6_SCRIPT)) {
             myScriptName = new JBTextField(40);
-            addLabelAndTextFIeld("Script name", 0, myScriptName);
+            GUIHelpers.addLabelAndTextFIeld(myMainPanel, "Script name", 0, myScriptName);
         } else if (Objects.equals(builder.getType(), Perl6ProjectType.PERL6_MODULE)) {
             myModuleName = new JBTextField(40);
-            addLabelAndTextFIeld("Module name", 0, myModuleName);
+            GUIHelpers.addLabelAndTextFIeld(myMainPanel, "Module name", 0, myModuleName);
         } else {
             myModuleName = new JBTextField(40);
-            addLabelAndTextFIeld("Module name", 0, myModuleName);
+            GUIHelpers.addLabelAndTextFIeld(myMainPanel,"Module name", 0, myModuleName);
             myEntryName = new JBTextField(40);
-            addLabelAndTextFIeld("Entry point name", 1, myEntryName);
+            GUIHelpers.addLabelAndTextFIeld(myMainPanel,"Entry point name", 1, myEntryName);
         }
-    }
-
-    private void addLabelAndTextFIeld(String labelText, int yPos, JTextField field) {
-        JLabel label = new JLabel(labelText);
-        GridBagConstraints labelConstraints = new GridBagConstraints();
-        labelConstraints.fill = GridBagConstraints.BOTH;
-        labelConstraints.gridx = 0;
-        labelConstraints.gridy = yPos;
-        myMainPanel.add(label, labelConstraints);
-
-        GridBagConstraints fieldConstraints = new GridBagConstraints();
-        fieldConstraints.gridx = 1;
-        fieldConstraints.gridy = yPos;
-        myMainPanel.add(field, fieldConstraints);
     }
 
     @Override

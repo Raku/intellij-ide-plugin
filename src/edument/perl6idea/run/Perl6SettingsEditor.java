@@ -9,6 +9,7 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.RawCommandLineEditor;
 import com.intellij.ui.components.JBPanel;
+import edument.perl6idea.utils.GUIHelpers;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -43,24 +44,10 @@ public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
         fileField = new TextFieldWithBrowseButton();
         fileField.addBrowseFolderListener("Select Script", null, myProject,
                 chooserDescriptor);
-        addLabelAndTextFIeld("Script path", 0, fileField);
+        GUIHelpers.addLabelAndTextFIeld(myPanel, "Script path:", 0, fileField);
 
         myScriptParamsTextField = new RawCommandLineEditor();
-        addLabelAndTextFIeld("Script args", 1, myScriptParamsTextField);
-    }
-
-    private void addLabelAndTextFIeld(String labelText, int yPos, JComponent field) {
-        JLabel label = new JLabel(labelText);
-        GridBagConstraints labelConstraints = new GridBagConstraints();
-        labelConstraints.fill = GridBagConstraints.BOTH;
-        labelConstraints.gridx = 0;
-        labelConstraints.gridy = yPos;
-        myPanel.add(label, labelConstraints);
-
-        GridBagConstraints fieldConstraints = new GridBagConstraints();
-        fieldConstraints.gridx = 1;
-        fieldConstraints.gridy = yPos;
-        myPanel.add(field, fieldConstraints);
+        GUIHelpers.addLabelAndTextFIeld(myPanel, "Script args:", 1, myScriptParamsTextField);
     }
 
     @Override
