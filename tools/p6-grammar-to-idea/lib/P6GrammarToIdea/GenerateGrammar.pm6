@@ -123,7 +123,7 @@ my class GrammarCompiler {
             }
             default {
                 my $next = self!new-state();
-                my $rule-number = %!rule-numbers{.name};
+                my $rule-number = %!rule-numbers{$rule.name};
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit($rule-number));
             }
