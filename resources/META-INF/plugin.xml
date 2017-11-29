@@ -36,4 +36,9 @@
       <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
     </action>
   </actions>
+  <application-components>
+    <component>
+      <implementation-class>edument.perl6idea.event.ModuleMetaChangeListener</implementation-class>
+    </component>
+  </application-components>
 </idea-plugin>
