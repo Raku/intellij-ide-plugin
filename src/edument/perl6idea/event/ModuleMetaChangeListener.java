@@ -37,7 +37,7 @@ public class ModuleMetaChangeListener implements ApplicationComponent, BulkFileL
                     Matcher m = Pattern.compile("(.*)/lib/(.+).pm6").matcher(file.getPath());
                     String moduleName;
                     if(m.matches()) {
-                        moduleName = m.group(2).replaceAll(separator, "::");;
+                        moduleName = m.group(2).replaceAll(separator, "::");
                     } else {
                         continue; // XXX We probably should throw here.
                     }
@@ -68,6 +68,6 @@ public class ModuleMetaChangeListener implements ApplicationComponent, BulkFileL
 
     @Override
     public void disposeComponent() {
-        conn.disconnect();;
+        conn.disconnect();
     }
 }
