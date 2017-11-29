@@ -54,7 +54,7 @@ public class Perl6SdkType extends SdkType {
         for (String root : path.split(File.pathSeparator)) {
             final File file = new File(root, command);
             if (file.exists()) {
-                return file.getAbsolutePath();
+                return file.getParentFile().getAbsolutePath();
             }
         }
         return null;
@@ -76,8 +76,8 @@ public class Perl6SdkType extends SdkType {
 
     @Nullable
     @Override
-    public String getVersionString(@NotNull String home) {
-        Path binPath = Paths.get(home, "perl6");
+    public String getVersionString(@NotNull String path) {
+        Path binPath = Paths.get(path, "perl6");
         String[] command = {binPath.normalize().toString(), "--version"};
         try {
             if (!Files.isDirectory(binPath) && Files.isExecutable(binPath)) {
