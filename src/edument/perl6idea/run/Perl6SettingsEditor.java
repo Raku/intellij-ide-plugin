@@ -58,11 +58,14 @@ public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
 
     @Override
     protected void applyEditorTo(@NotNull Perl6RunConfiguration conf) throws ConfigurationException {
-        VirtualFile file = LocalFileSystem.getInstance().findFileByPath(fileField.getText());
-        if (file == null || !file.exists() || Objects.equals(fileField.getText(), "")) {
+        String fileLine = fileField.getText();
+        VirtualFile file = LocalFileSystem.getInstance().findFileByPath(fileLine);
+        if (file == null || !file.exists()) {
             throw new ConfigurationException("Main script path is incorrect");
-        } else {
-            conf.setMyScriptPath(fileField.getText());
+        } else if (Objects.equals(fileLine, "")) {
+            throw new ConfigurationException("Main script path is absent");
+        } else  {
+            conf.setMyScriptPath(fileLine);
             conf.setMyScriptArgs(myScriptParamsTextField.getText());
         }
     }
