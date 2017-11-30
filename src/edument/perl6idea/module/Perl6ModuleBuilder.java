@@ -158,6 +158,19 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         }
     }
 
+
+    public static String stubTest(String moduleLibraryPath, String fileName) {
+        String testPath = moduleLibraryPath + separator + 't' + separator + fileName;
+        if (!testPath.endsWith(".t"))
+            testPath = testPath + ".t";
+        List<String> lines = Arrays.asList(
+                "use Test;", "",
+                "done-testing;"
+        );
+        writeCodeToPath(Paths.get(testPath), lines);
+        return testPath;
+    }
+
     public static String stubScript(String moduleLibraryPath, String scriptName) {
         String scriptPath = moduleLibraryPath + separator + scriptName;
         if (!scriptPath.endsWith(".pl6") && !scriptPath.endsWith(".p6"))
