@@ -152,6 +152,8 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
 
     private static void writeCodeToPath(Path codePath, List<String> lines) {
         try {
+            if (Files.notExists(codePath.getParent()))
+                Files.createDirectories(codePath.getParent());
             Files.write(codePath, lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
