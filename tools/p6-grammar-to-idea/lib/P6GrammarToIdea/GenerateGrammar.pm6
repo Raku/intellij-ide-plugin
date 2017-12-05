@@ -144,13 +144,16 @@ my class GrammarCompiler {
             assign(field('state', 'int'), int-lit($loop))
         ]);
 
-        # Retrieve repeition counter and increment it; also commit.
-        $*NEED-REP = True;
-        $pre-done-statements.append: [
-            assign(local('rep', 'int'), this-call('peekRep', int-lit($done))),
-            PrefixOp.new(op => '++', right => local('rep', 'int')),
-            this-call('bsCommit', int-lit($done))
-        ];
+        # Retrieve repeition counter and increment it (unless `?`); also
+        # commit.
+        unless $min == 0 && $max == 1 {
+            $*NEED-REP = True;
+            $pre-done-statements.append: [
+                assign(local('rep', 'int'), this-call('peekRep', int-lit($done))),
+                PrefixOp.new(op => '++', right => local('rep', 'int'))
+            ];
+        }
+        $pre-done-statements.push: this-call('bsCommit', int-lit($done));
 
         # If we have a maximum to reach, enforce it.
         if $max != Inf && $max > 1 {
@@ -167,7 +170,13 @@ my class GrammarCompiler {
         }
 
         # Unless one match is what we want, loop.
-        unless $max == 1 {
+        if $max == 1 {
+            $pre-done-statements.append: [
+                assign(field('state', 'int'), int-lit($done)),
+                continue()
+            ];
+        }
+        else {
             $pre-done-statements.append: [
                 this-call('bsMark', int-lit($done), local('rep', 'int')),
                 assign(field('state', 'int'), int-lit($loop)),
