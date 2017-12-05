@@ -207,6 +207,15 @@ my class GrammarCompiler {
         }
     }
 
+    multi method compile(Literal $lit) {
+        $*CUR-STATEMENTS.push: unless(this-call('literal', str-lit($lit.value)), [backtrack()]);
+    }
+
+    multi method compile(EnumCharList $enum) {
+        my $method = $enum.negative ?? 'notInCharList' !! 'inCharList';
+        $*CUR-STATEMENTS.push: unless(this-call($method, str-lit($enum.chars)), [backtrack()]);
+    }
+
     multi method compile(BuiltinCharClass $cclass) {
         my $charType = do given $cclass.class {
             when AnyChar {

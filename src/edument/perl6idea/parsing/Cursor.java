@@ -141,6 +141,38 @@ public abstract class Cursor<TCursor extends Cursor> {
         stack.tokenStart = pos;
     }
 
+    public boolean literal(String value) {
+        int end = pos + value.length();
+        if (end <= stack.target.length()) {
+            if (value.contentEquals(stack.target.subSequence(pos, end))) {
+                pos += value.length();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean inCharList(String chars) {
+        if (pos < stack.target.length()) {
+            if (chars.contains(stack.target.subSequence(pos, pos + 1))) {
+                pos++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean notInCharList(String chars) {
+        if (pos < stack.target.length()) {
+            CharSequence checkChar = stack.target.subSequence(pos, pos + 1);
+            if (!chars.contains(checkChar)) {
+                pos++;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean anyChar() {
         if (pos < stack.target.length()) {
             pos++;
