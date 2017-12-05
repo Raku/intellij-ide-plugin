@@ -98,7 +98,7 @@ public abstract class Cursor<TCursor extends Cursor> {
         int cursor = backtrackStack.size() - 4;
         while (true) {
             if (backtrackStack.get(cursor) == state)
-                return backtrackStack.get(cursor + 1);
+                return backtrackStack.get(cursor + 2);
             cursor -= 4;
         }
     }
