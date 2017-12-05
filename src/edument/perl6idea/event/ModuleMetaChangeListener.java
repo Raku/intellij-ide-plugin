@@ -43,6 +43,10 @@ public class ModuleMetaChangeListener implements ApplicationComponent, BulkFileL
     }
 
     @Override
+    public void before(@NotNull List<? extends VFileEvent> list) {
+    }
+
+    @Override
     public void after(@NotNull List<? extends VFileEvent> events) {
         for (VFileEvent event : events) {
             if (event instanceof VFileDeleteEvent) {
@@ -123,5 +127,11 @@ public class ModuleMetaChangeListener implements ApplicationComponent, BulkFileL
     @Override
     public void disposeComponent() {
         conn.disconnect();
+    }
+
+    @NotNull
+    @Override
+    public String getComponentName() {
+        return "Perl 6 Module Change Listener";
     }
 }
