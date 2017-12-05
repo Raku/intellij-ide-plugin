@@ -138,6 +138,7 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     public void startToken(IElementType token) {
         stack.token = token;
+        stack.tokenStart = pos;
     }
 
     public boolean anyChar() {

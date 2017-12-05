@@ -12,6 +12,7 @@ public class CursorStack {
     private List<Cursor> cursors = new ArrayList<Cursor>();
     public CharSequence target;
     public IElementType token;
+    public int tokenStart;
 
     public CursorStack(CharSequence target) {
         this.target = target;
