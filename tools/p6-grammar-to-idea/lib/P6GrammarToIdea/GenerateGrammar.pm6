@@ -248,6 +248,10 @@ my class GrammarCompiler {
         $*CUR-STATEMENTS.push: unless(this-call($method), [backtrack()]);
     }
 
+    multi method compile(AnchorPass) {
+        # Just continue onwards past this point, no action needed
+    }
+
     multi method compile($unknown) {
         die "Unimplemented compilation of node type $unknown.^name()";
     }
