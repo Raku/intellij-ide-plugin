@@ -117,8 +117,8 @@ public abstract class Cursor<TCursor extends Cursor> {
         if (backtrackStack == null)
             return false;
         while (backtrackStack.size() > 0) {
-            int toPos = backtrackStack.size() - 3;
-            int toState = backtrackStack.size() - 4;
+            int toPos = backtrackStack.get(backtrackStack.size() - 3);
+            int toState = backtrackStack.get(backtrackStack.size() - 4);
             if (toPos < 0) {
                 /* Just remove this mark and continue backtracking. */
                 for (int i = 0; i < 4; i++)
