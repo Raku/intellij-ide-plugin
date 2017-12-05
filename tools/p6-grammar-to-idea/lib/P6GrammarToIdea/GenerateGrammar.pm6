@@ -194,7 +194,8 @@ my class GrammarCompiler {
                 $append-to.push: ret(int-lit($rule-number));
                 $*CUR-STATEMENTS.push: if(
                     call(field('lastResult', 'cursor'), 'isFailed'),
-                    [backtrack()]
+                    [backtrack()],
+                    [assign(field('pos', 'int'), call(field('lastResult', 'cursor'), 'getPos'))]
                 );
             }
         }

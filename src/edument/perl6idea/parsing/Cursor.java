@@ -69,6 +69,10 @@ public abstract class Cursor<TCursor extends Cursor> {
         return !passed;
     }
 
+    public int getPos() {
+        return pos;
+    }
+
     public void bsMark(int state) {
         pushBsMark(state, pos, 0);
     }
