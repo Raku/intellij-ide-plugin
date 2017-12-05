@@ -204,7 +204,6 @@ class P6GrammarToIdea::Actions {
     }
 
     method cclass_elem($/) {
-        die "Negated cclasses NYI" if $<sign> eq '-';
         my @chars;
         my @alts;
         for $<charspec> -> $c {
@@ -227,9 +226,16 @@ class P6GrammarToIdea::Actions {
         if @chars {
             push @alts, EnumCharList.new: chars => @chars.join;
         }
-        make @alts == 1
-            ?? @alts[0]
-            !! Alt.new(alternatives => @alts);
+        if $<sign> eq '-' {
+            if @alts == 1 && @alts[0] ~~ EnumCharList {
+                make EnumCharList.new: chars => @alts[0].chars, :negative; 
+            }
+        }
+        else {
+            make @alts == 1
+                ?? @alts[0]
+                !! Alt.new(alternatives => @alts);
+        }
     }
 
     method cclass_backslash:sym<s>($/) {
