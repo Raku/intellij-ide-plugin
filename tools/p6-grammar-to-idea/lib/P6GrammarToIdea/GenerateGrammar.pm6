@@ -133,9 +133,10 @@ my class GrammarCompiler {
         my $pre-done-statements = $*CUR-STATEMENTS;
         my $done = self!new-state();
 
-        # Insert initial backtrack mark.
+        # Insert initial backtrack mark, then continue to loop state.
         $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
-            this-call($min == 0 ?? 'bsMark' !! 'bsFailMark', int-lit($done))
+            this-call($min == 0 ?? 'bsMark' !! 'bsFailMark', int-lit($done)),
+            assign(field('state', 'int'), int-lit($loop))
         ]);
 
         # Retrieve repeition counter and increment it; also commit.
