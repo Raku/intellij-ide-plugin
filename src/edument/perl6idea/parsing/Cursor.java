@@ -29,7 +29,12 @@ public abstract class Cursor<TCursor extends Cursor> {
     public boolean passed;
 
     /* The backtrack points stack, used to decide where to go upon a fail. Created lazily on
-    * first need for it. */
+    * first need for it. Contains groups of 4 integers, which are:
+     * 0. The location in the rule to backtrack to
+     * 1. The position to reset pos to
+     * 2. A repetition count, or zero (for quantifiers)
+     * 3. The height of the capture stack at the point the mark was made
+     */
     private List<Integer> backtrackStack;
 
     public TCursor initialize(CursorStack stack) {
@@ -64,26 +69,54 @@ public abstract class Cursor<TCursor extends Cursor> {
         return !passed;
     }
 
-    public void pushBS(int state) {
+    public void bsMark(int state) {
+        pushBsMark(state, pos, 0);
+    }
+
+    public void bsFailMark(int state) {
+        pushBsMark(state, -1, 0);
+    }
+
+    private void pushBsMark(int state, int pos, int rep) {
         if (backtrackStack == null)
             backtrackStack = new ArrayList<>();
         backtrackStack.add(state);
+        backtrackStack.add(pos);
+        backtrackStack.add(rep);
+        backtrackStack.add(0);
     }
 
-    public void popBS() {
-        backtrackStack.remove(backtrackStack.size() - 1);
+    public void bsCommit(int state) {
+        while (true) {
+            int removeState = backtrackStack.get(backtrackStack.size() - 4);
+            for (int i = 0; i < 4; i++)
+                backtrackStack.remove(backtrackStack.size() - 1);
+            if (state == removeState)
+                return;
+        }
     }
 
     public boolean backtrack() {
-        if (backtrackStack != null && backtrackStack.size() > 0) {
-            int top = backtrackStack.size() - 1;
-            state = backtrackStack.get(top);
-            backtrackStack.remove(top);
-            return true;
-        }
-        else {
+        if (backtrackStack == null)
             return false;
+        while (backtrackStack.size() > 0) {
+            int toPos = backtrackStack.size() - 3;
+            int toState = backtrackStack.size() - 4;
+            if (toPos < 0) {
+                /* Just remove this mark and continue backtracking. */
+                for (int i = 0; i < 4; i++)
+                    backtrackStack.remove(backtrackStack.size() - 1);
+            }
+            else {
+                /* Restore state and position, remove mark, and we're done. */
+                state = toState;
+                pos = toPos;
+                for (int i = 0; i < 4; i++)
+                    backtrackStack.remove(backtrackStack.size() - 1);
+                return true;
+            }
         }
+        return false;
     }
 
     public void startToken(IElementType token) {

@@ -80,6 +80,8 @@ my class GrammarCompiler {
         my @alts = $alt.alternatives;
         my @insert-goto-statements;
         my @insert-goto-indices;
+        my $insert-initial-mark-statements = $*CUR-STATEMENTS;
+        my $insert-initial-mark-index = $*CUR-STATEMENTS.elems;
         while @alts > 1 {
             # We need to insert a push onto the backtracking stack for the
             # case where a non-final element of the alternation fails. Save
@@ -92,13 +94,16 @@ my class GrammarCompiler {
             push @insert-goto-statements, $*CUR-STATEMENTS;
             push @insert-goto-indices, $*CUR-STATEMENTS.elems;
             my $failed-state = self!new-state();
-            $insert.splice($insert-at, 0, [this-call('pushBS', int-lit($failed-state))]);
+            $insert.splice($insert-at, 0, [this-call('bsMark', int-lit($failed-state))]);
         }
         self.compile(@alts.shift);
         my $success = self!new-state();
+        $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
+            this-call('bsFailMark', int-lit($success))
+        ]);
         for @insert-goto-statements Z @insert-goto-indices -> ($stmts, $idx) {
             $stmts.splice: $idx, 0, [
-                this-call('popBS'),
+                this-call('bsCommit', int-lit($success)),
                 assign(field('state', 'int'), int-lit($success)),
                 continue()
             ];
