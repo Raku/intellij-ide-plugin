@@ -101,7 +101,12 @@ my class GrammarCompiler {
             $insert.splice($insert-at, 0, [this-call('bsMark', int-lit($failed-state))]);
         }
         self.compile(@alts.shift);
+        my $after-last-statement = $*CUR-STATEMENTS;
         my $success = self!new-state();
+        $after-last-statement.append: [
+            assign(field('state', 'int'), int-lit($success)),
+            continue()
+        ];
         $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
             this-call('bsFailMark', int-lit($success))
         ]);
