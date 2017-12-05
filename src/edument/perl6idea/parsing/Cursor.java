@@ -73,6 +73,10 @@ public abstract class Cursor<TCursor extends Cursor> {
         pushBsMark(state, pos, 0);
     }
 
+    public void bsMark(int state, int rep) {
+        pushBsMark(state, pos, rep);
+    }
+
     public void bsFailMark(int state) {
         pushBsMark(state, -1, 0);
     }
@@ -84,6 +88,15 @@ public abstract class Cursor<TCursor extends Cursor> {
         backtrackStack.add(pos);
         backtrackStack.add(rep);
         backtrackStack.add(0);
+    }
+
+    public int peekRep(int state) {
+        int cursor = backtrackStack.size() - 4;
+        while (true) {
+            if (backtrackStack.get(cursor) == state)
+                return backtrackStack.get(cursor + 1);
+            cursor -= 4;
+        }
     }
 
     public void bsCommit(int state) {

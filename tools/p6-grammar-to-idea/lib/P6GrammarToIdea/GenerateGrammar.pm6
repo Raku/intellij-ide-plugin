@@ -51,9 +51,13 @@ my class GrammarCompiler {
         my @statements;
         my @*STATE-STATEMENTS;
         my $*CUR-STATEMENTS;
+        my $*NEED-REP = False;
         self!new-state();
         self.compile($rule.implementation);
         $*CUR-STATEMENTS.push(ret(int-lit(PASS)));
+        if $*NEED-REP {
+            push @statements, decl(local('rep', 'int'));
+        }
         push @statements, Java::Generate::Statement::While.new:
             cond => BooleanLiteral.new(:value),
             body => Java::Generate::Statement::Switch.new:
@@ -111,7 +115,64 @@ my class GrammarCompiler {
     }
 
     multi method compile(Quantifier $quant) {
-        # TODO actually quantify
+        my ($min, $max) = $quant.min, $quant.max;
+        return if $min == $max == 0;
+        die "Compiling quantifiers with separators NYI" with $quant.separator; 
+
+        # Save point that we should insert push of initial backtrack mark.
+        my $insert-initial-mark-statements = $*CUR-STATEMENTS;
+        my $insert-initial-mark-index = $*CUR-STATEMENTS.elems;
+
+        # Need a new state which will be used as the quantifier loop.
+        my $loop = self!new-state();
+
+        # Compile the target being quantified.
+        self.compile($quant.target);
+
+        # We need a done state, but then to insert things before it.
+        my $pre-done-statements = $*CUR-STATEMENTS;
+        my $done = self!new-state();
+
+        # Insert initial backtrack mark.
+        $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
+            this-call($min == 0 ?? 'bsMark' !! 'bsFailMark', int-lit($done))
+        ]);
+
+        # Retrieve repeition counter and increment it; also commit.
+        $*NEED-REP = True;
+        $pre-done-statements.append: [
+            assign(local('rep', 'int'), this-call('peekRep', int-lit($done))),
+            PrefixOp.new(op => '++', right => local('rep', 'int')),
+            this-call('bsCommit', int-lit($done))
+        ];
+
+        # If we have a maximum to reach, enforce it.
+        if $max != Inf && $max > 1 {
+            $pre-done-statements.push: if(
+                cond => InfixOp.new(
+                    left => local('rep', 'int'),
+                    op => '>=',
+                    right => int-lit($max)
+                ),
+                then => [
+                    assign(field('state', 'int'), int-lit($done)),
+                    continue()
+                ]);
+        }
+
+        # Unless one match is what we want, loop.
+        unless $max == 1 {
+            $pre-done-statements.append: [
+                this-call('bsMark', int-lit($done), local('rep', 'int')),
+                assign(field('state', 'int'), int-lit($loop)),
+                continue()
+            ];
+        }
+
+        # Enforce minimum.
+        if $min > 1 {
+            die "Compiling quantifier with minimum > 1 NYI";
+        }
     }
 
     multi method compile(Subrule $rule) {
