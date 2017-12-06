@@ -5,7 +5,7 @@ use P6GrammarToIdea::AST;
 # * Lack of MAIN braid, and lack of TOP in that braid
 # * Calling of unknown rules
 
-my constant %BUILTIN-RULES := set 'start-token', 'end-token';
+my constant %BUILTIN-RULES := set 'start-token', 'end-token', 'start-element', 'end-element';
 
 multi sub sanity-check(Braids $braids) is export {
     my @*ERRORS;

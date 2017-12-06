@@ -202,6 +202,9 @@ my class GrammarCompiler {
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit(END-TOKEN));
             }
+            when 'start-element' | 'end-element' {
+                # These aren't relevant for lexer generation
+            }
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};

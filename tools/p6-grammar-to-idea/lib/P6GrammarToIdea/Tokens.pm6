@@ -101,6 +101,9 @@ multi sub walk(Subrule $call) {
             $*CURRENT-TOKEN = Nil;
             $*CURRENT-TOKEN-START-PRODUCTION = Nil;
         }
+        when 'start-element' | 'end-element' {
+            # Not significant for the tokenizer
+        }
         default {
             my $*CURRENT-PRODUCTION = $*CURRENT-GRAMMAR.get-rule($call.name);
             walk($*CURRENT-PRODUCTION);
