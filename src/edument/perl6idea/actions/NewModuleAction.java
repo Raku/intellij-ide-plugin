@@ -32,7 +32,7 @@ public class NewModuleAction extends AnAction {
             }
         };
         String moduleName = Messages.showInputDialog(project,
-                "What is new module name?",
+                "Module name (examples: TopLevelName, My::Module):",
                 "New Module Name",
                 Messages.getQuestionIcon(), null, validator);
         // If user cancelled action.

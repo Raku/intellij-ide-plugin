@@ -30,7 +30,7 @@ public class NewTestAction extends AnAction {
             }
         };
         String fileName = Messages.showInputDialog(project,
-                "What is new test name?",
+                "Test file name (without .t extension):",
                 "New Test Name",
                 Messages.getQuestionIcon(), null, validator);
         if (fileName == null)

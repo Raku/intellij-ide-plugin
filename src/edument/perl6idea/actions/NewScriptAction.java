@@ -30,7 +30,7 @@ public class NewScriptAction extends AnAction {
             }
         };
         String fileName = Messages.showInputDialog(project,
-                    "What is new script name?",
+                    "Script name (example: foo, foo.p6):",
                     "New Script Name",
                     Messages.getQuestionIcon(), null, validator);
         // If user cancelled action.
