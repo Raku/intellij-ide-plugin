@@ -1,14 +1,19 @@
 grammar MAIN {
     token TOP {
+        <.start-element('FILE')>
         <.statementlist>
+        <.end-element('FILE')>
     }
 
     token statementlist {
+        <.start-element('STATEMENT_LIST')>
         <.statement>*
+        <.end-element('STATEMENT_LIST')>
     }
 
     token statement {
         <.ws>?
+        <.start-element('STATEMENT')>
         [
         || <.statement_control>
         || <?>
@@ -17,6 +22,7 @@ grammar MAIN {
         <.start-token('STATEMENT_TERMINATOR')>
         ';'
         <.end-token('STATEMENT_TERMINATOR')>
+        <.end-element('STATEMENT')>
         <.ws>?
     }
 
@@ -37,11 +43,13 @@ grammar MAIN {
     }
 
     token statement_control_use {
+        <.start-element('USE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'use'
         <.end-token('STATEMENT_CONTROL')>
         <.ws>
         <.name>
+        <.end-element('USE_STATEMENT')>
     }
 
     token name {
