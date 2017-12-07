@@ -2,7 +2,9 @@ use P6GrammarToIdea::Parser;
 use P6GrammarToIdea::Actions;
 use P6GrammarToIdea::SanityCheck;
 use P6GrammarToIdea::Tokens;
+use P6GrammarToIdea::Elements;
 use P6GrammarToIdea::GenerateTokenTypes;
+use P6GrammarToIdea::GenerateElementTypes;
 use P6GrammarToIdea::GenerateGrammar;
 
 multi sub MAIN('parse', $input-file where .IO.f) {
@@ -20,9 +22,14 @@ multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d)
 
     sanity-check($ast);
     my @token-names = check-and-get-tokens($ast);
+    my $element-model = build-element-model($ast);
 
     say "Generating Perl6TokenTypes.java";
     spurt $output-dir.add('Perl6TokenTypes.java'), generate-perl6-token-types(@token-names);
+
+    say "Generating Perl6ElementTypes.java";
+    spurt $output-dir.add('Perl6ElementTypes.java'), generate-perl6-element-types
+        $element-model.element-names;
 
     for $ast.braids.kv -> $name, $grammar {
         my $filename = $name ~ 'Braid.java';
