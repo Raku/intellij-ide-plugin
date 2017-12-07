@@ -24,7 +24,7 @@ public class Perl6RunConfiguration extends RunConfigurationBase {
     private String myScriptPath;
     private String myScriptArgs;
 
-    protected Perl6RunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
+    Perl6RunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
         super(project, factory, name);
         this.myProject = project;
     }
@@ -32,13 +32,13 @@ public class Perl6RunConfiguration extends RunConfigurationBase {
     @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        return new Perl6SettingsEditor(myProject);
+        return new Perl6RunSettingsEditor(myProject);
     }
 
     @Nullable
     @Override
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment) throws ExecutionException {
-        return new Perl6CommandLineState(myProject, environment, myScriptPath, myScriptArgs);
+        return new Perl6RunCommandLineState(myProject, environment, myScriptPath, myScriptArgs);
     }
 
     String getMyScriptPath() {

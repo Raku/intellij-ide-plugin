@@ -31,6 +31,6 @@ public class Perl6RunConfigurationType implements ConfigurationType {
 
     @Override
     public ConfigurationFactory[] getConfigurationFactories() {
-        return new ConfigurationFactory[]{new Perl6ConfigurationFactory(this)};
+        return new ConfigurationFactory[]{new Perl6RunConfigurationFactory(this)};
     }
 }

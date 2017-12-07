@@ -17,12 +17,12 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Perl6SettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
+public class Perl6RunSettingsEditor extends SettingsEditor<Perl6RunConfiguration> {
     private JPanel myPanel;
     private TextFieldWithBrowseButton fileField;
     private RawCommandLineEditor myScriptParamsTextField;
 
-    public Perl6SettingsEditor(Project myProject) {
+    public Perl6RunSettingsEditor(Project myProject) {
         super();
         myPanel = new JBPanel<>();
         GridBagLayout layout = new GridBagLayout();

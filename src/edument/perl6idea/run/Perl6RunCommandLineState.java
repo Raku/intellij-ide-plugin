@@ -18,10 +18,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Perl6CommandLineState extends CommandLineState {
+public class Perl6RunCommandLineState extends CommandLineState {
     private List<String> command;
 
-    protected Perl6CommandLineState(Project project, ExecutionEnvironment environment, String script, String args) throws ExecutionException {
+    protected Perl6RunCommandLineState(Project project, ExecutionEnvironment environment, String script, String args) throws ExecutionException {
         super(environment);
         this.command = new LinkedList<>();
         Sdk projectSdk = ProjectRootManager.getInstance(project).getProjectSdk();
