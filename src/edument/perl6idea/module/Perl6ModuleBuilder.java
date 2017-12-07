@@ -249,7 +249,7 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
     @Nullable
     @Override
     public ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
-        Perl6TypeWizardStep step = new Perl6TypeWizardStep(this);
+        TypeWizardStepForm step = new TypeWizardStepForm(this);
         Disposer.register(parentDisposable, step);
         return step;
     }
