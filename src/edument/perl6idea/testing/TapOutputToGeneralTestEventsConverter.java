@@ -43,10 +43,17 @@ public class TapOutputToGeneralTestEventsConverter extends OutputToGeneralTestEv
             currentTap = "";
             List<TestResult> results = set.getTestResults();
             super.processServiceMessages(new ServiceMessageBuilder("enteredTheMatrix").toString(), myOutputType, visitor);
-            super.processServiceMessages(ServiceMessageBuilder.testSuiteStarted("My Perl6 suite").addAttribute("count", "1").toString(), myOutputType, visitor);
+            super.processServiceMessages(
+                    new ServiceMessageBuilder("testCount")
+                            .addAttribute(
+                                    "count",
+                                    String.valueOf(set.getNumberOfTestResults())).toString(),
+                    myOutputType, visitor);
+            super.processServiceMessages(ServiceMessageBuilder.testSuiteStarted("My Perl6 suite").toString(), myOutputType, visitor);
             for (int i = 0; i < results.size(); i++) {
                 super.processServiceMessages(ServiceMessageBuilder.testStarted("My test" + i).toString(), myOutputType, visitor);
-                super.processServiceMessages(ServiceMessageBuilder.testFinished("My test" + i).toString(), myOutputType, visitor);
+                super.processServiceMessages(ServiceMessageBuilder.testStdOut("Bang!").toString(), myOutputType, visitor);
+                //super.processServiceMessages(ServiceMessageBuilder.testFinished("My test" + i).toString(), myOutputType, visitor);
                 System.out.println("Text");
             }
             super.processServiceMessages(ServiceMessageBuilder.testSuiteFinished("My Perl6 suite").toString(), myOutputType, visitor);
