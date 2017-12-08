@@ -36,16 +36,16 @@ public class Perl6TestRunningState extends CommandLineState {
     @Override
     @NotNull
     public ExecutionResult execute(@NotNull Executor executor, @NotNull ProgramRunner runner) throws ExecutionException {
+        final ConsoleView consoleView = createConsole(getEnvironment());
         final ProcessHandler processHandler = startProcess();
-        final ConsoleView consoleView = createConsole(getEnvironment(), processHandler);
         consoleView.attachToProcess(processHandler);
         return new DefaultExecutionResult(consoleView, processHandler);
     }
 
-    private static ConsoleView createConsole(@NotNull ExecutionEnvironment env, ProcessHandler processHandler) {
+    private static ConsoleView createConsole(@NotNull ExecutionEnvironment env) {
         final Project project = env.getProject();
         final Perl6TestRunConfiguration runConfiguration = (Perl6TestRunConfiguration) env.getRunProfile();
-        final TestConsoleProperties testConsoleProperties = new Perl6TestConsoleProperties(runConfiguration, env, processHandler);
+        final TestConsoleProperties testConsoleProperties = new Perl6TestConsoleProperties(runConfiguration, env);
         final ConsoleView consoleView = SMTestRunnerConnectionUtil.createConsole("Perl 6 tests", testConsoleProperties);
         Disposer.register(project, consoleView);
         return consoleView;
@@ -77,17 +77,15 @@ public class Perl6TestRunningState extends CommandLineState {
     }
 
     static class Perl6TestConsoleProperties extends SMTRunnerConsoleProperties implements SMCustomMessagesParsing {
-        private ProcessHandler ph;
-
-        public Perl6TestConsoleProperties(RunConfiguration runConfiguration, ExecutionEnvironment env, ProcessHandler processHandler) {
+        public Perl6TestConsoleProperties(RunConfiguration runConfiguration, ExecutionEnvironment env) {
             super(runConfiguration, "PERL6_TEST_CONFIGURATION", env.getExecutor());
             setIdBasedTestTree(true);
-            this.ph = processHandler;
+            setUsePredefinedMessageFilter(false);
         }
 
         @Override
         public OutputToGeneralTestEventsConverter createTestEventsConverter(@NotNull String testFrameworkName, @NotNull TestConsoleProperties consoleProperties) {
-            return new TapOutputToGeneralTestEventsConverter(testFrameworkName, consoleProperties, ph);
+            return new TapOutputToGeneralTestEventsConverter(testFrameworkName, consoleProperties);
         }
     }
 }

@@ -1,6 +1,5 @@
 package edument.perl6idea.testing;
 
-import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.process.ProcessOutputTypes;
 import com.intellij.execution.testframework.TestConsoleProperties;
 import com.intellij.execution.testframework.sm.ServiceMessageBuilder;
@@ -13,30 +12,24 @@ import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 
-import javax.annotation.Nullable;
 import java.text.ParseException;
 import java.util.List;
 
 public class TapOutputToGeneralTestEventsConverter extends OutputToGeneralTestEventsConverter {
-    @Nullable
-    private ServiceMessageVisitor myVisitor;
     @NotNull
     private TapConsumer myConsumer;
     private String currentTap;
     private int newTest = 1;
-    private ProcessHandler ph;
+    private Key myOutputType;
 
-    public TapOutputToGeneralTestEventsConverter(@NotNull String testFrameworkName, @NotNull TestConsoleProperties consoleProperties, ProcessHandler ph) {
+    public TapOutputToGeneralTestEventsConverter(@NotNull String testFrameworkName, @NotNull TestConsoleProperties consoleProperties) {
         super(testFrameworkName, consoleProperties);
         myConsumer = TapConsumerFactory.makeTap13Consumer();
-        this.ph = ph;
     }
 
     @Override
     protected boolean processServiceMessages(String text, final Key outputType, final ServiceMessageVisitor visitor) throws ParseException {
-        if (myVisitor == null && visitor != null) {
-            myVisitor = visitor;
-        }
+        myOutputType = outputType;
 
         if (outputType == ProcessOutputTypes.STDOUT || outputType == ProcessOutputTypes.STDERR) {
             currentTap += text;
@@ -49,14 +42,14 @@ public class TapOutputToGeneralTestEventsConverter extends OutputToGeneralTestEv
             TestSet set = myConsumer.load(currentTap);
             currentTap = "";
             List<TestResult> results = set.getTestResults();
-            ph.notifyTextAvailable(new ServiceMessageBuilder("enteredTheMatrix").toString() + "\n", ProcessOutputTypes.STDOUT);
-            ph.notifyTextAvailable(ServiceMessageBuilder.testSuiteFinished("My suite").addAttribute("count", String.valueOf(results.size())).toString() + "\n", ProcessOutputTypes.STDOUT);
+            super.processServiceMessages(new ServiceMessageBuilder("enteredTheMatrix").toString(), myOutputType, visitor);
+            super.processServiceMessages(ServiceMessageBuilder.testSuiteStarted("My Perl6 suite").addAttribute("count", "1").toString(), myOutputType, visitor);
             for (int i = 0; i < results.size(); i++) {
+                super.processServiceMessages(ServiceMessageBuilder.testStarted("My test" + i).toString(), myOutputType, visitor);
+                super.processServiceMessages(ServiceMessageBuilder.testFinished("My test" + i).toString(), myOutputType, visitor);
                 System.out.println("Text");
-                ph.notifyTextAvailable(ServiceMessageBuilder.testStarted("My test" + i).toString() + "\n", ProcessOutputTypes.STDOUT);
-                ph.notifyTextAvailable(ServiceMessageBuilder.testFinished("My test" + i).addAttribute("duration", String.valueOf(1)).toString() + "\n", ProcessOutputTypes.STDOUT);
             }
-            ph.notifyTextAvailable(ServiceMessageBuilder.testSuiteFinished("My suite").toString() + "\n", ProcessOutputTypes.STDOUT);
+            super.processServiceMessages(ServiceMessageBuilder.testSuiteFinished("My Perl6 suite").toString(), myOutputType, visitor);
         }
         return true;
     }
