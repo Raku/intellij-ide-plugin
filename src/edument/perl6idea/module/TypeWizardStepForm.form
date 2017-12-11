@@ -5,6 +5,7 @@
       <xy x="20" y="20" width="1551" height="539"/>
     </constraints>
     <properties>
+      <enabled value="true"/>
       <preferredSize width="300" height="109"/>
     </properties>
     <border type="none"/>
@@ -12,7 +13,7 @@
       <grid id="a32b5" binding="panel1" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.7"/>
         </constraints>
         <properties/>
@@ -39,11 +40,11 @@
           </component>
         </children>
       </grid>
-      <grid id="67ad0" binding="panel2" custom-create="true" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="67ad0" binding="panel2" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.2"/>
+          <gridbag weightx="0.0" weighty="0.1"/>
         </constraints>
         <properties/>
         <border type="line" title="Description"/>
@@ -52,7 +53,7 @@
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="700" height="40"/>
-                <maximum-size width="800" height="40"/>
+                <maximum-size width="-1" height="40"/>
               </grid>
             </constraints>
             <properties>
@@ -61,8 +62,8 @@
               <autoscrolls value="false"/>
               <doubleBuffered value="true"/>
               <font swing-font="ToolTip.font"/>
-              <horizontalAlignment value="2"/>
-              <horizontalTextPosition value="2"/>
+              <horizontalAlignment value="10"/>
+              <horizontalTextPosition value="10"/>
               <maximumSize width="400" height="50"/>
               <minimumSize width="100" height="17"/>
               <text value="&lt;html&gt;Creates a stub script file, and nothing more.&lt;/html&gt;" noi18n="true"/>
@@ -70,11 +71,6 @@
               <verticalTextPosition value="1"/>
             </properties>
           </component>
-          <vspacer id="73430">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
         </children>
       </grid>
     </children>
