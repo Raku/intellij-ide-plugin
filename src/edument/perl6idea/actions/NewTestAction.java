@@ -12,6 +12,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import edument.perl6idea.module.Perl6ModuleBuilder;
 import edument.perl6idea.utils.Patterns;
 
+import java.util.Collections;
+
 public class NewTestAction extends AnAction {
 
     @Override
@@ -35,7 +37,7 @@ public class NewTestAction extends AnAction {
                 Messages.getQuestionIcon(), null, validator);
         if (fileName == null)
             return;
-        String testPath = Perl6ModuleBuilder.stubTest(project.getBaseDir().getCanonicalPath(), fileName);
+        String testPath = Perl6ModuleBuilder.stubTest(project.getBaseDir().getCanonicalPath(), fileName, Collections.emptyList());
         VirtualFile testFile = LocalFileSystem.getInstance().refreshAndFindFileByPath(testPath);
         assert testFile != null;
         FileEditorManager.getInstance(project).openFile(testFile, true);

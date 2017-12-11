@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 
 import static java.io.File.separator;
 
@@ -22,7 +23,7 @@ public class NewActionsTestCase extends LightPlatformCodeInsightFixtureTestCase 
         Project p = getProject();
         String basePath = p.getBasePath();
         Perl6ModuleBuilder.stubModule(p, basePath, "Foo::Bar", null, true);
-        assertDoesntExist(Paths.get(basePath, "Foo", "Bar.pm6").toFile());
+        assertExists(Paths.get(basePath, "Foo", "Bar.pm6").toFile());
         Perl6ModuleBuilder.stubModule(p, Paths.get(basePath, "lib").toString(), "Foo::Bar", null, true);
         assertExists(Paths.get(basePath, "lib", "Foo", "Bar.pm6").toFile());
         assertExists(Paths.get(basePath, "META6.json").toFile());
@@ -36,8 +37,8 @@ public class NewActionsTestCase extends LightPlatformCodeInsightFixtureTestCase 
     public void testNewTestAction() {
         Project p = getProject();
         String basePath = p.getBasePath();
-        Perl6ModuleBuilder.stubTest(basePath, "10-sanity");
-        Perl6ModuleBuilder.stubTest(basePath, "20-sanity.t");
+        Perl6ModuleBuilder.stubTest(basePath + separator + "t", "10-sanity", Collections.emptyList());
+        Perl6ModuleBuilder.stubTest(basePath + separator + "t", "20-sanity.t", Collections.emptyList());
         assertExists(Paths.get(basePath, "t", "10-sanity.t").toFile());
         assertExists(Paths.get(basePath, "t", "20-sanity.t").toFile());
     }

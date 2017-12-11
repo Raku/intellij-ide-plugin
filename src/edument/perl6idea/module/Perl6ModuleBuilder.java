@@ -29,10 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.io.File.separator;
 
@@ -72,16 +69,26 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
             if (type == Perl6ProjectType.PERL6_SCRIPT) {
                 stubScript(moduleLibraryPath, this.scriptName);
             } else if (type == Perl6ProjectType.PERL6_MODULE) {
-                stubModule(project, moduleLibraryPath, this.moduleName, null, true);
+                if (moduleLibraryPath.endsWith("lib"))
+                    stubModule(project, moduleLibraryPath, this.moduleName, null, true);
+                if (moduleLibraryPath.endsWith("t"))
+                    stubTest(moduleLibraryPath,
+                            "00-sanity.t",
+                            Collections.singletonList(moduleName));
             } else if (type == Perl6ProjectType.PERL6_APPLICATION) {
-                stubModule(project, moduleLibraryPath, this.moduleName, this.entryPointName, true);
-                stubEntryPoint(moduleLibraryPath);
+                if (moduleLibraryPath.endsWith("lib"))
+                    stubModule(project, moduleLibraryPath, this.moduleName, this.entryPointName, true);
+                if (moduleLibraryPath.endsWith("bin"))
+                    stubEntryPoint(moduleLibraryPath);
+                if (moduleLibraryPath.endsWith("t"))
+                    stubTest(moduleLibraryPath,
+                            "00-sanity.t",
+                            Collections.singletonList(moduleName));
             }
         }
     }
 
     private void stubEntryPoint(String moduleLibraryPath) {
-        if (!moduleLibraryPath.endsWith(separator + "bin")) return;
         Path entryPath = Paths.get(moduleLibraryPath, entryPointName);
         List<String> lines = Arrays.asList(
                 "#!/usr/bin/env perl6",
@@ -91,26 +98,15 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
     }
 
     public static String stubModule(Project project, String moduleLibraryPath, String moduleName, @Nullable String entryPointName, boolean firstModule) {
-        if (moduleLibraryPath.endsWith(separator + "lib")) {
-            if (firstModule) {
-                writeMetaFile(project, moduleName, entryPointName);
-            } else {
-                addModuleToMetaFile(project, moduleName);
-            }
-            String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))) + ".pm6";
-            new File(modulePath).getParentFile().mkdirs();
-            writeCodeToPath(Paths.get(modulePath), Collections.singletonList(""));
-            return modulePath;
-        } else if (moduleLibraryPath.endsWith(separator + "t")) {
-            Path testPath = Paths.get(moduleLibraryPath, "00-sanity.t");
-            List<String> lines = Arrays.asList(
-                    String.format("use %s;", moduleName),
-                    "use Test;", "", "done-testing;"
-            );
-            writeCodeToPath(testPath, lines);
-            return testPath.toString();
+        if (firstModule) {
+            writeMetaFile(project, moduleName, entryPointName);
+        } else {
+            addModuleToMetaFile(project, moduleName);
         }
-        return moduleLibraryPath;
+        String modulePath = Paths.get(moduleLibraryPath, (moduleName.split("::"))) + ".pm6";
+        new File(modulePath).getParentFile().mkdirs();
+        writeCodeToPath(Paths.get(modulePath), Collections.singletonList(""));
+        return modulePath;
     }
 
     private static void addModuleToMetaFile(Project project, String moduleName) {
@@ -160,15 +156,17 @@ public class Perl6ModuleBuilder extends ModuleBuilder implements SourcePathsBuil
         }
     }
 
-
-    public static String stubTest(String moduleLibraryPath, String fileName) {
-        String testPath = moduleLibraryPath + separator + 't' + separator + fileName;
+    public static String stubTest(String testPath, String fileName, List<String> imports) {
+        testPath = testPath + separator + fileName;
         if (!testPath.endsWith(".t"))
             testPath = testPath + ".t";
-        List<String> lines = Arrays.asList(
-                "use Test;", "",
-                "done-testing;"
-        );
+        List<String> lines = new LinkedList<>();
+        for (String oneImport : imports) {
+            lines.add(String.format("use %s;", oneImport));
+        }
+        lines.add("use Test;");
+        lines.add("");
+        lines.add("done-testing;");
         writeCodeToPath(Paths.get(testPath), lines);
         return testPath;
     }
