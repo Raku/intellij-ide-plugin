@@ -28,27 +28,26 @@ public class TapOutputToGeneralTestEventsConverter extends OutputToGeneralTestEv
 
     @Override
     protected boolean processServiceMessages(String text, final Key outputType, final ServiceMessageVisitor visitor) throws ParseException {
+        if (visitor != null && myVisitor == null)
+            myVisitor = visitor;
+
         if (outputType == ProcessOutputTypes.STDOUT || outputType == ProcessOutputTypes.STDERR) {
             currentTap += text;
-        }
-        if (outputType == ProcessOutputTypes.SYSTEM && text.equals("\n")) {
-            processTapOutput(outputType, visitor);
+        } else if (outputType == ProcessOutputTypes.SYSTEM && text.equals("\n")) {
+            processTapOutput();
         }
         return true;
     }
 
-    private void processTapOutput(final Key outputType, ServiceMessageVisitor visitor) throws ParseException {
-        if (visitor != null && myVisitor == null)
-            myVisitor = visitor;
-
+    private void processTapOutput() throws ParseException {
         TestSet set = myConsumer.load(currentTap);
         currentTap = "";
         List<TestResult> results = set.getTestResults();
-        super.processServiceMessages(new ServiceMessageBuilder("enteredTheMatrix").toString(), ProcessOutputTypes.STDOUT, visitor);
+        super.processServiceMessages(new ServiceMessageBuilder("enteredTheMatrix").toString(), ProcessOutputTypes.STDOUT, myVisitor);
         ServiceMessageBuilder countBuilder = new ServiceMessageBuilder("testCount")
                 .addAttribute("count", String.valueOf(set.getNumberOfTestResults()));
-        super.processServiceMessages(countBuilder.toString(), ProcessOutputTypes.STDOUT, visitor);
-        super.processServiceMessages(ServiceMessageBuilder.testSuiteStarted("testSuite").toString(), ProcessOutputTypes.STDOUT, visitor);
+        super.processServiceMessages(countBuilder.toString(), ProcessOutputTypes.STDOUT, myVisitor);
+        super.processServiceMessages(ServiceMessageBuilder.testSuiteStarted("testSuite").toString(), ProcessOutputTypes.STDOUT, myVisitor);
         for (int i = 0; i < results.size(); i++) {
             ServiceMessageBuilder testStarted = ServiceMessageBuilder.testStarted("testSuite.perl6.test.test" + i);
             super.processServiceMessages(testStarted.toString(), ProcessOutputTypes.STDOUT, myVisitor);
