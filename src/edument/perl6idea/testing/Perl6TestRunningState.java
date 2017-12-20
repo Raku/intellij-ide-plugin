@@ -79,8 +79,6 @@ public class Perl6TestRunningState extends CommandLineState {
     static class Perl6TestConsoleProperties extends SMTRunnerConsoleProperties implements SMCustomMessagesParsing {
         public Perl6TestConsoleProperties(RunConfiguration runConfiguration, ExecutionEnvironment env) {
             super(runConfiguration, "PERL6_TEST_CONFIGURATION", env.getExecutor());
-            setIdBasedTestTree(true);
-            setUsePredefinedMessageFilter(false);
         }
 
         @Override
