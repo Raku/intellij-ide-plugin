@@ -14,8 +14,6 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Perl6SdkType extends SdkType {
     private static final String NAME = "Perl 6 SDK";
@@ -78,23 +76,15 @@ public class Perl6SdkType extends SdkType {
     @Override
     public String getVersionString(@NotNull String path) {
         Path binPath = Paths.get(path, "perl6");
-        String[] command = {binPath.normalize().toString(), "--version"};
+        String[] command = {binPath.normalize().toString(), "-e", "say $*PERL.compiler.version"};
         try {
             if (!Files.isDirectory(binPath) && Files.isExecutable(binPath)) {
                 Process p = Runtime.getRuntime().exec(command);
                 BufferedReader std = new BufferedReader(new InputStreamReader(p.getInputStream()));
                 String firstLine = std.readLine();
                 if (firstLine != null) {
-                    Pattern pattern = Pattern.compile("(20\\d\\d\\.\\d+-\\d+)");
-                    Matcher matcher = pattern.matcher(firstLine);
-                    if (matcher.find()) {
-                        return matcher.group(0);
-                    } else {
-                        return null;
-                    }
+                    return firstLine;
                 }
-            } else {
-                return null;
             }
         } catch (IOException e) {
             // TODO: send a proper log warning here?
