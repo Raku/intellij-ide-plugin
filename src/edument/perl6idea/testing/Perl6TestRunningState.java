@@ -23,9 +23,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.Disposer;
+import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 
 public class Perl6TestRunningState extends CommandLineState {
@@ -67,12 +72,27 @@ public class Perl6TestRunningState extends CommandLineState {
         if (projectSdk == null) throw new ExecutionException("SDK is not set");
         String homePath = projectSdk.getHomePath();
         if (homePath == null) throw new ExecutionException("SDK is not set");
-        final GeneralCommandLine commandLine = new GeneralCommandLine()
-                .withWorkDirectory(Paths.get(project.getBasePath()).toString())
-                .withExePath(Paths.get(homePath, "perl6").toString())
-                .withCharset(CharsetToolkit.UTF8_CHARSET);
-        commandLine.addParameter("-Ilib");
-        commandLine.addParameter("t/00-sanity.t");
+        File testHarness = getResourceAsFile("/testing/perl6-test-harness.p6");
+        GeneralCommandLine commandLine;
+        if (testHarness != null) {
+            if (SystemInfo.isLinux) {
+                commandLine = new GeneralCommandLine()
+                        .withWorkDirectory(Paths.get(project.getBasePath()).toString())
+                        .withExePath(Paths.get(homePath, "perl6").toString())
+                        .withCharset(CharsetToolkit.UTF8_CHARSET);
+                try {
+                    commandLine.addParameter(testHarness.getCanonicalPath());
+                    commandLine.addParameter("-Ilib");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new ExecutionException("Could not create execution script");
+                }
+            } else {
+                throw new ExecutionException("Only linux is supported");
+            }
+        } else {
+            throw new ExecutionException("Could not create execution script");
+        }
         return commandLine;
     }
 
@@ -84,6 +104,30 @@ public class Perl6TestRunningState extends CommandLineState {
         @Override
         public OutputToGeneralTestEventsConverter createTestEventsConverter(@NotNull String testFrameworkName, @NotNull TestConsoleProperties consoleProperties) {
             return new TapOutputToGeneralTestEventsConverter(testFrameworkName, consoleProperties);
+        }
+    }
+
+    private File getResourceAsFile(String resourcePath) {
+        try {
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream(resourcePath);
+            if (in == null)
+                return null;
+
+            File tempFile = File.createTempFile(String.valueOf(in.hashCode()), ".tmp");
+            tempFile.deleteOnExit();
+
+            try (FileOutputStream out = new FileOutputStream(tempFile)) {
+                //copy stream
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+            }
+            return tempFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
