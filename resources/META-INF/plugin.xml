@@ -24,6 +24,7 @@
     <moduleType id="PERL6_MODULE_TYPE" implementationClass="edument.perl6idea.module.Perl6ModuleType"/>
     <sdkType implementation="edument.perl6idea.sdk.Perl6SdkType"/>
     <configurationType implementation="edument.perl6idea.run.Perl6RunConfigurationType"/>
+    <configurationType implementation="edument.perl6idea.testing.Perl6TestConfigurationType"/>
     <lang.syntaxHighlighterFactory language="Perl6" implementationClass="edument.perl6idea.highlighter.Perl6SyntaxHighlighterFactory"/>
   </extensions>
 
