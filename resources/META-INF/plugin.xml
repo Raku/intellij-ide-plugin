@@ -26,6 +26,7 @@
     <configurationType implementation="edument.perl6idea.run.Perl6RunConfigurationType"/>
     <configurationType implementation="edument.perl6idea.testing.Perl6TestConfigurationType"/>
     <lang.syntaxHighlighterFactory language="Perl6" implementationClass="edument.perl6idea.highlighter.Perl6SyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="edument.perl6idea.highlighter.Perl6ColorSettingsPage"/>
   </extensions>
 
   <actions>
