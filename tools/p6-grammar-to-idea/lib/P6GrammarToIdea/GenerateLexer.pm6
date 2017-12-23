@@ -313,7 +313,7 @@ my class GrammarCompiler {
     }
 }
 
-sub generate-grammar(Grammar $grammar) is export {
+sub generate-lexer(Grammar $grammar) is export {
     my $compiler = GrammarCompiler.new(:$grammar);
     my @methods = flat $compiler.compile-run-rule, $compiler.compile-rules;
     my $class = Class.new: :access<public>, :name("$grammar.name()Braid"),
