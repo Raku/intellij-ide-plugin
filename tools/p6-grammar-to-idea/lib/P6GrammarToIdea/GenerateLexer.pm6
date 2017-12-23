@@ -1,4 +1,5 @@
 use P6GrammarToIdea::AST;
+use P6GrammarToIdea::CodeGenUtil;
 use Java::Generate::Class;
 use Java::Generate::CompUnit;
 use Java::Generate::Expression;
@@ -6,7 +7,6 @@ use Java::Generate::JavaMethod;
 use Java::Generate::JavaParameter;
 use Java::Generate::JavaSignature;
 use Java::Generate::Literal;
-need Java::Generate::Statement;
 use Java::Generate::Variable;
 
 my class GrammarCompiler {
@@ -263,49 +263,6 @@ my class GrammarCompiler {
         if(this-call("backtrack"),
             [continue()],
             [ret(int-lit(FAIL))])
-    }
-
-    sub int-lit($value) {
-        Java::Generate::Literal::IntLiteral.new(:$value)
-    }
-    sub str-lit($value) {
-        Java::Generate::Literal::StringLiteral.new(:$value)
-    }
-    sub field($name, $type) {
-        InstanceVariable.new(:$name, :$type);
-    }
-    multi sub local($name, $type) {
-        Java::Generate::Statement::LocalVariable.new(:$name, :$type)
-    }
-    multi sub local($name, $type, $default) {
-        Java::Generate::Statement::LocalVariable.new(:$name, :$type, :$default)
-    }
-    sub decl($variable) {
-        Java::Generate::Statement::VariableDeclaration.new(:$variable)
-    }
-    sub assign($left, $right) {
-        Assignment.new(:$left, :$right)
-    }
-    sub call($object, $name, *@arguments) {
-        MethodCall.new: :$object, :$name, :@arguments
-    }
-    sub this-call($name, *@arguments) {
-        MethodCall.new: :object(local('this', 'Object')), :$name, :@arguments
-    }
-    sub ret($return) {
-        Java::Generate::Statement::Return.new(:$return)
-    }
-    multi sub if($cond, @true) {
-        Java::Generate::Statement::If.new(:$cond, :@true)
-    }
-    multi sub if($cond, @true, @false) {
-        Java::Generate::Statement::If.new(:$cond, :@true, :@false)
-    }
-    sub unless($cond, @true) {
-        if(PrefixOp.new(:op<!>, :right($cond)), @true)
-    }
-    sub continue() {
-        Java::Generate::Statement::Continue.new
     }
 
     sub mangle($name) {
