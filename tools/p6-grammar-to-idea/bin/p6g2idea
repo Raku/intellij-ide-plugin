@@ -6,6 +6,7 @@ use P6GrammarToIdea::Elements;
 use P6GrammarToIdea::GenerateTokenTypes;
 use P6GrammarToIdea::GenerateElementTypes;
 use P6GrammarToIdea::GenerateLexer;
+use P6GrammarToIdea::GenerateParser;
 
 multi sub MAIN('parse', $input-file where .IO.f) {
     say P6GrammarToIdea::Parser.parse(
@@ -36,4 +37,7 @@ multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d)
         say "Generating $filename";
         spurt $output-dir.add($filename), generate-lexer($grammar);
     }
+
+    say "Generating Perl6Parser.java";
+    spurt $output-dir.add('Perl6Parser.java'), generate-parser($ast);
 }
