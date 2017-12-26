@@ -39,5 +39,5 @@ multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d)
     }
 
     say "Generating Perl6Parser.java";
-    spurt $output-dir.add('Perl6Parser.java'), generate-parser($ast);
+    spurt $output-dir.add('Perl6Parser.java'), generate-parser($element-model);
 }

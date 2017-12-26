@@ -1,5 +1,6 @@
 use P6GrammarToIdea::AST;
 use P6GrammarToIdea::CodeGenUtil;
+use P6GrammarToIdea::Elements;
 use Java::Generate::Class;
 use Java::Generate::CompUnit;
 use Java::Generate::Interface;
@@ -23,7 +24,7 @@ sub parse-entry-method() {
         ]
 }
 
-sub generate-parser(Braids $braids) is export {
+sub generate-parser(P6GrammarToIdea::Elements::Model $element-model) is export {
     my @methods = parse-entry-method();
     my $class = Class.new: :access<public>, :name("Perl6Parser"),
         :interfaces(Interface.new(:name('PsiParser'))), :@methods;
