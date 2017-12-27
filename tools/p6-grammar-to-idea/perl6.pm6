@@ -14,11 +14,11 @@ grammar MAIN {
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
-        || <?>
+        || <.bogus_statement>
         ]
-        <.bogus_statement>?
+        <.ws>?
         <.start-token('STATEMENT_TERMINATOR')>
-        ';'
+        ';'?
         <.end-token('STATEMENT_TERMINATOR')>
         <.end-element('STATEMENT')>
         <.ws>?

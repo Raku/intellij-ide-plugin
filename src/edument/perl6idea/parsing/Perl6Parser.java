@@ -40,6 +40,9 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean statement_3_alt_2(PsiBuilder builder) {
+        if (!(this.bogus_statement_2(builder))) {
+            return false;
+        }
         return true;
     }
 
@@ -51,7 +54,7 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean statement_3_quant_4(PsiBuilder builder) {
-        if (!(this.bogus_statement_2(builder))) {
+        if (!(this.ws_7(builder))) {
             return false;
         }
         return true;
@@ -96,9 +99,7 @@ public class Perl6Parser implements PsiParser {
         } else {
             quantMarker5.rollbackTo();
         }
-        String tt1;
-        tt1 = builder.getTokenText();
-        if (((builder.getTokenType()) == Perl6TokenTypes.STATEMENT_TERMINATOR) && (tt1.equals(";"))) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.STATEMENT_TERMINATOR) {
             builder.advanceLexer();
         } else {
             return false;
