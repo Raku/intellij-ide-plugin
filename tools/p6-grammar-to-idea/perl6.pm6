@@ -14,6 +14,7 @@ grammar MAIN {
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
+        || <.EXPR>
         || <.bogus_statement>
         ]
         <.ws>?
@@ -50,9 +51,216 @@ grammar MAIN {
         <.end-element('USE_STATEMENT')>
     }
 
+    token term {
+        || <.variable>
+    }
+
+    token variable {
+        <.start-element('VARIABLE')>
+        <.start-token('VARIABLE')>
+        <.sigil> <.twigil>? <.desigilname>
+        <.end-token('VARIABLE')>
+        <.end-element('VARIABLE')>
+    }
+
+    token sigil { <[$@%&]> }
+
+    # XXX Missing lookahead <?before \w> at end
+    token twigil { <[.!^:*?=~]> }
+
+    # XXX Hack
+    token desigilname { \w+ }
+
     token name {
         <.start-token('NAME')>
         \w+
         <.end-token('NAME')>
+    }
+
+    token EXPR {
+        <.start-element('EXPR')>
+
+        <.prefixish>*
+        <.termish>
+        <.postfixish>*
+
+        <.ws>?
+
+        [
+            <.infixish>
+            <.ws>?
+            [
+                <.prefixish>*
+                <.termish>
+                <.postfixish>*
+            ]?
+            <.ws>?
+        ]*
+
+        <.end-element('EXPR')>
+    }
+
+    token prefixish {
+        <.start-element('PREFIX')>
+        <.prefix>
+        <.end-element('PREFIX')>
+    }
+
+    token prefix {
+        <.start-token('PREFIX')>
+        [
+        || '++⚛'
+        || '--⚛'
+        || '++'
+        || '--'
+        || '+^'
+        || '~^'
+        || '?^'
+        || '+'
+        || '~'
+        || '-'
+        || '−'
+        || '?'
+        || '!'
+        || '|'
+        || '^'
+        || '⚛'
+        ]
+        <.end-token('PREFIX')>
+    }
+
+    token postfixish {
+        <.start-element('POSTFIX')>
+        <.postfix>
+        <.end-element('POSTFIX')>
+    }
+
+    token postfix {
+        <.start-token('POSTFIX')>
+        [
+        || 'i'
+        || '⚛++'
+        || '⚛--'
+        || '++'
+        || '--'
+        || <[⁻⁺¯]>? <[⁰¹²³⁴⁵⁶⁷⁸⁹]>+
+        ]
+        <.end-token('POSTFIX')>
+    }
+
+    token infixish {
+        <.start-element('INFIX')>
+        <.infix>
+        <.end-element('INFIX')>
+    }
+
+    token infix {
+        <.start-token('INFIX')>
+        [
+        || 'before'
+        || '(elem)'
+        || '(cont)'
+        || 'after'
+        || 'div'
+        || 'gcd'
+        || 'lcm'
+        || 'mod'
+        || '(&)'
+        || '(.)'
+        || '(|)'
+        || '(^)'
+        || '(+)'
+        || '(-)'
+        || '=~='
+        || '=:='
+        || '==='
+        || 'eqv'
+        || '!~~'
+        || '(<)'
+        || '(>)'
+        || '(<=)'
+        || '(>=)'
+        || '(<+)'
+        || '(>+)'
+        || 'min'
+        || 'max'
+        || '**'
+        || '%%'
+        || '+&'
+        || '~&'
+        || '?&'
+        || '+<'
+        || '+>'
+        || '~<'
+        || '~>'
+        || '+|'
+        || '+^'
+        || '~|'
+        || '~^'
+        || '?|'
+        || '?^'
+        || 'xx'
+        || '=='
+        || '!='
+        || '<='
+        || '>='
+        || 'eq'
+        || 'ne'
+        || 'le'
+        || 'ge'
+        || 'lt'
+        || 'gt'
+        || '~~'
+        || '&&'
+        || '||'
+        || '^^'
+        || '//'
+        || '*'
+        || '×'
+        || '/'
+        || '÷'
+        || '%'
+        || '+'
+        || '-'
+        || '−'
+        || 'x'
+        || '~'
+        || '∘'
+        || 'o'
+        || '&'
+        || '∩'
+        || '⊍'
+        || '|'
+        || '^'
+        || '∪'
+        || '⊖'
+        || '⊎'
+        || '∖'
+        || '≅'
+        || '≠'
+        || '≤'
+        || '≥'
+        || '<'
+        || '>'
+        || '∈'
+        || '∉'
+        || '∋'
+        || '∌'
+        || '⊂'
+        || '⊄'
+        || '⊃'
+        || '⊅'
+        || '⊆'
+        || '⊈'
+        || '⊇'
+        || '⊉'
+        || '≼'
+        || '≽'
+        ]
+        <.end-token('INFIX')>
+    }
+
+    token termish {
+        <.term>
     }
 }

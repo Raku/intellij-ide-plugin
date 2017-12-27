@@ -11,10 +11,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import edument.perl6idea.psi.impl.Perl6FileImpl;
-import edument.perl6idea.psi.impl.Perl6StatementImpl;
-import edument.perl6idea.psi.impl.Perl6StatementListImpl;
-import edument.perl6idea.psi.impl.Perl6UseStatementImpl;
+import edument.perl6idea.psi.impl.*;
 import org.jetbrains.annotations.NotNull;
 
 public class Perl6ParserDefinition implements ParserDefinition {
@@ -62,6 +59,17 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6StatementImpl(astNode);
         if (type == Perl6ElementTypes.USE_STATEMENT)
             return new Perl6UseStatementImpl(astNode);
+        if (type == Perl6ElementTypes.PREFIX)
+            return new Perl6PrefixImpl(astNode);
+        if (type == Perl6ElementTypes.INFIX)
+            return new Perl6InfixImpl(astNode);
+        if (type == Perl6ElementTypes.POSTFIX)
+            return new Perl6PostfixImpl(astNode);
+        // TODO Kill this off once we have proper operator parsing
+        if (type == Perl6ElementTypes.EXPR)
+            return new Perl6ExpressionImpl(astNode);
+        if (type == Perl6ElementTypes.VARIABLE)
+            return new Perl6VariableImpl(astNode);
         return null;
     }
 
