@@ -21,4 +21,28 @@ public final class Perl6Highlighter {
             STATEMENT_TERMINATOR_ID,
             DefaultLanguageHighlighterColors.SEMICOLON
     );
+
+    static final String PREFIX_ID = "PERL6_PREFIX";
+    public static final TextAttributesKey PREFIX = TextAttributesKey.createTextAttributesKey(
+            PREFIX_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
+    static final String INFIX_ID = "PERL6_INFIX";
+    public static final TextAttributesKey INFIX = TextAttributesKey.createTextAttributesKey(
+            INFIX_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
+    static final String POSTFIX_ID = "PERL6_POSTFIX";
+    public static final TextAttributesKey POSTFIX = TextAttributesKey.createTextAttributesKey(
+            POSTFIX_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
+    static final String VARIABLE_ID = "PERL6_VARIABLE";
+    public static final TextAttributesKey VARIABLE = TextAttributesKey.createTextAttributesKey(
+            VARIABLE_ID,
+            DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+    );
 }

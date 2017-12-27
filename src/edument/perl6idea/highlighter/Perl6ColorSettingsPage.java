@@ -16,7 +16,11 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
             new AttributesDescriptor("Type name", Perl6Highlighter.TYPE_NAME),
             new AttributesDescriptor("Statement terminator", Perl6Highlighter.STATEMENT_TERMINATOR),
-            new AttributesDescriptor("Statement control", Perl6Highlighter.STATEMENT_CONTROL)
+            new AttributesDescriptor("Statement control", Perl6Highlighter.STATEMENT_CONTROL),
+            new AttributesDescriptor("Prefix Operator", Perl6Highlighter.PREFIX),
+            new AttributesDescriptor("Infix Operator", Perl6Highlighter.INFIX),
+            new AttributesDescriptor("Postfix Operator", Perl6Highlighter.POSTFIX),
+            new AttributesDescriptor("Variable", Perl6Highlighter.VARIABLE),
     };
 
     @Nullable
