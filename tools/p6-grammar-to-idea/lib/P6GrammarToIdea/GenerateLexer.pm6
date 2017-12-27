@@ -82,7 +82,6 @@ my class GrammarCompiler {
     multi method compile(SeqAlt $alt) {
         my @alts = $alt.alternatives;
         my @insert-goto-statements;
-        my @insert-goto-indices;
         my $insert-initial-mark-statements = $*CUR-STATEMENTS;
         my $insert-initial-mark-index = $*CUR-STATEMENTS.elems;
         while @alts > 1 {
@@ -95,7 +94,6 @@ my class GrammarCompiler {
             my $insert-at = $*CUR-STATEMENTS.elems;
             self.compile(@alts.shift);
             push @insert-goto-statements, $*CUR-STATEMENTS;
-            push @insert-goto-indices, $*CUR-STATEMENTS.elems;
             my $failed-state = self!new-state();
             $insert.splice($insert-at, 0, [this-call('bsMark', int-lit($failed-state))]);
         }
@@ -109,8 +107,8 @@ my class GrammarCompiler {
         $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
             this-call('bsFailMark', int-lit($success))
         ]);
-        for @insert-goto-statements Z @insert-goto-indices -> ($stmts, $idx) {
-            $stmts.splice: $idx, 0, [
+        for @insert-goto-statements -> $stmts {
+            $stmts.append: [
                 this-call('bsCommit', int-lit($success)),
                 assign(field('state', 'int'), int-lit($success)),
                 continue()
