@@ -208,14 +208,14 @@ class BraidModel {
         }
     }
 
-    multi method walk(Literal) {}
-    multi method walk(Lookahead) {}
-    multi method walk(EnumCharList) {}
-    multi method walk(BuiltinCharClass) {}
-    multi method walk(AnchorLeftWordBoundary) {}
-    multi method walk(AnchorRightWordBoundary) {}
-    multi method walk(AnchorEnd) {}
-    multi method walk(AnchorLineEnd) {}
+    multi method walk(Literal) { PassNode.new }
+    multi method walk(Lookahead) { PassNode.new }
+    multi method walk(EnumCharList) { PassNode.new }
+    multi method walk(BuiltinCharClass) { PassNode.new }
+    multi method walk(AnchorLeftWordBoundary) { PassNode.new }
+    multi method walk(AnchorRightWordBoundary) { PassNode.new }
+    multi method walk(AnchorEnd) { PassNode.new }
+    multi method walk(AnchorLineEnd) { PassNode.new }
     multi method walk(AnchorPass) { PassNode.new }
     multi method walk(AnchorFail) { FailNode.new }
 }
