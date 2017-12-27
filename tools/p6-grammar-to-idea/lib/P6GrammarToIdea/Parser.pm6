@@ -228,7 +228,7 @@ grammar P6GrammarToIdea::Parser {
         | <!ww>
         | [
             | \h+
-            | ^^ \h* '#' \N+
+            | ^^ \h* '#' \N*
             | \n
           ]*
     }
