@@ -6,7 +6,6 @@ use Java::Generate::Expression;
 use Java::Generate::JavaMethod;
 use Java::Generate::JavaParameter;
 use Java::Generate::JavaSignature;
-use Java::Generate::Literal;
 use Java::Generate::Variable;
 
 my class GrammarCompiler {
@@ -59,7 +58,7 @@ my class GrammarCompiler {
             push @statements, decl(local('rep', 'int'));
         }
         push @statements, Java::Generate::Statement::While.new:
-            cond => BooleanLiteral.new(:value),
+            cond => true-lit(),
             body => Java::Generate::Statement::Switch.new:
                 switch => field('state', 'int'),
                 branches => @*STATE-STATEMENTS.pairs.map({ int-lit(.key) => .value });

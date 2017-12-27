@@ -9,6 +9,12 @@ sub int-lit($value) is export {
 sub str-lit($value) is export {
     Java::Generate::Literal::StringLiteral.new(:$value)
 }
+sub true-lit() is export {
+    BooleanLiteral.new(:value)
+}
+sub false-lit() is export {
+    BooleanLiteral.new(:!value)
+}
 sub field($name, $type) is export {
     InstanceVariable.new(:$name, :$type);
 }
