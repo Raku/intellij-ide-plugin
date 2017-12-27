@@ -1,8 +1,6 @@
 grammar MAIN {
     token TOP {
-        <.start-element('FILE')>
         <.statementlist>
-        <.end-element('FILE')>
     }
 
     token statementlist {
