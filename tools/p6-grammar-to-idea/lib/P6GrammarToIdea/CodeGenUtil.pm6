@@ -48,6 +48,15 @@ multi sub if($cond, @true, @false) is export {
 sub unless($cond, @true) is export {
     if(PrefixOp.new(:op<!>, :right($cond)), @true)
 }
+sub equal($left, $right) is export {
+    InfixOp.new(:op<==>, :$left, :$right)
+}
+sub and($left, $right) is export {
+    InfixOp.new(:op<&&>, :$left, :$right)
+}
+sub break() is export {
+    Java::Generate::Statement::Break.new
+}
 sub continue() is export {
     Java::Generate::Statement::Continue.new
 }
