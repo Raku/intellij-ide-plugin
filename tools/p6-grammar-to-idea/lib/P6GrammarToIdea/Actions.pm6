@@ -208,9 +208,19 @@ class P6GrammarToIdea::Actions {
         my @alts;
         for $<charspec> -> $c {
             if $c[1] {
-                die "Ranges in cclasses NYI";
+                if $c[0]<cclass_backslash> || $c[1]<cclass_backslash> {
+                    die "Cannot have cclass char range using backslash sequence";
+                }
+                my $from := ord(~$c[0]);
+                my $to := ord(~$c[1]);
+                if $from > $to {
+                    die "Backwards range $from..$to is illegal";
+                }
+                loop (my $o = $from; $o <= $to; $o++) {
+                    push @chars, chr($o);
+                }
             }
-            if $c[0]<cclass_backslash> {
+            elsif $c[0]<cclass_backslash> {
                 my $cc = $c[0]<cclass_backslash>.ast;
                 if $cc ~~ EnumCharList && !$cc.negative {
                     push @chars, $cc.chars;
