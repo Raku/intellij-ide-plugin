@@ -10,6 +10,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String SCOPE_DECLARATOR_ID = "PERL6_SCOPE_DECLARATOR";
+    public static final TextAttributesKey SCOPE_DECLARATOR = TextAttributesKey.createTextAttributesKey(
+            SCOPE_DECLARATOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,

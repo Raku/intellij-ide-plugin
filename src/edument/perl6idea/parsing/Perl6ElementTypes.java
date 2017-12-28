@@ -8,6 +8,8 @@ public interface Perl6ElementTypes {
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType INFIX = new Perl6ElementType("INFIX");
+    IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
+    IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType PREFIX = new Perl6ElementType("PREFIX");

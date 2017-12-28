@@ -53,6 +53,7 @@ grammar MAIN {
 
     token term {
         || <.variable>
+        || <.scope_declarator>
         || <.value>
     }
 
@@ -62,6 +63,43 @@ grammar MAIN {
         <.sigil> <.twigil>? <.desigilname>
         <.end-token('VARIABLE')>
         <.end-element('VARIABLE')>
+    }
+
+    token scope_declarator {
+        <.start-element('SCOPED_DECLARATION')>
+        <.start-token('SCOPE_DECLARATOR')>
+        [ 'my' || 'our' || 'has' || 'HAS' || 'augment' || 'anon' || 'state' || 'supersede' || 'unit' ]
+        <.end_keyword>
+        <.end-token('SCOPE_DECLARATOR')>
+        <.ws>
+        [
+        || <.declarator>
+        || <?>
+        ]
+        <.end-element('SCOPED_DECLARATION')>
+    }
+
+    token declarator {
+        ||  [
+            <.start-element('VARIABLE_DECLARATION')>
+            <.variable_declarator>
+            [<.ws>? <.initializer>]?
+            <.end-element('VARIABLE_DECLARATION')>
+            ]
+    }
+
+    token variable_declarator {
+        <.variable>
+    }
+
+    token initializer {
+        <.start-element('INFIX')>
+        <.start-token('INFIX')>
+        ['=' || ':=' || '::=']
+        <.end-token('INFIX')>
+        <.end-element('INFIX')>
+        <.ws>?
+        <.EXPR>?
     }
 
     token sigil { <[$@%&]> }
@@ -76,6 +114,12 @@ grammar MAIN {
         <.start-token('NAME')>
         \w+
         <.end-token('NAME')>
+    }
+
+    token end_keyword {
+        >>
+        # Add this once we can compile lookaheads
+        # <!before <.[ \( \\ ' \- ]> || \h* '=>'>
     }
 
     token value {

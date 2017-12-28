@@ -33,73 +33,88 @@ public class MAINBraid extends Cursor<MAINBraid> {
             result = this._8_variable();
             break;
         case 9:
-            result = this._9_sigil();
+            result = this._9_scope_declarator();
             break;
         case 10:
-            result = this._10_twigil();
+            result = this._10_declarator();
             break;
         case 11:
-            result = this._11_desigilname();
+            result = this._11_variable_declarator();
             break;
         case 12:
-            result = this._12_name();
+            result = this._12_initializer();
             break;
         case 13:
-            result = this._13_value();
+            result = this._13_sigil();
             break;
         case 14:
-            result = this._14_number();
+            result = this._14_twigil();
             break;
         case 15:
-            result = this._15_numish();
+            result = this._15_desigilname();
             break;
         case 16:
-            result = this._16_dec_number();
+            result = this._16_name();
             break;
         case 17:
-            result = this._17_escale();
+            result = this._17_end_keyword();
             break;
         case 18:
-            result = this._18_sign();
+            result = this._18_value();
             break;
         case 19:
-            result = this._19_integer();
+            result = this._19_number();
             break;
         case 20:
-            result = this._20_decint();
+            result = this._20_numish();
             break;
         case 21:
-            result = this._21_hexint();
+            result = this._21_dec_number();
             break;
         case 22:
-            result = this._22_octint();
+            result = this._22_escale();
             break;
         case 23:
-            result = this._23_binint();
+            result = this._23_sign();
             break;
         case 24:
-            result = this._24_EXPR();
+            result = this._24_integer();
             break;
         case 25:
-            result = this._25_prefixish();
+            result = this._25_decint();
             break;
         case 26:
-            result = this._26_prefix();
+            result = this._26_hexint();
             break;
         case 27:
-            result = this._27_postfixish();
+            result = this._27_octint();
             break;
         case 28:
-            result = this._28_postfix();
+            result = this._28_binint();
             break;
         case 29:
-            result = this._29_infixish();
+            result = this._29_EXPR();
             break;
         case 30:
-            result = this._30_infix();
+            result = this._30_prefixish();
             break;
         case 31:
-            result = this._31_termish();
+            result = this._31_prefix();
+            break;
+        case 32:
+            result = this._32_postfixish();
+            break;
+        case 33:
+            result = this._33_postfix();
+            break;
+        case 34:
+            result = this._34_infixish();
+            break;
+        case 35:
+            result = this._35_infix();
+            break;
+        case 36:
+            result = this._36_termish();
             break;
         default:
             throw new RuntimeException();
@@ -215,7 +230,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 5:
                 this.bsMark(7);
                 this.state = 6;
-                return 24;
+                return 29;
 
             case 6:
                 if (this.lastResult.isFailed()) {
@@ -443,7 +458,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.state = 3;
-                return 12;
+                return 16;
 
             case 3:
                 if (this.lastResult.isFailed()) {
@@ -465,7 +480,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(4);
+                this.bsFailMark(6);
                 this.bsMark(2);
                 this.state = 1;
                 return 8;
@@ -480,13 +495,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.bsCommit(4);
-                this.state = 4;
+                this.bsCommit(6);
+                this.state = 6;
                 continue;
 
             case 2:
+                this.bsMark(4);
                 this.state = 3;
-                return 13;
+                return 9;
 
             case 3:
                 if (this.lastResult.isFailed()) {
@@ -498,10 +514,28 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.state = 4;
+                this.bsCommit(6);
+                this.state = 6;
                 continue;
 
             case 4:
+                this.state = 5;
+                return 18;
+
+            case 5:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.state = 6;
+                continue;
+
+            case 6:
                 return -1;
 
             }
@@ -514,7 +548,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 0:
                 this.startToken(Perl6TokenTypes.VARIABLE);
                 this.state = 1;
-                return 9;
+                return 13;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -531,7 +565,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 2:
                 this.state = 3;
-                return 10;
+                return 14;
 
             case 3:
                 if (this.lastResult.isFailed()) {
@@ -549,7 +583,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 4:
                 this.state = 5;
-                return 11;
+                return 15;
 
             case 5:
                 if (this.lastResult.isFailed()) {
@@ -571,7 +605,375 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _9_sigil() {
+    private int _9_scope_declarator() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.startToken(Perl6TokenTypes.SCOPE_DECLARATOR);
+                this.bsFailMark(9);
+                this.bsMark(1);
+                if (!(this.literal("my"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 1:
+                this.bsMark(2);
+                if (!(this.literal("our"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 2:
+                this.bsMark(3);
+                if (!(this.literal("has"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 3:
+                this.bsMark(4);
+                if (!(this.literal("HAS"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 4:
+                this.bsMark(5);
+                if (!(this.literal("augment"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 5:
+                this.bsMark(6);
+                if (!(this.literal("anon"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 6:
+                this.bsMark(7);
+                if (!(this.literal("state"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 7:
+                this.bsMark(8);
+                if (!(this.literal("supersede"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(9);
+                this.state = 9;
+                continue;
+
+            case 8:
+                if (!(this.literal("unit"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 9;
+                continue;
+
+            case 9:
+                this.state = 10;
+                return 17;
+
+            case 10:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.state = 11;
+                return -3;
+
+            case 11:
+                this.state = 12;
+                return 4;
+
+            case 12:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsFailMark(15);
+                this.bsMark(14);
+                this.state = 13;
+                return 10;
+
+            case 13:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(15);
+                this.state = 15;
+                continue;
+
+            case 14:
+                this.state = 15;
+                continue;
+
+            case 15:
+                return -1;
+
+            }
+        }
+    }
+
+    private int _10_declarator() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.state = 1;
+                return 11;
+
+            case 1:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(7);
+                this.state = 2;
+                break;
+            case 2:
+                this.bsMark(5);
+                this.state = 3;
+                break;
+            case 3:
+                this.state = 4;
+                return 4;
+
+            case 4:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(5);
+                this.state = 5;
+                continue;
+
+            case 5:
+                this.state = 6;
+                return 12;
+
+            case 6:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(7);
+                this.state = 7;
+                continue;
+
+            case 7:
+                return -1;
+
+            }
+        }
+    }
+
+    private int _11_variable_declarator() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.state = 1;
+                return 8;
+
+            case 1:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                return -1;
+
+            }
+        }
+    }
+
+    private int _12_initializer() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.startToken(Perl6TokenTypes.INFIX);
+                this.bsFailMark(3);
+                this.bsMark(1);
+                if (!(this.literal("="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(3);
+                this.state = 3;
+                continue;
+
+            case 1:
+                this.bsMark(2);
+                if (!(this.literal(":="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(3);
+                this.state = 3;
+                continue;
+
+            case 2:
+                if (!(this.literal("::="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 3;
+                continue;
+
+            case 3:
+                this.state = 4;
+                return -3;
+
+            case 4:
+                this.bsMark(7);
+                this.state = 5;
+                break;
+            case 5:
+                this.state = 6;
+                return 4;
+
+            case 6:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(7);
+                this.state = 7;
+                continue;
+
+            case 7:
+                this.bsMark(10);
+                this.state = 8;
+                break;
+            case 8:
+                this.state = 9;
+                return 29;
+
+            case 9:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(10);
+                this.state = 10;
+                continue;
+
+            case 10:
+                return -1;
+
+            }
+        }
+    }
+
+    private int _13_sigil() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -588,7 +990,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _10_twigil() {
+    private int _14_twigil() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -605,7 +1007,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _11_desigilname() {
+    private int _15_desigilname() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -635,7 +1037,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _12_name() {
+    private int _16_name() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -670,12 +1072,29 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _13_value() {
+    private int _17_end_keyword() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                if (!(this.rightWordBoundary())) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                return -1;
+
+            }
+        }
+    }
+
+    private int _18_value() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.state = 1;
-                return 14;
+                return 19;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -693,12 +1112,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _14_number() {
+    private int _19_number() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.state = 1;
-                return 15;
+                return 20;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -716,14 +1135,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _15_numish() {
+    private int _20_numish() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.bsFailMark(9);
                 this.bsMark(2);
                 this.state = 1;
-                return 16;
+                return 21;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -742,7 +1161,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 2:
                 this.bsMark(4);
                 this.state = 3;
-                return 19;
+                return 24;
 
             case 3:
                 if (this.lastResult.isFailed()) {
@@ -826,7 +1245,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _16_dec_number() {
+    private int _21_dec_number() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -843,7 +1262,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 }
                 this.state = 1;
-                return 20;
+                return 25;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -856,7 +1275,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.state = 2;
-                return 17;
+                return 22;
 
             case 2:
                 if (this.lastResult.isFailed()) {
@@ -875,7 +1294,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 3:
                 this.bsMark(7);
                 this.state = 4;
-                return 20;
+                return 25;
 
             case 4:
                 if (this.lastResult.isFailed()) {
@@ -895,7 +1314,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 }
                 this.state = 5;
-                return 20;
+                return 25;
 
             case 5:
                 if (this.lastResult.isFailed()) {
@@ -908,7 +1327,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.state = 6;
-                return 17;
+                return 22;
 
             case 6:
                 if (this.lastResult.isFailed()) {
@@ -926,7 +1345,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 7:
                 this.state = 8;
-                return 20;
+                return 25;
 
             case 8:
                 if (this.lastResult.isFailed()) {
@@ -939,7 +1358,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.state = 9;
-                return 17;
+                return 22;
 
             case 9:
                 if (this.lastResult.isFailed()) {
@@ -975,7 +1394,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 }
                 this.state = 13;
-                return 20;
+                return 25;
 
             case 13:
                 if (this.lastResult.isFailed()) {
@@ -993,7 +1412,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 14:
                 this.state = 15;
-                return 20;
+                return 25;
 
             case 15:
                 if (this.lastResult.isFailed()) {
@@ -1013,7 +1432,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 }
                 this.state = 16;
-                return 20;
+                return 25;
 
             case 16:
                 if (this.lastResult.isFailed()) {
@@ -1043,7 +1462,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _17_escale() {
+    private int _22_escale() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -1055,7 +1474,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 }
                 this.state = 1;
-                return 18;
+                return 23;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -1068,7 +1487,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.state = 2;
-                return 20;
+                return 25;
 
             case 2:
                 if (this.lastResult.isFailed()) {
@@ -1086,7 +1505,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _18_sign() {
+    private int _23_sign() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -1147,7 +1566,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _19_integer() {
+    private int _24_integer() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -1187,7 +1606,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 2:
                 this.state = 3;
-                return 23;
+                return 28;
 
             case 3:
                 if (this.lastResult.isFailed()) {
@@ -1229,7 +1648,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 6:
                 this.state = 7;
-                return 22;
+                return 27;
 
             case 7:
                 if (this.lastResult.isFailed()) {
@@ -1271,7 +1690,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 10:
                 this.state = 11;
-                return 21;
+                return 26;
 
             case 11:
                 if (this.lastResult.isFailed()) {
@@ -1313,7 +1732,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 14:
                 this.state = 15;
-                return 20;
+                return 25;
 
             case 15:
                 if (this.lastResult.isFailed()) {
@@ -1331,7 +1750,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 16:
                 this.state = 17;
-                return 20;
+                return 25;
 
             case 17:
                 if (this.lastResult.isFailed()) {
@@ -1353,7 +1772,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 19:
                 this.state = 20;
-                return 20;
+                return 25;
 
             case 20:
                 if (this.lastResult.isFailed()) {
@@ -1379,7 +1798,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _20_decint() {
+    private int _25_decint() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -1432,7 +1851,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _21_hexint() {
+    private int _26_hexint() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -1503,7 +1922,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _22_octint() {
+    private int _27_octint() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -1556,7 +1975,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _23_binint() {
+    private int _28_binint() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -1609,7 +2028,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _24_EXPR() {
+    private int _29_EXPR() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -1619,7 +2038,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 1:
                 this.state = 2;
-                return 25;
+                return 30;
 
             case 2:
                 if (this.lastResult.isFailed()) {
@@ -1640,7 +2059,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 3:
                 this.state = 4;
-                return 31;
+                return 36;
 
             case 4:
                 if (this.lastResult.isFailed()) {
@@ -1657,7 +2076,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 5:
                 this.state = 6;
-                return 27;
+                return 32;
 
             case 6:
                 if (this.lastResult.isFailed()) {
@@ -1704,7 +2123,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 11:
                 this.state = 12;
-                return 29;
+                return 34;
 
             case 12:
                 if (this.lastResult.isFailed()) {
@@ -1747,7 +2166,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 17:
                 this.state = 18;
-                return 25;
+                return 30;
 
             case 18:
                 if (this.lastResult.isFailed()) {
@@ -1768,7 +2187,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 19:
                 this.state = 20;
-                return 31;
+                return 36;
 
             case 20:
                 if (this.lastResult.isFailed()) {
@@ -1785,7 +2204,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 break;
             case 21:
                 this.state = 22;
-                return 27;
+                return 32;
 
             case 22:
                 if (this.lastResult.isFailed()) {
@@ -1846,12 +2265,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _25_prefixish() {
+    private int _30_prefixish() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.state = 1;
-                return 26;
+                return 31;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -1869,7 +2288,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _26_prefix() {
+    private int _31_prefix() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -2091,12 +2510,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _27_postfixish() {
+    private int _32_postfixish() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.state = 1;
-                return 28;
+                return 33;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -2114,7 +2533,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _28_postfix() {
+    private int _33_postfix() {
         int rep;
         while (true) {
             switch (this.state) {
@@ -2235,12 +2654,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _29_infixish() {
+    private int _34_infixish() {
         while (true) {
             switch (this.state) {
             case 0:
                 this.state = 1;
-                return 30;
+                return 35;
 
             case 1:
                 if (this.lastResult.isFailed()) {
@@ -2258,7 +2677,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _30_infix() {
+    private int _35_infix() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -3559,7 +3978,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         }
     }
 
-    private int _31_termish() {
+    private int _36_termish() {
         while (true) {
             switch (this.state) {
             case 0:
