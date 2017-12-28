@@ -53,6 +53,7 @@ grammar MAIN {
 
     token term {
         || <.variable>
+        || <.value>
     }
 
     token variable {
@@ -76,6 +77,53 @@ grammar MAIN {
         \w+
         <.end-token('NAME')>
     }
+
+    token value {
+        || <.number>
+    }
+
+    token number {
+        <.numish>
+    }
+
+    token numish {
+        [
+        || <.integer>
+        || <.start-element('NUMBER_LITERAL')>
+           <.start-token('NUMBER_LITERAL')>
+           '∞'
+           <.end-token('NUMBER_LITERAL')>
+           <.end-element('NUMBER_LITERAL')>
+        ]
+    }
+
+    token integer {
+        <.start-element('INTEGER_LITERAL')>
+        <.start-token('INTEGER_LITERAL')>
+        [
+        || '0'
+            [
+            || 'b' '_'? <.binint>
+            || 'o' '_'? <.octint>
+            || 'x' '_'? <.hexint>
+            || 'd' '_'? <.decint>
+            || <.decint>
+            ]
+        || <.decint>
+        ]
+        <.end-token('INTEGER_LITERAL')>
+        <.end-element('INTEGER_LITERAL')>
+    }
+
+    token decint { \d+ }
+    token hexint { [\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+ }
+    token octint { \d+ }
+    token binint { \d+ }
+    # TODO Replace above with below when % is compiled
+    #token decint { [\d+]+ % '_' }
+    #token hexint { [[\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+]+ % '_' }
+    #token octint { [\d+]+ % '_' }
+    #token binint { [\d+]+ % '_' }
 
     token EXPR {
         <.start-element('EXPR')>

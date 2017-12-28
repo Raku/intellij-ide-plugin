@@ -5,6 +5,8 @@ import edument.perl6idea.Perl6Language;
 
 public interface Perl6ElementTypes {
     IFileElementType FILE = new IFileElementType(Perl6Language.INSTANCE);
+    IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
+    IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");

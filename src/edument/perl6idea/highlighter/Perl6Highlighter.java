@@ -45,4 +45,10 @@ public final class Perl6Highlighter {
             VARIABLE_ID,
             DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     );
+
+    static final String NUMERIC_LITERAL_ID = "PERL6_NUMERIC_LITERAL";
+    public static final TextAttributesKey NUMERIC_LITERAL = TextAttributesKey.createTextAttributesKey(
+            NUMERIC_LITERAL_ID,
+            DefaultLanguageHighlighterColors.NUMBER
+    );
 }
