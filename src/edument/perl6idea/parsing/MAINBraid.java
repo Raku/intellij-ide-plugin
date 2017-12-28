@@ -711,7 +711,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(4);
+                this.bsFailMark(7);
                 this.bsMark(2);
                 this.state = 1;
                 return 16;
@@ -726,12 +726,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.bsCommit(4);
-                this.state = 4;
+                this.bsCommit(7);
+                this.state = 7;
                 continue;
 
             case 2:
                 this.startToken(Perl6TokenTypes.NUMBER_LITERAL);
+                this.bsFailMark(5);
+                this.bsMark(3);
                 if (!(this.literal("\u221E"))) {
                     if (this.backtrack()) {
                         continue;
@@ -739,14 +741,57 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.state = 3;
-                return -3;
+                this.bsCommit(5);
+                this.state = 5;
+                continue;
 
             case 3:
-                this.state = 4;
+                this.bsMark(4);
+                if (!(this.literal("NaN"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                if (!(this.rightWordBoundary())) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(5);
+                this.state = 5;
                 continue;
 
             case 4:
+                if (!(this.literal("Inf"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                if (!(this.rightWordBoundary())) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 5;
+                continue;
+
+            case 5:
+                this.state = 6;
+                return -3;
+
+            case 6:
+                this.state = 7;
+                continue;
+
+            case 7:
                 return -1;
 
             }

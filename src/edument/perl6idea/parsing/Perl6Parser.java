@@ -95,9 +95,7 @@ public class Perl6Parser implements PsiParser {
     private boolean numish_4_alt_1(PsiBuilder builder) {
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
-        String tt1;
-        tt1 = builder.getTokenText();
-        if (((builder.getTokenType()) == Perl6TokenTypes.NUMBER_LITERAL) && (tt1.equals("\u221E"))) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.NUMBER_LITERAL) {
             builder.advanceLexer();
         } else {
             return false;

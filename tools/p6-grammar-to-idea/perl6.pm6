@@ -91,7 +91,7 @@ grammar MAIN {
         || <.integer>
         || <.start-element('NUMBER_LITERAL')>
            <.start-token('NUMBER_LITERAL')>
-           '∞'
+           [ '∞' || 'NaN' >> || 'Inf' >> ]
            <.end-token('NUMBER_LITERAL')>
            <.end-element('NUMBER_LITERAL')>
         ]
