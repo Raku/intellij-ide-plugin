@@ -48,6 +48,7 @@ sub check-and-get-tokens(Braids $braids) is export {
     my %*KNOWN-TOKENS;
     my $*CURRENT-TOKEN;
     my $*CURRENT-TOKEN-START-PRODUCTION;
+    my %*SEEN-PRODUCTIONS;
     walk($*CURRENT-PRODUCTION);
     with $*CURRENT-TOKEN {
         die X::P6GrammarToIdea::MissingEndToken.new:
@@ -59,7 +60,16 @@ sub check-and-get-tokens(Braids $braids) is export {
 
 multi sub walk(Production $rule) {
     die "Handling of proto NYI" if $rule.proto;
-    walk $rule.implementation;
+    if %*SEEN-PRODUCTIONS{$rule.name} {
+        if $*CURRENT-TOKEN {
+            die "Cannot recurse within a token, but '$rule.name()' does so";
+        }
+    }
+    else {
+        %*SEEN-PRODUCTIONS{$rule.name} = True;
+        walk $rule.implementation;
+        %*SEEN-PRODUCTIONS{$rule.name} = False;
+    }
 }
 
 multi sub walk(SeqAlt $alt) {
