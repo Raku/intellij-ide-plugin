@@ -13,6 +13,7 @@ public interface Perl6ElementTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
+    IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");
     IElementType STATEMENT_LIST = new Perl6ElementType("STATEMENT_LIST");
 }

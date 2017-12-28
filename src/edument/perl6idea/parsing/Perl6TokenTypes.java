@@ -3,8 +3,8 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 
 public interface Perl6TokenTypes {
-    IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
+    IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
@@ -14,4 +14,5 @@ public interface Perl6TokenTypes {
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType PREFIX = new Perl6ElementType("PREFIX");
+    IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
 }

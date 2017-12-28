@@ -88,6 +88,7 @@ grammar MAIN {
 
     token numish {
         [
+        || <.dec_number>
         || <.integer>
         || <.start-element('NUMBER_LITERAL')>
            <.start-token('NUMBER_LITERAL')>
@@ -96,6 +97,34 @@ grammar MAIN {
            <.end-element('NUMBER_LITERAL')>
         ]
     }
+
+    token dec_number {
+        ||  [
+            <.start-element('NUMBER_LITERAL')>
+            <.start-token('NUMBER_LITERAL')>
+            [
+            || [           '.' <.decint> ] <.escale>
+            || [ <.decint> '.' <.decint> ] <.escale>
+            || [ <.decint>               ] <.escale>
+            ]
+            <.end-token('NUMBER_LITERAL')>
+            <.end-element('NUMBER_LITERAL')>
+            ]
+        ||  [
+            <.start-element('RAT_LITERAL')>
+            <.start-token('RAT_LITERAL')>
+            [
+            || [           '.' <.decint> ]
+            || [ <.decint> '.' <.decint> ]
+            ]
+            <.end-token('RAT_LITERAL')>
+            <.end-element('RAT_LITERAL')>
+            ]
+    }
+
+    token escale { <[Ee]> <.sign> <.decint> }
+
+    token sign { '+' || '-' || '−' || '' }
 
     token integer {
         <.start-element('INTEGER_LITERAL')>

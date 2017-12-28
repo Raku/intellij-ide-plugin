@@ -74,6 +74,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6IntLiteralImpl(astNode);
         if (type == Perl6ElementTypes.NUMBER_LITERAL)
             return new Perl6NumLiteralImpl(astNode);
+        if (type == Perl6ElementTypes.RAT_LITERAL)
+            return new Perl6RatLiteralImpl(astNode);
         return null;
     }
 
