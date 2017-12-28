@@ -241,5 +241,18 @@ public abstract class Cursor<TCursor extends Cursor> {
         return false;
     }
 
+    public boolean rightWordBoundary() {
+        // Always a boundary at the end; never a boundary at the start.
+        if (pos == stack.target.length())
+            return true;
+        if (pos == 0)
+            return false;
+
+        // Otherwise, char before current position should be a word char
+        // and char afterwards should not be.
+        return Character.isLetterOrDigit(stack.target.charAt(pos - 1)) &&
+                !Character.isLetterOrDigit(stack.target.charAt(pos));
+    }
+
     public abstract int runRule();
 }

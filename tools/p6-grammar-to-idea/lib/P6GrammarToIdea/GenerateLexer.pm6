@@ -268,6 +268,10 @@ my class GrammarCompiler {
         $*CUR-STATEMENTS.push: unless(this-call($method), [backtrack()]);
     }
 
+    multi method compile(AnchorRightWordBoundary) {
+        $*CUR-STATEMENTS.push: unless(this-call('rightWordBoundary'), [backtrack()]);
+    }
+
     multi method compile(AnchorPass) {
         # Just continue onwards past this point, no action needed
     }
