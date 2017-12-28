@@ -2682,21 +2682,34 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.startToken(Perl6TokenTypes.INFIX);
-                this.bsFailMark(99);
+                this.bsFailMark(144);
                 this.bsMark(1);
-                if (!(this.literal("before"))) {
+                if (!(this.literal("notandthen"))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
             case 1:
                 this.bsMark(2);
+                if (!(this.literal("andthen"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 2:
+                this.bsMark(3);
                 if (!(this.literal("(elem)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2704,12 +2717,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 2:
-                this.bsMark(3);
+            case 3:
+                this.bsMark(4);
                 if (!(this.literal("(cont)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2717,12 +2730,64 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 3:
-                this.bsMark(4);
+            case 4:
+                this.bsMark(5);
+                if (!(this.literal("orelse"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 5:
+                this.bsMark(6);
+                if (!(this.literal("unicmp"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 6:
+                this.bsMark(7);
+                if (!(this.literal("minmax"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 7:
+                this.bsMark(8);
+                if (!(this.literal("before"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 8:
+                this.bsMark(9);
                 if (!(this.literal("after"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2730,12 +2795,142 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 4:
-                this.bsMark(5);
+            case 9:
+                this.bsMark(10);
+                if (!(this.literal("^fff^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 10:
+                this.bsMark(11);
+                if (!(this.literal("...^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 11:
+                this.bsMark(12);
+                if (!(this.literal("^ff^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 12:
+                this.bsMark(13);
+                if (!(this.literal("^fff"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 13:
+                this.bsMark(14);
+                if (!(this.literal("fff^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 14:
+                this.bsMark(15);
+                if (!(this.literal("<<=="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 15:
+                this.bsMark(16);
+                if (!(this.literal("==>>"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 16:
+                this.bsMark(17);
+                if (!(this.literal("^..^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 17:
+                this.bsMark(18);
+                if (!(this.literal("coll"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 18:
+                this.bsMark(19);
+                if (!(this.literal("does"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 19:
+                this.bsMark(20);
                 if (!(this.literal("div"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2743,12 +2938,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 5:
-                this.bsMark(6);
+            case 20:
+                this.bsMark(21);
                 if (!(this.literal("gcd"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2756,12 +2951,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 6:
-                this.bsMark(7);
+            case 21:
+                this.bsMark(22);
                 if (!(this.literal("lcm"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2769,12 +2964,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 7:
-                this.bsMark(8);
+            case 22:
+                this.bsMark(23);
                 if (!(this.literal("mod"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2782,12 +2977,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 8:
-                this.bsMark(9);
+            case 23:
+                this.bsMark(24);
                 if (!(this.literal("(&)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2795,12 +2990,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 9:
-                this.bsMark(10);
+            case 24:
+                this.bsMark(25);
                 if (!(this.literal("(.)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2808,12 +3003,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 10:
-                this.bsMark(11);
+            case 25:
+                this.bsMark(26);
                 if (!(this.literal("(|)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2821,12 +3016,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 11:
-                this.bsMark(12);
+            case 26:
+                this.bsMark(27);
                 if (!(this.literal("(^)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2834,12 +3029,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 12:
-                this.bsMark(13);
+            case 27:
+                this.bsMark(28);
                 if (!(this.literal("(+)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2847,12 +3042,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 13:
-                this.bsMark(14);
+            case 28:
+                this.bsMark(29);
                 if (!(this.literal("(-)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2860,12 +3055,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 14:
-                this.bsMark(15);
+            case 29:
+                this.bsMark(30);
                 if (!(this.literal("=~="))) {
                     if (this.backtrack()) {
                         continue;
@@ -2873,12 +3068,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 15:
-                this.bsMark(16);
+            case 30:
+                this.bsMark(31);
                 if (!(this.literal("=:="))) {
                     if (this.backtrack()) {
                         continue;
@@ -2886,12 +3081,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 16:
-                this.bsMark(17);
+            case 31:
+                this.bsMark(32);
                 if (!(this.literal("==="))) {
                     if (this.backtrack()) {
                         continue;
@@ -2899,12 +3094,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 17:
-                this.bsMark(18);
+            case 32:
+                this.bsMark(33);
                 if (!(this.literal("eqv"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2912,12 +3107,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 18:
-                this.bsMark(19);
+            case 33:
+                this.bsMark(34);
                 if (!(this.literal("!~~"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2925,12 +3120,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 19:
-                this.bsMark(20);
+            case 34:
+                this.bsMark(35);
                 if (!(this.literal("(<)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2938,12 +3133,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 20:
-                this.bsMark(21);
+            case 35:
+                this.bsMark(36);
                 if (!(this.literal("(>)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2951,12 +3146,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 21:
-                this.bsMark(22);
+            case 36:
+                this.bsMark(37);
                 if (!(this.literal("(<=)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2964,12 +3159,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 22:
-                this.bsMark(23);
+            case 37:
+                this.bsMark(38);
                 if (!(this.literal("(>=)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2977,12 +3172,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 23:
-                this.bsMark(24);
+            case 38:
+                this.bsMark(39);
                 if (!(this.literal("(<+)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -2990,12 +3185,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 24:
-                this.bsMark(25);
+            case 39:
+                this.bsMark(40);
                 if (!(this.literal("(>+)"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3003,12 +3198,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 25:
-                this.bsMark(26);
+            case 40:
+                this.bsMark(41);
                 if (!(this.literal("min"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3016,12 +3211,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 26:
-                this.bsMark(27);
+            case 41:
+                this.bsMark(42);
                 if (!(this.literal("max"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3029,12 +3224,246 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 27:
-                this.bsMark(28);
+            case 42:
+                this.bsMark(43);
+                if (!(this.literal("::="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 43:
+                this.bsMark(44);
+                if (!(this.literal("..."))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 44:
+                this.bsMark(45);
+                if (!(this.literal("^ff"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 45:
+                this.bsMark(46);
+                if (!(this.literal("ff^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 46:
+                this.bsMark(47);
+                if (!(this.literal("fff"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 47:
+                this.bsMark(48);
+                if (!(this.literal("\u269B+="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 48:
+                this.bsMark(49);
+                if (!(this.literal("\u269B-="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 49:
+                this.bsMark(50);
+                if (!(this.literal("\u269B\u2212="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 50:
+                this.bsMark(51);
+                if (!(this.literal("and"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 51:
+                this.bsMark(52);
+                if (!(this.literal("xor"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 52:
+                this.bsMark(53);
+                if (!(this.literal("<=="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 53:
+                this.bsMark(54);
+                if (!(this.literal("==>"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 54:
+                this.bsMark(55);
+                if (!(this.literal("^.."))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 55:
+                this.bsMark(56);
+                if (!(this.literal("..^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 56:
+                this.bsMark(57);
+                if (!(this.literal("leg"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 57:
+                this.bsMark(58);
+                if (!(this.literal("cmp"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 58:
+                this.bsMark(59);
+                if (!(this.literal("<=>"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 59:
+                this.bsMark(60);
+                if (!(this.literal("but"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 60:
+                this.bsMark(61);
                 if (!(this.literal("**"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3042,12 +3471,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 28:
-                this.bsMark(29);
+            case 61:
+                this.bsMark(62);
                 if (!(this.literal("%%"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3055,12 +3484,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 29:
-                this.bsMark(30);
+            case 62:
+                this.bsMark(63);
                 if (!(this.literal("+&"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3068,12 +3497,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 30:
-                this.bsMark(31);
+            case 63:
+                this.bsMark(64);
                 if (!(this.literal("~&"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3081,12 +3510,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 31:
-                this.bsMark(32);
+            case 64:
+                this.bsMark(65);
                 if (!(this.literal("?&"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3094,12 +3523,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 32:
-                this.bsMark(33);
+            case 65:
+                this.bsMark(66);
                 if (!(this.literal("+<"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3107,12 +3536,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 33:
-                this.bsMark(34);
+            case 66:
+                this.bsMark(67);
                 if (!(this.literal("+>"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3120,12 +3549,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 34:
-                this.bsMark(35);
+            case 67:
+                this.bsMark(68);
                 if (!(this.literal("~<"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3133,12 +3562,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 35:
-                this.bsMark(36);
+            case 68:
+                this.bsMark(69);
                 if (!(this.literal("~>"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3146,12 +3575,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 36:
-                this.bsMark(37);
+            case 69:
+                this.bsMark(70);
                 if (!(this.literal("+|"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3159,12 +3588,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 37:
-                this.bsMark(38);
+            case 70:
+                this.bsMark(71);
                 if (!(this.literal("+^"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3172,12 +3601,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 38:
-                this.bsMark(39);
+            case 71:
+                this.bsMark(72);
                 if (!(this.literal("~|"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3185,12 +3614,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 39:
-                this.bsMark(40);
+            case 72:
+                this.bsMark(73);
                 if (!(this.literal("~^"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3198,12 +3627,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 40:
-                this.bsMark(41);
+            case 73:
+                this.bsMark(74);
                 if (!(this.literal("?|"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3211,12 +3640,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 41:
-                this.bsMark(42);
+            case 74:
+                this.bsMark(75);
                 if (!(this.literal("?^"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3224,12 +3653,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 42:
-                this.bsMark(43);
+            case 75:
+                this.bsMark(76);
                 if (!(this.literal("xx"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3237,12 +3666,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 43:
-                this.bsMark(44);
+            case 76:
+                this.bsMark(77);
                 if (!(this.literal("=="))) {
                     if (this.backtrack()) {
                         continue;
@@ -3250,12 +3679,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 44:
-                this.bsMark(45);
+            case 77:
+                this.bsMark(78);
                 if (!(this.literal("!="))) {
                     if (this.backtrack()) {
                         continue;
@@ -3263,12 +3692,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 45:
-                this.bsMark(46);
+            case 78:
+                this.bsMark(79);
                 if (!(this.literal("<="))) {
                     if (this.backtrack()) {
                         continue;
@@ -3276,12 +3705,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 46:
-                this.bsMark(47);
+            case 79:
+                this.bsMark(80);
                 if (!(this.literal(">="))) {
                     if (this.backtrack()) {
                         continue;
@@ -3289,12 +3718,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 47:
-                this.bsMark(48);
+            case 80:
+                this.bsMark(81);
                 if (!(this.literal("eq"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3302,12 +3731,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 48:
-                this.bsMark(49);
+            case 81:
+                this.bsMark(82);
                 if (!(this.literal("ne"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3315,12 +3744,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 49:
-                this.bsMark(50);
+            case 82:
+                this.bsMark(83);
                 if (!(this.literal("le"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3328,12 +3757,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 50:
-                this.bsMark(51);
+            case 83:
+                this.bsMark(84);
                 if (!(this.literal("ge"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3341,12 +3770,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 51:
-                this.bsMark(52);
+            case 84:
+                this.bsMark(85);
                 if (!(this.literal("lt"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3354,12 +3783,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 52:
-                this.bsMark(53);
+            case 85:
+                this.bsMark(86);
                 if (!(this.literal("gt"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3367,12 +3796,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 53:
-                this.bsMark(54);
+            case 86:
+                this.bsMark(87);
                 if (!(this.literal("~~"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3380,12 +3809,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 54:
-                this.bsMark(55);
+            case 87:
+                this.bsMark(88);
                 if (!(this.literal("&&"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3393,12 +3822,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 55:
-                this.bsMark(56);
+            case 88:
+                this.bsMark(89);
                 if (!(this.literal("||"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3406,12 +3835,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 56:
-                this.bsMark(57);
+            case 89:
+                this.bsMark(90);
                 if (!(this.literal("^^"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3419,12 +3848,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 57:
-                this.bsMark(58);
+            case 90:
+                this.bsMark(91);
                 if (!(this.literal("//"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3432,12 +3861,103 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 58:
-                this.bsMark(59);
+            case 91:
+                this.bsMark(92);
+                if (!(this.literal(":="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 92:
+                this.bsMark(93);
+                if (!(this.literal(".="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 93:
+                this.bsMark(94);
+                if (!(this.literal("\u2026^"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 94:
+                this.bsMark(95);
+                if (!(this.literal("ff"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 95:
+                this.bsMark(96);
+                if (!(this.literal("\u269B="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 96:
+                this.bsMark(97);
+                if (!(this.literal("or"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 97:
+                this.bsMark(98);
+                if (!(this.literal(".."))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 98:
+                this.bsMark(99);
                 if (!(this.literal("*"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3445,12 +3965,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 59:
-                this.bsMark(60);
+            case 99:
+                this.bsMark(100);
                 if (!(this.literal("\u00D7"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3458,12 +3978,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 60:
-                this.bsMark(61);
+            case 100:
+                this.bsMark(101);
                 if (!(this.literal("/"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3471,12 +3991,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 61:
-                this.bsMark(62);
+            case 101:
+                this.bsMark(102);
                 if (!(this.literal("\u00F7"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3484,12 +4004,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 62:
-                this.bsMark(63);
+            case 102:
+                this.bsMark(103);
                 if (!(this.literal("%"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3497,12 +4017,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 63:
-                this.bsMark(64);
+            case 103:
+                this.bsMark(104);
                 if (!(this.literal("+"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3510,12 +4030,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 64:
-                this.bsMark(65);
+            case 104:
+                this.bsMark(105);
                 if (!(this.literal("-"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3523,12 +4043,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 65:
-                this.bsMark(66);
+            case 105:
+                this.bsMark(106);
                 if (!(this.literal("\u2212"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3536,12 +4056,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 66:
-                this.bsMark(67);
+            case 106:
+                this.bsMark(107);
                 if (!(this.literal("x"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3549,12 +4069,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 67:
-                this.bsMark(68);
+            case 107:
+                this.bsMark(108);
                 if (!(this.literal("~"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3562,12 +4082,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 68:
-                this.bsMark(69);
+            case 108:
+                this.bsMark(109);
                 if (!(this.literal("\u2218"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3575,12 +4095,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 69:
-                this.bsMark(70);
+            case 109:
+                this.bsMark(110);
                 if (!(this.literal("o"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3588,12 +4108,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 70:
-                this.bsMark(71);
+            case 110:
+                this.bsMark(111);
                 if (!(this.literal("&"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3601,12 +4121,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 71:
-                this.bsMark(72);
+            case 111:
+                this.bsMark(112);
                 if (!(this.literal("\u2229"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3614,12 +4134,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 72:
-                this.bsMark(73);
+            case 112:
+                this.bsMark(113);
                 if (!(this.literal("\u228D"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3627,12 +4147,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 73:
-                this.bsMark(74);
+            case 113:
+                this.bsMark(114);
                 if (!(this.literal("|"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3640,12 +4160,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 74:
-                this.bsMark(75);
+            case 114:
+                this.bsMark(115);
                 if (!(this.literal("^"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3653,12 +4173,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 75:
-                this.bsMark(76);
+            case 115:
+                this.bsMark(116);
                 if (!(this.literal("\u222A"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3666,12 +4186,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 76:
-                this.bsMark(77);
+            case 116:
+                this.bsMark(117);
                 if (!(this.literal("\u2296"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3679,12 +4199,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 77:
-                this.bsMark(78);
+            case 117:
+                this.bsMark(118);
                 if (!(this.literal("\u228E"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3692,12 +4212,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 78:
-                this.bsMark(79);
+            case 118:
+                this.bsMark(119);
                 if (!(this.literal("\u2216"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3705,12 +4225,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 79:
-                this.bsMark(80);
+            case 119:
+                this.bsMark(120);
                 if (!(this.literal("\u2245"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3718,12 +4238,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 80:
-                this.bsMark(81);
+            case 120:
+                this.bsMark(121);
                 if (!(this.literal("\u2260"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3731,12 +4251,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 81:
-                this.bsMark(82);
+            case 121:
+                this.bsMark(122);
                 if (!(this.literal("\u2264"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3744,12 +4264,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 82:
-                this.bsMark(83);
+            case 122:
+                this.bsMark(123);
                 if (!(this.literal("\u2265"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3757,12 +4277,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 83:
-                this.bsMark(84);
+            case 123:
+                this.bsMark(124);
                 if (!(this.literal("<"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3770,12 +4290,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 84:
-                this.bsMark(85);
+            case 124:
+                this.bsMark(125);
                 if (!(this.literal(">"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3783,12 +4303,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 85:
-                this.bsMark(86);
+            case 125:
+                this.bsMark(126);
                 if (!(this.literal("\u2208"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3796,12 +4316,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 86:
-                this.bsMark(87);
+            case 126:
+                this.bsMark(127);
                 if (!(this.literal("\u2209"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3809,12 +4329,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 87:
-                this.bsMark(88);
+            case 127:
+                this.bsMark(128);
                 if (!(this.literal("\u220B"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3822,12 +4342,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 88:
-                this.bsMark(89);
+            case 128:
+                this.bsMark(129);
                 if (!(this.literal("\u220C"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3835,12 +4355,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 89:
-                this.bsMark(90);
+            case 129:
+                this.bsMark(130);
                 if (!(this.literal("\u2282"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3848,12 +4368,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 90:
-                this.bsMark(91);
+            case 130:
+                this.bsMark(131);
                 if (!(this.literal("\u2284"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3861,12 +4381,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 91:
-                this.bsMark(92);
+            case 131:
+                this.bsMark(132);
                 if (!(this.literal("\u2283"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3874,12 +4394,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 92:
-                this.bsMark(93);
+            case 132:
+                this.bsMark(133);
                 if (!(this.literal("\u2285"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3887,12 +4407,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 93:
-                this.bsMark(94);
+            case 133:
+                this.bsMark(134);
                 if (!(this.literal("\u2286"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3900,12 +4420,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 94:
-                this.bsMark(95);
+            case 134:
+                this.bsMark(135);
                 if (!(this.literal("\u2288"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3913,12 +4433,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 95:
-                this.bsMark(96);
+            case 135:
+                this.bsMark(136);
                 if (!(this.literal("\u2287"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3926,12 +4446,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 96:
-                this.bsMark(97);
+            case 136:
+                this.bsMark(137);
                 if (!(this.literal("\u2289"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3939,12 +4459,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 97:
-                this.bsMark(98);
+            case 137:
+                this.bsMark(138);
                 if (!(this.literal("\u227C"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3952,11 +4472,12 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(99);
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 98:
+            case 138:
+                this.bsMark(139);
                 if (!(this.literal("\u227D"))) {
                     if (this.backtrack()) {
                         continue;
@@ -3964,14 +4485,78 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.state = 99;
+                this.bsCommit(144);
+                this.state = 144;
                 continue;
 
-            case 99:
-                this.state = 100;
+            case 139:
+                this.bsMark(140);
+                if (!(this.literal(","))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 140:
+                this.bsMark(141);
+                if (!(this.literal("Z"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 141:
+                this.bsMark(142);
+                if (!(this.literal("X"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 142:
+                this.bsMark(143);
+                if (!(this.literal("\u2026"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.bsCommit(144);
+                this.state = 144;
+                continue;
+
+            case 143:
+                if (!(this.literal("="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 144;
+                continue;
+
+            case 144:
+                this.state = 145;
                 return -3;
 
-            case 100:
+            case 145:
                 return -1;
 
             }
