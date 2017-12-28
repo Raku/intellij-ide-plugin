@@ -119,7 +119,6 @@ my class GrammarCompiler {
     multi method compile(Quantifier $quant) {
         my ($min, $max) = $quant.min, $quant.max;
         return if $min == $max == 0;
-        die "Compiling quantifiers with separators NYI" with $quant.separator; 
 
         # Save point that we should insert push of initial backtrack mark.
         my $insert-initial-mark-statements = $*CUR-STATEMENTS;
@@ -132,8 +131,18 @@ my class GrammarCompiler {
         self.compile($quant.target);
 
         # We need a done state, but then to insert things before it.
-        my $pre-done-statements = $*CUR-STATEMENTS;
-        my $done = self!new-state();
+        my $pre-sep-statements = $*CUR-STATEMENTS;
+        my ($sep, $done, $pre-done-statements);
+        if $max != 1 && $quant.separator {
+            $sep = self!new-state();
+            self.compile($quant.separator);
+            $pre-done-statements = $*CUR-STATEMENTS;
+            $done = self!new-state();
+        }
+        else {
+            $done = self!new-state();
+            $pre-done-statements = $pre-sep-statements;
+        }
 
         # Insert initial backtrack mark, then continue to loop state.
         $insert-initial-mark-statements.splice($insert-initial-mark-index, 0, [
@@ -145,16 +154,16 @@ my class GrammarCompiler {
         # commit.
         unless $min == 0 && $max == 1 {
             $*NEED-REP = True;
-            $pre-done-statements.append: [
+            $pre-sep-statements.append: [
                 assign(local('rep', 'int'), this-call('peekRep', int-lit($done))),
                 PrefixOp.new(op => '++', right => local('rep', 'int'))
             ];
         }
-        $pre-done-statements.push: this-call('bsCommit', int-lit($done));
+        $pre-sep-statements.push: this-call('bsCommit', int-lit($done));
 
         # If we have a maximum to reach, enforce it.
         if $max != Inf && $max > 1 {
-            $pre-done-statements.push: if(
+            $pre-sep-statements.push: if(
                 cond => InfixOp.new(
                     left => local('rep', 'int'),
                     op => '>=',
@@ -168,13 +177,24 @@ my class GrammarCompiler {
 
         # Unless one match is what we want, loop.
         if $max == 1 {
-            $pre-done-statements.append: [
+            $pre-sep-statements.append: [
                 assign(field('state', 'int'), int-lit($done)),
                 continue()
             ];
         }
-        else {
+        elsif $sep {
+            $pre-sep-statements.append: [
+                this-call('bsMark', int-lit($done), local('rep', 'int')),
+                assign(field('state', 'int'), int-lit($sep)),
+                continue()
+            ];
             $pre-done-statements.append: [
+                assign(field('state', 'int'), int-lit($loop)),
+                continue()
+            ];
+        }
+        else {
+            $pre-sep-statements.append: [
                 this-call('bsMark', int-lit($done), local('rep', 'int')),
                 assign(field('state', 'int'), int-lit($loop)),
                 continue()
