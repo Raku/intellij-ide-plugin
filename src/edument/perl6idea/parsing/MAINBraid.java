@@ -990,10 +990,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(2);
+                this.bsFailMark(5);
                 this.state = 1;
                 break;
             case 1:
+                this.bsFailMark(3);
+                this.state = 2;
+                break;
+            case 2:
                 if (!(this.digitChar())) {
                     if (this.backtrack()) {
                         continue;
@@ -1001,14 +1005,33 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                rep = this.peekRep(2);
+                rep = this.peekRep(3);
                 ++rep;
-                this.bsCommit(2);
-                this.bsMark(2, rep);
+                this.bsCommit(3);
+                this.bsMark(3, rep);
+                this.state = 2;
+                continue;
+
+            case 3:
+                rep = this.peekRep(5);
+                ++rep;
+                this.bsCommit(5);
+                this.bsMark(5, rep);
+                this.state = 4;
+                continue;
+
+            case 4:
+                if (!(this.literal("_"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 this.state = 1;
                 continue;
 
-            case 2:
+            case 5:
                 return -1;
 
             }
@@ -1020,12 +1043,16 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(4);
+                this.bsFailMark(7);
                 this.state = 1;
                 break;
             case 1:
-                this.bsFailMark(3);
-                this.bsMark(2);
+                this.bsFailMark(5);
+                this.state = 2;
+                break;
+            case 2:
+                this.bsFailMark(4);
+                this.bsMark(3);
                 if (!(this.digitChar())) {
                     if (this.backtrack()) {
                         continue;
@@ -1033,11 +1060,11 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsCommit(3);
-                this.state = 3;
+                this.bsCommit(4);
+                this.state = 4;
                 continue;
 
-            case 2:
+            case 3:
                 if (!(this.inCharList("abcdefABCDEF\uFF41\uFF42\uFF43\uFF44\uFF45\uFF46\uFF21\uFF22\uFF23\uFF24\uFF25\uFF26"))) {
                     if (this.backtrack()) {
                         continue;
@@ -1045,18 +1072,37 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.state = 3;
-                continue;
-
-            case 3:
-                rep = this.peekRep(4);
-                ++rep;
-                this.bsCommit(4);
-                this.bsMark(4, rep);
-                this.state = 1;
+                this.state = 4;
                 continue;
 
             case 4:
+                rep = this.peekRep(5);
+                ++rep;
+                this.bsCommit(5);
+                this.bsMark(5, rep);
+                this.state = 2;
+                continue;
+
+            case 5:
+                rep = this.peekRep(7);
+                ++rep;
+                this.bsCommit(7);
+                this.bsMark(7, rep);
+                this.state = 6;
+                continue;
+
+            case 6:
+                if (!(this.literal("_"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 1;
+                continue;
+
+            case 7:
                 return -1;
 
             }
@@ -1068,10 +1114,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(2);
+                this.bsFailMark(5);
                 this.state = 1;
                 break;
             case 1:
+                this.bsFailMark(3);
+                this.state = 2;
+                break;
+            case 2:
                 if (!(this.digitChar())) {
                     if (this.backtrack()) {
                         continue;
@@ -1079,14 +1129,33 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                rep = this.peekRep(2);
+                rep = this.peekRep(3);
                 ++rep;
-                this.bsCommit(2);
-                this.bsMark(2, rep);
+                this.bsCommit(3);
+                this.bsMark(3, rep);
+                this.state = 2;
+                continue;
+
+            case 3:
+                rep = this.peekRep(5);
+                ++rep;
+                this.bsCommit(5);
+                this.bsMark(5, rep);
+                this.state = 4;
+                continue;
+
+            case 4:
+                if (!(this.literal("_"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 this.state = 1;
                 continue;
 
-            case 2:
+            case 5:
                 return -1;
 
             }
@@ -1098,10 +1167,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.bsFailMark(2);
+                this.bsFailMark(5);
                 this.state = 1;
                 break;
             case 1:
+                this.bsFailMark(3);
+                this.state = 2;
+                break;
+            case 2:
                 if (!(this.digitChar())) {
                     if (this.backtrack()) {
                         continue;
@@ -1109,14 +1182,33 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                rep = this.peekRep(2);
+                rep = this.peekRep(3);
                 ++rep;
-                this.bsCommit(2);
-                this.bsMark(2, rep);
+                this.bsCommit(3);
+                this.bsMark(3, rep);
+                this.state = 2;
+                continue;
+
+            case 3:
+                rep = this.peekRep(5);
+                ++rep;
+                this.bsCommit(5);
+                this.bsMark(5, rep);
+                this.state = 4;
+                continue;
+
+            case 4:
+                if (!(this.literal("_"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 this.state = 1;
                 continue;
 
-            case 2:
+            case 5:
                 return -1;
 
             }

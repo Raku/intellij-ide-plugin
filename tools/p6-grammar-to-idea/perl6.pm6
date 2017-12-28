@@ -115,15 +115,10 @@ grammar MAIN {
         <.end-element('INTEGER_LITERAL')>
     }
 
-    token decint { \d+ }
-    token hexint { [\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+ }
-    token octint { \d+ }
-    token binint { \d+ }
-    # TODO Replace above with below when % is compiled
-    #token decint { [\d+]+ % '_' }
-    #token hexint { [[\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+]+ % '_' }
-    #token octint { [\d+]+ % '_' }
-    #token binint { [\d+]+ % '_' }
+    token decint { [\d+]+ % '_' }
+    token hexint { [[\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+]+ % '_' }
+    token octint { [\d+]+ % '_' }
+    token binint { [\d+]+ % '_' }
 
     token EXPR {
         <.start-element('EXPR')>
