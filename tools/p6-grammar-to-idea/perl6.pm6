@@ -104,8 +104,7 @@ grammar MAIN {
 
     token sigil { <[$@%&]> }
 
-    # XXX Missing lookahead <?before \w> at end
-    token twigil { <[.!^:*?=~]> }
+    token twigil { <[.!^:*?=~]> <?before \w> }
 
     # XXX Hack
     token desigilname { \w+ }

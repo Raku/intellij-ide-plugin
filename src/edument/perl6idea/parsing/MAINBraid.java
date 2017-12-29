@@ -116,6 +116,9 @@ public class MAINBraid extends Cursor<MAINBraid> {
         case 36:
             result = this._36_termish();
             break;
+        case 37:
+            result = this.___lookahead_0();
+            break;
         default:
             throw new RuntimeException();
 
@@ -995,6 +998,13 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 if (!(this.inCharList(".!^:*?=~"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                if (!(this.lookahead(37))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4579,6 +4589,23 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     }
                 } else {
                     this.pos = this.lastResult.getPos();
+                }
+                return -1;
+
+            }
+        }
+    }
+
+    private int ___lookahead_0() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                if (!(this.wordChar())) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
                 }
                 return -1;
 
