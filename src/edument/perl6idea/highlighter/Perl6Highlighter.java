@@ -63,4 +63,17 @@ public final class Perl6Highlighter {
             NUMERIC_LITERAL_ID,
             DefaultLanguageHighlighterColors.NUMBER
     );
+
+    static final String PARENTHESES_ID = "PERL6_PARENTHESES";
+    public static final TextAttributesKey PARENTHESES = TextAttributesKey.createTextAttributesKey(
+            PARENTHESES_ID,
+            DefaultLanguageHighlighterColors.PARENTHESES
+    );
+
+
+    static final String SUB_CALL_NAME_ID = "PERL6_SUB_CALL_NAME";
+    public static final TextAttributesKey SUB_CALL_NAME = TextAttributesKey.createTextAttributesKey(
+            SUB_CALL_NAME_ID,
+            DefaultLanguageHighlighterColors.FUNCTION_CALL
+    );
 }

@@ -6,11 +6,13 @@ public interface Perl6TokenTypes {
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
+    IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");

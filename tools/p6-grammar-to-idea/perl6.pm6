@@ -44,7 +44,12 @@ grammar MAIN {
 
     token end_keyword {
         >>
-        <!before <.[ \( \\ ' \- ]> || \h* '=>'>
+        <!before <[ \( \\ ' \- ]> || \h* '=>'>
+    }
+
+    token kok {
+        <.end_keyword>
+        <?before \s || \# || $ > <.ws>
     }
 
     token ws {
@@ -118,6 +123,20 @@ grammar MAIN {
         <.end-token('BAD_CHARACTER')>
     }
 
+    token terminator {
+        || <?[;)\]}]>
+        # XXX <?{ $*IN_REGEX_ASSERTION }> needed below
+        || <?[>]>
+        || [ 'if' || 'unless' || 'while' || 'until' || 'for' || 'given' || 'when' || 'with' || 'without' ]
+           <.kok>
+        || '-->'
+    }
+
+    token stdstopper {
+        || <?terminator>
+        || $
+    }
+
     token statement_control {
         || <.statement_control_use>
     }
@@ -134,8 +153,48 @@ grammar MAIN {
 
     token term {
         || <.variable>
+        || <.term_ident>
         || <.scope_declarator>
         || <.value>
+    }
+
+    token term_ident {
+        <?before <.identifier> [ <.unsp>? '(' || \\ '(' ]>
+        <.start-element('SUB_CALL')>
+        <.start-token('SUB_CALL_NAME')>
+        <.identifier>
+        <.end-token('SUB_CALL_NAME')>
+        [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
+        <.args>
+        <.end-element('SUB_CALL')>
+    }
+
+    token args {
+        [
+        || <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+           <.semiarglist>
+           [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+        || <.unsp>
+           <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+           <.semiarglist>
+           [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+        || <.start-token('WHITE_SPACE')> \s <.end-token('WHITE_SPACE')> <.arglist>
+        || <?>
+        ]
+    }
+
+    # XXX Cheat
+    token semiarglist {
+        <.arglist>
+        <.ws>
+    }
+
+    token arglist {
+        <.ws>
+        [
+        || <!stdstopper> <.EXPR>
+        || <?>
+        ]
     }
 
     token variable {

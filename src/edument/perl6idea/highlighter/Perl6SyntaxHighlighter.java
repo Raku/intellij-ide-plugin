@@ -27,6 +27,8 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.INTEGER_LITERAL, Perl6Highlighter.NUMERIC_LITERAL);
         ATTRIBUTES.put(Perl6TokenTypes.NUMBER_LITERAL, Perl6Highlighter.NUMERIC_LITERAL);
         ATTRIBUTES.put(Perl6TokenTypes.RAT_LITERAL, Perl6Highlighter.NUMERIC_LITERAL);
+        ATTRIBUTES.put(Perl6TokenTypes.PARENTHESES, Perl6Highlighter.PARENTHESES);
+        ATTRIBUTES.put(Perl6TokenTypes.SUB_CALL_NAME, Perl6Highlighter.SUB_CALL_NAME);
     }
 
     @NotNull
