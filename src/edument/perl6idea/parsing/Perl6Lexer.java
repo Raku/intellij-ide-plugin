@@ -45,17 +45,21 @@ public class Perl6Lexer extends LexerBase {
         while (true) {
             int outcome = stack.peek().runRule();
             switch (outcome) {
-                case -1:
-                    stack.pop().passed = true;
+                case -1: {
+                    Cursor<MAINBraid> c = stack.pop();
+                    c.passed = true;
                     if (stack.isEmpty()) {
+                        if (c.pos != stack.target.length())
+                            System.err.println("Perl 6 lexer: failed to lex the whole file (passed early)");
                         stack.token = null;
                         return;
                     }
                     continue;
+                }
                 case -2:
                     stack.pop();
                     if (stack.isEmpty()) {
-                        System.err.println("Perl 6 lexer: failed to lex the whole file");
+                        System.err.println("Perl 6 lexer: failed to lex the whole file (failed to match)");
                         stack.token = null;
                         return;
                     }
