@@ -3,6 +3,53 @@ grammar MAIN {
         <.statementlist>
     }
 
+    ## Lexer stuff
+
+    token apostrophe {
+        <[ ' \- ]>
+    }
+
+    token ident {
+        [<.alpha> || '_'] \w*
+    }
+
+    token identifier {
+        <.ident> [ <.apostrophe> <.ident> ]*
+    }
+
+    token name {
+        [
+        || <.identifier> <.morename>*
+        || <.morename>+
+        ]
+    }
+
+    token morename {
+        '::'
+        [
+        || <.identifier>
+        ]?
+    }
+
+    # XXX Missing its colonpairs
+    token longname {
+        <.name>
+    }
+
+    token module_name {
+        <.start-token('NAME')>
+        <.longname>
+        <.end-token('NAME')>
+    }
+
+    token end_keyword {
+        >>
+        # Add this once we can compile lookaheads
+        # <!before <.[ \( \\ ' \- ]> || \h* '=>'>
+    }
+
+    ## Top-level structure
+
     token statementlist {
         <.start-element('STATEMENT_LIST')>
         <.statement>*
@@ -47,7 +94,7 @@ grammar MAIN {
         'use'
         <.end-token('STATEMENT_CONTROL')>
         <.ws>
-        <.name>
+        <.module_name>
         <.end-element('USE_STATEMENT')>
     }
 
@@ -107,19 +154,7 @@ grammar MAIN {
     token twigil { <[.!^:*?=~]> <?before \w> }
 
     # XXX Hack
-    token desigilname { \w+ }
-
-    token name {
-        <.start-token('NAME')>
-        \w+
-        <.end-token('NAME')>
-    }
-
-    token end_keyword {
-        >>
-        # Add this once we can compile lookaheads
-        # <!before <.[ \( \\ ' \- ]> || \h* '=>'>
-    }
+    token desigilname { <.longname> }
 
     token value {
         || <.number>
