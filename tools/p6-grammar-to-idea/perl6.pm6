@@ -44,8 +44,7 @@ grammar MAIN {
 
     token end_keyword {
         >>
-        # Add this once we can compile lookaheads
-        # <!before <.[ \( \\ ' \- ]> || \h* '=>'>
+        <!before <.[ \( \\ ' \- ]> || \h* '=>'>
     }
 
     token ws {
