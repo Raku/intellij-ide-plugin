@@ -15,5 +15,6 @@ public interface Perl6TokenTypes {
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
+    IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
 }

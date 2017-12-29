@@ -48,6 +48,47 @@ grammar MAIN {
         # <!before <.[ \( \\ ' \- ]> || \h* '=>'>
     }
 
+    token ws {
+        <!ww>        
+        [
+        || <.start-token('WHITE_SPACE')>
+           [\r\n || \v]
+           <.end-token('WHITE_SPACE')>
+        || <.unv>
+        || <.unsp>
+        ]*
+    }
+
+    token unsp {
+        <.start-token('WHITE_SPACE')>
+        '\\' <?before \s || '#'>
+        <.end-token('WHITE_SPACE')>
+        [
+        || <.vws>
+        || <.unv>
+        || <.unsp>
+        ]*
+    }
+
+    token vws {
+        <.start-token('WHITE_SPACE')>
+        \v+
+        <.end-token('WHITE_SPACE')>
+    }
+
+    token unv {
+        [
+        || <.comment>
+        || <.start-token('WHITE_SPACE')> \h+ <.end-token('WHITE_SPACE')> <.comment>?
+        ]
+    }
+
+    token comment {
+        <.start-token('COMMENT')>
+       '#' \N*
+        <.end-token('COMMENT')>
+    }
+
     ## Top-level structure
 
     token statementlist {
@@ -57,31 +98,25 @@ grammar MAIN {
     }
 
     token statement {
-        <.ws>?
+        <.ws>
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
         || <.EXPR>
         || <.bogus_statement>
         ]
-        <.ws>?
+        <.ws>
         <.start-token('STATEMENT_TERMINATOR')>
         ';'?
         <.end-token('STATEMENT_TERMINATOR')>
         <.end-element('STATEMENT')>
-        <.ws>?
+        <.ws>
     }
 
     token bogus_statement {
         <.start-token('BAD_CHARACTER')>
         <-[;]>+
         <.end-token('BAD_CHARACTER')>
-    }
-
-    token ws {
-        <.start-token('WHITE_SPACE')>
-        \s+
-        <.end-token('WHITE_SPACE')>
     }
 
     token statement_control {
@@ -130,7 +165,7 @@ grammar MAIN {
         ||  [
             <.start-element('VARIABLE_DECLARATION')>
             <.variable_declarator>
-            [<.ws>? <.initializer>]?
+            [<.ws> <.initializer>]?
             <.end-element('VARIABLE_DECLARATION')>
             ]
     }
@@ -145,7 +180,7 @@ grammar MAIN {
         ['=' || ':=' || '::=']
         <.end-token('INFIX')>
         <.end-element('INFIX')>
-        <.ws>?
+        <.ws>
         <.EXPR>?
     }
 
@@ -234,17 +269,17 @@ grammar MAIN {
         <.termish>
         <.postfixish>*
 
-        <.ws>?
+        <.ws>
 
         [
             <.infixish>
-            <.ws>?
+            <.ws>
             [
                 <.prefixish>*
                 <.termish>
                 <.postfixish>*
             ]?
-            <.ws>?
+            <.ws>
         ]*
 
         <.end-element('EXPR')>

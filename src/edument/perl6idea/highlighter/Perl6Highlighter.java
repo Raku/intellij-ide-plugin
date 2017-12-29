@@ -4,6 +4,12 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 
 public final class Perl6Highlighter {
+    static final String COMMENT_ID = "PERL6_COMMENT";
+    public static final TextAttributesKey COMMENT = TextAttributesKey.createTextAttributesKey(
+            COMMENT_ID,
+            DefaultLanguageHighlighterColors.LINE_COMMENT
+    );
+
     static final String STATEMENT_CONTROL_ID = "PERL6_STATEMENT_CONTROL";
     public static final TextAttributesKey STATEMENT_CONTROL = TextAttributesKey.createTextAttributesKey(
             STATEMENT_CONTROL_ID,
