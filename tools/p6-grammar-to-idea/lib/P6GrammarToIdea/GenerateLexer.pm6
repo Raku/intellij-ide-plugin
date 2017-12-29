@@ -26,9 +26,9 @@ my class GrammarCompiler {
                 decl($result),
                 Java::Generate::Statement::Switch.new(
                     switch => field('ruleNumber', 'int'),
-                    branches => $!grammar.productions.map({
-                        int-lit(%!rule-numbers{.name}) => [
-                            assign($result, this-call(%!rule-methods{.name}))
+                    branches => %!rule-numbers.keys.sort({ %!rule-numbers{$_} }).map(-> $name {
+                        int-lit(%!rule-numbers{$name}) => [
+                            assign($result, this-call(%!rule-methods{$name}))
                         ]
                     }),
                     default => [
@@ -40,19 +40,25 @@ my class GrammarCompiler {
     }
 
     method compile-rules() {
-        $!grammar.productions.map({ self!compile-rule($_) })
+        my @*LOOKAHEADS;
+        my @compiled-rules = $!grammar.productions.map({ self!compile-rule($_) });
+        return flat @compiled-rules, @*LOOKAHEADS;
     }
 
     method !compile-rule($rule) {
-        # The methods that each production rule compiles into are state
-        # machines, the current state being in the cursor (which is `this`).
-        # The top level is a switch over the states.
+        self!compile-tree($rule.implementation, $rule.name)
+    }
+
+    method !compile-tree($implementation, $name) {
+        # The methods that each production rule or lookahead compiles into are
+        # state machines, the current state being in the cursor (which is
+        # `this`). The top level is a switch over the states.
         my @statements;
         my @*STATE-STATEMENTS;
         my $*CUR-STATEMENTS;
         my $*NEED-REP = False;
         self!new-state();
-        self.compile($rule.implementation);
+        self.compile($implementation);
         $*CUR-STATEMENTS.push(ret(int-lit(PASS)));
         if $*NEED-REP {
             push @statements, decl(local('rep', 'int'));
@@ -63,7 +69,7 @@ my class GrammarCompiler {
                 switch => field('state', 'int'),
                 branches => @*STATE-STATEMENTS.pairs.map({ int-lit(.key) => .value });
         return ClassMethod.new:
-            :access<private>, :name(%!rule-methods{$rule.name}),
+            :access<private>, :name(%!rule-methods{$name}),
             :signature(JavaSignature.new), :return-type<int>, :@statements
     }
 
@@ -276,6 +282,25 @@ my class GrammarCompiler {
         # Just continue onwards past this point, no action needed
     }
 
+    multi method compile(Lookahead $lookahead) {
+        # Generate a name for this lookahead and register it an index (claim
+        # the index right away in case of compiling recursive lookaheads).
+        my $index = @*LOOKAHEADS.elems;
+        @*LOOKAHEADS[$index] = Nil;
+        my $name = "___lookahead_" ~ $index;
+        my $rule-number = %!rule-numbers{$name} = %!rule-numbers.elems;
+        %!rule-methods{$name} = $name;
+
+        # Compile the lookahead as a separate method.
+        @*LOOKAHEADS[$index] = self!compile-tree($lookahead.target, $name);
+
+        # Generate code in the current method, depending on positive or
+        # negative lookahead.
+        $*CUR-STATEMENTS.push: $lookahead.negative
+            ?? if(this-call('lookahead', int-lit($rule-number)), [backtrack()])
+            !! unless(this-call('lookahead', int-lit($rule-number)), [backtrack()])
+    }
+
     multi method compile($unknown) {
         die "Unimplemented compilation of node type $unknown.^name()";
     }
@@ -293,7 +318,8 @@ my class GrammarCompiler {
 
 sub generate-lexer(Grammar $grammar) is export {
     my $compiler = GrammarCompiler.new(:$grammar);
-    my @methods = flat $compiler.compile-run-rule, $compiler.compile-rules;
+    my @rule-methods = $compiler.compile-rules;
+    my @methods = flat $compiler.compile-run-rule, @rule-methods;
     my $class = Class.new: :access<public>, :name("$grammar.name()Braid"),
         :super(Class.new(:name("Cursor<$grammar.name()Braid>"))), :@methods;
     my $comp-unit = CompUnit.new:

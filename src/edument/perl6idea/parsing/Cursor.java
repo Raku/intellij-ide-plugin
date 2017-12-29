@@ -254,5 +254,46 @@ public abstract class Cursor<TCursor extends Cursor> {
                 !Character.isLetterOrDigit(stack.target.charAt(pos));
     }
 
+    public boolean lookahead(int ruleNumber) {
+        // Save original token and token start.
+        int origTokenStart = stack.tokenStart;
+        IElementType origToken = stack.token;
+
+        // Run ignoring any tokens, until we leave the base.
+        Cursor<TCursor> base = stack.peek().start(ruleNumber);
+        stack.push(base);
+        boolean poppedBase = false;
+        boolean result = false;
+        while (!poppedBase) {
+            int outcome = stack.peek().runRule();
+            switch (outcome) {
+                case -1: {
+                    Cursor<TCursor> popped = stack.pop();
+                    if (popped == base) {
+                        result = true;
+                        poppedBase = true;
+                    }
+                    continue;
+                }
+                case -2: {
+                    Cursor<TCursor> popped = stack.pop();
+                    if (popped == base)
+                        poppedBase = true;
+                }
+                case -3:
+                    continue;
+                default:
+                    stack.push(stack.peek().start(outcome));
+            }
+        }
+
+        // Restore original token and token start.
+        stack.token = origToken;
+        stack.tokenStart = origTokenStart;
+
+        // Return lookahead result.
+        return result;
+    }
+
     public abstract int runRule();
 }
