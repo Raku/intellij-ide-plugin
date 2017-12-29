@@ -32,6 +32,8 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.PARENTHESES, Perl6Highlighter.PARENTHESES);
         ATTRIBUTES.put(Perl6TokenTypes.SUB_CALL_NAME, Perl6Highlighter.SUB_CALL_NAME);
         ATTRIBUTES.put(Perl6TokenTypes.METHOD_CALL_NAME, Perl6Highlighter.METHOD_CALL_NAME);
+        ATTRIBUTES.put(Perl6TokenTypes.WHATEVER, Perl6Highlighter.WHATEVER);
+        ATTRIBUTES.put(Perl6TokenTypes.HYPER_WHATEVER, Perl6Highlighter.WHATEVER);
     }
 
     @NotNull

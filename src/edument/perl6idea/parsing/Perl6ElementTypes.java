@@ -7,6 +7,7 @@ public interface Perl6ElementTypes {
     IFileElementType FILE = new IFileElementType(Perl6Language.INSTANCE);
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
+    IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
@@ -21,4 +22,5 @@ public interface Perl6ElementTypes {
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");
     IElementType STATEMENT_LIST = new Perl6ElementType("STATEMENT_LIST");
+    IElementType WHATEVER = new Perl6ElementType("WHATEVER");
 }

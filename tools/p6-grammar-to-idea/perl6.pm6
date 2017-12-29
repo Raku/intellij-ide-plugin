@@ -157,6 +157,8 @@ grammar MAIN {
         || <.scope_declarator>
         || <.value>
         || <.term_name>
+        || <.term_whatever>
+        || <.term_hyperwhatever>
     }
 
     token term_ident {
@@ -190,6 +192,22 @@ grammar MAIN {
            [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
            <.args>
            <.end-element('SUB_CALL')>
+    }
+
+    token term_whatever {
+        <.start-element('WHATEVER')>
+        <.start-token('WHATEVER')>
+        '*'
+        <.end-token('WHATEVER')>
+        <.end-element('WHATEVER')>
+    }
+
+    token term_hyperwhatever {
+        <.start-element('HYPER_WHATEVER')>
+        <.start-token('HYPER_WHATEVER')>
+        '*'
+        <.end-token('HYPER_WHATEVER')>
+        <.end-element('HYPER_WHATEVER')>
     }
 
     token args {

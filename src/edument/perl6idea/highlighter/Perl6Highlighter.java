@@ -81,4 +81,10 @@ public final class Perl6Highlighter {
             METHOD_CALL_NAME_ID,
             DefaultLanguageHighlighterColors.INSTANCE_METHOD
     );
+
+    static final String WHATEVER_ID = "PERL6_WHATEVER";
+    public static final TextAttributesKey WHATEVER = TextAttributesKey.createTextAttributesKey(
+            WHATEVER_ID,
+            DefaultLanguageHighlighterColors.CONSTANT
+    );
 }

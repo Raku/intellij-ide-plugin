@@ -3,6 +3,7 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 
 public interface Perl6TokenTypes {
+    IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
@@ -22,4 +23,5 @@ public interface Perl6TokenTypes {
     IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
+    IElementType WHATEVER = new Perl6ElementType("WHATEVER");
 }
