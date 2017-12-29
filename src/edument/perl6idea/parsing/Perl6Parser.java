@@ -555,9 +555,6 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean statement_21(PsiBuilder builder) {
-        if (!(this.ws_45(builder))) {
-            return false;
-        }
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
         PsiBuilder.Marker altMarker4;
@@ -733,6 +730,9 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean statementlist_28(PsiBuilder builder) {
+        if (!(this.ws_45(builder))) {
+            return false;
+        }
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
         while (true) {

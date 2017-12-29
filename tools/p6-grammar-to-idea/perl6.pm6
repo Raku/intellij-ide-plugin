@@ -91,13 +91,13 @@ grammar MAIN {
     ## Top-level structure
 
     token statementlist {
+        <.ws>
         <.start-element('STATEMENT_LIST')>
         <.statement>*
         <.end-element('STATEMENT_LIST')>
     }
 
     token statement {
-        <.ws>
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
