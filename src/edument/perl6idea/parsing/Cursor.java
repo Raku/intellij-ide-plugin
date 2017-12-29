@@ -241,6 +241,16 @@ public abstract class Cursor<TCursor extends Cursor> {
         return false;
     }
 
+    public boolean alphaChar() {
+        if (pos < stack.target.length()) {
+            if (Character.isLetter(stack.target.charAt(pos))) {
+                pos++;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean rightWordBoundary() {
         // Always a boundary at the end; never a boundary at the start.
         if (pos == stack.target.length())

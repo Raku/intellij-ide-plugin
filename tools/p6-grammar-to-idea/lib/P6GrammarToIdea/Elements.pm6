@@ -12,6 +12,8 @@ use P6GrammarToIdea::AST;
 # inside of a token are not considered, for example. However, a quantifier or
 # alternation falling outside of any token will be part of the model.
 
+my constant %IGNORE-NAMES = set 'alpha';
+
 role ParseNode is export {}
 
 class TokenNode does ParseNode is export {
@@ -201,6 +203,9 @@ class BraidModel {
         given $s.name {
             when 'start-element' | 'end-element' | 'start-token' | 'end-token' {
                 die "Oops, should never make it to walk subrule with $_";
+            }
+            when %IGNORE-NAMES{$_}:exists {
+                PassNode.new
             }
             default {
                 CallNode.new: production-name => $_

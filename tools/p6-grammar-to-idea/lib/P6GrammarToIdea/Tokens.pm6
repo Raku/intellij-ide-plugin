@@ -14,6 +14,8 @@ use P6GrammarToIdea::AST;
 # It does this by performing an abstract interpretation of the grammar, which
 # means it also descends into rules.
 
+my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha';
+
 class X::P6GrammarToIdea::UncoveredByToken is Exception {
     has $.production-name;
     has $.uncovered;
@@ -111,7 +113,7 @@ multi sub walk(Subrule $call) {
             $*CURRENT-TOKEN = Nil;
             $*CURRENT-TOKEN-START-PRODUCTION = Nil;
         }
-        when 'start-element' | 'end-element' {
+        when %IGNORE-NAMES{$_}:exists {
             # Not significant for the tokenizer
         }
         default {

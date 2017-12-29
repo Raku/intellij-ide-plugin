@@ -228,6 +228,9 @@ my class GrammarCompiler {
             when 'start-element' | 'end-element' {
                 # These aren't relevant for lexer generation
             }
+            when 'alpha' {
+                $append-to.push: unless(this-call('alphaChar'), [backtrack()]);
+            }
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};
