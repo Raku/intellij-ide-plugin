@@ -241,6 +241,27 @@ public abstract class Cursor<TCursor extends Cursor> {
         return false;
     }
 
+    public boolean newlineChar() {
+        if (pos < stack.target.length()) {
+            if (stack.target.charAt(pos) != '\n') {
+                pos++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean notNewlineChar() {
+        if (pos < stack.target.length()) {
+            char c = stack.target.charAt(pos);
+            if (c != '\r' && c != '\n') {
+                pos++;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean alphaChar() {
         if (pos < stack.target.length()) {
             if (Character.isLetter(stack.target.charAt(pos))) {

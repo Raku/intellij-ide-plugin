@@ -273,7 +273,7 @@ my class GrammarCompiler {
                 "space"
             }
             when NewlineChars {
-                die "Newline char class NYI"
+                "newline"
             }
         }
         my $method = ($cclass.negative ?? "not$charType.tc()" !! $charType) ~ "Char";
