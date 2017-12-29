@@ -291,6 +291,10 @@ public abstract class Cursor<TCursor extends Cursor> {
                 !Character.isLetterOrDigit(stack.target.charAt(pos));
     }
 
+    public boolean endOfString() {
+        return pos == stack.target.length();
+    }
+
     public boolean lookahead(int ruleNumber) {
         // Save original token and token start.
         int origTokenStart = stack.tokenStart;
