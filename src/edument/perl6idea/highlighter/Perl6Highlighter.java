@@ -70,10 +70,15 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.PARENTHESES
     );
 
-
     static final String SUB_CALL_NAME_ID = "PERL6_SUB_CALL_NAME";
     public static final TextAttributesKey SUB_CALL_NAME = TextAttributesKey.createTextAttributesKey(
             SUB_CALL_NAME_ID,
             DefaultLanguageHighlighterColors.FUNCTION_CALL
+    );
+
+    static final String METHOD_CALL_NAME_ID = "PERL6_METHOD_CALL_NAME";
+    public static final TextAttributesKey METHOD_CALL_NAME = TextAttributesKey.createTextAttributesKey(
+            METHOD_CALL_NAME_ID,
+            DefaultLanguageHighlighterColors.INSTANCE_METHOD
     );
 }

@@ -396,9 +396,10 @@ grammar MAIN {
     }
 
     token postfixish {
-        <.start-element('POSTFIX')>
-        <.postfix>
-        <.end-element('POSTFIX')>
+        || <.start-element('POSTFIX')>
+           <.postfix>
+           <.end-element('POSTFIX')>
+        || <.dotty>
     }
 
     token postfix {
@@ -412,6 +413,42 @@ grammar MAIN {
         || <[⁻⁺¯]>? <[⁰¹²³⁴⁵⁶⁷⁸⁹]>+
         ]
         <.end-token('POSTFIX')>
+    }
+
+    token dotty {
+        <.start-element('METHOD_CALL')>
+        <.start-token('METHOD_CALL_OPERATOR')>
+        '.' [ <[+*?=]> || '^' ]?
+        <.end-token('METHOD_CALL_OPERATOR')>
+        <.dottyop>?
+        <.end-element('METHOD_CALL')>
+    }
+
+    token dottyop {
+        <.unsp>?
+        [
+        || <.methodop>
+        ]
+    }
+
+    token methodop {
+        [
+        || <.start-token('METHOD_CALL_NAME')>
+           <.longname>
+           <.end-token('METHOD_CALL_NAME')>
+        || <?[$@&]> <.variable>
+        ] <.unsp>?
+        [
+            [
+            || <?[(]> <.args>
+            || <?before ':' [ \s || '{']>
+               <.start-token('INVOCANT_MARKER')>
+               ':'
+               <.end-token('INVOCANT_MARKER')>
+               <.arglist>
+            ]
+            || <?>
+        ] <.unsp>?
     }
 
     token infixish {
