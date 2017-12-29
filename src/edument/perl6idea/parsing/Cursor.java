@@ -310,6 +310,7 @@ public abstract class Cursor<TCursor extends Cursor> {
             switch (outcome) {
                 case -1: {
                     Cursor<TCursor> popped = stack.pop();
+                    popped.passed = true;
                     if (popped == base) {
                         result = true;
                         poppedBase = true;
