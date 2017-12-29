@@ -231,6 +231,9 @@ my class GrammarCompiler {
             when 'alpha' {
                 $append-to.push: unless(this-call('alphaChar'), [backtrack()]);
             }
+            when 'ww' {
+                $append-to.push: unless(this-call('ww'), [backtrack()]);
+            }
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};

@@ -14,7 +14,7 @@ use P6GrammarToIdea::AST;
 # It does this by performing an abstract interpretation of the grammar, which
 # means it also descends into rules.
 
-my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha';
+my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha', 'ww';
 
 class X::P6GrammarToIdea::UncoveredByToken is Exception {
     has $.production-name;
