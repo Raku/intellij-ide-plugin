@@ -156,6 +156,7 @@ grammar MAIN {
         || <.term_ident>
         || <.scope_declarator>
         || <.value>
+        || <.term_name>
     }
 
     token term_ident {
@@ -167,6 +168,28 @@ grammar MAIN {
         [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
         <.args>
         <.end-element('SUB_CALL')>
+    }
+
+    # This is rather tricky. A true Perl 6 implementation will rely on knowing
+    # on what is and is not a type name. We can start trying to track that in
+    # the future while lexing, but even then we'll be going on incomplete info.
+    # For now, we assume anything that starts with A..Z is a type name, and
+    # anything else is a listop sub name, with the exception of known name
+    # types.
+    token term_name {
+        || <?before <[A..Z]> || '::' || 'u'?'int'\d+ >> || 'num'\d+ >> || 'str' >> || 'array' >> >
+           <.start-element('TYPE_NAME')>
+           <.start-token('NAME')>
+           <.longname>
+           <.end-token('NAME')>
+           <.end-element('TYPE_NAME')>
+        || <.start-element('SUB_CALL')>
+           <.start-token('SUB_CALL_NAME')>
+           <.longname>
+           <.end-token('SUB_CALL_NAME')>
+           [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
+           <.args>
+           <.end-element('SUB_CALL')>
     }
 
     token args {
