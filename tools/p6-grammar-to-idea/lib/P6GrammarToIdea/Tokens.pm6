@@ -153,7 +153,7 @@ sub ensure-covered($what --> Nil) {
     );
 }
 
-# Ignore lookaheads and anchors, because they don't match any chars.
+# Ignore lookaheads, anchors, and declarations, because they don't match any chars.
 multi sub walk(Lookahead) { }
 multi sub walk(AnchorLeftWordBoundary) { }
 multi sub walk(AnchorRightWordBoundary) { }
@@ -161,3 +161,4 @@ multi sub walk(AnchorEnd) { }
 multi sub walk(AnchorLineEnd) { }
 multi sub walk(AnchorPass) { }
 multi sub walk(AnchorFail) { }
+multi sub walk(Declaration) { }

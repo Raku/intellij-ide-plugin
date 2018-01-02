@@ -121,6 +121,10 @@ class P6GrammarToIdea::Actions {
         make Interpolation.new: variable-name => ~$/;
     }
 
+    method metachar:sym<:my>($/) {
+        make Declaration.new: variable-name => ~$<var>, value => $<value>.ast;
+    }
+
     method single-quote-string($/) {
         make $<single-quote-string-part>.map(*.ast).join;
     }

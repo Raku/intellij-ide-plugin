@@ -197,6 +197,16 @@ class AnchorFail is export {
     }
 }
 
+class Declaration is export {
+    has $.variable-name is required;
+    has $.value is required;
+
+    method dump($level = 0) {
+        i($level, "Declaration of $!variable-name\n") ~
+            $!value.dump($level + 1)
+    }
+}
+
 class Interpolation is export {
     has $.variable-name is required;
 

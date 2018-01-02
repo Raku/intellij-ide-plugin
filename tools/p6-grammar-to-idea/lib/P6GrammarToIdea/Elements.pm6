@@ -224,6 +224,7 @@ class BraidModel {
     multi method walk(AnchorPass) { PassNode.new }
     multi method walk(AnchorFail) { FailNode.new }
     multi method walk(Interpolation) { PassNode.new }
+    multi method walk(Declaration) { PassNode.new }
 }
 
 class Model {

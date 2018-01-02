@@ -245,11 +245,7 @@ my class GrammarCompiler {
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};
-                my @args = $rule.args.map: {
-                    when StrArg { str-lit(.value) }
-                    when IntArg { int-lit(.value) }
-                    default { die "Unknown argument type $_.^name()" }
-                }
+                my @args = $rule.args.map(&compile-arg);
                 $append-to.push: this-call('setArgs', |@args);
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit($rule-number));
@@ -331,8 +327,20 @@ my class GrammarCompiler {
             [backtrack()]);
     }
 
+    multi method compile(Declaration $d) {
+        $*CUR-STATEMENTS.push: this-call('declareDynamicVariable',
+            str-lit($d.variable-name),
+            compile-arg($d.value));
+    }
+
     multi method compile($unknown) {
         die "Unimplemented compilation of node type $unknown.^name()";
+    }
+
+    sub compile-arg($_) {
+        when StrArg { str-lit(.value) }
+        when IntArg { int-lit(.value) }
+        default { die "Unknown argument type $_.^name()" }
     }
 
     sub backtrack() {
