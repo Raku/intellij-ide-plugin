@@ -46,10 +46,10 @@ my class GrammarCompiler {
     }
 
     method !compile-rule($rule) {
-        self!compile-tree($rule.implementation, $rule.name)
+        self!compile-tree($rule.implementation, $rule.name, :parameters($rule.parameters))
     }
 
-    method !compile-tree($implementation, $name) {
+    method !compile-tree($implementation, $name, :$parameters) {
         # The methods that each production rule or lookahead compiles into are
         # state machines, the current state being in the cursor (which is
         # `this`). The top level is a switch over the states.
@@ -58,6 +58,14 @@ my class GrammarCompiler {
         my $*CUR-STATEMENTS;
         my $*NEED-REP = False;
         self!new-state();
+        with $parameters -> @parameters {
+            $*CUR-STATEMENTS.push: this-call('checkArgs', int-lit(@parameters.elems));
+            for @parameters.kv -> $idx, $name {
+                $*CUR-STATEMENTS.push: this-call('declareDynamicVariable',
+                    str-lit($name),
+                    this-call('getArg', int-lit($idx)));
+            }
+        }
         self.compile($implementation);
         $*CUR-STATEMENTS.push(ret(int-lit(PASS)));
         if $*NEED-REP {
@@ -237,6 +245,12 @@ my class GrammarCompiler {
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};
+                my @args = $rule.args.map: {
+                    when StrArg { str-lit(.value) }
+                    when IntArg { int-lit(.value) }
+                    default { die "Unknown argument type $_.^name()" }
+                }
+                $append-to.push: this-call('setArgs', |@args);
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit($rule-number));
                 $*CUR-STATEMENTS.push: if(
@@ -309,6 +323,12 @@ my class GrammarCompiler {
         $*CUR-STATEMENTS.push: $lookahead.negative
             ?? if(this-call('lookahead', int-lit($rule-number)), [backtrack()])
             !! unless(this-call('lookahead', int-lit($rule-number)), [backtrack()])
+    }
+
+    multi method compile(Interpolation $i) {
+        $*CUR-STATEMENTS.push: unless(
+            this-call('interpolate', str-lit($i.variable-name)),
+            [backtrack()]);
     }
 
     multi method compile($unknown) {

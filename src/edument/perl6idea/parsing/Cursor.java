@@ -3,7 +3,9 @@ package edument.perl6idea.parsing;
 import com.intellij.psi.tree.IElementType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This works much like the Cursor class in Perl 6: it is the base class for grammars, and contains the state of an
@@ -36,6 +38,9 @@ public abstract class Cursor<TCursor extends Cursor> {
      * 3. The height of the capture stack at the point the mark was made
      */
     private List<Integer> backtrackStack;
+
+    /* Dynamic variables declared by this Cursor, if any. */
+    private Map<String, Object> dynamicVariables;
 
     public TCursor initialize(CursorStack stack) {
         TCursor cursor = null;
@@ -335,6 +340,35 @@ public abstract class Cursor<TCursor extends Cursor> {
 
         // Return lookahead result.
         return result;
+    }
+
+    public void setArgs(Object ...args) {
+        stack.args = args;
+    }
+
+    public void checkArgs(int wanted) {
+        int got = stack.args == null ? 0 : stack.args.length;
+        if (got != wanted)
+            throw new RuntimeException("Wrong number of arguments; got " + got + ", but wanted " + wanted);
+    }
+
+    public Object getArg(int idx) {
+        return stack.args[idx];
+    }
+
+    public boolean interpolate(String variableName) {
+        Object found = stack.findDynamicVariable(variableName);
+        return found == null ? false : literal(found.toString());
+    }
+
+    public Object getDynamicVariable(String name) {
+        return dynamicVariables == null ? null : dynamicVariables.get(name);
+    }
+
+    public void declareDynamicVariable(String name, Object value) {
+        if (dynamicVariables == null)
+            dynamicVariables = new HashMap<>();
+        dynamicVariables.put(name, value);
     }
 
     public abstract int runRule();
