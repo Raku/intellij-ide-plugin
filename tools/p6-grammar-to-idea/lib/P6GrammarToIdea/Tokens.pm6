@@ -142,6 +142,10 @@ multi sub walk(BuiltinCharClass) {
     ensure-covered('built-in character class');
 }
 
+multi sub walk(Interpolation $i) {
+    ensure-covered("interpolation of '$i.variable-name()'");
+}
+
 sub ensure-covered($what --> Nil) {
     $*CURRENT-TOKEN or die X::P6GrammarToIdea::UncoveredByToken.new(
         production-name => $*CURRENT-PRODUCTION.name,

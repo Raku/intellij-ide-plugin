@@ -75,6 +75,7 @@ multi sub sanity-check(AnchorEnd) { }
 multi sub sanity-check(AnchorLineEnd) { }
 multi sub sanity-check(AnchorPass) { }
 multi sub sanity-check(AnchorFail) { }
+multi sub sanity-check(Interpolation) { }
 
 sub error($node, $message) {
     push @*ERRORS, $message;
