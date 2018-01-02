@@ -23,6 +23,7 @@ public interface Perl6TokenTypes {
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
+    IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");

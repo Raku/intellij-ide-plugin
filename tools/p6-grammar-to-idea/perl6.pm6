@@ -363,7 +363,15 @@ grammar MAIN {
     token binint { [\d+]+ % '_' }
 
     token quote {
-       <.start-element('STRING_LITERAL')>
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        <.start-element('STRING_LITERAL')>
         [
         || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
            <.quote_q('\'', '\'', '\'')>
@@ -401,10 +409,18 @@ grammar MAIN {
     }
 
     token quote_q($*STARTER, $*STOPPER, $*ALT_STOPPER) {
+        { $*Q_QBACKSLASH = 1 }
         <.quote_nibbler>
     }
 
     token quote_qq($*STARTER, $*STOPPER, $*ALT_STOPPER) {
+        { $*Q_BACKSLASH = 1 }
+        { $*Q_QQBACKSLASH = 1 }
+        { $*Q_CLOSURES = 1 }
+        { $*Q_SCALARS = 1 }
+        { $*Q_ARRAYS = 1 }
+        { $*Q_HASHES = 1 }
+        { $*Q_FUNCTIONS = 1 }
         <.quote_nibbler>
     }
 
@@ -415,7 +431,7 @@ grammar MAIN {
             || <.start-token('STRING_LITERAL_QUOTE')> <.starter> <.end-token('STRING_LITERAL_QUOTE')>
                <.quote_nibbler>
                <.start-token('STRING_LITERAL_QUOTE')> <.stopper> <.end-token('STRING_LITERAL_QUOTE')>
-#            || <.escape>
+            || <.quote_escape>
             || <.start-token('STRING_LITERAL_CHAR')> . <.end-token('STRING_LITERAL_CHAR')>
             ]
         ]*
@@ -427,6 +443,14 @@ grammar MAIN {
 
     token stopper {
         $*STOPPER || $*ALT_STOPPER
+    }
+
+    token quote_escape {
+        || <?[$]> <?{ $*Q_SCALARS }>
+            [
+            || <.variable>
+            || <.start-token('BAD_ESCAPE')> '$' <.end-token('BAD_ESCAPE')>
+            ]
     }
 
     token EXPR {
