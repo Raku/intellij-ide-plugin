@@ -76,6 +76,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.STRING
     );
 
+    static final String STRING_LITERAL_ESCAPE_ID = "PERL6_STRING_LITERAL_ESCAPE";
+    public static final TextAttributesKey STRING_LITERAL_ESCAPE = TextAttributesKey.createTextAttributesKey(
+            STRING_LITERAL_ESCAPE_ID,
+            DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+    );
+
     static final String STRING_LITERAL_BAD_ESCAPE_ID = "PERL6_STRING_LITERAL_BAD_ESCAPE";
     public static final TextAttributesKey STRING_LITERAL_BAD_ESCAPE = TextAttributesKey.createTextAttributesKey(
             STRING_LITERAL_BAD_ESCAPE_ID,

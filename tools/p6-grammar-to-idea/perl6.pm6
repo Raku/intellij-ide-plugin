@@ -342,7 +342,12 @@ grammar MAIN {
     token integer {
         <.start-element('INTEGER_LITERAL')>
         <.start-token('INTEGER_LITERAL')>
-        [
+        <.integer_lex>
+        <.end-token('INTEGER_LITERAL')>
+        <.end-element('INTEGER_LITERAL')>
+    }
+
+    token integer_lex {
         || '0'
             [
             || 'b' '_'? <.binint>
@@ -352,15 +357,31 @@ grammar MAIN {
             || <.decint>
             ]
         || <.decint>
-        ]
-        <.end-token('INTEGER_LITERAL')>
-        <.end-element('INTEGER_LITERAL')>
     }
 
     token decint { [\d+]+ % '_' }
     token hexint { [[\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+]+ % '_' }
     token octint { [\d+]+ % '_' }
     token binint { [\d+]+ % '_' }
+    token charname {
+        || <.integer_lex>
+        || <.alpha> [<!before \s* <[ \] , # ]> > .]*
+    }
+
+    # XXX These are slightly cheating in that they \s* instead of <.ws>, to
+    # avoid token nesting issues in the places using them. It's most likely
+    # that we'll get away with that.
+    token hexints { [\s*<.hexint>\s*]+ % ',' }
+    token octints { [\s*<.octint>\s*]+ % ',' }
+    token charnames { [\s*<.charname>\s*]+ % ',' }
+
+    token charspec {
+        [
+        || '[' <.charnames> ']'
+        || \d+ [ '_' \d+]*
+        || <[ ?..Z ]>
+        ]
+    }
 
     token quote {
         :my $*Q_BACKSLASH = 0;
@@ -451,6 +472,20 @@ grammar MAIN {
             || <.variable>
             || <.start-token('BAD_ESCAPE')> '$' <.end-token('BAD_ESCAPE')>
             ]
+        || <?[\\]> <?{ $*Q_BACKSLASH }>
+            <.start-token('STRING_LITERAL_ESCAPE')>
+            '\\'
+            [
+            || <[abefnrt0\\]>
+            || 'o' [ <.octint> || '[' <.octints> ']' ]
+            || 'x' [ <.hexint> || '[' <.hexints> ']' ]
+            || 'c' <.charspec>
+            || <.starter>
+            || <.stopper>
+            ]
+            <.end-token('STRING_LITERAL_ESCAPE')>
+        || <?[\\]> <?{ $*Q_BACKSLASH }>
+           <.start-token('BAD_ESCAPE')> <[1..9]>\d* <.end-token('BAD_ESCAPE')>
     }
 
     token EXPR {
