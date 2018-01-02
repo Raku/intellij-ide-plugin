@@ -492,6 +492,15 @@ grammar MAIN {
            <.end-token('STRING_LITERAL_ESCAPE')>
         || <?[\\]> <?{ $*Q_QQBACKSLASH }>
            <.start-token('BAD_ESCAPE')> '\\' \w <.end-token('BAD_ESCAPE')>
+        || <?[\\]> <?{ $*Q_QBACKSLASH }>
+            <.start-token('STRING_LITERAL_ESCAPE')>
+            '\\'
+            [
+            || '\\'
+            || <.starter>
+            || <.stopper>
+            ]
+            <.end-token('STRING_LITERAL_ESCAPE')>
     }
 
     token EXPR {
