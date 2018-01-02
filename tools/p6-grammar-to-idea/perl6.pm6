@@ -292,6 +292,7 @@ grammar MAIN {
 
     token value {
         || <.number>
+        || <.quote>
     }
 
     token number {
@@ -360,6 +361,41 @@ grammar MAIN {
     token hexint { [[\d||<[ a..f A..F ａ..ｆ Ａ..Ｆ ]>]+]+ % '_' }
     token octint { [\d+]+ % '_' }
     token binint { [\d+]+ % '_' }
+
+    token quote {
+       <.start-element('STRING_LITERAL')>
+        [
+        || <.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('"', '"')>
+           <.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>
+       ]
+       <.end-element('STRING_LITERAL')>
+    }
+
+    token quote_qq($*STARTER, $*STOPPER) {
+        <.quote_nibbler>
+    }
+
+    token quote_nibbler {
+        [
+            <!stopper>
+            [
+            || <.start-token('STRING_LITERAL_CHAR')> <.starter> <.end-token('STRING_LITERAL_CHAR')>
+               <.quote_nibbler>
+               <.start-token('STRING_LITERAL_CHAR')> <.stopper> <.end-token('STRING_LITERAL_CHAR')>
+#            || <.escape>
+            || <.start-token('STRING_LITERAL_CHAR')> . <.end-token('STRING_LITERAL_CHAR')>
+            ]
+        ]*
+    }
+
+    token starter {
+        $*STARTER
+    }
+
+    token stopper {
+        $*STOPPER
+    }
 
     token EXPR {
         <.start-element('EXPR')>

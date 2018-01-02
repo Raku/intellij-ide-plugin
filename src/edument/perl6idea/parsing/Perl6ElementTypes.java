@@ -17,6 +17,7 @@ public interface Perl6ElementTypes {
     IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType EXPR = new Perl6ElementType("EXPR");
+    IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");

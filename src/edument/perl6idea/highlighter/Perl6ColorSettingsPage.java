@@ -28,6 +28,8 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Method Call Name", Perl6Highlighter.METHOD_CALL_NAME),
             new AttributesDescriptor("Parentheses and Brackets", Perl6Highlighter.PARENTHESES),
             new AttributesDescriptor("Whatever", Perl6Highlighter.WHATEVER),
+            new AttributesDescriptor("String Literal Quote", Perl6Highlighter.STRING_LITERAL_QUOTE),
+            new AttributesDescriptor("String Literal Value", Perl6Highlighter.STRING_LITERAL_CHAR),
     };
 
     @Nullable

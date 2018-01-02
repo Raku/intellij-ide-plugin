@@ -64,6 +64,18 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.NUMBER
     );
 
+    static final String STRING_LITERAL_QUOTE_ID = "PERL6_STRING_LITERAL_QUOTE";
+    public static final TextAttributesKey STRING_LITERAL_QUOTE = TextAttributesKey.createTextAttributesKey(
+            STRING_LITERAL_QUOTE_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
+
+    static final String STRING_LITERAL_CHAR_ID = "PERL6_STRING_LITERAL_CHAR";
+    public static final TextAttributesKey STRING_LITERAL_CHAR = TextAttributesKey.createTextAttributesKey(
+            STRING_LITERAL_CHAR_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
+
     static final String PARENTHESES_ID = "PERL6_PARENTHESES";
     public static final TextAttributesKey PARENTHESES = TextAttributesKey.createTextAttributesKey(
             PARENTHESES_ID,
