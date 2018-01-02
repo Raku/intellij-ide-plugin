@@ -47,9 +47,9 @@ grammar P6GrammarToIdea::Parser {
         <seqalt>
         [
         || <?infixstopper>
-        || $$ <.panic('Regex notterminated')>
+        || $$ <.panic('Regex not terminated')>
         || (\W) {} <.panic("Unrecognized metachar: $/[0]")>
-        || <.panic('Regex notterminated')>
+        || <.panic('Regex not terminated')>
         ]
     }
 
