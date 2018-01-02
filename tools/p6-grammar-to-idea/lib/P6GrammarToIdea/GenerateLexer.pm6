@@ -302,6 +302,10 @@ my class GrammarCompiler {
         # Just continue onwards past this point, no action needed
     }
 
+    multi method compile(AnchorFail) {
+        $*CUR-STATEMENTS.push: backtrack();
+    }
+
     multi method compile(Lookahead $lookahead) {
         # Generate a name for this lookahead and register it an index (claim
         # the index right away in case of compiling recursive lookaheads).
