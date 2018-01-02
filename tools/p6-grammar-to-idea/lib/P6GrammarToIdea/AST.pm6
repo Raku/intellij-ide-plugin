@@ -215,12 +215,22 @@ class Interpolation is export {
     }
 }
 
+enum CodeBlockType is export <SimpleCode PositiveCodeAssertion NegativeCodeAssertion>;
 class CodeBlock is export {
+    has CodeBlockType $.type is required;
     has $.statement is required;
 
     method dump($level = 0) {
         i($level, "Code Block\n") ~
             $!statement.dump($level + 1)
+    }
+}
+
+class DynamicLookup is export {
+    has $.variable-name is required;
+
+    method dump($level = 0) {
+        i($level, "Lookup of $!variable-name\n")
     }
 }
 

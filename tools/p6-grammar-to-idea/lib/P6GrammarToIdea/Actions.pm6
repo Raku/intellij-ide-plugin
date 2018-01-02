@@ -126,7 +126,11 @@ class P6GrammarToIdea::Actions {
     }
 
     method metachar:sym<{>($/) {
-        make CodeBlock.new: statement => $<code>.ast;
+        make CodeBlock.new: type => SimpleCode, statement => $<codeblock>.ast;
+    }
+
+    method codeblock($/) {
+        make $<code>.ast;
     }
 
     method single-quote-string($/) {
@@ -199,6 +203,13 @@ class P6GrammarToIdea::Actions {
         make $<assertion>
             ?? Lookahead.new(:negative, target => tweak-lookahead($<assertion>.ast))
             !! AnchorFail.new;
+    }
+
+    method assertion:sym<?{ }>($/) {
+        make CodeBlock.new: type => PositiveCodeAssertion, statement => $<codeblock>.ast;
+    }
+    method assertion:sym<!{ }>($/) {
+        make CodeBlock.new: type => NegativeCodeAssertion, statement => $<codeblock>.ast;
     }
 
     sub tweak-lookahead($ast is copy) {
@@ -300,6 +311,9 @@ class P6GrammarToIdea::Actions {
         make IntValue.new: value => $/.Int;
     }
 
+    method code:sym<lookup>($/) {
+        make DynamicLookup.new: variable-name => ~$<var>;
+    }
     method code:sym<assignment>($/) {
         make DynamicAssignment.new: variable-name => ~$<var>, value => $<value>.ast;
     }

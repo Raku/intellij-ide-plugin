@@ -118,7 +118,11 @@ grammar P6GrammarToIdea::Parser {
     token metachar:sym<:my> {
         <.sym> <.ws> $<var>=['$*'<.ident>] <.ws> '=' <.ws> <value> <.ws> ';'
     }
-    rule metachar:sym<{> {
+    token metachar:sym<{> {
+        <codeblock>
+    }
+
+    rule codeblock {
         '{'
         [ <code> || <.panic("Code expression not understood or supported")> ]
         '}'
@@ -172,6 +176,12 @@ grammar P6GrammarToIdea::Parser {
         <?before '['|'+'|'-'>
         <cclass_elem>
     }
+    token assertion:sym<?{ }> {
+        '?' <?before '{'> <codeblock>
+    }
+    token assertion:sym<!{ }> {
+        '!' <?before '{'> <codeblock>
+    }
 
     token cclass_elem {
         :my $*key;
@@ -220,6 +230,9 @@ grammar P6GrammarToIdea::Parser {
     proto token code {*}
     rule code:sym<assignment> {
         $<var>=['$*'<.ident>] '=' <value>
+    }
+    rule code:sym<lookup> {
+        $<var>=['$*'<.ident>] <!before '='>
     }
 
     token name {

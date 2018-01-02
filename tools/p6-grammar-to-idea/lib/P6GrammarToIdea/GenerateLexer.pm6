@@ -334,11 +334,33 @@ my class GrammarCompiler {
     }
 
     multi method compile(CodeBlock $c) {
-        self.compile($c.statement)
+        given $c.type {
+            when SimpleCode {
+                $*CUR-STATEMENTS.push: self.compile-code($c.statement);
+            }
+            when PositiveCodeAssertion {
+                $*CUR-STATEMENTS.push: unless(
+                    this-call('isValueTruthy', self.compile-code($c.statement)),
+                    [backtrack()]);
+            }
+            when NegativeCodeAssertion {
+                $*CUR-STATEMENTS.push: if(
+                    this-call('isValueTruthy', self.compile-code($c.statement)),
+                    [backtrack()]);
+            }
+            default {
+                die "Unknown code block type $_";
+            }
+        }
     }
 
-    multi method compile(DynamicAssignment $a) {
-        $*CUR-STATEMENTS.push: this-call('assignDynamicVariable',
+    multi method compile-code(DynamicLookup $a) {
+        this-call('findDynamicVariable',
+            str-lit($a.variable-name));
+    }
+
+    multi method compile-code(DynamicAssignment $a) {
+        this-call('assignDynamicVariable',
             str-lit($a.variable-name),
             compile-value($a.value));
     }

@@ -379,5 +379,17 @@ public abstract class Cursor<TCursor extends Cursor> {
         stack.assignDynamicVariable(name, value);
     }
 
+    public Object findDynamicVariable(String name) {
+        return stack.findDynamicVariable(name);
+    }
+
+    public boolean isValueTruthy(Object value) {
+        if (value instanceof String)
+            return !((String)value).isEmpty();
+        if (value instanceof Integer)
+            return (Integer)value != 0;
+        return false;
+    }
+
     public abstract int runRule();
 }
