@@ -338,8 +338,8 @@ my class GrammarCompiler {
     }
 
     sub compile-arg($_) {
-        when StrArg { str-lit(.value) }
-        when IntArg { int-lit(.value) }
+        when StrValue { str-lit(.value) }
+        when IntValue { int-lit(.value) }
         default { die "Unknown argument type $_.^name()" }
     }
 

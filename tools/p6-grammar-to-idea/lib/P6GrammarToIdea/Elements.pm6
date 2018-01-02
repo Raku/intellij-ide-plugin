@@ -185,7 +185,7 @@ class BraidModel {
     }
 
     sub get-name($call) {
-        unless $call.args == 1 && $call.args[0] ~~ StrArg {
+        unless $call.args == 1 && $call.args[0] ~~ StrValue {
             die 'Must call $call.name() with one string argument';
         }
         $call.args[0].value

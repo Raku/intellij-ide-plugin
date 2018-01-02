@@ -289,10 +289,10 @@ class P6GrammarToIdea::Actions {
         make $<arg>.map(*.ast).list;
     }
 
-    method arg:sym<string>($/) {
-        make StrArg.new: value => $<single-quote-string>.ast;
+    method value:sym<string>($/) {
+        make StrValue.new: value => $<single-quote-string>.ast;
     }
-    method arg:sym<integer>($/) {
-        make IntArg.new: value => $/.Int;
+    method value:sym<integer>($/) {
+        make IntValue.new: value => $/.Int;
     }
 }

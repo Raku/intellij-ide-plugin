@@ -215,18 +215,18 @@ class Interpolation is export {
     }
 }
 
-class StrArg is export {
+class StrValue is export {
     has $.value;
 
     method dump($level = 0) {
-        i($level, "String Argument: $!value\n")
+        i($level, "String Value: $!value\n")
     }
 }
 
-class IntArg is export {
+class IntValue is export {
     has $.value;
 
     method dump($level = 0) {
-        i($level, "Integer Argument: $!value\n")
+        i($level, "Integer Value: $!value\n")
     }
 }

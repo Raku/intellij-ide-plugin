@@ -116,7 +116,7 @@ grammar P6GrammarToIdea::Parser {
         '$*' <.ident>
     }
     token metachar:sym<:my> {
-        <.sym> <.ws> $<var>=['$*'<.ident>] <.ws> '=' <.ws> <value=.arg> <.ws> ';'
+        <.sym> <.ws> $<var>=['$*'<.ident>] <.ws> '=' <.ws> <value> <.ws> ';'
     }
 
     token single-quote-string {
@@ -202,13 +202,13 @@ grammar P6GrammarToIdea::Parser {
         .
     }
 
-    rule arglist { '' <arg> +% [',' ] }
+    rule arglist { '' <arg=.value> +% [',' ] }
 
-    proto token arg {*}
-    token arg:sym<string> {
+    proto token value {*}
+    token value:sym<string> {
         <single-quote-string>
     }
-    token arg:sym<integer> {
+    token value:sym<integer> {
         \d+
     }
 

@@ -124,7 +124,7 @@ multi sub walk(Subrule $call) {
 }
 
 sub get-token-name($call) {
-    unless $call.args == 1 && $call.args[0] ~~ StrArg {
+    unless $call.args == 1 && $call.args[0] ~~ StrValue {
         die 'Must call start-token and end-token with one string argument';
     }
     $call.args[0].value
