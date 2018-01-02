@@ -112,6 +112,9 @@ grammar P6GrammarToIdea::Parser {
         <.ws> <GOAL=.quantified-atom>
         <.ws> <EXPR=.quantified-atom>
     }
+    token metachar:sym<variable> {
+        '$*' <.ident>
+    }
 
     token single-quote-string {
         "'"

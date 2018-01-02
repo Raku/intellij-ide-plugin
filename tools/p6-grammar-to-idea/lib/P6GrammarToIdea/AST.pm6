@@ -197,6 +197,14 @@ class AnchorFail is export {
     }
 }
 
+class Interpolation is export {
+    has $.variable-name is required;
+
+    method dump($level = 0) {
+        i($level, "Interpolation: $!variable-name\n")
+    }
+}
+
 class StrArg is export {
     has $.value;
 
