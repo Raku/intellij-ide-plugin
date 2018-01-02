@@ -365,14 +365,46 @@ grammar MAIN {
     token quote {
        <.start-element('STRING_LITERAL')>
         [
+        || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('\'', '\'', '\'')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '‘' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('‘', '’', '’')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '’' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '‚' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('‚', '’', '‘')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[’‘]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '’' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('’', '’', '‘')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[’‘]> <.end-token('STRING_LITERAL_QUOTE')>]?
         || <.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>
-           <.quote_qq('"', '"')>
-           <.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('"', '"', '"')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '“' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('“', '”', '”')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '”' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '„' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('„', '”', '“')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[”“]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '”' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('”', '”', '“')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[”“]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '｢' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_Q('｢', '｣', '｣')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '｣' <.end-token('STRING_LITERAL_QUOTE')>]?
        ]
        <.end-element('STRING_LITERAL')>
     }
 
-    token quote_qq($*STARTER, $*STOPPER) {
+    token quote_Q($*STARTER, $*STOPPER, $*ALT_STOPPER) {
+        <.quote_nibbler>
+    }
+
+    token quote_q($*STARTER, $*STOPPER, $*ALT_STOPPER) {
+        <.quote_nibbler>
+    }
+
+    token quote_qq($*STARTER, $*STOPPER, $*ALT_STOPPER) {
         <.quote_nibbler>
     }
 
@@ -380,9 +412,9 @@ grammar MAIN {
         [
             <!stopper>
             [
-            || <.start-token('STRING_LITERAL_CHAR')> <.starter> <.end-token('STRING_LITERAL_CHAR')>
+            || <.start-token('STRING_LITERAL_QUOTE')> <.starter> <.end-token('STRING_LITERAL_QUOTE')>
                <.quote_nibbler>
-               <.start-token('STRING_LITERAL_CHAR')> <.stopper> <.end-token('STRING_LITERAL_CHAR')>
+               <.start-token('STRING_LITERAL_QUOTE')> <.stopper> <.end-token('STRING_LITERAL_QUOTE')>
 #            || <.escape>
             || <.start-token('STRING_LITERAL_CHAR')> . <.end-token('STRING_LITERAL_CHAR')>
             ]
@@ -394,7 +426,7 @@ grammar MAIN {
     }
 
     token stopper {
-        $*STOPPER
+        $*STOPPER || $*ALT_STOPPER
     }
 
     token EXPR {
