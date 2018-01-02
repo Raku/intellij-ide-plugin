@@ -118,6 +118,11 @@ grammar P6GrammarToIdea::Parser {
     token metachar:sym<:my> {
         <.sym> <.ws> $<var>=['$*'<.ident>] <.ws> '=' <.ws> <value> <.ws> ';'
     }
+    rule metachar:sym<{> {
+        '{'
+        [ <code> || <.panic("Code expression not understood or supported")> ]
+        '}'
+    }
 
     token single-quote-string {
         "'"
@@ -210,6 +215,11 @@ grammar P6GrammarToIdea::Parser {
     }
     token value:sym<integer> {
         \d+
+    }
+
+    proto token code {*}
+    rule code:sym<assignment> {
+        $<var>=['$*'<.ident>] '=' <value>
     }
 
     token name {

@@ -215,6 +215,25 @@ class Interpolation is export {
     }
 }
 
+class CodeBlock is export {
+    has $.statement is required;
+
+    method dump($level = 0) {
+        i($level, "Code Block\n") ~
+            $!statement.dump($level + 1)
+    }
+}
+
+class DynamicAssignment is export {
+    has $.variable-name is required;
+    has $.value is required;
+
+    method dump($level = 0) {
+        i($level, "Assignment of $!variable-name\n") ~
+            $!value.dump($level + 1)
+    }
+}
+
 class StrValue is export {
     has $.value;
 

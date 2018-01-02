@@ -57,4 +57,16 @@ public class CursorStack {
         }
         return null;
     }
+
+    public void assignDynamicVariable(String variableName, Object value) {
+        int top = cursors.size() - 1;
+        while (top >= 0) {
+            if (cursors.get(top).getDynamicVariable(variableName) != null) {
+                cursors.get(top).setDynamicVariable(variableName, value);
+                return;
+            }
+            top--;
+        }
+        throw new RuntimeException("Dynamic variable " + variableName + " not found");
+    }
 }

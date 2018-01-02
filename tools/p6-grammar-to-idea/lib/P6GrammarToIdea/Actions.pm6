@@ -125,6 +125,10 @@ class P6GrammarToIdea::Actions {
         make Declaration.new: variable-name => ~$<var>, value => $<value>.ast;
     }
 
+    method metachar:sym<{>($/) {
+        make CodeBlock.new: statement => $<code>.ast;
+    }
+
     method single-quote-string($/) {
         make $<single-quote-string-part>.map(*.ast).join;
     }
@@ -294,5 +298,9 @@ class P6GrammarToIdea::Actions {
     }
     method value:sym<integer>($/) {
         make IntValue.new: value => $/.Int;
+    }
+
+    method code:sym<assignment>($/) {
+        make DynamicAssignment.new: variable-name => ~$<var>, value => $<value>.ast;
     }
 }

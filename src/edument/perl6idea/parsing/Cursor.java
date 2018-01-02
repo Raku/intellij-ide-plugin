@@ -365,10 +365,18 @@ public abstract class Cursor<TCursor extends Cursor> {
         return dynamicVariables == null ? null : dynamicVariables.get(name);
     }
 
-    public void declareDynamicVariable(String name, Object value) {
+    public void setDynamicVariable(String name, Object value) {
         if (dynamicVariables == null)
             dynamicVariables = new HashMap<>();
         dynamicVariables.put(name, value);
+    }
+
+    public void declareDynamicVariable(String name, Object value) {
+        setDynamicVariable(name, value);
+    }
+
+    public void assignDynamicVariable(String name, Object value) {
+        stack.assignDynamicVariable(name, value);
     }
 
     public abstract int runRule();

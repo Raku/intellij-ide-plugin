@@ -162,3 +162,4 @@ multi sub walk(AnchorLineEnd) { }
 multi sub walk(AnchorPass) { }
 multi sub walk(AnchorFail) { }
 multi sub walk(Declaration) { }
+multi sub walk(CodeBlock) { }
