@@ -191,6 +191,7 @@ grammar MAIN {
         || <.scope_declarator>
         || <.routine_declarator>
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
+        || <.dotty>
         || <.value>
         || <.term_name>
         || <.term_whatever>
