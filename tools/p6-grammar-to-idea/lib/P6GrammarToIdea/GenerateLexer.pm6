@@ -387,12 +387,17 @@ my class GrammarCompiler {
             compile-value($a.value));
     }
 
-    multi method compile-code(TestStrLE $t) {
-        this-call('testStrLE',
-            this-call('findDynamicVariable',
-                str-lit($t.left)),
-            this-call('findDynamicVariable',
-                str-lit($t.right)))
+    multi method compile-code(TestStr $t) {
+        my $op-name = "testStr$t.op.uc()";
+        this-call($op-name, self.compile-code($t.left), self.compile-code($t.right))
+    }
+
+    multi method compile-code(StrValue $s) {
+        str-lit($s.value)
+    }
+
+    multi method compile-code(IntValue $i) {
+        int-lit($i.value)
     }
 
     multi method compile($unknown) {

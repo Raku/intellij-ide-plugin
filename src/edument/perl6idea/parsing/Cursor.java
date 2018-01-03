@@ -412,6 +412,14 @@ public abstract class Cursor<TCursor extends Cursor> {
         return stack.findDynamicVariable(name);
     }
 
+    public Integer testStrEQ(Object left, Object right) {
+        return left.toString().compareTo(right.toString()) == 0 ? 1 : 0;
+    }
+
+    public Integer testStrNE(Object left, Object right) {
+        return left.toString().compareTo(right.toString()) != 0 ? 1 : 0;
+    }
+
     public Integer testStrLE(Object left, Object right) {
         return left.toString().compareTo(right.toString()) <= 0 ? 1 : 0;
     }

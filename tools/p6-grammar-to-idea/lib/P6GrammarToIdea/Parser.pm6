@@ -231,11 +231,19 @@ grammar P6GrammarToIdea::Parser {
     rule code:sym<assignment> {
         $<var>=['$*'<.ident>] '=' <value>
     }
-    rule code:sym<le> {
-        $<left>=['$*'<.ident>] 'le' $<right>=['$*'<.ident>]
+    rule code:sym<op> {
+        <left=.operand> $<op>=< le eq ne > <right=.operand>
     }
     rule code:sym<lookup> {
-        $<var>=['$*'<.ident>] <!before '='>
+        <variable>
+    }
+
+    token operand {
+        <variable> | <value>
+    }
+
+    token variable {
+        '$*' <.ident> <!before <.ws> '='>
     }
 
     token name {

@@ -311,13 +311,21 @@ class P6GrammarToIdea::Actions {
         make IntValue.new: value => $/.Int;
     }
 
-    method code:sym<lookup>($/) {
-        make DynamicLookup.new: variable-name => ~$<var>;
-    }
     method code:sym<assignment>($/) {
         make DynamicAssignment.new: variable-name => ~$<var>, value => $<value>.ast;
     }
-    method code:sym<le>($/) {
-        make TestStrLE.new: left => ~$<left>, right => ~$<right>;
+    method code:sym<op>($/) {
+        make TestStr.new: left => $<left>.ast, op => ~$<op>, right => $<right>.ast;
+    }
+    method code:sym<lookup>($/) {
+        make $<variable>.ast;
+    }
+
+    method operand($/) {
+        make $<variable> ?? $<variable>.ast !! $<value>.ast;
+    }
+
+    method variable($/) {
+        make DynamicLookup.new: variable-name => ~$/;
     }
 }
