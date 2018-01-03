@@ -6365,6 +6365,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 0:
                 this.checkArgs(1);
                 this.declareDynamicVariable("$*PRECLIM", this.getArg(0));
+                this.declareDynamicVariable("$*PREC", "");
                 this.bsMark(3);
                 this.state = 1;
                 break;
@@ -6613,6 +6614,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6626,6 +6628,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6639,6 +6642,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6652,6 +6656,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6665,6 +6670,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6678,6 +6684,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6691,6 +6698,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6704,6 +6712,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6717,6 +6726,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6730,6 +6740,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6743,6 +6754,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6756,6 +6768,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6769,6 +6782,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6782,6 +6796,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6795,6 +6810,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(16);
                 this.state = 16;
                 continue;
@@ -6807,6 +6823,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.state = 16;
                 continue;
 
@@ -6861,6 +6878,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
+                this.assignDynamicVariable("$*PREC", "y=");
                 this.state = 4;
                 continue;
 
@@ -6887,6 +6905,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "y=");
                 this.bsCommit(10);
                 this.state = 10;
                 continue;
@@ -6900,6 +6919,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(10);
                 this.state = 10;
                 continue;
@@ -6913,6 +6933,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(10);
                 this.state = 10;
                 continue;
@@ -6926,6 +6947,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(10);
                 this.state = 10;
                 continue;
@@ -6939,6 +6961,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.bsCommit(10);
                 this.state = 10;
                 continue;
@@ -6979,6 +7002,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 9:
+                this.assignDynamicVariable("$*PREC", "x=");
                 this.state = 10;
                 continue;
 
@@ -7345,6 +7369,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "d=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7358,6 +7383,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "d=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7371,6 +7397,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7384,6 +7411,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7397,6 +7425,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "c=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7410,6 +7439,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7423,6 +7453,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7436,6 +7467,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7449,6 +7481,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7462,6 +7495,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7475,6 +7509,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7488,6 +7523,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7501,6 +7537,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7514,6 +7551,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7527,6 +7565,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "b=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7540,6 +7579,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "b=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7553,6 +7593,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7566,6 +7607,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7579,6 +7621,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7592,6 +7635,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7605,6 +7649,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7618,6 +7663,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7631,6 +7677,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7644,6 +7691,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "q=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7657,6 +7705,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "q=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7670,6 +7719,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7683,6 +7733,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7696,6 +7747,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7709,6 +7761,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7722,6 +7775,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7735,6 +7789,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7748,6 +7803,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7761,6 +7817,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7774,6 +7831,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7787,6 +7845,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7800,6 +7859,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7813,6 +7873,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7826,6 +7887,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7839,6 +7901,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7852,6 +7915,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7865,6 +7929,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "k=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7878,6 +7943,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "k=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7891,6 +7957,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7904,6 +7971,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7917,6 +7985,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7930,6 +7999,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7943,6 +8013,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7956,6 +8027,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7969,6 +8041,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7982,6 +8055,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -7995,6 +8069,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "d=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8008,6 +8083,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "c=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8021,6 +8097,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "b=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8034,6 +8111,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "b=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8047,6 +8125,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8060,6 +8139,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8073,6 +8153,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8086,6 +8167,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8099,6 +8181,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8112,6 +8195,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8125,6 +8209,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "w=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8138,6 +8223,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8151,6 +8237,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8164,6 +8251,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8177,6 +8265,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8190,6 +8279,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8203,6 +8293,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8216,6 +8307,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8229,6 +8321,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8242,6 +8335,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8255,6 +8349,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8268,6 +8363,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8281,6 +8377,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8294,6 +8391,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8307,6 +8405,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8320,6 +8419,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "s=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8333,6 +8433,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8346,6 +8447,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8359,6 +8461,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8372,6 +8475,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8385,6 +8489,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8398,6 +8503,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8411,6 +8517,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8424,6 +8531,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8437,6 +8545,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8450,6 +8559,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8463,6 +8573,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8476,6 +8587,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "l=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8489,6 +8601,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "k=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8502,6 +8615,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "k=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8515,6 +8629,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "k=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8528,6 +8643,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8541,6 +8657,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "v=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8554,6 +8671,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8567,6 +8685,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "j=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8580,6 +8699,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8593,6 +8713,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "c=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8606,6 +8727,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "n=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8619,6 +8741,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8632,6 +8755,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8645,6 +8769,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8658,6 +8783,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8671,6 +8797,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "u=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8684,6 +8811,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8697,6 +8825,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8710,6 +8839,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "t=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8723,6 +8853,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "s=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8736,6 +8867,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "r=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8749,6 +8881,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "r=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8762,6 +8895,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "r=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8775,6 +8909,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "q=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8788,6 +8923,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "q=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8801,6 +8937,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "q=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8814,6 +8951,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8827,6 +8965,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8840,6 +8979,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8853,6 +8993,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8866,6 +9007,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8879,6 +9021,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "p=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8892,6 +9035,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8905,6 +9049,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8918,6 +9063,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8931,6 +9077,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8944,6 +9091,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8957,6 +9105,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8970,6 +9119,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8983,6 +9133,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -8996,6 +9147,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9009,6 +9161,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9022,6 +9175,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9035,6 +9189,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9048,6 +9203,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9061,6 +9217,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9074,6 +9231,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9087,6 +9245,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9100,6 +9259,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9113,6 +9273,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9126,6 +9287,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9139,6 +9301,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "m=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9152,6 +9315,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "g=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9165,6 +9329,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9178,6 +9343,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9191,6 +9357,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "f=");
                 this.bsCommit(144);
                 this.state = 144;
                 continue;
@@ -9203,6 +9370,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*PREC", "i=");
                 this.state = 144;
                 continue;
 
