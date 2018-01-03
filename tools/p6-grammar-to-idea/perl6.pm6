@@ -124,7 +124,7 @@ grammar MAIN {
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
-        || <.EXPR>
+        || <.EXPR('')>
         || <.bogus_statement>
         ]
         [
@@ -269,7 +269,7 @@ grammar MAIN {
     token arglist {
         <.ws>
         [
-        || <!stdstopper> <.EXPR>
+        || <!stdstopper> <.EXPR('e=')>
         || <?>
         ]
     }
@@ -387,7 +387,7 @@ grammar MAIN {
         <.end-token('INFIX')>
         <.end-element('INFIX')>
         <.ws>
-        <.EXPR>?
+        <.EXPR('e=')>?
     }
 
     token sigil { <[$@%&]> }
@@ -610,7 +610,7 @@ grammar MAIN {
             <.end-token('STRING_LITERAL_ESCAPE')>
     }
 
-    token EXPR {
+    token EXPR($*PRECLIM) {
         <.start-element('EXPR')>
 
         <.prefixish>*

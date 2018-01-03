@@ -1403,7 +1403,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 2:
                 this.bsMark(4);
-                this.setArgs();
+                this.setArgs("");
                 this.state = 3;
                 return 70;
 
@@ -2574,7 +2574,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.setArgs();
+                this.setArgs("e=");
                 this.state = 2;
                 return 70;
 
@@ -3500,7 +3500,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 6;
                 break;
             case 6:
-                this.setArgs();
+                this.setArgs("e=");
                 this.state = 7;
                 return 70;
 
@@ -6363,7 +6363,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                this.checkArgs(0);
+                this.checkArgs(1);
+                this.declareDynamicVariable("$*PRECLIM", this.getArg(0));
                 this.bsMark(3);
                 this.state = 1;
                 break;
