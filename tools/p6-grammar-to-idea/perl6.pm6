@@ -1,6 +1,16 @@
 grammar MAIN {
     token TOP {
         <.statementlist>
+        [
+        || $
+        || <.bogus_end>
+        ]
+    }
+
+    token bogus_end {
+        <.start-token('BAD_CHARACTER')>
+        .+
+        <.end-token('BAD_CHARACTER')>
     }
 
     ## Lexer stuff
@@ -96,13 +106,14 @@ grammar MAIN {
     ## Top-level structure
 
     token statementlist {
-        <.ws>
+        [<.ws> || $]
         <.start-element('STATEMENT_LIST')>
-        <.statement>*
+        [<!before $ || <[\)\]\}]> > <.statement>]*
         <.end-element('STATEMENT_LIST')>
     }
 
     token statement {
+        <!before <[\])}]> || $ >
         <.start-element('STATEMENT')>
         [
         || <.statement_control>
@@ -132,6 +143,19 @@ grammar MAIN {
         || '-->'
     }
 
+    token blockoid {
+        <.start-token('BLOCK_CURLY_BRACKET')>
+        '{'
+        <.end-token('BLOCK_CURLY_BRACKET')>
+        <.statementlist>
+        [
+        <.start-token('BLOCK_CURLY_BRACKET')>
+        '}'
+        <.end-token('BLOCK_CURLY_BRACKET')>
+#        <?ENDSTMT>
+        ]?
+    }
+
     token stdstopper {
         || <?terminator>
         || $
@@ -155,6 +179,7 @@ grammar MAIN {
         || <.variable>
         || <.term_ident>
         || <.scope_declarator>
+        || <.routine_declarator>
         || <.value>
         || <.term_name>
         || <.term_whatever>
@@ -267,10 +292,67 @@ grammar MAIN {
             [<.ws> <.initializer>]?
             <.end-element('VARIABLE_DECLARATION')>
             ]
+        || <.routine_declarator>
     }
 
     token variable_declarator {
         <.variable>
+    }
+
+    token routine_declarator {
+        <.start-element('ROUTINE_DECLARATION')>
+        [
+        || <.start-token('ROUTINE_DECLARATOR')>
+           'sub' <.end_keyword>
+           <.end-token('ROUTINE_DECLARATOR')>
+           <.routine_def>
+        ]
+        <.end-element('ROUTINE_DECLARATION')>
+    }
+
+    token routine_def {
+        <.ws>
+        [
+            <.start-token('ROUTINE_NAME')>
+            <.longname>
+            <.end-token('ROUTINE_NAME')>
+        ]?
+        <.ws>
+        [
+            <.start-element('SIGNATURE')>
+            <.start-token('PARENTHESES')>
+            '('
+            <.end-token('PARENTHESES')>
+            <.ws>
+            [
+            <.start-token('PARENTHESES')>
+            ')'
+            <.end-token('PARENTHESES')>
+            ]?
+            <.end-element('SIGNATURE')>
+        ]?
+        <.ws>
+        [
+        || <.onlystar>
+        || <.blockoid>
+        # Allow for body not written yet
+        || <?>
+        ]
+    }
+
+    token onlystar {
+        <?before '{' <.ws> '*' <.ws> '}'>
+        <.start-token('BLOCK_CURLY_BRACKET')>
+        '{'
+        <.end-token('BLOCK_CURLY_BRACKET')>
+        <.ws>
+        <.start-token('ONLY_STAR')>
+        '*'
+        <.end-token('ONLY_STAR')>
+        <.ws>
+        <.start-token('BLOCK_CURLY_BRACKET')>
+        '}'
+        <.end-token('BLOCK_CURLY_BRACKET')>
     }
 
     token initializer {

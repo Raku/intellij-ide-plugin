@@ -8,6 +8,7 @@ public interface Perl6ElementTypes {
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
+    IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
@@ -18,6 +19,7 @@ public interface Perl6ElementTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
+    IElementType SIGNATURE = new Perl6ElementType("SIGNATURE");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");

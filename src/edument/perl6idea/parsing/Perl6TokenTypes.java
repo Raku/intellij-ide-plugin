@@ -7,6 +7,7 @@ public interface Perl6TokenTypes {
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
+    IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
@@ -27,5 +28,8 @@ public interface Perl6TokenTypes {
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
+    IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
+    IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
+    IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
 }

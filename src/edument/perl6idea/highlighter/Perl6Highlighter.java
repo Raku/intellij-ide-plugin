@@ -22,6 +22,18 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String ROUTINE_DECLARATOR_ID = "PERL6_ROUTINE_DECLARATOR";
+    public static final TextAttributesKey ROUTINE_DECLARATOR = TextAttributesKey.createTextAttributesKey(
+            ROUTINE_DECLARATOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
+    static final String ROUTINE_NAME_ID = "PERL6_ROUTINE_NAME";
+    public static final TextAttributesKey ROUTINE_NAME = TextAttributesKey.createTextAttributesKey(
+            ROUTINE_NAME_ID,
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,
@@ -94,6 +106,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.PARENTHESES
     );
 
+    static final String BLOCK_CURLY_BRACKETS_ID = "PERL6_BLOCK_CURLY_BRACKETS";
+    public static final TextAttributesKey BLOCK_CURLY_BRACKETS = TextAttributesKey.createTextAttributesKey(
+            BLOCK_CURLY_BRACKETS_ID,
+            DefaultLanguageHighlighterColors.BRACES
+    );
+
     static final String SUB_CALL_NAME_ID = "PERL6_SUB_CALL_NAME";
     public static final TextAttributesKey SUB_CALL_NAME = TextAttributesKey.createTextAttributesKey(
             SUB_CALL_NAME_ID,
@@ -109,6 +127,12 @@ public final class Perl6Highlighter {
     static final String WHATEVER_ID = "PERL6_WHATEVER";
     public static final TextAttributesKey WHATEVER = TextAttributesKey.createTextAttributesKey(
             WHATEVER_ID,
+            DefaultLanguageHighlighterColors.CONSTANT
+    );
+
+    static final String ONLY_STAR_ID = "PERL6_ONLY_STAR";
+    public static final TextAttributesKey ONLY_STAR = TextAttributesKey.createTextAttributesKey(
+            ONLY_STAR_ID,
             DefaultLanguageHighlighterColors.CONSTANT
     );
 }

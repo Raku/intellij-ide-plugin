@@ -92,6 +92,10 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6WhateverImpl(astNode);
         if (type == Perl6ElementTypes.HYPER_WHATEVER)
             return new Perl6HyperWhateverImpl(astNode);
+        if (type == Perl6ElementTypes.ROUTINE_DECLARATION)
+            return new Perl6RoutineDeclImpl(astNode);
+        if (type == Perl6ElementTypes.SIGNATURE)
+            return new Perl6RoutineDeclImpl(astNode);
         return null;
     }
 
