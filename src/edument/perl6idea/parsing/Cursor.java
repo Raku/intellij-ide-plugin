@@ -302,6 +302,29 @@ public abstract class Cursor<TCursor extends Cursor> {
                 !Character.isLetterOrDigit(stack.target.charAt(pos));
     }
 
+    public boolean endOfLine() {
+        // True if we match a newline here
+        int origPos = pos;
+        boolean isNewline = newlineChar();
+        pos = origPos;
+        if (isNewline)
+            return true;
+
+        // Otherwise, certainly false if we're not at the end of the string.
+        if (pos != stack.target.length())
+            return false;
+
+        // True if we're also at the start of the string.
+        if (pos == 0)
+            return true;
+
+        // Otherwise, false if we're just after a newline.
+        pos--;
+        isNewline = newlineChar();
+        this.pos = origPos;
+        return !isNewline;
+    }
+
     public boolean endOfString() {
         return pos == stack.target.length();
     }
