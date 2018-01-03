@@ -387,6 +387,14 @@ my class GrammarCompiler {
             compile-value($a.value));
     }
 
+    multi method compile-code(TestStrLE $t) {
+        this-call('testStrLE',
+            this-call('findDynamicVariable',
+                str-lit($t.left)),
+            this-call('findDynamicVariable',
+                str-lit($t.right)))
+    }
+
     multi method compile($unknown) {
         die "Unimplemented compilation of node type $unknown.^name()";
     }

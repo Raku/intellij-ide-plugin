@@ -231,6 +231,9 @@ grammar P6GrammarToIdea::Parser {
     rule code:sym<assignment> {
         $<var>=['$*'<.ident>] '=' <value>
     }
+    rule code:sym<le> {
+        $<left>=['$*'<.ident>] 'le' $<right>=['$*'<.ident>]
+    }
     rule code:sym<lookup> {
         $<var>=['$*'<.ident>] <!before '='>
     }

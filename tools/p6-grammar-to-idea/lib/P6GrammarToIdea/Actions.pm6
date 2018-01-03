@@ -317,4 +317,7 @@ class P6GrammarToIdea::Actions {
     method code:sym<assignment>($/) {
         make DynamicAssignment.new: variable-name => ~$<var>, value => $<value>.ast;
     }
+    method code:sym<le>($/) {
+        make TestStrLE.new: left => ~$<left>, right => ~$<right>;
+    }
 }

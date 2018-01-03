@@ -244,6 +244,15 @@ class DynamicAssignment is export {
     }
 }
 
+class TestStrLE is export {
+    has $.left is required;
+    has $.right is required;
+
+    method dump($level = 0) {
+        i($level, "String $!left le $!right\n")
+    }
+}
+
 class StrValue is export {
     has $.value;
 

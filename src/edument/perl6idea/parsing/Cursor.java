@@ -412,6 +412,11 @@ public abstract class Cursor<TCursor extends Cursor> {
         return stack.findDynamicVariable(name);
     }
 
+    public Integer testStrLE(Object left, Object right) {
+        System.out.println(left + " le " + right + " is " + (left.toString().compareTo(right.toString()) <= 0));
+        return left.toString().compareTo(right.toString()) <= 0 ? 1 : 0;
+    }
+
     public boolean isValueTruthy(Object value) {
         if (value instanceof String)
             return !((String)value).isEmpty();
