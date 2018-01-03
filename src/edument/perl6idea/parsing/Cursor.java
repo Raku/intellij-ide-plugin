@@ -420,5 +420,13 @@ public abstract class Cursor<TCursor extends Cursor> {
         return false;
     }
 
+    public void marker(String name) {
+        stack.setMarker(name, pos);
+    }
+
+    public boolean marked(String name) {
+        return stack.getMarker(name) == pos;
+    }
+
     public abstract int runRule();
 }

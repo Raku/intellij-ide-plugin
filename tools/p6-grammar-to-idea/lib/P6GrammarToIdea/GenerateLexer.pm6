@@ -242,6 +242,20 @@ my class GrammarCompiler {
             when 'ww' {
                 $append-to.push: unless(this-call('ww'), [backtrack()]);
             }
+            when 'MARKER' {
+                unless $rule.args.elems == 1 && $rule.args[0] ~~ StrValue {
+                    die "MARKER must be called with a single string argument";
+                }
+                $append-to.push: this-call('marker', str-lit($rule.args[0].value));
+            }
+            when 'MARKED' {
+                unless $rule.args.elems == 1 && $rule.args[0] ~~ StrValue {
+                    die "MARKED must be called with a single string argument";
+                }
+                $append-to.push: unless(
+                    this-call('marked', str-lit($rule.args[0].value)),
+                    [backtrack()]);
+            }
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};

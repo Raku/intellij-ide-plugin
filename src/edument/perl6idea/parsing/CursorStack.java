@@ -3,7 +3,9 @@ package edument.perl6idea.parsing;
 import com.intellij.psi.tree.IElementType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a stack of Cursor objects, the top one being the current one in use.
@@ -21,6 +23,9 @@ public class CursorStack {
 
     /* Arguments being passed between rules. */
     public Object[] args;
+
+    /* Set of markers. */
+    private Map<String, Integer> markers = new HashMap<>();
 
     public CursorStack(CharSequence target) {
         this.target = target;
@@ -68,5 +73,13 @@ public class CursorStack {
             top--;
         }
         throw new RuntimeException("Dynamic variable " + variableName + " not found");
+    }
+
+    public void setMarker(String name, int pos) {
+        markers.put(name, pos);
+    }
+
+    public int getMarker(String name) {
+        return markers.getOrDefault(name, -1);
     }
 }
