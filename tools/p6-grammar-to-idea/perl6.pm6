@@ -192,11 +192,12 @@ grammar MAIN {
     }
 
     token statement_control {
-        || <.statement_control_for>
         || <.statement_control_unless>
         || <.statement_control_without>
         || <.statement_control_while>
         || <.statement_control_until>
+        || <.statement_control_for>
+        || <.statement_control_whenever>
         || <.statement_control_use>
     }
 
@@ -258,6 +259,18 @@ grammar MAIN {
         <.ws>
         <.xblock>?
         <.end-element('FOR_STATEMENT')>
+    }
+
+    token statement_control_whenever {
+        <?before 'whenever' <.kok>>
+        <.start-element('WHENEVER_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'whenever'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.xblock>?
+        <.end-element('WHENEVER_STATEMENT')>
     }
 
     token statement_control_use {
