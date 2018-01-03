@@ -70,6 +70,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
+    static final String LAMBDA_ID = "PERL6_LAMBDA";
+    public static final TextAttributesKey LAMBDA = TextAttributesKey.createTextAttributesKey(
+            LAMBDA_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String VARIABLE_ID = "PERL6_VARIABLE";
     public static final TextAttributesKey VARIABLE = TextAttributesKey.createTextAttributesKey(
             VARIABLE_ID,

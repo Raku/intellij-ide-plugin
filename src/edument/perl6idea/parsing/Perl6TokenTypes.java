@@ -14,11 +14,12 @@ public interface Perl6TokenTypes {
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
+    IElementType LAMBDA = new Perl6ElementType("LAMBDA");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType NAME = new Perl6ElementType("NAME");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
     IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
-    IElementType NAME = new Perl6ElementType("NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType STRING_LITERAL_CHAR = new Perl6ElementType("STRING_LITERAL_CHAR");
     IElementType METHOD_CALL_NAME = new Perl6ElementType("METHOD_CALL_NAME");

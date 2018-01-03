@@ -1,5 +1,6 @@
 grammar MAIN {
     token TOP {
+        :my $*GOAL = '';
         <.statementlist>
         [
         || $
@@ -144,6 +145,24 @@ grammar MAIN {
         <.end-token('BAD_CHARACTER')>
     }
 
+    token xblock {
+        :my $*GOAL = '{';
+        <.EXPR('')> <.ws> <.pblock>?
+    }
+
+    token pblock {
+        || <.start-token('LAMBDA')>
+           <.lambda>
+           <.end-token('LAMBDA')>
+           :my $*GOAL = '{';
+#           <signature>
+           <.blockoid>?
+        || <?[{]> <.blockoid>
+        || <?>
+    }
+
+    token lambda { '->' || '<->' }
+
     token terminator {
         || <?[;)\]}]>
         # XXX <?{ $*IN_REGEX_ASSERTION }> needed below
@@ -172,7 +191,20 @@ grammar MAIN {
     }
 
     token statement_control {
+        || <.statement_control_for>
         || <.statement_control_use>
+    }
+
+    token statement_control_for {
+        <?before 'for' <.kok>>
+        <.start-element('FOR_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'for'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.xblock>?
+        <.end-element('FOR_STATEMENT')>
     }
 
     token statement_control_use {
@@ -248,6 +280,7 @@ grammar MAIN {
     }
 
     token args {
+        :my $*GOAL = '';
         [
         || <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
            <.semiarglist>
@@ -268,6 +301,7 @@ grammar MAIN {
     }
 
     token arglist {
+        :my $*GOAL = 'endargs';
         <.ws>
         [
         || <!stdstopper> <.EXPR('e=')>
@@ -725,9 +759,18 @@ grammar MAIN {
     }
 
     token infixish {
+        <!stdstopper>
+        <!infixstopper>
         <.start-element('INFIX')>
         <.infix>
         <.end-element('INFIX')>
+    }
+
+    token infixstopper {
+        [
+        || <?before '!!'> <?{ $*GOAL eq '!!' }>
+        || <?before '{' || <.lambda> > [ <?{ $*GOAL eq '{' }> || <?{ $*GOAL eq 'endargs' }> ]
+        ]
     }
 
     token infix {
