@@ -630,6 +630,11 @@ grammar MAIN {
             ]?
         ]*
 
+        # Zero-width marker token to get nesting correct.
+        <.start-token('END_OF_EXPR')>
+        <?>
+        <.end-token('END_OF_EXPR')>
+
         <.end-element('EXPR')>
     }
 

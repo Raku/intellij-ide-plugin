@@ -1607,6 +1607,11 @@ public class Perl6Parser implements PsiParser {
                 break;
             }
         }
+        if ((builder.getTokenType()) == Perl6TokenTypes.END_OF_EXPR) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
         marker1.done(Perl6ElementTypes.EXPR);
         return true;
     }

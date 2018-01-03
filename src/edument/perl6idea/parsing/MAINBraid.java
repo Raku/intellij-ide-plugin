@@ -6568,6 +6568,11 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 21:
+                this.startToken(Perl6TokenTypes.END_OF_EXPR);
+                this.state = 22;
+                return -3;
+
+            case 22:
                 return -1;
 
             }
