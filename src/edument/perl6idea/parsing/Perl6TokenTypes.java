@@ -16,6 +16,7 @@ public interface Perl6TokenTypes {
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;

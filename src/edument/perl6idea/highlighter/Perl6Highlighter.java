@@ -22,6 +22,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String MULTI_DECLARATOR_ID = "PERL6_MULTI_DECLARATOR";
+    public static final TextAttributesKey MULTI_DECLARATOR = TextAttributesKey.createTextAttributesKey(
+            MULTI_DECLARATOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String ROUTINE_DECLARATOR_ID = "PERL6_ROUTINE_DECLARATOR";
     public static final TextAttributesKey ROUTINE_DECLARATOR = TextAttributesKey.createTextAttributesKey(
             ROUTINE_DECLARATOR_ID,

@@ -190,6 +190,7 @@ grammar MAIN {
         || <.term_ident>
         || <.scope_declarator>
         || <.routine_declarator>
+        || <?before 'multi'||'proto'||'only'> <.multi_declarator>
         || <.value>
         || <.term_name>
         || <.term_whatever>
@@ -303,6 +304,19 @@ grammar MAIN {
             <.end-element('VARIABLE_DECLARATION')>
             ]
         || <.routine_declarator>
+    }
+
+
+    token multi_declarator {
+        || <?before ['multi' || 'proto' || 'only'] <.kok>>
+           <.start-element('MULTI_DECLARATION')>
+           <.start-token('MULTI_DECLARATOR')>
+           ['multi' || 'proto' || 'only']
+           <.end-token('MULTI_DECLARATOR')>
+           <.kok>
+           [ <.declarator> || <.routine_def> || <?> ]
+           <.end-element('MULTI_DECLARATION')>
+        || <.declarator>
     }
 
     token variable_declarator {

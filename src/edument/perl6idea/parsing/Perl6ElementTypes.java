@@ -25,5 +25,6 @@ public interface Perl6ElementTypes {
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");
     IElementType STATEMENT_LIST = new Perl6ElementType("STATEMENT_LIST");
+    IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
 }
