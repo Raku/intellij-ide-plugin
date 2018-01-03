@@ -62,6 +62,13 @@ grammar MAIN {
         <?before \s || \# || $ > <.ws>
     }
 
+    token ENDSTMT {
+        [
+        || <?before \h* $$ <.ws> > <?MARKER('endstmt')>
+        || <?before <.unv>? $$ <.ws> > <?MARKER('endstmt')>
+        ]?
+    }
+
     token ws {
         <!ww>        
         [
@@ -120,10 +127,13 @@ grammar MAIN {
         || <.EXPR>
         || <.bogus_statement>
         ]
-        <.ws>
-        <.start-token('STATEMENT_TERMINATOR')>
-        ';'?
-        <.end-token('STATEMENT_TERMINATOR')>
+        [
+        || <.start-token('STATEMENT_TERMINATOR')>
+           ';'
+           <.end-token('STATEMENT_TERMINATOR')>
+        || <?MARKED('endstmt')> <.ws>
+        || <?>
+        ]
         <.end-element('STATEMENT')>
         <.ws>
     }
@@ -152,7 +162,7 @@ grammar MAIN {
         <.start-token('BLOCK_CURLY_BRACKET')>
         '}'
         <.end-token('BLOCK_CURLY_BRACKET')>
-#        <?ENDSTMT>
+        <?ENDSTMT>
         ]?
     }
 
@@ -353,6 +363,7 @@ grammar MAIN {
         <.start-token('BLOCK_CURLY_BRACKET')>
         '}'
         <.end-token('BLOCK_CURLY_BRACKET')>
+        <?ENDSTMT>
     }
 
     token initializer {
@@ -592,9 +603,9 @@ grammar MAIN {
         <.termish>
         <.postfixish>*
 
-        <.ws>
-
         [
+            <?before <.ws> <.infixish>>
+            <.ws>
             <.infixish>
             <.ws>
             [
@@ -602,7 +613,6 @@ grammar MAIN {
                 <.termish>
                 <.postfixish>*
             ]?
-            <.ws>
         ]*
 
         <.end-element('EXPR')>
