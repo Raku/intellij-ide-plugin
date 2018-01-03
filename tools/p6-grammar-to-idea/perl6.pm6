@@ -872,6 +872,7 @@ grammar MAIN {
         || '…' { $*PREC = 'f=' }
         || '=' { $*PREC = 'i=' }
         ]
+        <!{ $*PREC le $*PRECLIM }>
         <.end-token('INFIX')>
     }
 

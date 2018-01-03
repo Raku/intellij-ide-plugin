@@ -9375,6 +9375,13 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 144:
+                if (this.isValueTruthy(this.testStrLE(this.findDynamicVariable("$*PREC"), this.findDynamicVariable("$*PRECLIM")))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 this.state = 145;
                 return -3;
 
