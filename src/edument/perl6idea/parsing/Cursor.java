@@ -413,7 +413,6 @@ public abstract class Cursor<TCursor extends Cursor> {
     }
 
     public Integer testStrLE(Object left, Object right) {
-        System.out.println(left + " le " + right + " is " + (left.toString().compareTo(right.toString()) <= 0));
         return left.toString().compareTo(right.toString()) <= 0 ? 1 : 0;
     }
 
