@@ -57,6 +57,10 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6StatementListImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT)
             return new Perl6StatementImpl(astNode);
+        if (type == Perl6ElementTypes.WHILE_STATEMENT)
+            return new Perl6WhileStatementImpl(astNode);
+        if (type == Perl6ElementTypes.UNTIL_STATEMENT)
+            return new Perl6UntilStatementImpl(astNode);
         if (type == Perl6ElementTypes.FOR_STATEMENT)
             return new Perl6ForStatementImpl(astNode);
         if (type == Perl6ElementTypes.USE_STATEMENT)
