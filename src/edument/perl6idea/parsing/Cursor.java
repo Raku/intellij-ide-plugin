@@ -248,8 +248,14 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     public boolean newlineChar() {
         if (pos < stack.target.length()) {
-            if (stack.target.charAt(pos) != '\n') {
+            if (stack.target.charAt(pos) == '\n') {
                 pos++;
+                return true;
+            }
+            else if (stack.target.charAt(pos) == '\r') {
+                pos++;
+                if (pos < stack.target.length() && stack.target.charAt(pos) == '\n')
+                    pos++;
                 return true;
             }
         }
