@@ -10,6 +10,7 @@ public interface Perl6ElementTypes {
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType PHASER = new Perl6ElementType("PHASER");
     IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");

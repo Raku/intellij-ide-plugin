@@ -210,6 +210,8 @@ grammar MAIN {
         || $
     }
 
+    ## Statement controls
+
     token statement_control {
         || <.statement_control_if>
         || <.statement_control_unless>
@@ -502,6 +504,50 @@ grammar MAIN {
         <.end-element('QUIT_STATEMENT')>
     }
 
+    ## Statement prefixes
+
+    token statement_prefix {
+        || <.statement_prefix_phaser>
+    }
+
+    token phaser_name {
+        || 'BEGIN'
+        || 'COMPOSE'
+        || 'TEMP'
+        || 'CHECK'
+        || 'INIT'
+        || 'ENTER'
+        || 'FIRST'
+        || 'END'
+        || 'LEAVE'
+        || 'KEEP'
+        || 'UNDO'
+        || 'NEXT'
+        || 'LAST'
+        || 'PRE'
+        || 'POST'
+        || 'CLOSE'
+    }
+
+    token statement_prefix_phaser {
+        <?before <.phaser_name> <.kok>>
+        <.start-element('PHASER')>
+        <.start-token('PHASER')>
+        <.phaser_name>
+        <.end-token('PHASER')>
+        <.kok>
+        <.blorst>
+        <.end-element('PHASER')>
+    }
+
+    token blorst {
+        [
+        || <?[{]> <.block>
+        || <.statement>
+        || <?>
+        ]
+    }
+
     ## Statement modifiers
 
     token statement_mod_cond_keyword {
@@ -544,6 +590,7 @@ grammar MAIN {
         || <.scope_declarator>
         || <.routine_declarator>
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
+        || <.statement_prefix>
         || <.dotty>
         || <.value>
         || <.term_name>

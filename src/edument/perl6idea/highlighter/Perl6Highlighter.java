@@ -16,6 +16,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String PHASER_ID = "PERL6_PHASER";
+    public static final TextAttributesKey PHASER = TextAttributesKey.createTextAttributesKey(
+            PHASER_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String STATEMENT_MOD_ID = "PERL6_STATEMENT_MOD";
     public static final TextAttributesKey STATEMENT_MOD = TextAttributesKey.createTextAttributesKey(
             STATEMENT_MOD_ID,
