@@ -197,6 +197,7 @@ grammar MAIN {
         || <.statement_control_without>
         || <.statement_control_while>
         || <.statement_control_until>
+        || <.statement_control_repeat>
         || <.statement_control_for>
         || <.statement_control_whenever>
         || <.statement_control_use>
@@ -291,6 +292,46 @@ grammar MAIN {
         <.ws>
         <.xblock>?
         <.end-element('UNTIL_STATEMENT')>
+    }
+
+    token statement_control_repeat {
+        <?before 'repeat' <.kok>>
+        <.start-element('REPEAT_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'repeat'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        [
+        || <?before ['while'||'until'] <.kok>>
+           [
+           || <.start-token('STATEMENT_CONTROL')>
+              'while'
+              <.end-token('STATEMENT_CONTROL')>
+           || <.start-token('STATEMENT_CONTROL')>
+              'until'
+               <.end-token('STATEMENT_CONTROL')>
+           ]
+           <.kok>
+           <.ws>
+           <.xblock>?
+        || <.pblock>
+           <.ws>
+           [
+               <?before ['while'||'until'] <.kok>>
+               [
+               || <.start-token('STATEMENT_CONTROL')>
+                  'while'
+                  <.end-token('STATEMENT_CONTROL')>
+               || <.start-token('STATEMENT_CONTROL')>
+                  'until'
+                   <.end-token('STATEMENT_CONTROL')>
+               ]
+               <.EXPR('')>?
+           ]?
+        || <?>
+        ]
+        <.end-element('REPEAT_STATEMENT')>
     }
 
     token statement_control_for {

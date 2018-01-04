@@ -11,6 +11,7 @@ public interface Perl6ElementTypes {
     IElementType FOR_STATEMENT = new Perl6ElementType("FOR_STATEMENT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
     IElementType WHENEVER_STATEMENT = new Perl6ElementType("WHENEVER_STATEMENT");
+    IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType UNTIL_STATEMENT = new Perl6ElementType("UNTIL_STATEMENT");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
