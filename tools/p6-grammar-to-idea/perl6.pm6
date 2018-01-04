@@ -164,6 +164,10 @@ grammar MAIN {
 
     token lambda { '->' || '<->' }
 
+    token block {
+        <.blockoid>
+    }
+
     token terminator {
         || <?[;)\]}]>
         # XXX <?{ $*IN_REGEX_ASSERTION }> needed below
@@ -200,6 +204,7 @@ grammar MAIN {
         || <.statement_control_repeat>
         || <.statement_control_for>
         || <.statement_control_whenever>
+        || <.statement_control_loop>
         || <.statement_control_use>
     }
 
@@ -358,6 +363,42 @@ grammar MAIN {
         <.end-element('WHENEVER_STATEMENT')>
     }
 
+    token statement_control_loop {
+        <?before 'loop' <.kok>>
+        <.start-element('LOOP_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'loop'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        [
+            <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+            <.ws>
+            <.EXPR('')>?
+            <.ws>
+            [
+                <.start-token('STATEMENT_TERMINATOR')>
+                ';'
+                <.end-token('STATEMENT_TERMINATOR')>
+                <.ws>
+                <.EXPR('')>?
+                <.ws>
+                [
+                    <.start-token('STATEMENT_TERMINATOR')>
+                    ';'
+                    <.end-token('STATEMENT_TERMINATOR')>
+                    <.ws>
+                    <.EXPR('')>?
+                    <.ws>
+                ]?
+            ]?
+            [<.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')>]?
+            <.ws>
+        ]?
+        <.block>?
+        <.end-element('LOOP_STATEMENT')>
+    }
+
     token statement_control_use {
         <.start-element('USE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
@@ -486,12 +527,11 @@ grammar MAIN {
         ||  [
             <.start-element('VARIABLE_DECLARATION')>
             <.variable_declarator>
-            [<.ws> <.initializer>]?
+            <.ws> <.initializer>?
             <.end-element('VARIABLE_DECLARATION')>
             ]
         || <.routine_declarator>
     }
-
 
     token multi_declarator {
         || <?before ['multi' || 'proto' || 'only'] <.kok>>

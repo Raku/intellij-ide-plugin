@@ -20,6 +20,7 @@ public interface Perl6ElementTypes {
     IElementType WITHOUT_STATEMENT = new Perl6ElementType("WITHOUT_STATEMENT");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
+    IElementType LOOP_STATEMENT = new Perl6ElementType("LOOP_STATEMENT");
     IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType EXPR = new Perl6ElementType("EXPR");
