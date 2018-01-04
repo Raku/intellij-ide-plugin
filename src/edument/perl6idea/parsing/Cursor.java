@@ -37,10 +37,13 @@ public abstract class Cursor<TCursor extends Cursor> {
      * 2. A repetition count, or zero (for quantifiers)
      * 3. The height of the capture stack at the point the mark was made
      */
-    private List<Integer> backtrackStack;
+    public List<Integer> backtrackStack;
 
     /* Dynamic variables declared by this Cursor, if any. */
-    private Map<String, Object> dynamicVariables;
+    public Map<String, Object> dynamicVariables;
+
+    /* If the cusror has been frozen (and so we need a clone if we'll mutate it). */
+    private boolean frozen;
 
     public TCursor initialize(CursorStack stack) {
         TCursor cursor = null;
@@ -68,6 +71,32 @@ public abstract class Cursor<TCursor extends Cursor> {
         cursor.state = 0;
         cursor.pos = this.pos;
         return cursor;
+    }
+
+    public void freeze() {
+        this.frozen = true;
+    }
+
+    public Cursor<TCursor> copyForStack(CursorStack stack) {
+        if (!frozen && this.stack == stack)
+            return this;
+        TCursor copy = null;
+        try {
+            copy = (TCursor)this.getClass().getConstructors()[0].newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        copy.stack = stack;
+        copy.ruleNumber = this.ruleNumber;
+        copy.state = this.state;
+        copy.pos = this.pos;
+        copy.lastResult = this.lastResult;
+        copy.passed = this.passed;
+        if (this.backtrackStack != null)
+            copy.backtrackStack = new ArrayList<>(this.backtrackStack);
+        if (this.dynamicVariables != null)
+            copy.dynamicVariables = new HashMap<>(this.dynamicVariables);
+        return copy;
     }
 
     public boolean isFailed() {

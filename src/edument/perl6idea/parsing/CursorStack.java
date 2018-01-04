@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class CursorStack {
     /* The stack of cursors, current one at the top. */
-    private List<Cursor> cursors = new ArrayList<Cursor>();
+    public List<Cursor> cursors = new ArrayList<Cursor>();
 
     /* Target of the parse. */
     public CharSequence target;
@@ -50,6 +50,34 @@ public class CursorStack {
 
     public boolean isEmpty() {
         return cursors.isEmpty();
+    }
+
+    public CursorStack snapshot() {
+        for (Cursor c : this.cursors)
+            c.freeze();
+        CursorStack snapped = new CursorStack(this.target);
+        snapped.cursors = new ArrayList<>(this.cursors);
+        snapped.token = this.token;
+        snapped.tokenStart = this.tokenStart;
+        snapped.args = this.args;
+        snapped.markers = new HashMap<>(this.markers);
+        return snapped;
+    }
+
+    public CursorStack resume(CharSequence target) {
+        CursorStack res = new CursorStack(target);
+        res.cursors = new ArrayList<>(this.cursors);
+        res.token = this.token;
+        res.tokenStart = this.tokenStart;
+        res.args = this.args;
+        res.markers = new HashMap<>(this.markers);
+        return res;
+    }
+
+    public void ensureTopNotFrozen() {
+        int top = cursors.size() - 1;
+        if (top >= 0)
+            cursors.set(top, cursors.get(top).copyForStack(this));
     }
 
     public Object findDynamicVariable(String variableName) {

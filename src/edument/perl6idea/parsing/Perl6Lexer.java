@@ -5,23 +5,35 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Perl6Lexer extends LexerBase {
     private CursorStack stack;
+    private List<CursorStack> resumePoints;
+    private int lastTokenStart;
 
     @Override
     public void start(@NotNull CharSequence buffer, int startOffset, int endOffset, int initialState) {
         if (initialState == 0) {
+            resumePoints = new ArrayList<>();
             stack = new CursorStack(buffer);
             stack.push(new MAINBraid().initialize(stack));
+            lastTokenStart = 0;
             advance();
         } else {
-            throw new RuntimeException("Relexing NYI");
+            int resumeIndex = initialState - 1;
+            stack = resumePoints.get(resumeIndex).resume(buffer);
+            while (resumePoints.size() >= resumeIndex)
+                resumePoints.remove(resumePoints.size() - 1);
+            lastTokenStart = stack.tokenStart;
+            advance();
         }
     }
 
     @Override
     public int getState() {
-        return 0;
+        return resumePoints.size();
     }
 
     @Nullable
@@ -43,6 +55,7 @@ public class Perl6Lexer extends LexerBase {
     @Override
     public void advance() {
         while (true) {
+            stack.ensureTopNotFrozen();
             int outcome = stack.peek().runRule();
             switch (outcome) {
                 case -1: {
@@ -65,6 +78,12 @@ public class Perl6Lexer extends LexerBase {
                     }
                     continue;
                 case -3:
+                    if (stack.tokenStart < lastTokenStart)
+                        System.err.println("Perl 6 lexer went backwards (from " + lastTokenStart +
+                            " to " + stack.tokenStart + ")");
+                    else
+                        lastTokenStart = stack.tokenStart;
+                    resumePoints.add(stack.snapshot());
                     return;
                 default:
                     stack.push(stack.peek().start(outcome));
