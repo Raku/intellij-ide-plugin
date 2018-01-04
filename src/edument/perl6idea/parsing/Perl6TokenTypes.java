@@ -21,11 +21,14 @@ public interface Perl6TokenTypes {
     IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
+    IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
+    IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
     IElementType STRING_LITERAL_CHAR = new Perl6ElementType("STRING_LITERAL_CHAR");
     IElementType METHOD_CALL_NAME = new Perl6ElementType("METHOD_CALL_NAME");
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
+    IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");

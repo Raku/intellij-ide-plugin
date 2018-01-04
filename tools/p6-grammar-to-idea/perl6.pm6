@@ -126,6 +126,21 @@ grammar MAIN {
         [
         || <.statement_control>
         || <.EXPR('')>
+            [
+                || <?MARKED('endstmt')>
+                   <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+                || <?before <.ws> <.statement_mod_cond_keyword> <.kok>>
+                   <.ws>
+                   <.statement_mod_cond>
+                   [
+                        <?before <.ws> <.statement_mod_loop_keyword> <.kok>>
+                        <.ws>
+                        <.statement_mod_loop>
+                   ]?
+                || <?before <.ws> <.statement_mod_loop_keyword> <.kok>>
+                   <.ws>
+                   <.statement_mod_loop>
+            ]?
         || <.bogus_statement>
         ]
         [
@@ -447,6 +462,42 @@ grammar MAIN {
         <.block>?
         <.end-element('DEFAULT_STATEMENT')>
     }
+
+    ## Statement modifiers
+
+    token statement_mod_cond_keyword {
+        'if' || 'unless' || 'when' || 'with' || 'without'
+    }
+
+    token statement_mod_cond {
+        <?before <.statement_mod_cond_keyword> <.kok>>
+        <.start-element('STATEMENT_MOD_COND')>
+        <.start-token('STATEMENT_MOD_COND')>
+        <.statement_mod_cond_keyword>
+        <.end-token('STATEMENT_MOD_COND')>
+        <.kok>
+        <.ws>
+        <.EXPR('')>?
+        <.end-element('STATEMENT_MOD_COND')>
+    }
+
+    token statement_mod_loop_keyword {
+        'while' || 'until' || 'for' || 'given'
+    }
+
+    token statement_mod_loop {
+        <?before <.statement_mod_loop_keyword> <.kok>>
+        <.start-element('STATEMENT_MOD_LOOP')>
+        <.start-token('STATEMENT_MOD_LOOP')>
+        <.statement_mod_loop_keyword>
+        <.end-token('STATEMENT_MOD_LOOP')>
+        <.kok>
+        <.ws>
+        <.EXPR('')>?
+        <.end-element('STATEMENT_MOD_LOOP')>
+    }
+
+    ## Terms
 
     token term {
         || <.variable>
