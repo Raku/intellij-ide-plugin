@@ -206,6 +206,9 @@ grammar MAIN {
         || <.statement_control_whenever>
         || <.statement_control_loop>
         || <.statement_control_use>
+        || <.statement_control_given>
+        || <.statement_control_when>
+        || <.statement_control_default>
     }
 
     token statement_control_if {
@@ -407,6 +410,42 @@ grammar MAIN {
         <.ws>
         <.module_name>
         <.end-element('USE_STATEMENT')>
+    }
+
+    token statement_control_given {
+        <?before 'given' <.kok>>
+        <.start-element('GIVEN_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'given'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.xblock>?
+        <.end-element('GIVEN_STATEMENT')>
+    }
+
+    token statement_control_when {
+        <?before 'when' <.kok>>
+        <.start-element('WHEN_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'when'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.xblock>?
+        <.end-element('WHEN_STATEMENT')>
+    }
+
+    token statement_control_default {
+        <?before 'default' <.kok>>
+        <.start-element('DEFAULT_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'default'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.block>?
+        <.end-element('DEFAULT_STATEMENT')>
     }
 
     token term {

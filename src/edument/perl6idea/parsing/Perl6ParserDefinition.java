@@ -77,6 +77,12 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6LoopStatementImpl(astNode);
         if (type == Perl6ElementTypes.USE_STATEMENT)
             return new Perl6UseStatementImpl(astNode);
+        if (type == Perl6ElementTypes.GIVEN_STATEMENT)
+            return new Perl6GivenStatementImpl(astNode);
+        if (type == Perl6ElementTypes.WHEN_STATEMENT)
+            return new Perl6WheneverStatementImpl(astNode);
+        if (type == Perl6ElementTypes.DEFAULT_STATEMENT)
+            return new Perl6DefaultStatementImpl(astNode);
         if (type == Perl6ElementTypes.SCOPED_DECLARATION)
             return new Perl6ScopedDeclImpl(astNode);
         if (type == Perl6ElementTypes.VARIABLE_DECLARATION)

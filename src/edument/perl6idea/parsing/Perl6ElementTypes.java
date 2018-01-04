@@ -10,6 +10,7 @@ public interface Perl6ElementTypes {
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType FOR_STATEMENT = new Perl6ElementType("FOR_STATEMENT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
+    IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType WHENEVER_STATEMENT = new Perl6ElementType("WHENEVER_STATEMENT");
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType UNTIL_STATEMENT = new Perl6ElementType("UNTIL_STATEMENT");
@@ -26,6 +27,7 @@ public interface Perl6ElementTypes {
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType SIGNATURE = new Perl6ElementType("SIGNATURE");
+    IElementType WHEN_STATEMENT = new Perl6ElementType("WHEN_STATEMENT");
     IElementType WHILE_STATEMENT = new Perl6ElementType("WHILE_STATEMENT");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
@@ -36,4 +38,5 @@ public interface Perl6ElementTypes {
     IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType IF_STATEMENT = new Perl6ElementType("IF_STATEMENT");
+    IElementType GIVEN_STATEMENT = new Perl6ElementType("GIVEN_STATEMENT");
 }
