@@ -10,14 +10,15 @@ public interface Perl6ElementTypes {
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
+    IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
     IElementType WHILE_STATEMENT = new Perl6ElementType("WHILE_STATEMENT");
     IElementType WHEN_STATEMENT = new Perl6ElementType("WHEN_STATEMENT");
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType EXPR = new Perl6ElementType("EXPR");
-    IElementType PREFIX = new Perl6ElementType("PREFIX");
-    IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
+    IElementType QUIT_STATEMENT = new Perl6ElementType("QUIT_STATEMENT");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
@@ -35,6 +36,8 @@ public interface Perl6ElementTypes {
     IElementType LOOP_STATEMENT = new Perl6ElementType("LOOP_STATEMENT");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");
+    IElementType CATCH_STATEMENT = new Perl6ElementType("CATCH_STATEMENT");
+    IElementType CONTROL_STATEMENT = new Perl6ElementType("CONTROL_STATEMENT");
     IElementType SIGNATURE = new Perl6ElementType("SIGNATURE");
     IElementType STATEMENT_LIST = new Perl6ElementType("STATEMENT_LIST");
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");

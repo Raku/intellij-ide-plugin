@@ -224,6 +224,9 @@ grammar MAIN {
         || <.statement_control_given>
         || <.statement_control_when>
         || <.statement_control_default>
+        || <.statement_control_CATCH>
+        || <.statement_control_CONTROL>
+        || <.statement_control_QUIT>
     }
 
     token statement_control_if {
@@ -461,6 +464,42 @@ grammar MAIN {
         <.ws>
         <.block>?
         <.end-element('DEFAULT_STATEMENT')>
+    }
+
+    token statement_control_CATCH {
+        <?before 'CATCH' <.kok>>
+        <.start-element('CATCH_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'CATCH'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.block>?
+        <.end-element('CATCH_STATEMENT')>
+    }
+
+    token statement_control_CONTROL {
+        <?before 'CONTROL' <.kok>>
+        <.start-element('CONTROL_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'CONTROL'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.block>?
+        <.end-element('CONTROL_STATEMENT')>
+    }
+
+    token statement_control_QUIT {
+        <?before 'QUIT' <.kok>>
+        <.start-element('QUIT_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'QUIT'
+        <.end-token('STATEMENT_CONTROL')>
+        <.kok>
+        <.ws>
+        <.block>?
+        <.end-element('QUIT_STATEMENT')>
     }
 
     ## Statement modifiers
