@@ -33,4 +33,5 @@ public interface Perl6ElementTypes {
     IElementType STATEMENT_LIST = new Perl6ElementType("STATEMENT_LIST");
     IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
+    IElementType IF_STATEMENT = new Perl6ElementType("IF_STATEMENT");
 }

@@ -192,6 +192,7 @@ grammar MAIN {
     }
 
     token statement_control {
+        || <.statement_control_if>
         || <.statement_control_unless>
         || <.statement_control_without>
         || <.statement_control_while>
@@ -199,6 +200,49 @@ grammar MAIN {
         || <.statement_control_for>
         || <.statement_control_whenever>
         || <.statement_control_use>
+    }
+
+    token statement_control_if {
+        <?before ['if'||'with'] <.kok>>
+        <.start-element('IF_STATEMENT')>
+        [
+        || <.start-token('STATEMENT_CONTROL')>
+           'if'
+           <.end-token('STATEMENT_CONTROL')>
+        || <.start-token('STATEMENT_CONTROL')>
+           'with'
+           <.end-token('STATEMENT_CONTROL')>
+        ]
+        <.kok>
+        <.ws>
+        [
+            <.xblock>
+            <.ws>
+            [
+                <?before ['elsif' || 'orwith'] <.ws>>
+                [
+                || <.start-token('STATEMENT_CONTROL')>
+                   'elsif'
+                   <.end-token('STATEMENT_CONTROL')>
+                || <.start-token('STATEMENT_CONTROL')>
+                   'orwith'
+                   <.end-token('STATEMENT_CONTROL')>
+                ]
+                <.ws>
+                <.xblock>?
+                <.ws>
+            ]*
+            <.ws>
+            [
+                <?before 'else' <.ws>>
+                <.start-token('STATEMENT_CONTROL')>
+                'else'
+                <.end-token('STATEMENT_CONTROL')>
+                <.ws>
+                <.pblock>?
+            ]?
+        ]?
+        <.end-element('IF_STATEMENT')>
     }
 
     token statement_control_unless {
