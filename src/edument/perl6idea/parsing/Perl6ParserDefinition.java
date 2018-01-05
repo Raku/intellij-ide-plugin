@@ -59,6 +59,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6SemiListImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT)
             return new Perl6StatementImpl(astNode);
+        if (type == Perl6ElementTypes.BLOCK)
+            return new Perl6BlockImpl(astNode);
         if (type == Perl6ElementTypes.IF_STATEMENT)
             return new Perl6IfStatementImpl(astNode);
         if (type == Perl6ElementTypes.UNLESS_STATEMENT)

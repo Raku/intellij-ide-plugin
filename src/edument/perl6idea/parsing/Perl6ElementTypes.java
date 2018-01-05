@@ -38,6 +38,7 @@ public interface Perl6ElementTypes {
     IElementType WITHOUT_STATEMENT = new Perl6ElementType("WITHOUT_STATEMENT");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType INFIX = new Perl6ElementType("INFIX");
+    IElementType BLOCK = new Perl6ElementType("BLOCK");
     IElementType LOOP_STATEMENT = new Perl6ElementType("LOOP_STATEMENT");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");

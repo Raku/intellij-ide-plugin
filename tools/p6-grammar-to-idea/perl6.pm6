@@ -203,6 +203,7 @@ grammar MAIN {
     }
 
     token blockoid {
+        <.start-element('BLOCK')>
         <.start-token('BLOCK_CURLY_BRACKET')>
         '{'
         <.end-token('BLOCK_CURLY_BRACKET')>
@@ -213,6 +214,7 @@ grammar MAIN {
         <.end-token('BLOCK_CURLY_BRACKET')>
         <?ENDSTMT>
         ]?
+        <.end-element('BLOCK')>
     }
 
     token stdstopper {
