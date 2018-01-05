@@ -519,6 +519,7 @@ grammar MAIN {
     ## Statement prefixes
 
     token statement_prefix {
+        || <.statement_prefix_DOC>
         || <.statement_prefix_phaser>
         || <.statement_prefix_race>
         || <.statement_prefix_hyper>
@@ -552,6 +553,21 @@ grammar MAIN {
         || 'PRE'
         || 'POST'
         || 'CLOSE'
+    }
+
+    token statement_prefix_DOC {
+        <?before 'DOC' <.kok>>
+        <.start-element('PHASER')>
+        <.start-token('PHASER')>
+        'DOC'
+        <.end-token('PHASER')>
+        <.kok>
+        <.ws>
+        [
+            <?before ['BEGIN' || 'CHECK' || 'INIT'] <.end_keyword>>
+            <.statement_prefix>
+        ]?
+        <.end-element('PHASER')>
     }
 
     token statement_prefix_phaser {
