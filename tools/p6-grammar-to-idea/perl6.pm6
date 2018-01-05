@@ -1022,6 +1022,7 @@ grammar MAIN {
             || <.stopper>
             ]
             <.end-token('STRING_LITERAL_ESCAPE')>
+        || <?[{]> <?{ $*Q_CLOSURES }> <.block>
     }
 
     token EXPR($*PRECLIM) {
