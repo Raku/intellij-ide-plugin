@@ -22,6 +22,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String STATEMENT_PREFIX_ID = "PERL6_STATEMENT_PREFIX";
+    public static final TextAttributesKey STATEMENT_PREFIX = TextAttributesKey.createTextAttributesKey(
+            STATEMENT_PREFIX_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String STATEMENT_MOD_ID = "PERL6_STATEMENT_MOD";
     public static final TextAttributesKey STATEMENT_MOD = TextAttributesKey.createTextAttributesKey(
             STATEMENT_MOD_ID,

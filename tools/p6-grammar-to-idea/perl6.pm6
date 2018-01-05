@@ -520,6 +520,19 @@ grammar MAIN {
 
     token statement_prefix {
         || <.statement_prefix_phaser>
+        || <.statement_prefix_race>
+        || <.statement_prefix_hyper>
+        || <.statement_prefix_lazy>
+        || <.statement_prefix_eager>
+        || <.statement_prefix_sink>
+        || <.statement_prefix_try>
+        || <.statement_prefix_quietly>
+        || <.statement_prefix_gather>
+        || <.statement_prefix_once>
+        || <.statement_prefix_start>
+        || <.statement_prefix_supply>
+        || <.statement_prefix_react>
+        || <.statement_prefix_do>
     }
 
     token phaser_name {
@@ -550,6 +563,149 @@ grammar MAIN {
         <.kok>
         <.blorst>
         <.end-element('PHASER')>
+    }
+
+    token statement_prefix_race {
+        <?before 'race' <.kok>>
+        <.start-element('RACE')>
+        <.start-token('STATEMENT_PREFIX')>
+        'race'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('RACE')>
+    }
+
+    token statement_prefix_hyper {
+        <?before 'hyper' <.kok>>
+        <.start-element('HYPER')>
+        <.start-token('STATEMENT_PREFIX')>
+        'hyper'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('HYPER')>
+    }
+
+    token statement_prefix_lazy {
+        <?before 'lazy' <.kok>>
+        <.start-element('LAZY')>
+        <.start-token('STATEMENT_PREFIX')>
+        'lazy'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('LAZY')>
+    }
+
+    token statement_prefix_eager {
+        <?before 'eager' <.kok>>
+        <.start-element('EAGER')>
+        <.start-token('STATEMENT_PREFIX')>
+        'eager'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('EAGER')>
+    }
+
+    token statement_prefix_sink {
+        <?before 'sink' <.kok>>
+        <.start-element('SINK')>
+        <.start-token('STATEMENT_PREFIX')>
+        'sink'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('SINK')>
+    }
+
+    token statement_prefix_try {
+        <?before 'try' <.kok>>
+        <.start-element('TRY')>
+        <.start-token('STATEMENT_PREFIX')>
+        'try'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('TRY')>
+    }
+
+    token statement_prefix_quietly {
+        <?before 'quietly' <.kok>>
+        <.start-element('QUIETLY')>
+        <.start-token('STATEMENT_PREFIX')>
+        'quietly'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('QUIETLY')>
+    }
+
+    token statement_prefix_gather {
+        <?before 'gather' <.kok>>
+        <.start-element('GATHER')>
+        <.start-token('STATEMENT_PREFIX')>
+        'gather'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('GATHER')>
+    }
+
+    token statement_prefix_once {
+        <?before 'once' <.kok>>
+        <.start-element('ONCE')>
+        <.start-token('STATEMENT_PREFIX')>
+        'once'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('ONCE')>
+    }
+
+    token statement_prefix_start {
+        <?before 'start' <.kok>>
+        <.start-element('START')>
+        <.start-token('STATEMENT_PREFIX')>
+        'start'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('START')>
+    }
+
+    token statement_prefix_supply {
+        <?before 'supply' <.kok>>
+        <.start-element('SUPPLY')>
+        <.start-token('STATEMENT_PREFIX')>
+        'supply'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('SUPPLY')>
+    }
+
+    token statement_prefix_react {
+        <?before 'react' <.kok>>
+        <.start-element('REACT')>
+        <.start-token('STATEMENT_PREFIX')>
+        'react'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('REACT')>
+    }
+
+    token statement_prefix_do {
+        <?before 'do' <.kok>>
+        <.start-element('DO')>
+        <.start-token('STATEMENT_PREFIX')>
+        'do'
+        <.end-token('STATEMENT_PREFIX')>
+        <.kok>
+        <.blorst>
+        <.end-element('DO')>
     }
 
     token blorst {

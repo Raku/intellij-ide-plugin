@@ -95,6 +95,32 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6QuitStatementImpl(astNode);
         if (type == Perl6ElementTypes.PHASER)
             return new Perl6PhaserImpl(astNode);
+        if (type == Perl6ElementTypes.RACE)
+            return new Perl6RaceImpl(astNode);
+        if (type == Perl6ElementTypes.HYPER)
+            return new Perl6HyperImpl(astNode);
+        if (type == Perl6ElementTypes.LAZY)
+            return new Perl6LazyImpl(astNode);
+        if (type == Perl6ElementTypes.EAGER)
+            return new Perl6EagerImpl(astNode);
+        if (type == Perl6ElementTypes.SINK)
+            return new Perl6SinkImpl(astNode);
+        if (type == Perl6ElementTypes.TRY)
+            return new Perl6TryImpl(astNode);
+        if (type == Perl6ElementTypes.QUIETLY)
+            return new Perl6QuietlyImpl(astNode);
+        if (type == Perl6ElementTypes.GATHER)
+            return new Perl6GatherImpl(astNode);
+        if (type == Perl6ElementTypes.ONCE)
+            return new Perl6OnceImpl(astNode);
+        if (type == Perl6ElementTypes.START)
+            return new Perl6StartImpl(astNode);
+        if (type == Perl6ElementTypes.SUPPLY)
+            return new Perl6SupplyImpl(astNode);
+        if (type == Perl6ElementTypes.REACT)
+            return new Perl6ReactImpl(astNode);
+        if (type == Perl6ElementTypes.DO)
+            return new Perl6DoImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT_MOD_COND)
             return new Perl6StatementModCondImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT_MOD_LOOP)

@@ -35,6 +35,7 @@ public interface Perl6TokenTypes {
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
+    IElementType STATEMENT_PREFIX = new Perl6ElementType("STATEMENT_PREFIX");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");

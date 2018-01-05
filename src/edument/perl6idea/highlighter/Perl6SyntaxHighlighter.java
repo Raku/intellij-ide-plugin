@@ -18,6 +18,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.COMMENT, Perl6Highlighter.COMMENT);
         ATTRIBUTES.put(Perl6TokenTypes.STATEMENT_CONTROL, Perl6Highlighter.STATEMENT_CONTROL);
         ATTRIBUTES.put(Perl6TokenTypes.PHASER, Perl6Highlighter.PHASER);
+        ATTRIBUTES.put(Perl6TokenTypes.STATEMENT_PREFIX, Perl6Highlighter.STATEMENT_PREFIX);
         ATTRIBUTES.put(Perl6TokenTypes.STATEMENT_MOD_COND, Perl6Highlighter.STATEMENT_MOD);
         ATTRIBUTES.put(Perl6TokenTypes.STATEMENT_MOD_LOOP, Perl6Highlighter.STATEMENT_MOD);
         ATTRIBUTES.put(Perl6TokenTypes.SCOPE_DECLARATOR, Perl6Highlighter.SCOPE_DECLARATOR);
