@@ -15,6 +15,7 @@ public interface Perl6TokenTypes {
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType LAMBDA = new Perl6ElementType("LAMBDA");
+    IElementType SEMI_LIST_END = new Perl6ElementType("SEMI_LIST_END");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
@@ -24,12 +25,14 @@ public interface Perl6TokenTypes {
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
+    IElementType ARRAY_INDEX_BRACKET = new Perl6ElementType("ARRAY_INDEX_BRACKET");
     IElementType STRING_LITERAL_CHAR = new Perl6ElementType("STRING_LITERAL_CHAR");
     IElementType METHOD_CALL_NAME = new Perl6ElementType("METHOD_CALL_NAME");
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
+    IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");

@@ -82,6 +82,18 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
+    static final String ARRAY_INDEXER_ID = "PERL6_ARRAY_INDEXER";
+    public static final TextAttributesKey ARRAY_INDEXER = TextAttributesKey.createTextAttributesKey(
+            ARRAY_INDEXER_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
+    static final String HASH_INDEXER_ID = "PERL6_HASH_INDEXER";
+    public static final TextAttributesKey HASH_INDEXER = TextAttributesKey.createTextAttributesKey(
+            HASH_INDEXER_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
     static final String LAMBDA_ID = "PERL6_LAMBDA";
     public static final TextAttributesKey LAMBDA = TextAttributesKey.createTextAttributesKey(
             LAMBDA_ID,

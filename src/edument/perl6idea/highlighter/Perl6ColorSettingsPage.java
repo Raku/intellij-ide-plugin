@@ -26,6 +26,8 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Prefix Operator", Perl6Highlighter.PREFIX),
             new AttributesDescriptor("Infix Operator", Perl6Highlighter.INFIX),
             new AttributesDescriptor("Postfix Operator", Perl6Highlighter.POSTFIX),
+            new AttributesDescriptor("Array Indexer", Perl6Highlighter.ARRAY_INDEXER),
+            new AttributesDescriptor("Hash Indexer", Perl6Highlighter.HASH_INDEXER),
             new AttributesDescriptor("Lambda (-> and <->)", Perl6Highlighter.LAMBDA),
             new AttributesDescriptor("Variable", Perl6Highlighter.VARIABLE),
             new AttributesDescriptor("Numeric Literal", Perl6Highlighter.NUMERIC_LITERAL),

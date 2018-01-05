@@ -120,6 +120,16 @@ grammar MAIN {
         <.end-element('STATEMENT_LIST')>
     }
 
+    token semilist {
+        <.ws>
+        <.start-element('SEMI_LIST')>
+        [
+        || <?before <[)\]}]> > <.start-token('SEMI_LIST_END')> <?> <.end-token('SEMI_LIST_END')>
+        || [<!before $ || <[\)\]\}]> > <.statement>]*
+        ]
+        <.end-element('SEMI_LIST')>
+    }
+
     token statement {
         <!before <[\])}]> || $ >
         <.start-element('STATEMENT')>
@@ -1073,6 +1083,7 @@ grammar MAIN {
         || <.start-element('POSTFIX')>
            <.postfix>
            <.end-element('POSTFIX')>
+        || <.postcircumfix> { $*PREC = 'y=' }
         || <.dotty> { $*PREC = 'y=' }
     }
 
@@ -1123,6 +1134,91 @@ grammar MAIN {
             ]
             || <?>
         ] <.unsp>?
+    }
+
+    token postcircumfix {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        [
+        || <.start-element('ARRAY_INDEX')>
+           <.start-token('ARRAY_INDEX_BRACKET')>
+           '['
+           <.end-token('ARRAY_INDEX_BRACKET')>
+           [
+               <.ws>
+               <.semilist>?
+               [
+                   <.start-token('ARRAY_INDEX_BRACKET')>
+                   ']'
+                   <.end-token('ARRAY_INDEX_BRACKET')>
+               ]?
+           ]?
+           <.end-element('ARRAY_INDEX')>
+        || <.start-element('HASH_INDEX')>
+           <.start-token('HASH_INDEX_BRACKET')>
+           '{'
+           <.end-token('HASH_INDEX_BRACKET')>
+           [
+               <.ws>
+               <.semilist>?
+               [
+                   <.start-token('HASH_INDEX_BRACKET')>
+                   '}'
+                   <.end-token('HASH_INDEX_BRACKET')>
+               ]?
+           ]?
+           <.end-element('HASH_INDEX')>
+        || <.start-element('HASH_INDEX')>
+           <.start-token('HASH_INDEX_BRACKET')>
+           '<<'
+           <.end-token('HASH_INDEX_BRACKET')>
+           [
+               <.quote_qq('<<', '>>', '>>')>
+               [
+                   <.start-token('HASH_INDEX_BRACKET')>
+                   '>>'
+                   <.end-token('HASH_INDEX_BRACKET')>
+               ]?
+           ]?
+           <.end-element('HASH_INDEX')>
+        || <.start-element('HASH_INDEX')>
+           <.start-token('HASH_INDEX_BRACKET')>
+           '«'
+           <.end-token('HASH_INDEX_BRACKET')>
+           [
+               <.quote_qq('«', '»', '»')>
+               [
+                   <.start-token('HASH_INDEX_BRACKET')>
+                   '»'
+                   <.end-token('HASH_INDEX_BRACKET')>
+               ]?
+           ]?
+           <.end-element('HASH_INDEX')>
+        || <.start-element('HASH_INDEX')>
+           <.start-token('HASH_INDEX_BRACKET')>
+           '<'
+           <.end-token('HASH_INDEX_BRACKET')>
+           [
+               <.quote_q('<', '>', '>')>
+               [
+                   <.start-token('HASH_INDEX_BRACKET')>
+                   '>'
+                   <.end-token('HASH_INDEX_BRACKET')>
+               ]?
+           ]?
+           <.end-element('HASH_INDEX')>
+        || <.start-element('CALL')>
+           <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+           <.arglist>
+           [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+           <.end-element('CALL')>
+       ]
     }
 
     token infixish {

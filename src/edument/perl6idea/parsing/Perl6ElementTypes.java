@@ -5,8 +5,10 @@ import edument.perl6idea.Perl6Language;
 
 public interface Perl6ElementTypes {
     IFileElementType FILE = new IFileElementType(Perl6Language.INSTANCE);
+    IElementType SEMI_LIST = new Perl6ElementType("SEMI_LIST");
     IElementType FOR_STATEMENT = new Perl6ElementType("FOR_STATEMENT");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
+    IElementType HASH_INDEX = new Perl6ElementType("HASH_INDEX");
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
@@ -19,6 +21,7 @@ public interface Perl6ElementTypes {
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType EXPR = new Perl6ElementType("EXPR");
+    IElementType CALL = new Perl6ElementType("CALL");
     IElementType QUIT_STATEMENT = new Perl6ElementType("QUIT_STATEMENT");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
@@ -31,6 +34,7 @@ public interface Perl6ElementTypes {
     IElementType WHENEVER_STATEMENT = new Perl6ElementType("WHENEVER_STATEMENT");
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
+    IElementType ARRAY_INDEX = new Perl6ElementType("ARRAY_INDEX");
     IElementType WITHOUT_STATEMENT = new Perl6ElementType("WITHOUT_STATEMENT");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType INFIX = new Perl6ElementType("INFIX");

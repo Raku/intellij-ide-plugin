@@ -30,6 +30,8 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.INVOCANT_MARKER, Perl6Highlighter.INFIX);
         ATTRIBUTES.put(Perl6TokenTypes.LAMBDA, Perl6Highlighter.LAMBDA);
         ATTRIBUTES.put(Perl6TokenTypes.POSTFIX, Perl6Highlighter.POSTFIX);
+        ATTRIBUTES.put(Perl6TokenTypes.ARRAY_INDEX_BRACKET, Perl6Highlighter.ARRAY_INDEXER);
+        ATTRIBUTES.put(Perl6TokenTypes.HASH_INDEX_BRACKET, Perl6Highlighter.HASH_INDEXER);
         ATTRIBUTES.put(Perl6TokenTypes.VARIABLE, Perl6Highlighter.VARIABLE);
         ATTRIBUTES.put(Perl6TokenTypes.INTEGER_LITERAL, Perl6Highlighter.NUMERIC_LITERAL);
         ATTRIBUTES.put(Perl6TokenTypes.NUMBER_LITERAL, Perl6Highlighter.NUMERIC_LITERAL);

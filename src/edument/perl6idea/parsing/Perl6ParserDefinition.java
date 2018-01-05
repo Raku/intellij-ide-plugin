@@ -55,6 +55,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
         IElementType type = astNode.getElementType();
         if (type == Perl6ElementTypes.STATEMENT_LIST)
             return new Perl6StatementListImpl(astNode);
+        if (type == Perl6ElementTypes.SEMI_LIST)
+            return new Perl6SemiListImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT)
             return new Perl6StatementImpl(astNode);
         if (type == Perl6ElementTypes.IF_STATEMENT)
@@ -105,6 +107,12 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6InfixImpl(astNode);
         if (type == Perl6ElementTypes.POSTFIX)
             return new Perl6PostfixImpl(astNode);
+        if (type == Perl6ElementTypes.ARRAY_INDEX)
+            return new Perl6ArrayIndexImpl(astNode);
+        if (type == Perl6ElementTypes.HASH_INDEX)
+            return new Perl6HashIndexImpl(astNode);
+        if (type == Perl6ElementTypes.CALL)
+            return new Perl6CallImpl(astNode);
         // TODO Kill this off once we have proper operator parsing
         if (type == Perl6ElementTypes.EXPR)
             return new Perl6ExpressionImpl(astNode);
