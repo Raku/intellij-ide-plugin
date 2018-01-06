@@ -52,6 +52,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String PACKAGE_DECLARATOR_ID = "PERL6_PACKAGE_DECLARATOR";
+    public static final TextAttributesKey PACKAGE_DECLARATOR = TextAttributesKey.createTextAttributesKey(
+            PACKAGE_DECLARATOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String ROUTINE_NAME_ID = "PERL6_ROUTINE_NAME";
     public static final TextAttributesKey ROUTINE_NAME = TextAttributesKey.createTextAttributesKey(
             ROUTINE_NAME_ID,

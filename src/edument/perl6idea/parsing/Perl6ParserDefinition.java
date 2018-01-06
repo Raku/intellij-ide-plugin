@@ -137,6 +137,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ScopedDeclImpl(astNode);
         if (type == Perl6ElementTypes.VARIABLE_DECLARATION)
             return new Perl6VariableDeclImpl(astNode);
+        if (type == Perl6ElementTypes.PACKAGE_DECLARATION)
+            return new Perl6PackageDeclImpl(astNode);
         if (type == Perl6ElementTypes.PREFIX)
             return new Perl6PrefixImpl(astNode);
         if (type == Perl6ElementTypes.INFIX)

@@ -23,6 +23,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Scope Keyword", Perl6Highlighter.SCOPE_DECLARATOR),
             new AttributesDescriptor("Multi Keyword", Perl6Highlighter.MULTI_DECLARATOR),
             new AttributesDescriptor("Routine Keyword", Perl6Highlighter.ROUTINE_DECLARATOR),
+            new AttributesDescriptor("Package Keyword", Perl6Highlighter.PACKAGE_DECLARATOR),
             new AttributesDescriptor("Routine Name", Perl6Highlighter.ROUTINE_NAME),
             new AttributesDescriptor("Prefix Operator", Perl6Highlighter.PREFIX),
             new AttributesDescriptor("Infix Operator", Perl6Highlighter.INFIX),

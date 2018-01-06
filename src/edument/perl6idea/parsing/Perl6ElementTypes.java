@@ -14,6 +14,7 @@ public interface Perl6ElementTypes {
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType PACKAGE_DECLARATION = new Perl6ElementType("PACKAGE_DECLARATION");
     IElementType PHASER = new Perl6ElementType("PHASER");
     IElementType LAZY = new Perl6ElementType("LAZY");
     IElementType EAGER = new Perl6ElementType("EAGER");

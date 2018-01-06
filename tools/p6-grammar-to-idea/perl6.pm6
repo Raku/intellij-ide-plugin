@@ -873,6 +873,7 @@ grammar MAIN {
         || <.routine_declarator>
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
         || <.statement_prefix>
+        || <.package_declarator>
         || <.dotty>
         || <.value>
         || <.term_name>
@@ -975,6 +976,7 @@ grammar MAIN {
         <.end-token('SCOPE_DECLARATOR')>
         <.ws>
         [
+        || <.package_declarator>
         || <.declarator>
         || <?>
         ]
@@ -1077,6 +1079,41 @@ grammar MAIN {
     token sigil { <[$@%&]> }
 
     token twigil { <[.!^:*?=~]> <?before \w> }
+
+    token package_declarator {
+        <?before <.package_kind> <.kok>>
+        <.start-element('PACKAGE_DECLARATION')>
+        <.start-token('PACKAGE_DECLARATOR')>
+        <.package_kind>
+        <.end-token('PACKAGE_DECLARATOR')>
+        <.kok>
+        <.package_def>
+        <.end-element('PACKAGE_DECLARATION')>
+    }
+
+    token package_kind {
+        'package' || 'module' || 'class' || 'grammar' || 'role' || 'knowhow' || 'native' || 'slang'
+    }
+
+    token package_def {
+        <.ws>
+        [
+            <.start-token('NAME')>
+            <.longname>
+            <.end-token('NAME')>
+            <.ws>
+        ]?
+        [
+        || <?[{]> <.blockoid>
+        || <?[;]>
+           <.start-token('STATEMENT_TERMINATOR')>
+           ';'
+           <.end-token('STATEMENT_TERMINATOR')>
+           <.ws>
+           <.statementlist>?
+        || <?>
+        ]
+    }
 
     # XXX Hack
     token desigilname { <.longname> }

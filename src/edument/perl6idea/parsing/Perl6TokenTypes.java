@@ -6,6 +6,7 @@ public interface Perl6TokenTypes {
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
+    IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
@@ -17,10 +18,10 @@ public interface Perl6TokenTypes {
     IElementType LAMBDA = new Perl6ElementType("LAMBDA");
     IElementType SEMI_LIST_END = new Perl6ElementType("SEMI_LIST_END");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
-    IElementType NAME = new Perl6ElementType("NAME");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
     IElementType PHASER = new Perl6ElementType("PHASER");
     IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
+    IElementType NAME = new Perl6ElementType("NAME");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
