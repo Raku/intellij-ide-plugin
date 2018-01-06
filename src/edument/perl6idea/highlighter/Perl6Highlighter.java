@@ -148,6 +148,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.PARENTHESES
     );
 
+    static final String VERSION_ID = "PERL6_VERSION";
+    public static final TextAttributesKey VERSION = TextAttributesKey.createTextAttributesKey(
+            VERSION_ID,
+            DefaultLanguageHighlighterColors.NUMBER
+    );
+
     static final String BLOCK_CURLY_BRACKETS_ID = "PERL6_BLOCK_CURLY_BRACKETS";
     public static final TextAttributesKey BLOCK_CURLY_BRACKETS = TextAttributesKey.createTextAttributesKey(
             BLOCK_CURLY_BRACKETS_ID,

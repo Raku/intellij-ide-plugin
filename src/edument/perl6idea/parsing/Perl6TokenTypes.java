@@ -32,6 +32,7 @@ public interface Perl6TokenTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
+    IElementType VERSION = new Perl6ElementType("VERSION");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");

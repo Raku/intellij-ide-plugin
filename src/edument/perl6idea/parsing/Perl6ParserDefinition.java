@@ -79,8 +79,16 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6WheneverStatementImpl(astNode);
         if (type == Perl6ElementTypes.LOOP_STATEMENT)
             return new Perl6LoopStatementImpl(astNode);
+        if (type == Perl6ElementTypes.NEED_STATEMENT)
+            return new Perl6NeedStatementImpl(astNode);
+        if (type == Perl6ElementTypes.IMPORT_STATEMENT)
+            return new Perl6ImportStatementImpl(astNode);
+        if (type == Perl6ElementTypes.NO_STATEMENT)
+            return new Perl6NoStatementImpl(astNode);
         if (type == Perl6ElementTypes.USE_STATEMENT)
             return new Perl6UseStatementImpl(astNode);
+        if (type == Perl6ElementTypes.REQUIRE_STATEMENT)
+            return new Perl6RequireStatementImpl(astNode);
         if (type == Perl6ElementTypes.GIVEN_STATEMENT)
             return new Perl6GivenStatementImpl(astNode);
         if (type == Perl6ElementTypes.WHEN_STATEMENT)
@@ -154,6 +162,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RatLiteralImpl(astNode);
         if (type == Perl6ElementTypes.STRING_LITERAL)
             return new Perl6StrLiteralImpl(astNode);
+        if (type == Perl6ElementTypes.VERSION)
+            return new Perl6VersionImpl(astNode);
         if (type == Perl6ElementTypes.SUB_CALL)
             return new Perl6SubCallImpl(astNode);
         if (type == Perl6ElementTypes.METHOD_CALL)

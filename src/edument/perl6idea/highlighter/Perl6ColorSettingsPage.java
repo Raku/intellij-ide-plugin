@@ -32,6 +32,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Lambda (-> and <->)", Perl6Highlighter.LAMBDA),
             new AttributesDescriptor("Variable", Perl6Highlighter.VARIABLE),
             new AttributesDescriptor("Numeric Literal", Perl6Highlighter.NUMERIC_LITERAL),
+            new AttributesDescriptor("Version Literal", Perl6Highlighter.VERSION),
             new AttributesDescriptor("Comment", Perl6Highlighter.COMMENT),
             new AttributesDescriptor("Sub Call Name", Perl6Highlighter.SUB_CALL_NAME),
             new AttributesDescriptor("Method Call Name", Perl6Highlighter.METHOD_CALL_NAME),

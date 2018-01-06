@@ -58,6 +58,8 @@ grammar MAIN {
         <!before <[ \( \\ ' \- ]> || \h* '=>'>
     }
 
+    token spacey { <?[\s]> || <?[#]> }
+
     token kok {
         <.end_keyword>
         <?before \s || \# || $ > <.ws>
@@ -111,6 +113,19 @@ grammar MAIN {
         <.end-token('COMMENT')>
     }
 
+    token vnum {
+        \w+ || '*'
+    }
+
+    token version {
+        <?before 'v'\d+\w*>
+        <.start-element('VERSION')>
+        <.start-token('VERSION')>
+        'v' [<.vnum>+ % '.' '+'?]
+        <.end-token('VERSION')>
+        <.end-element('VERSION')>
+    }
+
     ## Top-level structure
 
     token statementlist {
@@ -157,7 +172,9 @@ grammar MAIN {
         || <.start-token('STATEMENT_TERMINATOR')>
            ';'
            <.end-token('STATEMENT_TERMINATOR')>
-        || <?MARKED('endstmt')> <.ws>
+        || <?MARKED('endstmt')>
+           <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+           <.ws>
         || <?>
         ]
         <.end-element('STATEMENT')>
@@ -234,7 +251,11 @@ grammar MAIN {
         || <.statement_control_for>
         || <.statement_control_whenever>
         || <.statement_control_loop>
+        || <.statement_control_need>
+        || <.statement_control_import>
+        || <.statement_control_no>
         || <.statement_control_use>
+        || <.statement_control_require>
         || <.statement_control_given>
         || <.statement_control_when>
         || <.statement_control_default>
@@ -434,14 +455,91 @@ grammar MAIN {
         <.end-element('LOOP_STATEMENT')>
     }
 
+    token statement_control_need {
+        <.start-element('NEED_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'need'
+        <.end-token('STATEMENT_CONTROL')>
+        <.ws>
+        [
+            [
+            || <.version>
+            || <.module_name>
+            ]
+            <.ws>
+            [
+                <.start-token('INFIX')>
+                ','
+                <.end-token('INFIX')>
+                <.ws>
+                [
+                || <.version>
+                || <.module_name>
+                ]?
+                <.ws>
+            ]*
+        ]?
+        <.end-element('NEED_STATEMENT')>
+    }
+
+    token statement_control_import {
+        <.start-element('IMPORT_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'import'
+        <.end-token('STATEMENT_CONTROL')>
+        <.ws>
+        [
+            <.module_name>
+            [ <.spacey> <.arglist> ]?
+            <.ws>
+        ]?
+        <.end-element('IMPORT_STATEMENT')>
+    }
+
+    token statement_control_no {
+        <.start-element('NO_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'no'
+        <.end-token('STATEMENT_CONTROL')>
+        <.ws>
+        [
+            <.module_name>
+            [ <.spacey> <.arglist> ]?
+            <.ws>
+        ]?
+        <.end-element('NO_STATEMENT')>
+    }
+
     token statement_control_use {
         <.start-element('USE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'use'
         <.end-token('STATEMENT_CONTROL')>
         <.ws>
-        <.module_name>
+        [
+        || <.version>
+        || <.module_name> [ <.spacey> <.arglist> ]?
+        ]?
+        <.ws>
         <.end-element('USE_STATEMENT')>
+    }
+
+    token statement_control_require {
+        <.start-element('REQUIRE_STATEMENT')>
+        <.start-token('STATEMENT_CONTROL')>
+        'require'
+        <.end-token('STATEMENT_CONTROL')>
+        <.ws>
+        [
+            [
+            || <.module_name>
+            || <.variable>
+            || <!sigil> <.term>
+            ]
+            <.ws>
+            <.EXPR('')>?
+        ]?
+        <.end-element('REQUIRE_STATEMENT')>
     }
 
     token statement_control_given {
