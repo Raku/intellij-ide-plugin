@@ -41,6 +41,7 @@ public interface Perl6ElementTypes {
     IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
     IElementType HYPER = new Perl6ElementType("HYPER");
     IElementType ONCE = new Perl6ElementType("ONCE");
+    IElementType NAMED_PARAMETER = new Perl6ElementType("NAMED_PARAMETER");
     IElementType NEED_STATEMENT = new Perl6ElementType("NEED_STATEMENT");
     IElementType GATHER = new Perl6ElementType("GATHER");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");

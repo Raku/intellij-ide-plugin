@@ -1100,7 +1100,7 @@ grammar MAIN {
 
     token parameter {
         <.start-element('PARAMETER')>
-        <.param_var>
+        [ <.param_var> || <.named_param> ]
         <.end-element('PARAMETER')>
     }
 
@@ -1144,6 +1144,36 @@ grammar MAIN {
            ]?
            <.end-element('PARAMETER_VARIABLE')>
        ]
+    }
+
+    token named_param {
+        :my $*GOAL = ')';
+        <.start-element('NAMED_PARAMETER')>
+        <.start-token('NAMED_PARAMETER_SYNTAX')>
+        ':'
+        <.end-token('NAMED_PARAMETER_SYNTAX')>
+        [
+        || <.start-token('NAMED_PARAMETER_NAME_ALIAS')>
+           <.identifier>
+           <.end-token('NAMED_PARAMETER_NAME_ALIAS')>
+           [
+               <.start-token('NAMED_PARAMETER_SYNTAX')>
+               '('
+               <.end-token('NAMED_PARAMETER_SYNTAX')>
+               <.ws>
+               [
+                   [ <.named_param> || <.param_var> ]
+                   <.ws>
+                   [
+                       <.start-token('NAMED_PARAMETER_SYNTAX')>
+                       ')'
+                       <.end-token('NAMED_PARAMETER_SYNTAX')>
+                   ]?
+               ]
+           ]?
+        || <.param_var>
+        ]?
+        <.end-element('NAMED_PARAMETER')>
     }
 
     token initializer {

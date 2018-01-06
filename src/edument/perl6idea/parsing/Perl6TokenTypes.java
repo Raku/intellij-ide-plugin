@@ -8,11 +8,13 @@ public interface Perl6TokenTypes {
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
+    IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
+    IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");

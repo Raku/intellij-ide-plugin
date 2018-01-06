@@ -70,6 +70,18 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.COMMA
     );
 
+    static final String NAMED_PARAMETER_SYNTAX_ID = "PERL6_NAMED_PARAMETER_SYNTAX";
+    public static final TextAttributesKey NAMED_PARAMETER_SYNTAX = TextAttributesKey.createTextAttributesKey(
+            NAMED_PARAMETER_SYNTAX_ID,
+            DefaultLanguageHighlighterColors.PARENTHESES
+    );
+
+    static final String NAMED_PARAMETER_NAME_ALIAS_ID = "PERL6_NAMED_PARAMETER_NAME_ALIAS";
+    public static final TextAttributesKey NAMED_PARAMETER_NAME_ALIAS = TextAttributesKey.createTextAttributesKey(
+            NAMED_PARAMETER_NAME_ALIAS_ID,
+            DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,

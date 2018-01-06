@@ -51,6 +51,8 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.ROUTINE_DECLARATOR, Perl6Highlighter.ROUTINE_DECLARATOR);
         ATTRIBUTES.put(Perl6TokenTypes.ROUTINE_NAME, Perl6Highlighter.ROUTINE_NAME);
         ATTRIBUTES.put(Perl6TokenTypes.PARAMETER_SEPARATOR, Perl6Highlighter.PARAMETER_SEPARATOR);
+        ATTRIBUTES.put(Perl6TokenTypes.NAMED_PARAMETER_SYNTAX, Perl6Highlighter.NAMED_PARAMETER_SYNTAX);
+        ATTRIBUTES.put(Perl6TokenTypes.NAMED_PARAMETER_NAME_ALIAS, Perl6Highlighter.NAMED_PARAMETER_NAME_ALIAS);
         ATTRIBUTES.put(Perl6TokenTypes.BLOCK_CURLY_BRACKET, Perl6Highlighter.BLOCK_CURLY_BRACKETS);
         ATTRIBUTES.put(Perl6TokenTypes.ONLY_STAR, Perl6Highlighter.ONLY_STAR);
     }
