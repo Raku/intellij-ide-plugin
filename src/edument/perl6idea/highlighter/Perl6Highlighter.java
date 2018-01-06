@@ -64,6 +64,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
     );
 
+    static final String PARAMETER_SEPARATOR_ID = "PERL6_PARAMETER_SEPARATOR";
+    public static final TextAttributesKey PARAMETER_SEPARATOR = TextAttributesKey.createTextAttributesKey(
+            PARAMETER_SEPARATOR_ID,
+            DefaultLanguageHighlighterColors.COMMA
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,

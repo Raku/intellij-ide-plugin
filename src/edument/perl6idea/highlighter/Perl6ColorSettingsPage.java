@@ -41,6 +41,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Block Curly Braces", Perl6Highlighter.BLOCK_CURLY_BRACKETS),
             new AttributesDescriptor("Whatever", Perl6Highlighter.WHATEVER),
             new AttributesDescriptor("Only Star (Protos)", Perl6Highlighter.ONLY_STAR),
+            new AttributesDescriptor("Parameter Separator", Perl6Highlighter.PARAMETER_SEPARATOR),
             new AttributesDescriptor("String Literal Quote", Perl6Highlighter.STRING_LITERAL_QUOTE),
             new AttributesDescriptor("String Literal Value", Perl6Highlighter.STRING_LITERAL_CHAR),
             new AttributesDescriptor("String Literal Escape", Perl6Highlighter.STRING_LITERAL_ESCAPE),

@@ -198,7 +198,9 @@ grammar MAIN {
            <.end-token('LAMBDA')>
            :my $*GOAL = '{';
            <.ws>
-#           <signature>
+           <.start-element('SIGNATURE')>
+           <.signature>
+           <.end-element('SIGNATURE')>
            <.blockoid>?
         || <?[{]> <.blockoid>
         || <?>
@@ -1033,7 +1035,7 @@ grammar MAIN {
             <.start-token('PARENTHESES')>
             '('
             <.end-token('PARENTHESES')>
-            <.ws>
+            <.signature>
             [
             <.start-token('PARENTHESES')>
             ')'
@@ -1064,6 +1066,54 @@ grammar MAIN {
         '}'
         <.end-token('BLOCK_CURLY_BRACKET')>
         <?ENDSTMT>
+    }
+
+    ## Captures and Signatures
+
+    token param_sep {
+        <?before <.ws> [','||':'||';;'||';']>
+        <.ws>
+        <.start-token('PARAMETER_SEPARATOR')>
+        [','||':'||';;'||';']
+        <.end-token('PARAMETER_SEPARATOR')>
+        <.ws>
+    }
+
+    token signature {
+        <.ws>
+        [
+        || <?before '-->' || ')' || ']' || '{' || ':'\s || ';;' >
+           <.start-token('END_OF_PARAMETERS')> <?> <.end-token('END_OF_PARAMETERS')>
+        || <.parameter>
+           [
+               <.param_sep>
+               [
+               || <?before '-->' || ')' || ']' || '{' || ':'\s || ';;' >
+                  <.start-token('END_OF_PARAMETERS')> <?> <.end-token('END_OF_PARAMETERS')>
+               || <.parameter>
+               ]?
+           ]*
+        || <?>
+        ]
+        <.ws>
+    }
+
+    token parameter {
+        <.start-element('PARAMETER')>
+        <.param_var>
+        <.end-element('PARAMETER')>
+    }
+
+    token param_var {
+        <.start-element('PARAMETER_VARIABLE')>
+        <.start-token('VARIABLE')>
+        <.sigil> <.twigil>?
+        [
+        || <.identifier>
+        || <[/!]>
+        ]?
+        <.end-token('VARIABLE')>
+        <.end-element('PARAMETER_VARIABLE')>
     }
 
     token initializer {

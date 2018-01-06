@@ -6,6 +6,7 @@ public interface Perl6TokenTypes {
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
+    IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
@@ -42,6 +43,7 @@ public interface Perl6TokenTypes {
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
+    IElementType PARAMETER_SEPARATOR = new Perl6ElementType("PARAMETER_SEPARATOR");
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
