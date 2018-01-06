@@ -31,6 +31,7 @@ public interface Perl6ElementTypes {
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType CALL = new Perl6ElementType("CALL");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
+    IElementType ARRAY_SHAPE = new Perl6ElementType("ARRAY_SHAPE");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
     IElementType VERSION = new Perl6ElementType("VERSION");

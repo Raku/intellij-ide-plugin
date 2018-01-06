@@ -6697,7 +6697,17 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean param_var_131(PsiBuilder builder) {
+    private boolean param_var_131_quant_1(PsiBuilder builder) {
+        PsiBuilder.Marker marker2;
+        marker2 = builder.mark();
+        if (!(this.postcircumfix_80(builder))) {
+            return false;
+        }
+        marker2.done(Perl6ElementTypes.ARRAY_SHAPE);
+        return true;
+    }
+
+    private boolean param_var_131_alt_2(PsiBuilder builder) {
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
         if ((builder.getTokenType()) == Perl6TokenTypes.VARIABLE) {
@@ -6705,7 +6715,110 @@ public class Perl6Parser implements PsiParser {
         } else {
             return false;
         }
+        PsiBuilder.Marker quantMarker3;
+        quantMarker3 = builder.mark();
+        if (this.param_var_131_quant_1(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+        }
         marker1.done(Perl6ElementTypes.PARAMETER_VARIABLE);
+        return true;
+    }
+
+    private boolean param_var_131_quant_3(PsiBuilder builder) {
+        String tt2;
+        tt2 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.PARENTHESES) && (tt2.equals(")"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean param_var_131_alt_4(PsiBuilder builder) {
+        PsiBuilder.Marker marker5;
+        marker5 = builder.mark();
+        String tt1;
+        tt1 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.PARENTHESES) && (tt1.equals("("))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.signature_134(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker quantMarker6;
+        quantMarker6 = builder.mark();
+        if (this.param_var_131_quant_3(builder)) {
+            quantMarker6.drop();
+        } else {
+            quantMarker6.rollbackTo();
+        }
+        marker5.done(Perl6ElementTypes.SIGNATURE);
+        return true;
+    }
+
+    private boolean param_var_131_quant_5(PsiBuilder builder) {
+        String tt4;
+        tt4 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.PARENTHESES) && (tt4.equals("]"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean param_var_131_alt_6(PsiBuilder builder) {
+        PsiBuilder.Marker marker8;
+        marker8 = builder.mark();
+        String tt3;
+        tt3 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.PARENTHESES) && (tt3.equals("["))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.signature_134(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker quantMarker9;
+        quantMarker9 = builder.mark();
+        if (this.param_var_131_quant_5(builder)) {
+            quantMarker9.drop();
+        } else {
+            quantMarker9.rollbackTo();
+        }
+        marker8.done(Perl6ElementTypes.SIGNATURE);
+        return true;
+    }
+
+    private boolean param_var_131(PsiBuilder builder) {
+        PsiBuilder.Marker altMarker10;
+        altMarker10 = builder.mark();
+        if (this.param_var_131_alt_6(builder)) {
+            altMarker10.drop();
+        } else {
+            altMarker10.rollbackTo();
+            PsiBuilder.Marker altMarker7;;
+            altMarker7 = builder.mark();
+            if (this.param_var_131_alt_4(builder)) {
+                altMarker7.drop();
+            } else {
+                altMarker7.rollbackTo();
+                PsiBuilder.Marker altMarker4;;
+                altMarker4 = builder.mark();
+                if (this.param_var_131_alt_2(builder)) {
+                    altMarker4.drop();
+                } else {
+                    altMarker4.rollbackTo();
+                    return false;
+                }
+            }
+        }
         return true;
     }
 

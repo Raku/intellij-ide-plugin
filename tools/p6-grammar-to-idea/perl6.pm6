@@ -1105,15 +1105,45 @@ grammar MAIN {
     }
 
     token param_var {
-        <.start-element('PARAMETER_VARIABLE')>
-        <.start-token('VARIABLE')>
-        <.sigil> <.twigil>?
         [
-        || <.identifier>
-        || <[/!]>
-        ]?
-        <.end-token('VARIABLE')>
-        <.end-element('PARAMETER_VARIABLE')>
+        || <.start-element('SIGNATURE')>
+           <.start-token('PARENTHESES')>
+           '['
+           <.end-token('PARENTHESES')>
+           <.signature>
+           [
+           <.start-token('PARENTHESES')>
+           ']'
+           <.end-token('PARENTHESES')>
+           ]?
+           <.end-element('SIGNATURE')>
+        || <.start-element('SIGNATURE')>
+           <.start-token('PARENTHESES')>
+           '('
+           <.end-token('PARENTHESES')>
+           <.signature>
+           [
+           <.start-token('PARENTHESES')>
+           ')'
+           <.end-token('PARENTHESES')>
+           ]?
+           <.end-element('SIGNATURE')>
+        || <.start-element('PARAMETER_VARIABLE')>
+           <.start-token('VARIABLE')>
+           <.sigil> <.twigil>?
+           [
+           || <.identifier>
+           || <[/!]>
+           ]?
+           <.end-token('VARIABLE')>
+           [
+               <?before '['>
+               <.start-element('ARRAY_SHAPE')>
+               <.postcircumfix>
+               <.end-element('ARRAY_SHAPE')>
+           ]?
+           <.end-element('PARAMETER_VARIABLE')>
+       ]
     }
 
     token initializer {

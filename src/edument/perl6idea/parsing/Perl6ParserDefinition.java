@@ -186,6 +186,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ParameterImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER_VARIABLE)
             return new Perl6ParameterVariableImpl(astNode);
+        if (type == Perl6ElementTypes.ARRAY_SHAPE)
+            return new Perl6ArrayShapeImpl(astNode);
         return null;
     }
 
