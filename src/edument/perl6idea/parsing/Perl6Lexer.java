@@ -80,7 +80,8 @@ public class Perl6Lexer extends LexerBase {
                 case -3:
                     if (stack.tokenStart < lastTokenStart)
                         System.err.println("Perl 6 lexer went backwards (from " + lastTokenStart +
-                            " to " + stack.tokenStart + ")");
+                            " to " + stack.tokenStart + ") over text '" +
+                            stack.target.subSequence(stack.tokenStart, lastTokenStart) + "'");
                     else
                         lastTokenStart = stack.tokenStart;
                     resumePoints.add(stack.snapshot());
