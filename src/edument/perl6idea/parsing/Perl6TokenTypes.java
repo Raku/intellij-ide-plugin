@@ -46,6 +46,7 @@ public interface Perl6TokenTypes {
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType PARAMETER_SEPARATOR = new Perl6ElementType("PARAMETER_SEPARATOR");
+    IElementType WHERE_CONSTRAINT = new Perl6ElementType("WHERE_CONSTRAINT");
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");

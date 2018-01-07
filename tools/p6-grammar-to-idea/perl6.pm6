@@ -1101,6 +1101,9 @@ grammar MAIN {
     token parameter {
         <.start-element('PARAMETER')>
         [ <.param_var> || <.named_param> ]
+        <.ws>
+        <.post_constraint>*
+        <.default_value>?
         <.end-element('PARAMETER')>
     }
 
@@ -1174,6 +1177,52 @@ grammar MAIN {
         || <.param_var>
         ]?
         <.end-element('NAMED_PARAMETER')>
+    }
+
+    token default_value {
+        <.start-element('PARAMETER_DEFAULT')>
+        <.start-token('INFIX')>
+        '='
+        <.end-token('INFIX')>
+        <.ws>
+        [ <.EXPR('i=')> <.ws> ]?
+        <.end-element('PARAMETER_DEFAULT')>
+    }
+
+    token post_constraint {
+        [
+        || <.start-element('SIGNATURE')>
+           <.start-token('PARENTHESES')>
+           '['
+           <.end-token('PARENTHESES')>
+           <.signature>
+           [
+           <.start-token('PARENTHESES')>
+           ']'
+           <.end-token('PARENTHESES')>
+           ]?
+           <.end-element('SIGNATURE')>
+        || <.start-element('SIGNATURE')>
+           <.start-token('PARENTHESES')>
+           '('
+           <.end-token('PARENTHESES')>
+           <.signature>
+           [
+           <.start-token('PARENTHESES')>
+           ')'
+           <.end-token('PARENTHESES')>
+           ]?
+           <.end-element('SIGNATURE')>
+        || <?before 'where' <.ws>>
+           <.start-element('WHERE_CONSTRAINT')>
+           <.start-token('WHERE_CONSTRAINT')>
+           'where'
+           <.end-token('WHERE_CONSTRAINT')>
+           <.ws>
+           <.EXPR('i=')>?
+           <.end-element('WHERE_CONSTRAINT')>
+        ]
+        <.ws>
     }
 
     token initializer {

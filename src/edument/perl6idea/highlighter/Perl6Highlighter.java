@@ -82,6 +82,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     );
 
+    static final String WHERE_CONSTRAINT_ID = "PERL6_WHERE_CONSTRAINT";
+    public static final TextAttributesKey WHERE_CONSTRAINT = TextAttributesKey.createTextAttributesKey(
+            WHERE_CONSTRAINT_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,

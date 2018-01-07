@@ -46,6 +46,7 @@ public interface Perl6ElementTypes {
     IElementType GATHER = new Perl6ElementType("GATHER");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
+    IElementType PARAMETER_DEFAULT = new Perl6ElementType("PARAMETER_DEFAULT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
     IElementType UNTIL_STATEMENT = new Perl6ElementType("UNTIL_STATEMENT");
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
@@ -71,6 +72,7 @@ public interface Perl6ElementTypes {
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType IF_STATEMENT = new Perl6ElementType("IF_STATEMENT");
+    IElementType WHERE_CONSTRAINT = new Perl6ElementType("WHERE_CONSTRAINT");
     IElementType IMPORT_STATEMENT = new Perl6ElementType("IMPORT_STATEMENT");
     IElementType GIVEN_STATEMENT = new Perl6ElementType("GIVEN_STATEMENT");
 }

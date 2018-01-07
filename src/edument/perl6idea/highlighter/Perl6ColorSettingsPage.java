@@ -44,6 +44,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Parameter Separator", Perl6Highlighter.PARAMETER_SEPARATOR),
             new AttributesDescriptor("Named Parameter Colon and Parentheses", Perl6Highlighter.NAMED_PARAMETER_SYNTAX),
             new AttributesDescriptor("Named Parameter Name Alias", Perl6Highlighter.NAMED_PARAMETER_NAME_ALIAS),
+            new AttributesDescriptor("Parameter or variable constraint (where)", Perl6Highlighter.WHERE_CONSTRAINT),
             new AttributesDescriptor("String Literal Quote", Perl6Highlighter.STRING_LITERAL_QUOTE),
             new AttributesDescriptor("String Literal Value", Perl6Highlighter.STRING_LITERAL_CHAR),
             new AttributesDescriptor("String Literal Escape", Perl6Highlighter.STRING_LITERAL_ESCAPE),
