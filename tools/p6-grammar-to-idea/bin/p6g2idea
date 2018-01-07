@@ -16,13 +16,19 @@ multi sub MAIN('parse', $input-file where .IO.f) {
 }
 
 multi sub MAIN('generate', IO() $input-file where .f, IO() $output-dir where .d) {
+    say "Parsing grammar and building AST";
     my $ast = P6GrammarToIdea::Parser.parse(
         slurp($input-file),
         :actions(P6GrammarToIdea::Actions)
     ).ast;
 
+    say "Sanity checking";
     sanity-check($ast);
+
+    say "Building token model";
     my @token-names = check-and-get-tokens($ast);
+
+    say "Building element model";
     my $element-model = build-element-model($ast);
 
     say "Generating Perl6TokenTypes.java";
