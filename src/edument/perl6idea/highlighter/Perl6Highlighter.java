@@ -219,4 +219,10 @@ public final class Perl6Highlighter {
             ONLY_STAR_ID,
             DefaultLanguageHighlighterColors.CONSTANT
     );
+
+    static final String PAIR_KEY_ID = "PERL6_PAIR_KEY";
+    public static final TextAttributesKey PAIR_KEY = TextAttributesKey.createTextAttributesKey(
+            PAIR_KEY_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
 }

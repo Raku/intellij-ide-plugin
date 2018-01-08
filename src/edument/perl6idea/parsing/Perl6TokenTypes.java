@@ -29,12 +29,13 @@ public interface Perl6TokenTypes {
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
+    IElementType MISSING_BLOCK = new Perl6ElementType("MISSING_BLOCK");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType STATEMENT_TERMINATOR = new Perl6ElementType("STATEMENT_TERMINATOR");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
-    IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType INFIX = new Perl6ElementType("INFIX");
+    IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
     IElementType SEMI_LIST_END = new Perl6ElementType("SEMI_LIST_END");
@@ -49,6 +50,7 @@ public interface Perl6TokenTypes {
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
+    IElementType PAIR_KEY = new Perl6ElementType("PAIR_KEY");
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType WHERE_CONSTRAINT = new Perl6ElementType("WHERE_CONSTRAINT");

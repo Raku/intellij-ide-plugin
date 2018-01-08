@@ -23,6 +23,7 @@ public interface Perl6ElementTypes {
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
+    IElementType FATARROW = new Perl6ElementType("FATARROW");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
     IElementType WHILE_STATEMENT = new Perl6ElementType("WHILE_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");

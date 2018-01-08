@@ -218,7 +218,7 @@ grammar MAIN {
            <.end-element('SIGNATURE')>
            <.blockoid>?
         || <?[{]> <.blockoid>
-        || <?>
+        || <.start-token('MISSING_BLOCK')> <?> <.end-token('MISSING_BLOCK')>
     }
 
     token lambda { '->' || '<->' }
@@ -886,6 +886,7 @@ grammar MAIN {
     ## Terms
 
     token term {
+        || <.fatarrow>
         || <.variable>
         || <.term_self>
         || <.term_ident>
@@ -956,6 +957,23 @@ grammar MAIN {
         '*'
         <.end-token('HYPER_WHATEVER')>
         <.end-element('HYPER_WHATEVER')>
+    }
+
+    token fatarrow {
+        <?before <.identifier> \h* '=>' <.ws>>
+        <.start-element('FATARROW')>
+        <.start-token('PAIR_KEY')>
+        <.identifier>
+        <.end-token('PAIR_KEY')>
+        <.start-token('WHITE_SPACE')>
+        \h*
+        <.end-token('WHITE_SPACE')>
+        <.start-token('INFIX')>
+        '=>'
+        <.end-token('INFIX')>
+        <.ws>
+        <.EXPR('i<=')>?
+        <.end-element('FATARROW')>
     }
 
     token args {

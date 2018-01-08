@@ -57,6 +57,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.WHERE_CONSTRAINT, Perl6Highlighter.WHERE_CONSTRAINT);
         ATTRIBUTES.put(Perl6TokenTypes.BLOCK_CURLY_BRACKET, Perl6Highlighter.BLOCK_CURLY_BRACKETS);
         ATTRIBUTES.put(Perl6TokenTypes.ONLY_STAR, Perl6Highlighter.ONLY_STAR);
+        ATTRIBUTES.put(Perl6TokenTypes.PAIR_KEY, Perl6Highlighter.PAIR_KEY);
     }
 
     @NotNull
