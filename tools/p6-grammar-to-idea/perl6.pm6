@@ -1604,6 +1604,7 @@ grammar MAIN {
            <.end-element('POSTFIX')>
         || <.postcircumfix> { $*PREC = 'y=' }
         || <.dotty> { $*PREC = 'y=' }
+        || <.privop> { $*PREC = 'y=' }
     }
 
     token postfix {
@@ -1624,7 +1625,7 @@ grammar MAIN {
         <.start-token('METHOD_CALL_OPERATOR')>
         '.' [ <[+*?=]> || '^' ]?
         <.end-token('METHOD_CALL_OPERATOR')>
-        <.dottyop>?
+        <.dottyop>
         <.end-element('METHOD_CALL')>
     }
 
@@ -1632,7 +1633,16 @@ grammar MAIN {
         <.unsp>?
         [
         || <.methodop>
-        ]
+        ]?
+    }
+
+    token privop {
+        <.start-element('METHOD_CALL')>
+        <.start-token('METHOD_CALL_OPERATOR')>
+        '!'
+        <.end-token('METHOD_CALL_OPERATOR')>
+        <.methodop>?
+        <.end-element('METHOD_CALL')>
     }
 
     token methodop {
@@ -1641,6 +1651,10 @@ grammar MAIN {
            <.longname>
            <.end-token('METHOD_CALL_NAME')>
         || <?[$@&]> <.variable>
+        || <?['"]>
+           # XXX Add this once we set up $*QSIGIL
+           #[ <!{$*QSIGIL}> || <!before '"' <-["]>*? [\s|$] > ]
+           <.quote>
         ] <.unsp>?
         [
             [
