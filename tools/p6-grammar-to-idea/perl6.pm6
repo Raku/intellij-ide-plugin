@@ -1172,7 +1172,7 @@ grammar MAIN {
                        ')'
                        <.end-token('NAMED_PARAMETER_SYNTAX')>
                    ]?
-               ]
+               ]?
            ]?
         || <.param_var>
         ]?
