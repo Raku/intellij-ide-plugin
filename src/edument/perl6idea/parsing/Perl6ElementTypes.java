@@ -19,10 +19,10 @@ public interface Perl6ElementTypes {
     IElementType LAZY = new Perl6ElementType("LAZY");
     IElementType EAGER = new Perl6ElementType("EAGER");
     IElementType DO = new Perl6ElementType("DO");
-    IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
+    IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType STATEMENT = new Perl6ElementType("STATEMENT");
     IElementType WHILE_STATEMENT = new Perl6ElementType("WHILE_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");

@@ -1,6 +1,7 @@
 grammar MAIN {
     token TOP {
         :my $*GOAL = '';
+        :my $*IN_DECL = '';
         <.statementlist>
         [
         || $
@@ -485,6 +486,7 @@ grammar MAIN {
     }
 
     token statement_control_import {
+        :my $*IN_DECL = 'import';
         <.start-element('IMPORT_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'import'
@@ -499,6 +501,7 @@ grammar MAIN {
     }
 
     token statement_control_no {
+        :my $*IN_DECL = 'no';
         <.start-element('NO_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'no'
@@ -513,6 +516,7 @@ grammar MAIN {
     }
 
     token statement_control_use {
+        :my $*IN_DECL = 'use';
         <.start-element('USE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'use'
@@ -972,11 +976,35 @@ grammar MAIN {
     }
 
     token variable {
-        <.start-element('VARIABLE')>
-        <.start-token('VARIABLE')>
-        <.sigil> <.twigil>? <.desigilname>
-        <.end-token('VARIABLE')>
-        <.end-element('VARIABLE')>
+        [
+        || <!{ $*IN_DECL }> <?before <.sigil> '.' <.desigilname>>
+           <.start-element('METHOD_CALL')>
+           <.start-token('SELF')>
+           <.sigil>
+           <.end-token('SELF')>
+           <.start-token('METHOD_CALL_OPERATOR')>
+           '.'
+           <.end-token('METHOD_CALL_OPERATOR')>
+           <.start-token('METHOD_CALL_NAME')>
+           <.desigilname>
+           <.end-token('METHOD_CALL_NAME')>
+           [
+               <?before [ <.unsp> || '\\' || <?> ] '('>
+               [
+               || <.unsp>
+               || <.start-token('WHITE_SPACE')>
+                  '\\'
+                  <.end-token('WHITE_SPACE')>
+               ]?
+               <.postcircumfix>
+           ]?
+           <.end-element('METHOD_CALL')>
+        || <.start-element('VARIABLE')>
+           <.start-token('VARIABLE')>
+           <.sigil> <.twigil>? <.desigilname>
+           <.end-token('VARIABLE')>
+           <.end-element('VARIABLE')>
+       ]
     }
 
     token scope_declarator {
@@ -1017,7 +1045,9 @@ grammar MAIN {
     }
 
     token variable_declarator {
+        :my $*IN_DECL = 'variable';
         <.variable>
+        { $*IN_DECL = '' }
     }
 
     token routine_declarator {
@@ -1040,6 +1070,7 @@ grammar MAIN {
     }
 
     token routine_def {
+        :my $*IN_DECL = 'sub';
         <.ws>
         [
             <.start-token('ROUTINE_NAME')>
@@ -1061,6 +1092,7 @@ grammar MAIN {
             <.end-element('SIGNATURE')>
         ]?
         <.ws>
+        { $*IN_DECL = '' }
         [
         || <.onlystar>
         || <.blockoid>
@@ -1070,6 +1102,7 @@ grammar MAIN {
     }
 
     token method_def {
+        :my $*IN_DECL = 'method';
         <.ws>
         [
             <.start-token('ROUTINE_NAME')>
@@ -1094,6 +1127,7 @@ grammar MAIN {
             <.end-element('SIGNATURE')>
         ]?
         <.ws>
+        { $*IN_DECL = '' }
         [
         || <.onlystar>
         || <.blockoid>
@@ -1130,6 +1164,7 @@ grammar MAIN {
     }
 
     token signature {
+        :my $*IN_DECL = 'sig';
         <.ws>
         [
         || <?before '-->' || ')' || ']' || '{' || ':'\s || ';;' >
@@ -1146,6 +1181,7 @@ grammar MAIN {
         || <?>
         ]
         <.ws>
+        { $*IN_DECL = '' }
     }
 
     token parameter {
@@ -1230,6 +1266,7 @@ grammar MAIN {
     }
 
     token default_value {
+        :my $*IN_DECL = '';
         <.start-element('PARAMETER_DEFAULT')>
         <.start-token('INFIX')>
         '='
@@ -1240,6 +1277,7 @@ grammar MAIN {
     }
 
     token post_constraint {
+        :my $*IN_DECL = '';
         [
         || <.start-element('SIGNATURE')>
            <.start-token('PARENTHESES')>
@@ -1305,6 +1343,7 @@ grammar MAIN {
     }
 
     token package_def {
+        :my $*IN_DECL = 'package';
         <.ws>
         [
             <.start-token('NAME')>
@@ -1312,6 +1351,7 @@ grammar MAIN {
             <.end-token('NAME')>
             <.ws>
         ]?
+        { $*IN_DECL = '' }
         [
         || <?[{]> <.blockoid>
         || <?[;]>

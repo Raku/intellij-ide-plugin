@@ -40,7 +40,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Parentheses", Perl6Highlighter.PARENTHESES),
             new AttributesDescriptor("Block Curly Braces", Perl6Highlighter.BLOCK_CURLY_BRACKETS),
             new AttributesDescriptor("Whatever", Perl6Highlighter.WHATEVER),
-            new AttributesDescriptor("Current Object (self)", Perl6Highlighter.SELF),
+            new AttributesDescriptor("Current Object (self, sigil in $.foo(...))", Perl6Highlighter.SELF),
             new AttributesDescriptor("Only Star (Protos)", Perl6Highlighter.ONLY_STAR),
             new AttributesDescriptor("Parameter Separator", Perl6Highlighter.PARAMETER_SEPARATOR),
             new AttributesDescriptor("Named Parameter Colon and Parentheses", Perl6Highlighter.NAMED_PARAMETER_SYNTAX),
