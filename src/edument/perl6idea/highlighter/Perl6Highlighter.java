@@ -202,6 +202,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.INSTANCE_METHOD
     );
 
+    static final String SELF_ID = "PERL6_SELF";
+    public static final TextAttributesKey SELF = TextAttributesKey.createTextAttributesKey(
+            SELF_ID,
+            DefaultLanguageHighlighterColors.CONSTANT
+    );
+
     static final String WHATEVER_ID = "PERL6_WHATEVER";
     public static final TextAttributesKey WHATEVER = TextAttributesKey.createTextAttributesKey(
             WHATEVER_ID,

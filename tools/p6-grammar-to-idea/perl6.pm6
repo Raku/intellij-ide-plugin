@@ -870,6 +870,7 @@ grammar MAIN {
 
     token term {
         || <.variable>
+        || <.term_self>
         || <.term_ident>
         || <.scope_declarator>
         || <.routine_declarator>
@@ -914,6 +915,14 @@ grammar MAIN {
            [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
            <.args>
            <.end-element('SUB_CALL')>
+    }
+
+    token term_self {
+        <.start-element('SELF')>
+        <.start-token('SELF')>
+        'self' <.end_keyword>
+        <.end-token('SELF')>
+        <.end-element('SELF')>
     }
 
     token term_whatever {
