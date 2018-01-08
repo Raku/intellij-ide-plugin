@@ -2,6 +2,7 @@ grammar MAIN {
     token TOP {
         :my $*GOAL = '';
         :my $*IN_DECL = '';
+        :my $*IN_REGEX_ASSERTION = 0;
         <.statementlist>
         [
         || $
@@ -132,7 +133,13 @@ grammar MAIN {
     token statementlist {
         [<.ws> || $]
         <.start-element('STATEMENT_LIST')>
-        [<!before $ || <[\)\]\}]> > <.statement>]*
+        [
+            <!before $ || <[\)\]\}]> >
+            <.start-element('STATEMENT')>
+            <.statement>
+            <.eat_terminator>
+            <.end-element('STATEMENT')>
+        ]*
         <.end-element('STATEMENT_LIST')>
     }
 
@@ -141,14 +148,19 @@ grammar MAIN {
         <.start-element('SEMI_LIST')>
         [
         || <?before <[)\]}]> > <.start-token('SEMI_LIST_END')> <?> <.end-token('SEMI_LIST_END')>
-        || [<!before $ || <[\)\]\}]> > <.statement>]*
+        || [
+               <!before $ || <[\)\]\}]> >
+               <.start-element('STATEMENT')>
+               <.statement>
+               <.eat_terminator>
+               <.end-element('STATEMENT')>
+           ]*
         ]
         <.end-element('SEMI_LIST')>
     }
 
     token statement {
         <!before <[\])}]> || $ >
-        <.start-element('STATEMENT')>
         [
         || <.statement_control>
         || <.EXPR('')>
@@ -169,23 +181,25 @@ grammar MAIN {
             ]?
         || <.bogus_statement>
         ]
-        [
-        || <.start-token('STATEMENT_TERMINATOR')>
-           ';'
-           <.end-token('STATEMENT_TERMINATOR')>
-        || <?MARKED('endstmt')>
-           <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
-           <.ws>
-        || <?>
-        ]
-        <.end-element('STATEMENT')>
-        <.ws>
     }
 
     token bogus_statement {
         <.start-token('BAD_CHARACTER')>
         <-[;]>+
         <.end-token('BAD_CHARACTER')>
+    }
+
+    token eat_terminator {
+        [
+        || <.start-token('STATEMENT_TERMINATOR')>
+           ';'
+           <.end-token('STATEMENT_TERMINATOR')>
+           <.ws>
+        || <?MARKED('endstmt')>
+           <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+           <.ws>
+        || <.ws>
+        ]?
     }
 
     token xblock {
@@ -215,8 +229,7 @@ grammar MAIN {
 
     token terminator {
         || <?[;)\]}]>
-        # XXX <?{ $*IN_REGEX_ASSERTION }> needed below
-        || <?[>]>
+        || <?[>]> <?{ $*IN_REGEX_ASSERTION }>
         || [ 'if' || 'unless' || 'while' || 'until' || 'for' || 'given' || 'when' || 'with' || 'without' ]
            <.kok>
         || '-->'
@@ -832,7 +845,7 @@ grammar MAIN {
         [
         || <?[{]> <.block>
         || <.statement>
-        || <?>
+        || <.start-token('MISSING_BLORST')> <?> <.end-token('MISSING_BLORST')>
         ]
     }
 
