@@ -51,7 +51,15 @@ sub check-and-get-tokens(Braids $braids) is export {
     my %*KNOWN-TOKENS;
     my $*CURRENT-TOKEN;
     my $*CURRENT-TOKEN-START-PRODUCTION;
+
+    # Track seen productions to avoid infinite recursion.
     my %*SEEN-PRODUCTIONS;
+
+    # Track productions we already decided are well nested. This factors in
+    # subrules (they are applied after the walk of subrules). This helps avoid
+    # a lot of duplicate path visiting in the tree walk.
+    my %*WELL-NESTED-PRODUCTIONS;
+
     walk($*CURRENT-PRODUCTION);
     with $*CURRENT-TOKEN {
         die X::P6GrammarToIdea::MissingEndToken.new:
@@ -68,10 +76,20 @@ multi sub walk(Production $rule) {
             die "Cannot recurse within a token, but '$rule.name()' does so";
         }
     }
+    elsif %*WELL-NESTED-PRODUCTIONS{$rule.name} && !$*CURRENT-TOKEN {
+        # The production is known to be well nested, and we're not currently
+        # in a token, so no need to revisit this part of the tree.
+    }
     else {
+        # If we're not currently in a token at the start of the rule, and nor
+        # are we at the end of the rule, and it passed validation, then it
+        # must be well nested.
+        my $well-nested = not $*CURRENT-TOKEN;
         %*SEEN-PRODUCTIONS{$rule.name} = True;
         walk $rule.implementation;
+        $well-nested = False if $*CURRENT-TOKEN;
         %*SEEN-PRODUCTIONS{$rule.name} = False;
+        %*WELL-NESTED-PRODUCTIONS{$rule.name} = $well-nested;
     }
 }
 
