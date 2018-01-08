@@ -1018,6 +1018,14 @@ grammar MAIN {
            'sub' <.end_keyword>
            <.end-token('ROUTINE_DECLARATOR')>
            <.routine_def>
+        || <.start-token('ROUTINE_DECLARATOR')>
+           'method' <.end_keyword>
+           <.end-token('ROUTINE_DECLARATOR')>
+           <.method_def>
+        || <.start-token('ROUTINE_DECLARATOR')>
+           'submethod' <.end_keyword>
+           <.end-token('ROUTINE_DECLARATOR')>
+           <.method_def>
         ]
         <.end-element('ROUTINE_DECLARATION')>
     }
@@ -1027,6 +1035,39 @@ grammar MAIN {
         [
             <.start-token('ROUTINE_NAME')>
             <.longname>
+            <.end-token('ROUTINE_NAME')>
+        ]?
+        <.ws>
+        [
+            <.start-element('SIGNATURE')>
+            <.start-token('PARENTHESES')>
+            '('
+            <.end-token('PARENTHESES')>
+            <.signature>
+            [
+            <.start-token('PARENTHESES')>
+            ')'
+            <.end-token('PARENTHESES')>
+            ]?
+            <.end-element('SIGNATURE')>
+        ]?
+        <.ws>
+        [
+        || <.onlystar>
+        || <.blockoid>
+        # Allow for body not written yet
+        || <?>
+        ]
+    }
+
+    token method_def {
+        <.ws>
+        [
+            <.start-token('ROUTINE_NAME')>
+            [
+            || <[ ! ^ ]>? <.longname>?
+            || <.longname>
+            ]
             <.end-token('ROUTINE_NAME')>
         ]?
         <.ws>
