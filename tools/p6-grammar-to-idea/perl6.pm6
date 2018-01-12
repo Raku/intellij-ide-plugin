@@ -892,6 +892,7 @@ grammar MAIN {
         || <.term_ident>
         || <.scope_declarator>
         || <.routine_declarator>
+        || <.regex_declarator>
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
         || <.statement_prefix>
         || <.package_declarator>
@@ -1061,6 +1062,7 @@ grammar MAIN {
             <.end-element('VARIABLE_DECLARATION')>
             ]
         || <.routine_declarator>
+        || <.regex_declarator>
     }
 
     token multi_declarator {
@@ -1352,6 +1354,79 @@ grammar MAIN {
         <.end-element('INFIX')>
         <.ws>
         <.EXPR('e=')>?
+    }
+
+    token regex_declarator {
+        <.start-element('REGEX_DECLARATION')>
+        [
+        || <?before 'regex' <.kok>>
+           <.start-token('REGEX_DECLARATOR')>
+           'regex'
+           <.end-token('REGEX_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'regex';
+           :my $*RX_S = 0;
+           <.regex_def>
+        || <?before 'rule' <.kok>>
+           <.start-token('REGEX_DECLARATOR')>
+           'rule'
+           <.end-token('REGEX_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'rule';
+           :my $*RX_S = 1;
+           <.regex_def>
+        || <?before 'token' <.kok>>
+           <.start-token('REGEX_DECLARATOR')>
+           'token'
+           <.end-token('REGEX_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'token';
+           :my $*RX_S = 0;
+           <.regex_def>
+        ]
+        <.end-element('REGEX_DECLARATION')>
+    }
+
+    token regex_def {
+        <.ws>
+        [
+            <.start-token('ROUTINE_NAME')>
+            <.longname>
+            <.end-token('ROUTINE_NAME')>
+        ]?
+        <.ws>
+        [
+            <.start-element('SIGNATURE')>
+            <.start-token('PARENTHESES')>
+            '('
+            <.end-token('PARENTHESES')>
+            <.signature>
+            [
+            <.start-token('PARENTHESES')>
+            ')'
+            <.end-token('PARENTHESES')>
+            ]?
+            <.end-element('SIGNATURE')>
+        ]?
+        <.ws>
+        { $*IN_DECL = '' }
+        [
+            <.start-token('BLOCK_CURLY_BRACKET')>
+            '{'
+            <.end-token('BLOCK_CURLY_BRACKET')>
+            <.ws>
+            [
+            || <.start-token('ONLY_STAR')> ['*'||'<...>'||'<*>'] <.end-token('ONLY_STAR')>
+            || <.start-token('MISSING_REGEX')> <?> <.end-token('MISSING_REGEX')>
+            ]
+            <.ws>
+            [
+                <.start-token('BLOCK_CURLY_BRACKET')>
+                '}'
+                <.end-token('BLOCK_CURLY_BRACKET')>
+                <?ENDSTMT>
+            ]?
+        ]?
     }
 
     token sigil { <[$@%&]> }

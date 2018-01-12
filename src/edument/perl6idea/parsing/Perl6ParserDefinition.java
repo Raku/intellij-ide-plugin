@@ -184,6 +184,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RoutineDeclImpl(astNode);
         if (type == Perl6ElementTypes.MULTI_DECLARATION)
             return new Perl6MultiDeclImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_DECLARATION)
+            return new Perl6Perl6RegexDeclImpl(astNode);
         if (type == Perl6ElementTypes.SIGNATURE)
             return new Perl6RoutineDeclImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER)

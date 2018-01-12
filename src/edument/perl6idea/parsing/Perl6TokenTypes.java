@@ -21,6 +21,7 @@ public interface Perl6TokenTypes {
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType MISSING_BLOCK = new Perl6ElementType("MISSING_BLOCK");
     IElementType MISSING_BLORST = new Perl6ElementType("MISSING_BLORST");
+    IElementType MISSING_REGEX = new Perl6ElementType("MISSING_REGEX");
     IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
@@ -35,6 +36,7 @@ public interface Perl6TokenTypes {
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
+    IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");

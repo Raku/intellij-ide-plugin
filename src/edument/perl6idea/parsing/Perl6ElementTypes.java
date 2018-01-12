@@ -47,6 +47,7 @@ public interface Perl6ElementTypes {
     IElementType RACE = new Perl6ElementType("RACE");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REACT = new Perl6ElementType("REACT");
+    IElementType REGEX_DECLARATION = new Perl6ElementType("REGEX_DECLARATION");
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
