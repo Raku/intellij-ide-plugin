@@ -9,7 +9,7 @@ sub generate-perl6-element-types(@element-names) is export {
     push @fields, InterfaceField.new: :type<IFileElementType>, :name<FILE>, :default(
         ConstructorCall.new(:name<IFileElementType>, :arguments(
             StaticVariable.new(:name<INSTANCE>, :class<Perl6Language>))));
-    for @element-names -> $name {
+    for @element-names.sort -> $name {
         push @fields, InterfaceField.new: :type<IElementType>, :$name, :default(
             ConstructorCall.new(:name<Perl6ElementType>, :arguments(
                 StringLiteral.new(:value($name)))));

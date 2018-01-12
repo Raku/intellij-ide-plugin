@@ -6,7 +6,7 @@ use Java::Generate::Variable;
 
 sub generate-perl6-token-types(@token-names) is export {
     my @fields;
-    for @token-names -> $name {
+    for @token-names.sort -> $name {
         my $default = $name eq 'WHITE_SPACE' | 'BAD_CHARACTER'
             ?? StaticVariable.new(:$name, :type<IElementType>, :class<TokenType>, :access<public>)
             !! ConstructorCall.new(:name<Perl6ElementType>, :arguments(
