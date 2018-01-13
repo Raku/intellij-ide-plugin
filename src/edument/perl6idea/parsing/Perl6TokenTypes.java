@@ -37,6 +37,8 @@ public interface Perl6TokenTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
+    IElementType REGEX_INFIX = new Perl6ElementType("REGEX_INFIX");
+    IElementType REGEX_MISSING_TERM = new Perl6ElementType("REGEX_MISSING_TERM");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");

@@ -185,7 +185,7 @@ public class Perl6ParserDefinition implements ParserDefinition {
         if (type == Perl6ElementTypes.MULTI_DECLARATION)
             return new Perl6MultiDeclImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_DECLARATION)
-            return new Perl6Perl6RegexDeclImpl(astNode);
+            return new Perl6RegexDeclImpl(astNode);
         if (type == Perl6ElementTypes.SIGNATURE)
             return new Perl6RoutineDeclImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER)
@@ -200,6 +200,14 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6WhereConstraintImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER_DEFAULT)
             return new Perl6ParameterDefaultImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX)
+            return new Perl6RegexImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_ATOM)
+            return new Perl6RegexAtomImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_SIGSPACE)
+            return new Perl6RegexSigspaceImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_LITERAL)
+            return new Perl6RegexLiteralImpl(astNode);
         return null;
     }
 

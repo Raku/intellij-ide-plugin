@@ -225,4 +225,11 @@ public final class Perl6Highlighter {
             PAIR_KEY_ID,
             DefaultLanguageHighlighterColors.STRING
     );
+
+    static final String REGEX_INFIX_ID = "PERL6_REGEX_INFIX";
+    public static final TextAttributesKey REGEX_INFIX = TextAttributesKey.createTextAttributesKey(
+            REGEX_INFIX_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
 }

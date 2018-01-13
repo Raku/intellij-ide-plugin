@@ -51,6 +51,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("String Literal Escape", Perl6Highlighter.STRING_LITERAL_ESCAPE),
             new AttributesDescriptor("String Literal Invalid Escape", Perl6Highlighter.STRING_LITERAL_BAD_ESCAPE),
             new AttributesDescriptor("Pair Key", Perl6Highlighter.PAIR_KEY),
+            new AttributesDescriptor("Regex Alternation and Conjunction", Perl6Highlighter.REGEX_INFIX),
     };
 
     @Nullable

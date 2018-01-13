@@ -1417,6 +1417,7 @@ grammar MAIN {
             <.ws>
             [
             || <.start-token('ONLY_STAR')> ['*'||'<...>'||'<*>'] <.end-token('ONLY_STAR')>
+            || <.enter_regex_nibblier('{', '}')>
             || <.start-token('MISSING_REGEX')> <?> <.end-token('MISSING_REGEX')>
             ]
             <.ws>
@@ -2069,5 +2070,116 @@ grammar MAIN {
 
     token termish {
         <.term>
+    }
+
+    token enter_regex_nibblier($*STARTER, $*STOPPER) {
+        <.start-element('REGEX')>
+        <.regex_nibbler>
+        <.end-element('REGEX')>
+    }
+
+    token regex_nibbler {
+        <.ws>
+        [
+            <!rxstopper>
+            [
+            || <.start-token('REGEX_INFIX')> '||' <.end-token('REGEX_INFIX')>
+            || <.start-token('REGEX_INFIX')> '|' <.end-token('REGEX_INFIX')>
+            || <.start-token('REGEX_INFIX')> '&&' <.end-token('REGEX_INFIX')>
+            || <.start-token('REGEX_INFIX')> '&' <.end-token('REGEX_INFIX')>
+            ]
+            <.ws>
+        ]?
+        <.termseq>?
+    }
+
+    token rxstopper { <.stopper> }
+
+    token rxinfixstopper {
+        [
+        || <?before <[\) \} \]]> >
+        || <?before '>' <-[>]> >
+        || <?rxstopper>
+        ]
+    }
+
+    token termseq {
+        <.termaltseq>
+    }
+
+    token termaltseq {
+        <.termconjseq>
+        [
+            <!rxinfixstopper>
+            <.start-token('REGEX_INFIX')> '||' <.end-token('REGEX_INFIX')>
+            <.ws>
+            [<.termconjseq> || <.start-token('REGEX_MISSING_TERM')> <?> <.end-token('REGEX_MISSING_TERM')>]
+        ]*
+    }
+
+    token termconjseq {
+        <.termalt>
+        [
+            <!infixstopper>
+            <.start-token('REGEX_INFIX')> '&&' <.end-token('REGEX_INFIX')>
+            <.ws>
+            [<.termalt> || <.start-token('REGEX_MISSING_TERM')> <?> <.end-token('REGEX_MISSING_TERM')>]
+        ]*
+    }
+
+    token termalt {
+        <.termconj>
+        [
+            <!infixstopper>
+            <.start-token('REGEX_INFIX')> '|' <![|]> <.end-token('REGEX_INFIX')>
+            <.ws>
+            [<.termconj> || <.start-token('REGEX_MISSING_TERM')> <?> <.end-token('REGEX_MISSING_TERM')>]
+        ]*
+    }
+
+    token termconj {
+        <.rxtermish>
+        [
+            <!infixstopper>
+            <.start-token('REGEX_INFIX')> '&' <![&]> <.end-token('REGEX_INFIX')>
+            <.ws>
+            [<.rxtermish> || <.start-token('REGEX_MISSING_TERM')> <?> <.end-token('REGEX_MISSING_TERM')>]
+        ]*
+    }
+
+    token rxtermish {
+        :my $*SIGOK = 0;
+        <.quantified_atom>*
+    }
+
+    token SIGOK {
+        [ <?{ $*RX_S }> { $*SIGOK = 1 } ]?
+    }
+
+    token sigmaybe {
+        || <?{ $*SIGOK }>
+           <.start-element('REGEX_SIGSPACE')>
+           <.normspace>
+           <.end-element('REGEX_SIGSPACE')>
+        || <!{ $*SIGOK }> <.normspace>
+    }
+
+    token normspace { <?before \s || '#'> <.ws> }
+
+    token quantified_atom {
+        <.start-element('REGEX_ATOM')>
+        <.atom>
+        <.sigmaybe>?
+        <.end-element('REGEX_ATOM')>
+    }
+
+    token atom {
+        [
+        || <.start-element('REGEX_LITERAL')>
+           <.start-token('STRING_LITERAL_CHAR')> \w <.end-token('STRING_LITERAL_CHAR')>
+           <.end-element('REGEX_LITERAL')>
+           <.SIGOK>
+#        || <.metachar>
+        ]
     }
 }
