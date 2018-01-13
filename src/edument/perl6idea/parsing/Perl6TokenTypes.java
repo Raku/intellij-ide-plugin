@@ -37,7 +37,9 @@ public interface Perl6TokenTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REGEX_ANCHOR = new Perl6ElementType("REGEX_ANCHOR");
+    IElementType REGEX_CAPTURE_PARENTHESES = new Perl6ElementType("REGEX_CAPTURE_PARENTHESES");
     IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
+    IElementType REGEX_GROUP_BRACKET = new Perl6ElementType("REGEX_GROUP_BRACKET");
     IElementType REGEX_INFIX = new Perl6ElementType("REGEX_INFIX");
     IElementType REGEX_MISSING_TERM = new Perl6ElementType("REGEX_MISSING_TERM");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");

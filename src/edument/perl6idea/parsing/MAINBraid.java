@@ -19690,6 +19690,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
+                this.bsFailMark(47);
+                this.bsMark(31);
                 this.bsFailMark(30);
                 this.bsMark(3);
                 this.startToken(Perl6TokenTypes.REGEX_ANCHOR);
@@ -20009,6 +20011,133 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 30:
+                this.bsCommit(47);
+                this.state = 47;
+                continue;
+
+            case 31:
+                this.bsMark(39);
+                this.startToken(Perl6TokenTypes.REGEX_GROUP_BRACKET);
+                if (!(this.literal("["))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 32;
+                return -3;
+
+            case 32:
+                this.bsMark(35);
+                this.state = 33;
+                break;
+            case 33:
+                this.setArgs();
+                this.state = 34;
+                return 150;
+
+            case 34:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(35);
+                this.state = 35;
+                continue;
+
+            case 35:
+                this.bsMark(38);
+                this.state = 36;
+                break;
+            case 36:
+                this.startToken(Perl6TokenTypes.REGEX_GROUP_BRACKET);
+                if (!(this.literal("]"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 37;
+                return -3;
+
+            case 37:
+                this.bsCommit(38);
+                this.state = 38;
+                continue;
+
+            case 38:
+                this.bsCommit(47);
+                this.state = 47;
+                continue;
+
+            case 39:
+                this.startToken(Perl6TokenTypes.REGEX_CAPTURE_PARENTHESES);
+                if (!(this.literal("("))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 40;
+                return -3;
+
+            case 40:
+                this.bsMark(43);
+                this.state = 41;
+                break;
+            case 41:
+                this.setArgs();
+                this.state = 42;
+                return 150;
+
+            case 42:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(43);
+                this.state = 43;
+                continue;
+
+            case 43:
+                this.bsMark(46);
+                this.state = 44;
+                break;
+            case 44:
+                this.startToken(Perl6TokenTypes.REGEX_CAPTURE_PARENTHESES);
+                if (!(this.literal(")"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 45;
+                return -3;
+
+            case 45:
+                this.bsCommit(46);
+                this.state = 46;
+                continue;
+
+            case 46:
+                this.state = 47;
+                continue;
+
+            case 47:
                 return -1;
 
             }

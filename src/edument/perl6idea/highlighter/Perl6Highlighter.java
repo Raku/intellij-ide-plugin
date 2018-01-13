@@ -238,4 +238,15 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String REGEX_GROUP_BRACKET_ID = "PERL6_REGEX_GROUP_BRACKET";
+    public static final TextAttributesKey REGEX_GROUP_BRACKET = TextAttributesKey.createTextAttributesKey(
+            REGEX_GROUP_BRACKET_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
+    static final String REGEX_CAPTURE_ID = "PERL6_REGEX_CAPTURE_PARENTHESES";
+    public static final TextAttributesKey REGEX_CAPTURE = TextAttributesKey.createTextAttributesKey(
+            REGEX_CAPTURE_ID,
+            DefaultLanguageHighlighterColors.PARENTHESES
+    );
 }

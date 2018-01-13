@@ -53,6 +53,8 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Pair Key", Perl6Highlighter.PAIR_KEY),
             new AttributesDescriptor("Regex Alternation and Conjunction", Perl6Highlighter.REGEX_INFIX),
             new AttributesDescriptor("Regex Anchor", Perl6Highlighter.REGEX_ANCHOR),
+            new AttributesDescriptor("Regex Group (Square Brackets)", Perl6Highlighter.REGEX_GROUP_BRACKET),
+            new AttributesDescriptor("Regex Capture", Perl6Highlighter.REGEX_CAPTURE),
     };
 
     @Nullable

@@ -2198,5 +2198,27 @@ grammar MAIN {
            || <.start-token('REGEX_ANCHOR')> ')>' <.end-token('REGEX_ANCHOR')> <.SIGOK>
            ]
            <.end-element('REGEX_ANCHOR')>
+        || <.start-element('REGEX_GROUP')>
+           <.start-token('REGEX_GROUP_BRACKET')>
+           '['
+           <.end-token('REGEX_GROUP_BRACKET')>
+           <.regex_nibbler>?
+           [
+               <.start-token('REGEX_GROUP_BRACKET')>
+               ']'
+               <.end-token('REGEX_GROUP_BRACKET')>
+           ]?
+           <.end-element('REGEX_GROUP')>
+        || <.start-element('REGEX_CAPTURE_POSITIONAL')>
+           <.start-token('REGEX_CAPTURE_PARENTHESES')>
+           '('
+           <.end-token('REGEX_CAPTURE_PARENTHESES')>
+           <.regex_nibbler>?
+           [
+               <.start-token('REGEX_CAPTURE_PARENTHESES')>
+               ')'
+               <.end-token('REGEX_CAPTURE_PARENTHESES')>
+           ]?
+           <.end-element('REGEX_CAPTURE_POSITIONAL')>
     }
 }

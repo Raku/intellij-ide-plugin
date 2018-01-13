@@ -210,6 +210,10 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexLiteralImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_ANCHOR)
             return new Perl6RegexAnchorImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_GROUP)
+            return new Perl6RegexGroupImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_CAPTURE_POSITIONAL)
+            return new Perl6RegexCapturePositionalImpl(astNode);
         return null;
     }
 
