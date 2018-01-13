@@ -2179,7 +2179,24 @@ grammar MAIN {
            <.start-token('STRING_LITERAL_CHAR')> \w <.end-token('STRING_LITERAL_CHAR')>
            <.end-element('REGEX_LITERAL')>
            <.SIGOK>
-#        || <.metachar>
+        || <.metachar>
         ]
+    }
+
+    token metachar {
+        || <.start-element('REGEX_ANCHOR')>
+           [
+           || <.start-token('REGEX_ANCHOR')> '^^' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '^' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '$$' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '$' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '<<' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '«' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '>>' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '»' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> '<(' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           || <.start-token('REGEX_ANCHOR')> ')>' <.end-token('REGEX_ANCHOR')> <.SIGOK>
+           ]
+           <.end-element('REGEX_ANCHOR')>
     }
 }

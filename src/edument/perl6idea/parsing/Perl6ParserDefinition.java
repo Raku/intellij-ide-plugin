@@ -208,6 +208,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexSigspaceImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_LITERAL)
             return new Perl6RegexLiteralImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_ANCHOR)
+            return new Perl6RegexAnchorImpl(astNode);
         return null;
     }
 

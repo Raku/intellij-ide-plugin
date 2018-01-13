@@ -60,6 +60,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.ONLY_STAR, Perl6Highlighter.ONLY_STAR);
         ATTRIBUTES.put(Perl6TokenTypes.PAIR_KEY, Perl6Highlighter.PAIR_KEY);
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_INFIX, Perl6Highlighter.REGEX_INFIX);
+        ATTRIBUTES.put(Perl6TokenTypes.REGEX_ANCHOR, Perl6Highlighter.REGEX_ANCHOR);
     }
 
     @NotNull

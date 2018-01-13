@@ -232,4 +232,10 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
+    static final String REGEX_ANCHOR_ID = "PERL6_REGEX_ANCHOR";
+    public static final TextAttributesKey REGEX_ANCHOR = TextAttributesKey.createTextAttributesKey(
+            REGEX_ANCHOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
 }

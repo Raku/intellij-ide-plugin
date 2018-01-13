@@ -36,6 +36,7 @@ public interface Perl6TokenTypes {
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
+    IElementType REGEX_ANCHOR = new Perl6ElementType("REGEX_ANCHOR");
     IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
     IElementType REGEX_INFIX = new Perl6ElementType("REGEX_INFIX");
     IElementType REGEX_MISSING_TERM = new Perl6ElementType("REGEX_MISSING_TERM");
