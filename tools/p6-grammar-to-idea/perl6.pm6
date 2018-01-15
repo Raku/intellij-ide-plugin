@@ -2171,7 +2171,15 @@ grammar MAIN {
         <.atom>
         <.sigmaybe>?
         [
-            <!rxstopper> <.quantifier>
+            [
+            || <!rxstopper> <.quantifier>
+            || <?before <?[:]> <.backmod> \W>
+               <.start-element('REGEX_QUANTIFIER')>
+               <.start-token('REGEX_QUANTIFIER')>
+               <.backmod>
+               <.end-token('REGEX_QUANTIFIER')>
+               <.end-element('REGEX_QUANTIFIER')>
+            ]
             [ <.SIGOK> <.sigmaybe> ]?
             [
                 <?before <.ws> '%''%'? <.ws>>
