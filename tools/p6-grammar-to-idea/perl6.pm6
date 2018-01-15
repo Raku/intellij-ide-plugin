@@ -2215,11 +2215,34 @@ grammar MAIN {
     token quantifier {
         <.start-element('REGEX_QUANTIFIER')>
         [
+        || <.start-token('REGEX_QUANTIFIER')> '**' <.end-token('REGEX_QUANTIFIER')>
+           <.normspace>?
+           <.start-token('REGEX_QUANTIFIER')> <.backmod> <.end-token('REGEX_QUANTIFIER')>
+           <.normspace>?
+           [
+           || <?[{]> <.rxcodeblock>
+           || <.start-token('PREFIX')> '^' <.end-token('PREFIX')> <.integer>
+           || <.integer>
+              [
+                  <.start-token('INFIX')>
+                  '^'? '..' '^'?
+                  <.end-token('INFIX')>
+                  [
+                      || <.integer>
+                      || <.start-token('WHATEVER')> '*' <.end-token('WHATEVER')>
+                  ]?
+              ]?
+           || <.start-token('REGEX_QUANTIFIER_MISSING')> <?> <.end-token('REGEX_QUANTIFIER_MISSING')>
+           ]
         || <.start-token('REGEX_QUANTIFIER')>
            [ '*' || '+' || '?' ] <.backmod>
            <.end-token('REGEX_QUANTIFIER')>
        ]
         <.end-element('REGEX_QUANTIFIER')>
+    }
+
+    token rxcodeblock {
+        <.pblock>
     }
 
     token backmod { ':'? [ '?' || '!' || <!before ':'> ] }
