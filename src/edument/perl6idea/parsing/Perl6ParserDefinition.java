@@ -214,6 +214,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexGroupImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_CAPTURE_POSITIONAL)
             return new Perl6RegexCapturePositionalImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_QUANTIFIER)
+            return new Perl6RegexQuantifierImpl(astNode);
         return null;
     }
 

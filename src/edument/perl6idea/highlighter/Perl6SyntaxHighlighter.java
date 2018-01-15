@@ -63,6 +63,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_ANCHOR, Perl6Highlighter.REGEX_ANCHOR);
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_GROUP_BRACKET, Perl6Highlighter.REGEX_GROUP_BRACKET);
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_CAPTURE_PARENTHESES, Perl6Highlighter.REGEX_CAPTURE);
+        ATTRIBUTES.put(Perl6TokenTypes.REGEX_QUANTIFIER, Perl6Highlighter.REGEX_QUANTIFIER);
     }
 
     @NotNull

@@ -2170,6 +2170,10 @@ grammar MAIN {
         <.start-element('REGEX_ATOM')>
         <.atom>
         <.sigmaybe>?
+        [
+            <!rxstopper> <.quantifier>
+            [ <.SIGOK> <.sigmaybe> ]?
+        ]?
         <.end-element('REGEX_ATOM')>
     }
 
@@ -2182,6 +2186,18 @@ grammar MAIN {
         || <.metachar>
         ]
     }
+
+    token quantifier {
+        <.start-element('REGEX_QUANTIFIER')>
+        [
+        || <.start-token('REGEX_QUANTIFIER')>
+           [ '*' || '+' || '?' ] <.backmod>
+           <.end-token('REGEX_QUANTIFIER')>
+       ]
+        <.end-element('REGEX_QUANTIFIER')>
+    }
+
+    token backmod { ':'? [ '?' || '!' || <!before ':'> ] }
 
     token metachar {
         || <.start-element('REGEX_ANCHOR')>

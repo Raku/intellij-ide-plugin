@@ -42,6 +42,7 @@ public interface Perl6TokenTypes {
     IElementType REGEX_GROUP_BRACKET = new Perl6ElementType("REGEX_GROUP_BRACKET");
     IElementType REGEX_INFIX = new Perl6ElementType("REGEX_INFIX");
     IElementType REGEX_MISSING_TERM = new Perl6ElementType("REGEX_MISSING_TERM");
+    IElementType REGEX_QUANTIFIER = new Perl6ElementType("REGEX_QUANTIFIER");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");

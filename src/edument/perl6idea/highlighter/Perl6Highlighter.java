@@ -244,9 +244,15 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.BRACKETS
     );
 
-    static final String REGEX_CAPTURE_ID = "PERL6_REGEX_CAPTURE_PARENTHESES";
+    static final String REGEX_CAPTURE_ID = "PERL6_REGEX_CAPTURE";
     public static final TextAttributesKey REGEX_CAPTURE = TextAttributesKey.createTextAttributesKey(
             REGEX_CAPTURE_ID,
             DefaultLanguageHighlighterColors.PARENTHESES
+    );
+
+    static final String REGEX_QUANTIFIER_ID = "PERL6_REGEX_QUANTIFIER";
+    public static final TextAttributesKey REGEX_QUANTIFIER = TextAttributesKey.createTextAttributesKey(
+            REGEX_QUANTIFIER_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 }
