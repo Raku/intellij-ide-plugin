@@ -2173,8 +2173,25 @@ grammar MAIN {
         [
             <!rxstopper> <.quantifier>
             [ <.SIGOK> <.sigmaybe> ]?
+            [
+                <?before <.ws> '%''%'? <.ws>>
+                <.ws> <.separator>
+            ]?
         ]?
         <.end-element('REGEX_ATOM')>
+        { $*SIGOK = 0 }
+    }
+
+    token separator {
+        <.start-element('REGEX_SEPARATOR')>
+        <.start-token('REGEX_QUANTIFIER')>
+        '%''%'?
+        <.end-token('REGEX_QUANTIFIER')>
+        :my $*SIGOK = 0;
+        <.ws>
+        <.quantified_atom>?
+        <.ws>
+        <.end-element('REGEX_SEPARATOR')>
     }
 
     token atom {

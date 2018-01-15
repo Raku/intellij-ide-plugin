@@ -55,6 +55,7 @@ public interface Perl6ElementTypes {
     IElementType REGEX_GROUP = new Perl6ElementType("REGEX_GROUP");
     IElementType REGEX_LITERAL = new Perl6ElementType("REGEX_LITERAL");
     IElementType REGEX_QUANTIFIER = new Perl6ElementType("REGEX_QUANTIFIER");
+    IElementType REGEX_SEPARATOR = new Perl6ElementType("REGEX_SEPARATOR");
     IElementType REGEX_SIGSPACE = new Perl6ElementType("REGEX_SIGSPACE");
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");
