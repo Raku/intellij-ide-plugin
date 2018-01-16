@@ -513,385 +513,397 @@ public class MAINBraid extends Cursor<MAINBraid> {
             result = this._168_metachar();
             break;
         case 169:
-            result = this._169_backslash();
+            result = this._169_rxq();
             break;
         case 170:
-            result = this.___lookahead_0();
+            result = this._170_rxqq();
             break;
         case 171:
-            result = this.___lookahead_1();
+            result = this._171_backslash();
             break;
         case 172:
-            result = this.___lookahead_2();
+            result = this.___lookahead_0();
             break;
         case 173:
-            result = this.___lookahead_3();
+            result = this.___lookahead_1();
             break;
         case 174:
-            result = this.___lookahead_4();
+            result = this.___lookahead_2();
             break;
         case 175:
-            result = this.___lookahead_5();
+            result = this.___lookahead_3();
             break;
         case 176:
-            result = this.___lookahead_6();
+            result = this.___lookahead_4();
             break;
         case 177:
-            result = this.___lookahead_7();
+            result = this.___lookahead_5();
             break;
         case 178:
-            result = this.___lookahead_8();
+            result = this.___lookahead_6();
             break;
         case 179:
-            result = this.___lookahead_9();
+            result = this.___lookahead_7();
             break;
         case 180:
-            result = this.___lookahead_10();
+            result = this.___lookahead_8();
             break;
         case 181:
-            result = this.___lookahead_11();
+            result = this.___lookahead_9();
             break;
         case 182:
-            result = this.___lookahead_12();
+            result = this.___lookahead_10();
             break;
         case 183:
-            result = this.___lookahead_13();
+            result = this.___lookahead_11();
             break;
         case 184:
-            result = this.___lookahead_14();
+            result = this.___lookahead_12();
             break;
         case 185:
-            result = this.___lookahead_15();
+            result = this.___lookahead_13();
             break;
         case 186:
-            result = this.___lookahead_16();
+            result = this.___lookahead_14();
             break;
         case 187:
-            result = this.___lookahead_17();
+            result = this.___lookahead_15();
             break;
         case 188:
-            result = this.___lookahead_18();
+            result = this.___lookahead_16();
             break;
         case 189:
-            result = this.___lookahead_19();
+            result = this.___lookahead_17();
             break;
         case 190:
-            result = this.___lookahead_20();
+            result = this.___lookahead_18();
             break;
         case 191:
-            result = this.___lookahead_21();
+            result = this.___lookahead_19();
             break;
         case 192:
-            result = this.___lookahead_22();
+            result = this.___lookahead_20();
             break;
         case 193:
-            result = this.___lookahead_23();
+            result = this.___lookahead_21();
             break;
         case 194:
-            result = this.___lookahead_24();
+            result = this.___lookahead_22();
             break;
         case 195:
-            result = this.___lookahead_25();
+            result = this.___lookahead_23();
             break;
         case 196:
-            result = this.___lookahead_26();
+            result = this.___lookahead_24();
             break;
         case 197:
-            result = this.___lookahead_27();
+            result = this.___lookahead_25();
             break;
         case 198:
-            result = this.___lookahead_28();
+            result = this.___lookahead_26();
             break;
         case 199:
-            result = this.___lookahead_29();
+            result = this.___lookahead_27();
             break;
         case 200:
-            result = this.___lookahead_30();
+            result = this.___lookahead_28();
             break;
         case 201:
-            result = this.___lookahead_31();
+            result = this.___lookahead_29();
             break;
         case 202:
-            result = this.___lookahead_32();
+            result = this.___lookahead_30();
             break;
         case 203:
-            result = this.___lookahead_33();
+            result = this.___lookahead_31();
             break;
         case 204:
-            result = this.___lookahead_34();
+            result = this.___lookahead_32();
             break;
         case 205:
-            result = this.___lookahead_35();
+            result = this.___lookahead_33();
             break;
         case 206:
-            result = this.___lookahead_36();
+            result = this.___lookahead_34();
             break;
         case 207:
-            result = this.___lookahead_37();
+            result = this.___lookahead_35();
             break;
         case 208:
-            result = this.___lookahead_38();
+            result = this.___lookahead_36();
             break;
         case 209:
-            result = this.___lookahead_39();
+            result = this.___lookahead_37();
             break;
         case 210:
-            result = this.___lookahead_40();
+            result = this.___lookahead_38();
             break;
         case 211:
-            result = this.___lookahead_41();
+            result = this.___lookahead_39();
             break;
         case 212:
-            result = this.___lookahead_42();
+            result = this.___lookahead_40();
             break;
         case 213:
-            result = this.___lookahead_43();
+            result = this.___lookahead_41();
             break;
         case 214:
-            result = this.___lookahead_44();
+            result = this.___lookahead_42();
             break;
         case 215:
-            result = this.___lookahead_45();
+            result = this.___lookahead_43();
             break;
         case 216:
-            result = this.___lookahead_46();
+            result = this.___lookahead_44();
             break;
         case 217:
-            result = this.___lookahead_47();
+            result = this.___lookahead_45();
             break;
         case 218:
-            result = this.___lookahead_48();
+            result = this.___lookahead_46();
             break;
         case 219:
-            result = this.___lookahead_49();
+            result = this.___lookahead_47();
             break;
         case 220:
-            result = this.___lookahead_50();
+            result = this.___lookahead_48();
             break;
         case 221:
-            result = this.___lookahead_51();
+            result = this.___lookahead_49();
             break;
         case 222:
-            result = this.___lookahead_52();
+            result = this.___lookahead_50();
             break;
         case 223:
-            result = this.___lookahead_53();
+            result = this.___lookahead_51();
             break;
         case 224:
-            result = this.___lookahead_54();
+            result = this.___lookahead_52();
             break;
         case 225:
-            result = this.___lookahead_55();
+            result = this.___lookahead_53();
             break;
         case 226:
-            result = this.___lookahead_56();
+            result = this.___lookahead_54();
             break;
         case 227:
-            result = this.___lookahead_57();
+            result = this.___lookahead_55();
             break;
         case 228:
-            result = this.___lookahead_58();
+            result = this.___lookahead_56();
             break;
         case 229:
-            result = this.___lookahead_59();
+            result = this.___lookahead_57();
             break;
         case 230:
-            result = this.___lookahead_60();
+            result = this.___lookahead_58();
             break;
         case 231:
-            result = this.___lookahead_61();
+            result = this.___lookahead_59();
             break;
         case 232:
-            result = this.___lookahead_62();
+            result = this.___lookahead_60();
             break;
         case 233:
-            result = this.___lookahead_63();
+            result = this.___lookahead_61();
             break;
         case 234:
-            result = this.___lookahead_64();
+            result = this.___lookahead_62();
             break;
         case 235:
-            result = this.___lookahead_65();
+            result = this.___lookahead_63();
             break;
         case 236:
-            result = this.___lookahead_66();
+            result = this.___lookahead_64();
             break;
         case 237:
-            result = this.___lookahead_67();
+            result = this.___lookahead_65();
             break;
         case 238:
-            result = this.___lookahead_68();
+            result = this.___lookahead_66();
             break;
         case 239:
-            result = this.___lookahead_69();
+            result = this.___lookahead_67();
             break;
         case 240:
-            result = this.___lookahead_70();
+            result = this.___lookahead_68();
             break;
         case 241:
-            result = this.___lookahead_71();
+            result = this.___lookahead_69();
             break;
         case 242:
-            result = this.___lookahead_72();
+            result = this.___lookahead_70();
             break;
         case 243:
-            result = this.___lookahead_73();
+            result = this.___lookahead_71();
             break;
         case 244:
-            result = this.___lookahead_74();
+            result = this.___lookahead_72();
             break;
         case 245:
-            result = this.___lookahead_75();
+            result = this.___lookahead_73();
             break;
         case 246:
-            result = this.___lookahead_76();
+            result = this.___lookahead_74();
             break;
         case 247:
-            result = this.___lookahead_77();
+            result = this.___lookahead_75();
             break;
         case 248:
-            result = this.___lookahead_78();
+            result = this.___lookahead_76();
             break;
         case 249:
-            result = this.___lookahead_79();
+            result = this.___lookahead_77();
             break;
         case 250:
-            result = this.___lookahead_80();
+            result = this.___lookahead_78();
             break;
         case 251:
-            result = this.___lookahead_81();
+            result = this.___lookahead_79();
             break;
         case 252:
-            result = this.___lookahead_82();
+            result = this.___lookahead_80();
             break;
         case 253:
-            result = this.___lookahead_83();
+            result = this.___lookahead_81();
             break;
         case 254:
-            result = this.___lookahead_84();
+            result = this.___lookahead_82();
             break;
         case 255:
-            result = this.___lookahead_85();
+            result = this.___lookahead_83();
             break;
         case 256:
-            result = this.___lookahead_86();
+            result = this.___lookahead_84();
             break;
         case 257:
-            result = this.___lookahead_87();
+            result = this.___lookahead_85();
             break;
         case 258:
-            result = this.___lookahead_88();
+            result = this.___lookahead_86();
             break;
         case 259:
-            result = this.___lookahead_89();
+            result = this.___lookahead_87();
             break;
         case 260:
-            result = this.___lookahead_90();
+            result = this.___lookahead_88();
             break;
         case 261:
-            result = this.___lookahead_91();
+            result = this.___lookahead_89();
             break;
         case 262:
-            result = this.___lookahead_92();
+            result = this.___lookahead_90();
             break;
         case 263:
-            result = this.___lookahead_93();
+            result = this.___lookahead_91();
             break;
         case 264:
-            result = this.___lookahead_94();
+            result = this.___lookahead_92();
             break;
         case 265:
-            result = this.___lookahead_95();
+            result = this.___lookahead_93();
             break;
         case 266:
-            result = this.___lookahead_96();
+            result = this.___lookahead_94();
             break;
         case 267:
-            result = this.___lookahead_97();
+            result = this.___lookahead_95();
             break;
         case 268:
-            result = this.___lookahead_98();
+            result = this.___lookahead_96();
             break;
         case 269:
-            result = this.___lookahead_99();
+            result = this.___lookahead_97();
             break;
         case 270:
-            result = this.___lookahead_100();
+            result = this.___lookahead_98();
             break;
         case 271:
-            result = this.___lookahead_101();
+            result = this.___lookahead_99();
             break;
         case 272:
-            result = this.___lookahead_102();
+            result = this.___lookahead_100();
             break;
         case 273:
-            result = this.___lookahead_103();
+            result = this.___lookahead_101();
             break;
         case 274:
-            result = this.___lookahead_104();
+            result = this.___lookahead_102();
             break;
         case 275:
-            result = this.___lookahead_105();
+            result = this.___lookahead_103();
             break;
         case 276:
-            result = this.___lookahead_106();
+            result = this.___lookahead_104();
             break;
         case 277:
-            result = this.___lookahead_107();
+            result = this.___lookahead_105();
             break;
         case 278:
-            result = this.___lookahead_108();
+            result = this.___lookahead_106();
             break;
         case 279:
-            result = this.___lookahead_109();
+            result = this.___lookahead_107();
             break;
         case 280:
-            result = this.___lookahead_110();
+            result = this.___lookahead_108();
             break;
         case 281:
-            result = this.___lookahead_111();
+            result = this.___lookahead_109();
             break;
         case 282:
-            result = this.___lookahead_112();
+            result = this.___lookahead_110();
             break;
         case 283:
-            result = this.___lookahead_113();
+            result = this.___lookahead_111();
             break;
         case 284:
-            result = this.___lookahead_114();
+            result = this.___lookahead_112();
             break;
         case 285:
-            result = this.___lookahead_115();
+            result = this.___lookahead_113();
             break;
         case 286:
-            result = this.___lookahead_116();
+            result = this.___lookahead_114();
             break;
         case 287:
-            result = this.___lookahead_117();
+            result = this.___lookahead_115();
             break;
         case 288:
-            result = this.___lookahead_118();
+            result = this.___lookahead_116();
             break;
         case 289:
-            result = this.___lookahead_119();
+            result = this.___lookahead_117();
             break;
         case 290:
-            result = this.___lookahead_120();
+            result = this.___lookahead_118();
             break;
         case 291:
-            result = this.___lookahead_121();
+            result = this.___lookahead_119();
             break;
         case 292:
-            result = this.___lookahead_122();
+            result = this.___lookahead_120();
             break;
         case 293:
-            result = this.___lookahead_123();
+            result = this.___lookahead_121();
             break;
         case 294:
-            result = this.___lookahead_124();
+            result = this.___lookahead_122();
             break;
         case 295:
+            result = this.___lookahead_123();
+            break;
+        case 296:
+            result = this.___lookahead_124();
+            break;
+        case 297:
             result = this.___lookahead_125();
+            break;
+        case 298:
+            result = this.___lookahead_126();
+            break;
+        case 299:
+            result = this.___lookahead_127();
             break;
         default:
             throw new RuntimeException();
@@ -1333,7 +1345,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (this.lookahead(170)) {
+                if (this.lookahead(172)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1353,7 +1365,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(2);
                 this.bsMark(1);
-                if (!(this.lookahead(171))) {
+                if (!(this.lookahead(173))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1365,7 +1377,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 1:
-                if (!(this.lookahead(172))) {
+                if (!(this.lookahead(174))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1401,7 +1413,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                if (!(this.lookahead(173))) {
+                if (!(this.lookahead(175))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1439,14 +1451,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 1:
                 this.bsFailMark(3);
                 this.bsMark(2);
-                if (!(this.lookahead(174))) {
+                if (!(this.lookahead(176))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
                         return -2;
                     }
                 }
-                if (!(this.lookahead(175))) {
+                if (!(this.lookahead(177))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1458,14 +1470,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 2:
-                if (!(this.lookahead(176))) {
+                if (!(this.lookahead(178))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
                         return -2;
                     }
                 }
-                if (!(this.lookahead(177))) {
+                if (!(this.lookahead(179))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1493,7 +1505,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (this.lookahead(178)) {
+                if (this.lookahead(180)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1614,7 +1626,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (!(this.lookahead(179))) {
+                if (!(this.lookahead(181))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -1920,7 +1932,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(180))) {
+                if (!(this.lookahead(182))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2040,7 +2052,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 4;
                 break;
             case 4:
-                if (this.lookahead(181)) {
+                if (this.lookahead(183)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2111,7 +2123,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 }
                 this.bsFailMark(8);
                 this.bsMark(3);
-                if (!(this.lookahead(182))) {
+                if (!(this.lookahead(184))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2132,7 +2144,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 4;
                 break;
             case 4:
-                if (this.lookahead(183)) {
+                if (this.lookahead(185)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2190,7 +2202,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (this.lookahead(184)) {
+                if (this.lookahead(186)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2239,7 +2251,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 4:
                 this.bsFailMark(16);
                 this.bsMark(6);
-                if (!(this.lookahead(185))) {
+                if (!(this.lookahead(187))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2257,7 +2269,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 6:
                 this.bsMark(13);
-                if (!(this.lookahead(186))) {
+                if (!(this.lookahead(188))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2296,7 +2308,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 9;
                 break;
             case 9:
-                if (!(this.lookahead(187))) {
+                if (!(this.lookahead(189))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2341,7 +2353,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 13:
-                if (!(this.lookahead(188))) {
+                if (!(this.lookahead(190))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2493,7 +2505,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 4:
                 this.bsMark(7);
-                if (!(this.lookahead(189))) {
+                if (!(this.lookahead(191))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2700,7 +2712,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 8:
                 this.bsMark(10);
-                if (!(this.lookahead(190))) {
+                if (!(this.lookahead(192))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2809,7 +2821,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(14);
                 this.bsMark(1);
-                if (!(this.lookahead(191))) {
+                if (!(this.lookahead(193))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -2822,7 +2834,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 1:
                 this.bsMark(2);
-                if (!(this.lookahead(192))) {
+                if (!(this.lookahead(194))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3041,7 +3053,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 4:
-                if (!(this.lookahead(193))) {
+                if (!(this.lookahead(195))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3066,7 +3078,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(2);
                 this.bsMark(1);
-                if (!(this.lookahead(194))) {
+                if (!(this.lookahead(196))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3511,7 +3523,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(195))) {
+                if (!(this.lookahead(197))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3617,7 +3629,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 10;
                 break;
             case 10:
-                if (!(this.lookahead(196))) {
+                if (!(this.lookahead(198))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3736,7 +3748,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 22;
                 break;
             case 22:
-                if (!(this.lookahead(197))) {
+                if (!(this.lookahead(199))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3813,7 +3825,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(198))) {
+                if (!(this.lookahead(200))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3894,7 +3906,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(199))) {
+                if (!(this.lookahead(201))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -3975,7 +3987,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(200))) {
+                if (!(this.lookahead(202))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4056,7 +4068,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(201))) {
+                if (!(this.lookahead(203))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4137,7 +4149,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(202))) {
+                if (!(this.lookahead(204))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4186,7 +4198,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 }
                 this.bsFailMark(26);
                 this.bsMark(13);
-                if (!(this.lookahead(203))) {
+                if (!(this.lookahead(205))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4317,7 +4329,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 16;
                 break;
             case 16:
-                if (!(this.lookahead(204))) {
+                if (!(this.lookahead(206))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4407,7 +4419,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(205))) {
+                if (!(this.lookahead(207))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4488,7 +4500,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(206))) {
+                if (!(this.lookahead(208))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -4569,7 +4581,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(207))) {
+                if (!(this.lookahead(209))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5533,7 +5545,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 7:
-                if (this.lookahead(208)) {
+                if (this.lookahead(210)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5611,7 +5623,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(209))) {
+                if (!(this.lookahead(211))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5692,7 +5704,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(210))) {
+                if (!(this.lookahead(212))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5773,7 +5785,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(211))) {
+                if (!(this.lookahead(213))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5854,7 +5866,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(212))) {
+                if (!(this.lookahead(214))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -5935,7 +5947,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(213))) {
+                if (!(this.lookahead(215))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6016,7 +6028,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(214))) {
+                if (!(this.lookahead(216))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6625,7 +6637,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(215))) {
+                if (!(this.lookahead(217))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6676,7 +6688,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 4;
                 break;
             case 4:
-                if (!(this.lookahead(216))) {
+                if (!(this.lookahead(218))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6713,7 +6725,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(217))) {
+                if (!(this.lookahead(219))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6778,7 +6790,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(218))) {
+                if (!(this.lookahead(220))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6836,7 +6848,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(219))) {
+                if (!(this.lookahead(221))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6894,7 +6906,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(220))) {
+                if (!(this.lookahead(222))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -6952,7 +6964,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(221))) {
+                if (!(this.lookahead(223))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7010,7 +7022,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(222))) {
+                if (!(this.lookahead(224))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7068,7 +7080,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(223))) {
+                if (!(this.lookahead(225))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7126,7 +7138,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(224))) {
+                if (!(this.lookahead(226))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7184,7 +7196,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(225))) {
+                if (!(this.lookahead(227))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7242,7 +7254,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(226))) {
+                if (!(this.lookahead(228))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7300,7 +7312,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(227))) {
+                if (!(this.lookahead(229))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7358,7 +7370,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(228))) {
+                if (!(this.lookahead(230))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7416,7 +7428,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(229))) {
+                if (!(this.lookahead(231))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7474,7 +7486,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(230))) {
+                if (!(this.lookahead(232))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7534,7 +7546,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(6);
                 this.bsMark(2);
-                if (!(this.lookahead(231))) {
+                if (!(this.lookahead(233))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7675,7 +7687,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(232))) {
+                if (!(this.lookahead(234))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -7825,7 +7837,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(233))) {
+                if (!(this.lookahead(235))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8055,7 +8067,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 14:
                 this.bsMark(16);
-                if (!(this.lookahead(234))) {
+                if (!(this.lookahead(236))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8230,7 +8242,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(235))) {
+                if (!(this.lookahead(237))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8260,7 +8272,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 3;
                 break;
             case 3:
-                if (!(this.lookahead(236))) {
+                if (!(this.lookahead(238))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8311,7 +8323,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(10);
                 this.bsMark(3);
-                if (!(this.lookahead(237))) {
+                if (!(this.lookahead(239))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8365,7 +8377,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 6;
                 break;
             case 6:
-                if (!(this.lookahead(238))) {
+                if (!(this.lookahead(240))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8502,7 +8514,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(239))) {
+                if (!(this.lookahead(241))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8837,7 +8849,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 }
                 this.bsFailMark(4);
                 this.bsMark(3);
-                if (this.lookahead(240)) {
+                if (this.lookahead(242)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8887,7 +8899,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (!(this.lookahead(241))) {
+                if (!(this.lookahead(243))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -8948,7 +8960,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 6;
                 break;
             case 6:
-                if (!(this.lookahead(242))) {
+                if (!(this.lookahead(244))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -9410,7 +9422,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(13);
                 this.bsMark(11);
-                if (!(this.lookahead(243))) {
+                if (!(this.lookahead(245))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10146,7 +10158,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(244))) {
+                if (!(this.lookahead(246))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10217,7 +10229,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 5:
-                if (!(this.lookahead(245))) {
+                if (!(this.lookahead(247))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10235,7 +10247,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(246))) {
+                if (!(this.lookahead(248))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10355,7 +10367,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 }
                 this.bsFailMark(15);
                 this.bsMark(3);
-                if (!(this.lookahead(247))) {
+                if (!(this.lookahead(249))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10411,7 +10423,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 7:
                 this.bsFailMark(11);
                 this.bsMark(9);
-                if (!(this.lookahead(248))) {
+                if (!(this.lookahead(250))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -10802,7 +10814,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 23;
                 break;
             case 23:
-                if (!(this.lookahead(249))) {
+                if (!(this.lookahead(251))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11221,7 +11233,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 12:
-                if (!(this.lookahead(250))) {
+                if (!(this.lookahead(252))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11399,7 +11411,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(12);
                 this.bsMark(4);
-                if (!(this.lookahead(251))) {
+                if (!(this.lookahead(253))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11454,7 +11466,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 4:
                 this.bsMark(8);
-                if (!(this.lookahead(252))) {
+                if (!(this.lookahead(254))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11508,7 +11520,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 8:
-                if (!(this.lookahead(253))) {
+                if (!(this.lookahead(255))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11838,7 +11850,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 29:
-                if (!(this.lookahead(254))) {
+                if (!(this.lookahead(256))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11891,7 +11903,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (!(this.lookahead(255))) {
+                if (!(this.lookahead(257))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -11909,7 +11921,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(256))) {
+                if (!(this.lookahead(258))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -12148,7 +12160,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.assignDynamicVariable("$*IN_DECL", "");
                 this.bsFailMark(15);
                 this.bsMark(8);
-                if (!(this.lookahead(257))) {
+                if (!(this.lookahead(259))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -12175,7 +12187,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 8:
                 this.bsMark(14);
-                if (!(this.lookahead(258))) {
+                if (!(this.lookahead(260))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -13331,7 +13343,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 3;
                 break;
             case 3:
-                if (this.lookahead(259)) {
+                if (this.lookahead(261)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14342,7 +14354,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 1;
                 break;
             case 1:
-                if (this.lookahead(260)) {
+                if (this.lookahead(262)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14520,7 +14532,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(41);
                 this.bsMark(5);
-                if (!(this.lookahead(261))) {
+                if (!(this.lookahead(263))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14577,7 +14589,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 5:
                 this.bsMark(24);
-                if (!(this.lookahead(262))) {
+                if (!(this.lookahead(264))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14820,7 +14832,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 24:
                 this.bsMark(28);
-                if (!(this.lookahead(263))) {
+                if (!(this.lookahead(265))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14871,7 +14883,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 28:
                 this.bsMark(30);
-                if (!(this.lookahead(264))) {
+                if (!(this.lookahead(266))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14910,7 +14922,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 30:
                 this.bsMark(32);
-                if (!(this.lookahead(265))) {
+                if (!(this.lookahead(267))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -14949,7 +14961,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 32:
                 this.bsMark(39);
-                if (!(this.lookahead(266))) {
+                if (!(this.lookahead(268))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -15032,7 +15044,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 39:
-                if (!(this.lookahead(267))) {
+                if (!(this.lookahead(269))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -15148,7 +15160,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 8;
                 break;
             case 8:
-                if (!(this.lookahead(268))) {
+                if (!(this.lookahead(270))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -15982,7 +15994,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 3:
                 this.bsMark(5);
-                if (!(this.lookahead(269))) {
+                if (!(this.lookahead(271))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16008,7 +16020,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 5:
-                if (!(this.lookahead(270))) {
+                if (!(this.lookahead(272))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16060,7 +16072,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.bsMark(16);
                 this.bsFailMark(15);
                 this.bsMark(12);
-                if (!(this.lookahead(271))) {
+                if (!(this.lookahead(273))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16086,7 +16098,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 12:
-                if (!(this.lookahead(272))) {
+                if (!(this.lookahead(274))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16593,14 +16605,14 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (this.lookahead(273)) {
+                if (this.lookahead(275)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
                         return -2;
                     }
                 }
-                if (this.lookahead(274)) {
+                if (this.lookahead(276)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16634,7 +16646,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(4);
                 this.bsMark(1);
-                if (!(this.lookahead(275))) {
+                if (!(this.lookahead(277))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -16653,7 +16665,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 1:
-                if (!(this.lookahead(276))) {
+                if (!(this.lookahead(278))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -18808,7 +18820,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 2;
                 break;
             case 2:
-                if (this.lookahead(277)) {
+                if (this.lookahead(279)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -18966,7 +18978,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(0);
                 this.bsFailMark(3);
                 this.bsMark(1);
-                if (!(this.lookahead(278))) {
+                if (!(this.lookahead(280))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -18979,7 +18991,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
 
             case 1:
                 this.bsMark(2);
-                if (!(this.lookahead(279))) {
+                if (!(this.lookahead(281))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -18991,7 +19003,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 2:
-                if (!(this.lookahead(280))) {
+                if (!(this.lookahead(282))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19057,7 +19069,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 2;
                 break;
             case 2:
-                if (this.lookahead(281)) {
+                if (this.lookahead(283)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19158,7 +19170,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 2;
                 break;
             case 2:
-                if (this.lookahead(282)) {
+                if (this.lookahead(284)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19259,7 +19271,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 2;
                 break;
             case 2:
-                if (this.lookahead(283)) {
+                if (this.lookahead(285)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19274,7 +19286,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (this.lookahead(284)) {
+                if (this.lookahead(286)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19367,7 +19379,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 2;
                 break;
             case 2:
-                if (this.lookahead(285)) {
+                if (this.lookahead(287)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19382,7 +19394,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                if (this.lookahead(286)) {
+                if (this.lookahead(288)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19587,7 +19599,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                if (!(this.lookahead(287))) {
+                if (!(this.lookahead(289))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19662,7 +19674,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 5:
                 this.bsFailMark(10);
                 this.bsMark(7);
-                if (this.lookahead(288)) {
+                if (this.lookahead(290)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19688,7 +19700,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 7:
-                if (!(this.lookahead(289))) {
+                if (!(this.lookahead(291))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -19759,7 +19771,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 15;
                 break;
             case 15:
-                if (!(this.lookahead(291))) {
+                if (!(this.lookahead(293))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -20050,7 +20062,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             case 9:
                 this.bsFailMark(31);
                 this.bsMark(11);
-                if (!(this.lookahead(292))) {
+                if (!(this.lookahead(294))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -20381,7 +20393,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 4:
-                if (this.lookahead(293)) {
+                if (this.lookahead(295)) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -20403,7 +20415,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                this.bsFailMark(51);
+                this.bsFailMark(58);
                 this.bsMark(31);
                 this.bsFailMark(30);
                 this.bsMark(3);
@@ -20724,8 +20736,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 30:
-                this.bsCommit(51);
-                this.state = 51;
+                this.bsCommit(58);
+                this.state = 58;
                 continue;
 
             case 31:
@@ -20786,8 +20798,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 38:
-                this.bsCommit(51);
-                this.state = 51;
+                this.bsCommit(58);
+                this.state = 58;
                 continue;
 
             case 39:
@@ -20848,13 +20860,13 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 46:
-                this.bsCommit(51);
-                this.state = 51;
+                this.bsCommit(58);
+                this.state = 58;
                 continue;
 
             case 47:
-                this.bsMark(49);
-                if (!(this.lookahead(294))) {
+                this.bsMark(50);
+                if (!(this.lookahead(296))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -20863,7 +20875,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 }
                 this.setArgs();
                 this.state = 48;
-                return 169;
+                return 171;
 
             case 48:
                 if (this.lastResult.isFailed()) {
@@ -20875,23 +20887,11 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.bsCommit(51);
-                this.state = 51;
-                continue;
+                this.setArgs();
+                this.state = 49;
+                return 159;
 
             case 49:
-                if (!(this.lookahead(295))) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                }
-                this.setArgs();
-                this.state = 50;
-                return 166;
-
-            case 50:
                 if (this.lastResult.isFailed()) {
                     if (this.backtrack()) {
                         continue;
@@ -20901,17 +20901,585 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.state = 51;
+                this.bsCommit(58);
+                this.state = 58;
                 continue;
 
+            case 50:
+                this.bsMark(53);
+                if (!(this.lookahead(297))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.setArgs();
+                this.state = 51;
+                return 169;
+
             case 51:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.setArgs();
+                this.state = 52;
+                return 159;
+
+            case 52:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(58);
+                this.state = 58;
+                continue;
+
+            case 53:
+                this.bsMark(56);
+                if (!(this.lookahead(298))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.setArgs();
+                this.state = 54;
+                return 170;
+
+            case 54:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.setArgs();
+                this.state = 55;
+                return 159;
+
+            case 55:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(58);
+                this.state = 58;
+                continue;
+
+            case 56:
+                if (!(this.lookahead(299))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.setArgs();
+                this.state = 57;
+                return 166;
+
+            case 57:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.state = 58;
+                continue;
+
+            case 58:
                 return -1;
 
             }
         }
     }
 
-    private int _169_backslash() {
+    private int _169_rxq() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.checkArgs(0);
+                this.declareDynamicVariable("$*Q_BACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_QBACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_QQBACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_CLOSURES", 0);
+                this.declareDynamicVariable("$*Q_SCALARS", 0);
+                this.declareDynamicVariable("$*Q_ARRAYS", 0);
+                this.declareDynamicVariable("$*Q_HASHES", 0);
+                this.declareDynamicVariable("$*Q_FUNCTIONS", 0);
+                this.bsFailMark(24);
+                this.bsMark(6);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("'"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 1;
+                return -3;
+
+            case 1:
+                this.setArgs("'", "'", "'");
+                this.state = 2;
+                return 129;
+
+            case 2:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(5);
+                this.state = 3;
+                break;
+            case 3:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("'"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 4;
+                return -3;
+
+            case 4:
+                this.bsCommit(5);
+                this.state = 5;
+                continue;
+
+            case 5:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 6:
+                this.bsMark(12);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u2018"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 7;
+                return -3;
+
+            case 7:
+                this.setArgs("\u2018", "\u2019", "\u2019");
+                this.state = 8;
+                return 129;
+
+            case 8:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(11);
+                this.state = 9;
+                break;
+            case 9:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u2019"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 10;
+                return -3;
+
+            case 10:
+                this.bsCommit(11);
+                this.state = 11;
+                continue;
+
+            case 11:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 12:
+                this.bsMark(18);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u201A"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 13;
+                return -3;
+
+            case 13:
+                this.setArgs("\u201A", "\u2019", "\u2018");
+                this.state = 14;
+                return 129;
+
+            case 14:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(17);
+                this.state = 15;
+                break;
+            case 15:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.inCharList("\u2019\u2018"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 16;
+                return -3;
+
+            case 16:
+                this.bsCommit(17);
+                this.state = 17;
+                continue;
+
+            case 17:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 18:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u2019"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 19;
+                return -3;
+
+            case 19:
+                this.setArgs("\u2019", "\u2019", "\u2018");
+                this.state = 20;
+                return 129;
+
+            case 20:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(23);
+                this.state = 21;
+                break;
+            case 21:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.inCharList("\u2019\u2018"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 22;
+                return -3;
+
+            case 22:
+                this.bsCommit(23);
+                this.state = 23;
+                continue;
+
+            case 23:
+                this.state = 24;
+                continue;
+
+            case 24:
+                return -1;
+
+            }
+        }
+    }
+
+    private int _170_rxqq() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                this.checkArgs(0);
+                this.declareDynamicVariable("$*Q_BACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_QBACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_QQBACKSLASH", 0);
+                this.declareDynamicVariable("$*Q_CLOSURES", 0);
+                this.declareDynamicVariable("$*Q_SCALARS", 0);
+                this.declareDynamicVariable("$*Q_ARRAYS", 0);
+                this.declareDynamicVariable("$*Q_HASHES", 0);
+                this.declareDynamicVariable("$*Q_FUNCTIONS", 0);
+                this.bsFailMark(24);
+                this.bsMark(6);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\""))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 1;
+                return -3;
+
+            case 1:
+                this.setArgs("\"", "\"", "\"");
+                this.state = 2;
+                return 130;
+
+            case 2:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(5);
+                this.state = 3;
+                break;
+            case 3:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\""))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 4;
+                return -3;
+
+            case 4:
+                this.bsCommit(5);
+                this.state = 5;
+                continue;
+
+            case 5:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 6:
+                this.bsMark(12);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u201C"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 7;
+                return -3;
+
+            case 7:
+                this.setArgs("\u201C", "\u201D", "\u201D");
+                this.state = 8;
+                return 130;
+
+            case 8:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(11);
+                this.state = 9;
+                break;
+            case 9:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u201D"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 10;
+                return -3;
+
+            case 10:
+                this.bsCommit(11);
+                this.state = 11;
+                continue;
+
+            case 11:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 12:
+                this.bsMark(18);
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u201E"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 13;
+                return -3;
+
+            case 13:
+                this.setArgs("\u201E", "\u201D", "\u201C");
+                this.state = 14;
+                return 130;
+
+            case 14:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(17);
+                this.state = 15;
+                break;
+            case 15:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.inCharList("\u201D\u201C"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 16;
+                return -3;
+
+            case 16:
+                this.bsCommit(17);
+                this.state = 17;
+                continue;
+
+            case 17:
+                this.bsCommit(24);
+                this.state = 24;
+                continue;
+
+            case 18:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.literal("\u201D"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 19;
+                return -3;
+
+            case 19:
+                this.setArgs("\u201D", "\u201D", "\u201C");
+                this.state = 20;
+                return 130;
+
+            case 20:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(23);
+                this.state = 21;
+                break;
+            case 21:
+                this.startToken(Perl6TokenTypes.STRING_LITERAL_QUOTE);
+                if (!(this.inCharList("\u201D\u201C"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 22;
+                return -3;
+
+            case 22:
+                this.bsCommit(23);
+                this.state = 23;
+                continue;
+
+            case 23:
+                this.state = 24;
+                continue;
+
+            case 24:
+                return -1;
+
+            }
+        }
+    }
+
+    private int _171_backslash() {
         while (true) {
             switch (this.state) {
             case 0:
@@ -25125,7 +25693,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
         while (true) {
             switch (this.state) {
             case 0:
-                if (!(this.lookahead(290))) {
+                if (!(this.lookahead(292))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -25296,6 +25864,40 @@ public class MAINBraid extends Cursor<MAINBraid> {
     }
 
     private int ___lookahead_125() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                if (!(this.inCharList("'\u2018\u201A"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                return -1;
+
+            }
+        }
+    }
+
+    private int ___lookahead_126() {
+        while (true) {
+            switch (this.state) {
+            case 0:
+                if (!(this.inCharList("\"\u201C\u201E"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                return -1;
+
+            }
+        }
+    }
+
+    private int ___lookahead_127() {
         while (true) {
             switch (this.state) {
             case 0:

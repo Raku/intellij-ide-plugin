@@ -2284,8 +2284,64 @@ grammar MAIN {
                <.end-token('REGEX_CAPTURE_PARENTHESES')>
            ]?
            <.end-element('REGEX_CAPTURE_POSITIONAL')>
-        || <?before '\\' .> <.backslash>
+        || <?before '\\' .> <.backslash> <.SIGOK>
+        || <?['‘‚]> <.rxq> <.SIGOK>
+        || <?["“„]> <.rxqq> <.SIGOK>
         || <?[{]> <.rxcodeblock>
+    }
+
+    token rxq {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        <.start-element('STRING_LITERAL')>
+        [
+        || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('\'', '\'', '\'')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '‘' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('‘', '’', '’')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '’' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '‚' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('‚', '’', '‘')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[’‘]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '’' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_q('’', '’', '‘')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[’‘]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        ]
+        <.end-element('STRING_LITERAL')>
+    }
+
+    token rxqq {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        <.start-element('STRING_LITERAL')>
+        [
+        || <.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('"', '"', '"')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '"' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '“' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('“', '”', '”')>
+           [<.start-token('STRING_LITERAL_QUOTE')> '”' <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '„' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('„', '”', '“')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[”“]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        || <.start-token('STRING_LITERAL_QUOTE')> '”' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_qq('”', '”', '“')>
+           [<.start-token('STRING_LITERAL_QUOTE')> <[”“]> <.end-token('STRING_LITERAL_QUOTE')>]?
+        ]
+        <.end-element('STRING_LITERAL')>
     }
 
     token backslash {
