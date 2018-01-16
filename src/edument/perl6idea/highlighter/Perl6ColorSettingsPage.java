@@ -56,6 +56,8 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Regex Group (Square Brackets)", Perl6Highlighter.REGEX_GROUP_BRACKET),
             new AttributesDescriptor("Regex Capture", Perl6Highlighter.REGEX_CAPTURE),
             new AttributesDescriptor("Regex Quantifier", Perl6Highlighter.REGEX_QUANTIFIER),
+            new AttributesDescriptor("Regex Backslash Character Class", Perl6Highlighter.REGEX_BACKSLASH_CCLASS),
+            new AttributesDescriptor("Regex Invalid Backslash Sequence", Perl6Highlighter.REGEX_BACKSLASH_BAD),
     };
 
     @Nullable

@@ -50,6 +50,7 @@ public interface Perl6ElementTypes {
     IElementType REGEX = new Perl6ElementType("REGEX");
     IElementType REGEX_ANCHOR = new Perl6ElementType("REGEX_ANCHOR");
     IElementType REGEX_ATOM = new Perl6ElementType("REGEX_ATOM");
+    IElementType REGEX_BACKSLASH_CCLASS = new Perl6ElementType("REGEX_BACKSLASH_CCLASS");
     IElementType REGEX_CAPTURE_POSITIONAL = new Perl6ElementType("REGEX_CAPTURE_POSITIONAL");
     IElementType REGEX_DECLARATION = new Perl6ElementType("REGEX_DECLARATION");
     IElementType REGEX_GROUP = new Perl6ElementType("REGEX_GROUP");

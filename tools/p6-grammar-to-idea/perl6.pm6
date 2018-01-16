@@ -2284,5 +2284,26 @@ grammar MAIN {
                <.end-token('REGEX_CAPTURE_PARENTHESES')>
            ]?
            <.end-element('REGEX_CAPTURE_POSITIONAL')>
+        || <?before '\\' .> <.backslash>
+    }
+
+    token backslash {
+        <.start-element('REGEX_BACKSLASH_CCLASS')>
+        [
+        || <.start-token('REGEX_BACKSLASH_CCLASS')>
+           '\\'
+           [
+           || <[dDnNsSwWeEfFhHrRtTvV0]>
+           || 'o' [ <.octint> || '[' <.octints> ']' ]
+           || 'x' [ <.hexint> || '[' <.hexints> ']' ]
+           || 'c' <.charspec>
+           || \W
+           ]
+           <.end-token('REGEX_BACKSLASH_CCLASS')>
+        || <.start-token('REGEX_BACKSLASH_BAD')>
+           '\\' \w
+           <.end-token('REGEX_BACKSLASH_BAD')>
+        ]
+        <.end-element('REGEX_BACKSLASH_CCLASS')>
     }
 }

@@ -218,6 +218,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexQuantifierImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_SEPARATOR)
             return new Perl6RegexSeparatorImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_BACKSLASH_CCLASS)
+            return new Perl6RegexBackslashCClassImpl(astNode);
         return null;
     }
 

@@ -255,4 +255,16 @@ public final class Perl6Highlighter {
             REGEX_QUANTIFIER_ID,
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
+
+    static final String REGEX_BACKSLASH_CCLASS_ID = "PERL6_REGEX_BACKSLASH_CCLASS";
+    public static final TextAttributesKey REGEX_BACKSLASH_CCLASS = TextAttributesKey.createTextAttributesKey(
+            REGEX_BACKSLASH_CCLASS_ID,
+            DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+    );
+
+    static final String REGEX_BACKSLASH_BAD_ID = "PERL6_REGEX_BACKSLASH_BAD";
+    public static final TextAttributesKey REGEX_BACKSLASH_BAD = TextAttributesKey.createTextAttributesKey(
+            REGEX_BACKSLASH_BAD_ID,
+            DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
+    );
 }
