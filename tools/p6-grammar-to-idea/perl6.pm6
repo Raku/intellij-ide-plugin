@@ -2285,6 +2285,7 @@ grammar MAIN {
            ]?
            <.end-element('REGEX_CAPTURE_POSITIONAL')>
         || <?before '\\' .> <.backslash>
+        || <?[{]> <.rxcodeblock>
     }
 
     token backslash {
