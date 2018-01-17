@@ -2434,6 +2434,12 @@ public class Perl6Parser implements PsiParser {
     private boolean hexints_38(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.hexints_38_quant_3(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -3054,6 +3060,12 @@ public class Perl6Parser implements PsiParser {
     private boolean name_52_alt_2(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker1;
         quantMarker1 = builder.mark();
+        if (this.name_52_quant_1(builder)) {
+            quantMarker1.drop();
+        } else {
+            quantMarker1.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker2;;
             quantMarker2 = builder.mark();
@@ -4100,6 +4112,12 @@ public class Perl6Parser implements PsiParser {
     private boolean binint_76_quant_2(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker1;
         quantMarker1 = builder.mark();
+        if (this.binint_76_quant_1(builder)) {
+            quantMarker1.drop();
+        } else {
+            quantMarker1.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker2;;
             quantMarker2 = builder.mark();
@@ -4116,6 +4134,12 @@ public class Perl6Parser implements PsiParser {
     private boolean binint_76(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.binint_76_quant_2(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -4136,6 +4160,12 @@ public class Perl6Parser implements PsiParser {
     private boolean decint_77_quant_2(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker1;
         quantMarker1 = builder.mark();
+        if (this.decint_77_quant_1(builder)) {
+            quantMarker1.drop();
+        } else {
+            quantMarker1.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker2;;
             quantMarker2 = builder.mark();
@@ -4152,6 +4182,12 @@ public class Perl6Parser implements PsiParser {
     private boolean decint_77(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.decint_77_quant_2(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -4819,6 +4855,12 @@ public class Perl6Parser implements PsiParser {
     private boolean octints_90(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.octints_90_quant_3(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -6138,6 +6180,12 @@ public class Perl6Parser implements PsiParser {
     private boolean charspec_106_quant_4(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker4;
         quantMarker4 = builder.mark();
+        if (this.charspec_106_quant_3(builder)) {
+            quantMarker4.drop();
+        } else {
+            quantMarker4.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker5;;
             quantMarker5 = builder.mark();
@@ -6154,6 +6202,12 @@ public class Perl6Parser implements PsiParser {
     private boolean charspec_106_alt_5(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker2;
         quantMarker2 = builder.mark();
+        if (this.charspec_106_quant_2(builder)) {
+            quantMarker2.drop();
+        } else {
+            quantMarker2.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker3;;
             quantMarker3 = builder.mark();
@@ -6217,6 +6271,12 @@ public class Perl6Parser implements PsiParser {
     private boolean octint_107_quant_2(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker1;
         quantMarker1 = builder.mark();
+        if (this.octint_107_quant_1(builder)) {
+            quantMarker1.drop();
+        } else {
+            quantMarker1.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker2;;
             quantMarker2 = builder.mark();
@@ -6233,6 +6293,12 @@ public class Perl6Parser implements PsiParser {
     private boolean octint_107(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.octint_107_quant_2(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -8352,6 +8418,12 @@ public class Perl6Parser implements PsiParser {
         marker2 = builder.mark();
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.assertion_134_quant_2(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -8897,6 +8969,12 @@ public class Perl6Parser implements PsiParser {
     private boolean hexint_136_quant_4(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.hexint_136_quant_3(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();
@@ -8913,6 +8991,12 @@ public class Perl6Parser implements PsiParser {
     private boolean hexint_136(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker5;
         quantMarker5 = builder.mark();
+        if (this.hexint_136_quant_4(builder)) {
+            quantMarker5.drop();
+        } else {
+            quantMarker5.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker6;;
             quantMarker6 = builder.mark();
@@ -9016,6 +9100,12 @@ public class Perl6Parser implements PsiParser {
     private boolean vnum_139_alt_3(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker2;
         quantMarker2 = builder.mark();
+        if (this.vnum_139_quant_2(builder)) {
+            quantMarker2.drop();
+        } else {
+            quantMarker2.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker3;;
             quantMarker3 = builder.mark();
@@ -9852,6 +9942,12 @@ public class Perl6Parser implements PsiParser {
     private boolean charnames_160(PsiBuilder builder) {
         PsiBuilder.Marker quantMarker3;
         quantMarker3 = builder.mark();
+        if (this.charnames_160_quant_3(builder)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+            return false;
+        }
         while (true) {
             PsiBuilder.Marker quantMarker4;;
             quantMarker4 = builder.mark();

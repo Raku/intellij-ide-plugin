@@ -96,7 +96,7 @@ multi sub compile(QuantNode $quant) {
         my $marker = local('quantMarker' ~ ++$*MARKER-ID, 'PsiBuilder.Marker');
         push @impl,
             decl($marker),
-            assign($marker, call($builder, 'mark'));
+            assign($marker, call($builder, 'mark')),
             if(this-call($name, $builder),
                 [
                     call($marker, 'drop')
