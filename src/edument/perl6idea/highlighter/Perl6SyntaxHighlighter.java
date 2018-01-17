@@ -66,6 +66,8 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_QUANTIFIER, Perl6Highlighter.REGEX_QUANTIFIER);
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_BACKSLASH_CCLASS, Perl6Highlighter.REGEX_BACKSLASH_CCLASS);
         ATTRIBUTES.put(Perl6TokenTypes.REGEX_BACKSLASH_BAD, Perl6Highlighter.REGEX_BACKSLASH_BAD);
+        ATTRIBUTES.put(Perl6TokenTypes.REGEX_ASSERTION_ANGLE, Perl6Highlighter.REGEX_ASSERTION_ANGLE);
+        ATTRIBUTES.put(Perl6TokenTypes.REGEX_LOOKAROUND, Perl6Highlighter.REGEX_LOOKAROUND);
     }
 
     @NotNull

@@ -2285,6 +2285,18 @@ grammar MAIN {
            ]?
            <.end-element('REGEX_CAPTURE_POSITIONAL')>
         || <?before '\\' .> <.backslash> <.SIGOK>
+        || <.start-element('REGEX_ASSERTION')>
+           <.start-token('REGEX_ASSERTION_ANGLE')>
+           '<'
+           <.end-token('REGEX_ASSERTION_ANGLE')>
+           <.assertion>
+           [
+           <.start-token('REGEX_ASSERTION_ANGLE')>
+           '>'
+           <.end-token('REGEX_ASSERTION_ANGLE')>
+           <.SIGOK>
+           ]?
+           <.end-element('REGEX_ASSERTION')>
         || <?['‘‚]> <.rxq> <.SIGOK>
         || <?["“„]> <.rxqq> <.SIGOK>
         || <?[{]> <.rxcodeblock>
@@ -2362,5 +2374,53 @@ grammar MAIN {
            <.end-token('REGEX_BACKSLASH_BAD')>
         ]
         <.end-element('REGEX_BACKSLASH_CCLASS')>
+    }
+
+    token assertion {
+        || <.start-token('REGEX_ANCHOR')>
+           '?' <?before '>'>
+           <.end-token('REGEX_ANCHOR')>
+        || <.start-token('REGEX_ANCHOR')>
+           '!' <?before '>'>
+           <.end-token('REGEX_ANCHOR')>
+        || <.start-token('METHOD_CALL_OPERATOR')>
+           '.'
+           <.end-token('METHOD_CALL_OPERATOR')>
+           <.assertion>
+        || <.start-token('REGEX_LOOKAROUND')>
+           '?'
+           <.end-token('REGEX_LOOKAROUND')>
+           <.assertion>
+        || <.start-token('REGEX_LOOKAROUND')>
+           '!'
+           <.end-token('REGEX_LOOKAROUND')>
+           <.assertion>
+        || <.start-token('METHOD_CALL_NAME')>
+           <.longname>
+           <.end-token('METHOD_CALL_NAME')>
+           [
+           || <?before '>'>
+              <.start-token('REGEX_ASSERTION_END')> <?> <.end-token('REGEX_ASSERTION_END')>
+           || <.start-token('INFIX')> '=' <.end-token('INFIX')> <.assertion>
+           || <.start-token('INVOCANT_MARKER')>
+              ':'
+              <.end-token('INVOCANT_MARKER')>
+              <.rxarglist>
+           || <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+              <.rxarglist>
+              [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+           || <.normspace> <.regex_nibbler>
+           ]?
+        || <.start-token('REGEX_ANCHOR')>
+           '|' <.identifier>
+           <.end-token('REGEX_ANCHOR')>
+        || <.start-token('REGEX_MISSING_ASSERTION')>
+           <?>
+           <.end-token('REGEX_MISSING_ASSERTION')>
+    }
+
+    token rxarglist {
+        :my $*IN_REGEX_ASSERTION = 1;
+        <.arglist>
     }
 }

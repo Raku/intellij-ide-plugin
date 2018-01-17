@@ -267,4 +267,16 @@ public final class Perl6Highlighter {
             REGEX_BACKSLASH_BAD_ID,
             DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
     );
+
+    static final String REGEX_ASSERTION_ANGLE_ID = "PERL6_REGEX_ASSERTION_ANGLE";
+    public static final TextAttributesKey REGEX_ASSERTION_ANGLE = TextAttributesKey.createTextAttributesKey(
+            REGEX_ASSERTION_ANGLE_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
+    static final String REGEX_LOOKAROUND_ID = "PERL6_REGEX_LOOKAROUND";
+    public static final TextAttributesKey REGEX_LOOKAROUND = TextAttributesKey.createTextAttributesKey(
+            REGEX_LOOKAROUND_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
 }
