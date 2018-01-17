@@ -2289,7 +2289,7 @@ grammar MAIN {
            <.start-token('REGEX_ASSERTION_ANGLE')>
            '<'
            <.end-token('REGEX_ASSERTION_ANGLE')>
-           <.assertion>
+           <.assertion(0)>
            [
            <.start-token('REGEX_ASSERTION_ANGLE')>
            '>'
@@ -2376,7 +2376,7 @@ grammar MAIN {
         <.end-element('REGEX_BACKSLASH_CCLASS')>
     }
 
-    token assertion {
+    token assertion($*METHOD_CALL) {
         || <.start-token('REGEX_ANCHOR')>
            '?' <?before '>'>
            <.end-token('REGEX_ANCHOR')>
@@ -2386,22 +2386,29 @@ grammar MAIN {
         || <.start-token('METHOD_CALL_OPERATOR')>
            '.'
            <.end-token('METHOD_CALL_OPERATOR')>
-           <.assertion>
+           <.assertion(1)>
         || <.start-token('REGEX_LOOKAROUND')>
            '?'
            <.end-token('REGEX_LOOKAROUND')>
-           <.assertion>
+           <.assertion(1)>
         || <.start-token('REGEX_LOOKAROUND')>
            '!'
            <.end-token('REGEX_LOOKAROUND')>
-           <.assertion>
-        || <.start-token('METHOD_CALL_NAME')>
-           <.longname>
-           <.end-token('METHOD_CALL_NAME')>
+           <.assertion(1)>
+        || <?before <.longname>>
+           [
+           || <?{ $*METHOD_CALL }>
+              <.start-token('METHOD_CALL_NAME')>
+              <.longname>
+              <.end-token('METHOD_CALL_NAME')>
+           || <.start-token('REGEX_CAPTURE_NAME')>
+              <.longname>
+              <.end-token('REGEX_CAPTURE_NAME')>
+           ]
            [
            || <?before '>'>
               <.start-token('REGEX_ASSERTION_END')> <?> <.end-token('REGEX_ASSERTION_END')>
-           || <.start-token('INFIX')> '=' <.end-token('INFIX')> <.assertion>
+           || <.start-token('INFIX')> '=' <.end-token('INFIX')> <.assertion(0)>
            || <.start-token('INVOCANT_MARKER')>
               ':'
               <.end-token('INVOCANT_MARKER')>
@@ -2414,6 +2421,31 @@ grammar MAIN {
         || <.start-token('REGEX_ANCHOR')>
            '|' <.identifier>
            <.end-token('REGEX_ANCHOR')>
+        || <?[{]> <.rxcodeblock>
+        || <?[&]> <.variable>
+           [
+           || <.start-token('INVOCANT_MARKER')>
+              ':'
+              <.end-token('INVOCANT_MARKER')>
+              <.rxarglist>
+           || <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+              <.rxarglist>
+              [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+           ]?
+        || <?sigil> <.variable>
+        || <.start-token('REGEX_INFIX')>
+           '~~'
+           <.end-token('REGEX_INFIX')>
+           [
+           || <?before '>'>
+              <.start-token('REGEX_ASSERTION_END')> <?> <.end-token('REGEX_ASSERTION_END')>
+           || <.start-token('REGEX_CAPTURE_NAME')>
+              \d+
+              <.end-token('REGEX_CAPTURE_NAME')>
+           || <.start-token('REGEX_CAPTURE_NAME')>
+              <.desigilname>
+              <.end-token('REGEX_CAPTURE_NAME')>
+           ]?
         || <.start-token('REGEX_MISSING_ASSERTION')>
            <?>
            <.end-token('REGEX_MISSING_ASSERTION')>
