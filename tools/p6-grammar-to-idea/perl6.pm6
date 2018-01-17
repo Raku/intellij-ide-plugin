@@ -2300,6 +2300,11 @@ grammar MAIN {
         || <?['‘‚]> <.rxq> <.SIGOK>
         || <?["“„]> <.rxqq> <.SIGOK>
         || <?[{]> <.rxcodeblock>
+        || <?before ':' ['my'||'constant'||'state'||'our'||'temp'||'let'] <.end_keyword>>
+           <.start-token('SCOPE_DECLARATOR')>
+           ':'
+           <.end-token('SCOPE_DECLARATOR')>
+           <.statement> <.eat_terminator>
     }
 
     token rxq {
