@@ -256,9 +256,9 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
-    static final String REGEX_BACKSLASH_CCLASS_ID = "PERL6_REGEX_BACKSLASH_CCLASS";
-    public static final TextAttributesKey REGEX_BACKSLASH_CCLASS = TextAttributesKey.createTextAttributesKey(
-            REGEX_BACKSLASH_CCLASS_ID,
+    static final String REGEX_BUILTIN_CCLASS_ID = "PERL6_REGEX_BUILTIN_CCLASS";
+    public static final TextAttributesKey REGEX_BUILTIN_CCLASS = TextAttributesKey.createTextAttributesKey(
+            REGEX_BUILTIN_CCLASS_ID,
             DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
     );
 

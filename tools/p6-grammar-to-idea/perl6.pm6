@@ -2262,6 +2262,11 @@ grammar MAIN {
            || <.start-token('REGEX_ANCHOR')> ')>' <.end-token('REGEX_ANCHOR')> <.SIGOK>
            ]
            <.end-element('REGEX_ANCHOR')>
+        || <.start-element('REGEX_BUILTIN_CCLASS')>
+           <.start-token('REGEX_BUILTIN_CCLASS')>
+           '.'
+           <.end-token('REGEX_BUILTIN_CCLASS')>
+           <.end-element('REGEX_BUILTIN_CCLASS')>
         || <.start-element('REGEX_GROUP')>
            <.start-token('REGEX_GROUP_BRACKET')>
            '['
@@ -2362,9 +2367,9 @@ grammar MAIN {
     }
 
     token backslash {
-        <.start-element('REGEX_BACKSLASH_CCLASS')>
+        <.start-element('REGEX_BUILTIN_CCLASS')>
         [
-        || <.start-token('REGEX_BACKSLASH_CCLASS')>
+        || <.start-token('REGEX_BUILTIN_CCLASS')>
            '\\'
            [
            || <[dDnNsSwWeEfFhHrRtTvV0]>
@@ -2373,12 +2378,12 @@ grammar MAIN {
            || 'c' <.charspec>
            || \W
            ]
-           <.end-token('REGEX_BACKSLASH_CCLASS')>
+           <.end-token('REGEX_BUILTIN_CCLASS')>
         || <.start-token('REGEX_BACKSLASH_BAD')>
            '\\' \w
            <.end-token('REGEX_BACKSLASH_BAD')>
         ]
-        <.end-element('REGEX_BACKSLASH_CCLASS')>
+        <.end-element('REGEX_BUILTIN_CCLASS')>
     }
 
     token assertion($*METHOD_CALL) {

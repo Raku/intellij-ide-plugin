@@ -40,7 +40,7 @@ public interface Perl6TokenTypes {
     IElementType REGEX_ASSERTION_ANGLE = new Perl6ElementType("REGEX_ASSERTION_ANGLE");
     IElementType REGEX_ASSERTION_END = new Perl6ElementType("REGEX_ASSERTION_END");
     IElementType REGEX_BACKSLASH_BAD = new Perl6ElementType("REGEX_BACKSLASH_BAD");
-    IElementType REGEX_BACKSLASH_CCLASS = new Perl6ElementType("REGEX_BACKSLASH_CCLASS");
+    IElementType REGEX_BUILTIN_CCLASS = new Perl6ElementType("REGEX_BUILTIN_CCLASS");
     IElementType REGEX_CAPTURE_NAME = new Perl6ElementType("REGEX_CAPTURE_NAME");
     IElementType REGEX_CAPTURE_PARENTHESES = new Perl6ElementType("REGEX_CAPTURE_PARENTHESES");
     IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
