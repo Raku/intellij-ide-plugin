@@ -2311,6 +2311,17 @@ grammar MAIN {
            ':'
            <.end-token('SCOPE_DECLARATOR')>
            <.statement> <.eat_terminator>
+        || <.start-element('REGEX_GOAL')>
+           <.start-token('REGEX_INFIX')>
+           '~'
+           <.end-token('REGEX_INFIX')>
+           <.ws>
+           [
+               <.quantified_atom>
+               <.ws>
+               <.quantified_atom>?
+           ]?
+           <.end-element('REGEX_GOAL')>
     }
 
     token rxq {

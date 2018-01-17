@@ -54,6 +54,7 @@ public interface Perl6ElementTypes {
     IElementType REGEX_BUILTIN_CCLASS = new Perl6ElementType("REGEX_BUILTIN_CCLASS");
     IElementType REGEX_CAPTURE_POSITIONAL = new Perl6ElementType("REGEX_CAPTURE_POSITIONAL");
     IElementType REGEX_DECLARATION = new Perl6ElementType("REGEX_DECLARATION");
+    IElementType REGEX_GOAL = new Perl6ElementType("REGEX_GOAL");
     IElementType REGEX_GROUP = new Perl6ElementType("REGEX_GROUP");
     IElementType REGEX_LITERAL = new Perl6ElementType("REGEX_LITERAL");
     IElementType REGEX_QUANTIFIER = new Perl6ElementType("REGEX_QUANTIFIER");

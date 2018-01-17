@@ -222,6 +222,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexBuiltinCClassImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_ASSERTION)
             return new Perl6RegexAssertionImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_GOAL)
+            return new Perl6RegexGoalImpl(astNode);
         return null;
     }
 
