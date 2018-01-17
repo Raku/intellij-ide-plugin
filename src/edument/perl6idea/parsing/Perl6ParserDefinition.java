@@ -189,7 +189,7 @@ public class Perl6ParserDefinition implements ParserDefinition {
         if (type == Perl6ElementTypes.REGEX_DECLARATION)
             return new Perl6RegexDeclImpl(astNode);
         if (type == Perl6ElementTypes.SIGNATURE)
-            return new Perl6RoutineDeclImpl(astNode);
+            return new Perl6SignatureImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER)
             return new Perl6ParameterImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER_VARIABLE)
