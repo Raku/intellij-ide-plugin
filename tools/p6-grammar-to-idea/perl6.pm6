@@ -2290,6 +2290,7 @@ grammar MAIN {
            ]?
            <.end-element('REGEX_CAPTURE_POSITIONAL')>
         || <?before '\\' .> <.backslash> <.SIGOK>
+        || <?before '<' \s > <.rxqw> <.SIGOK>
         || <.start-element('REGEX_ASSERTION')>
            <.start-token('REGEX_ASSERTION_ANGLE')>
            '<'
@@ -2363,6 +2364,22 @@ grammar MAIN {
            <.quote_qq('”', '”', '“')>
            [<.start-token('STRING_LITERAL_QUOTE')> <[”“]> <.end-token('STRING_LITERAL_QUOTE')>]?
         ]
+        <.end-element('STRING_LITERAL')>
+    }
+
+    token rxqw {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        <.start-element('STRING_LITERAL')>
+        <.start-token('STRING_LITERAL_QUOTE')> '<' <.end-token('STRING_LITERAL_QUOTE')>
+        <.quote_q('<', '>', '>')>
+        [<.start-token('STRING_LITERAL_QUOTE')> '>' <.end-token('STRING_LITERAL_QUOTE')>]?
         <.end-element('STRING_LITERAL')>
     }
 
