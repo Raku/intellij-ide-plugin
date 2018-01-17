@@ -2484,6 +2484,10 @@ grammar MAIN {
               <.desigilname>
               <.end-token('REGEX_CAPTURE_NAME')>
            ]?
+        || <?before '['||'+'||'-'||':'>
+           <.start-element('REGEX_CCLASS')>
+           <.cclass_elem>+
+           <.end-element('REGEX_CCLASS')>
         || <.start-token('REGEX_MISSING_ASSERTION')>
            <?>
            <.end-token('REGEX_MISSING_ASSERTION')>
@@ -2492,5 +2496,111 @@ grammar MAIN {
     token rxarglist {
         :my $*IN_REGEX_ASSERTION = 1;
         <.arglist>
+    }
+
+    token cclass_elem {
+        :my $*SIGN = 0;
+        <.start-element('REGEX_CCLASS_ELEM')>
+        [
+            [
+            || <.start-token('REGEX_CCLASS_SYNTAX')>
+               '+'
+               <.end-token('REGEX_CCLASS_SYNTAX')>
+            || <.start-token('REGEX_CCLASS_SYNTAX')>
+               '-'
+               <.end-token('REGEX_CCLASS_SYNTAX')>
+            ]
+            { $*SIGN = 1 }
+        ]?
+        <.normspace>?
+        [
+        || <.start-token('REGEX_CCLASS_SYNTAX')>
+           '['
+           <.end-token('REGEX_CCLASS_SYNTAX')>
+           [
+               <?before \s* ['\\'. || <-[\]\\]>]>
+               <.start-token('REGEX_CCLASS_ATOM')> <?> <.end-token('REGEX_CCLASS_ATOM')>
+               [
+                   <.start-token('WHITE_SPACE')>
+                   \s+
+                   <.end-token('WHITE_SPACE')>
+               ]?
+               [
+               || <.cclass_backslash>
+               || <.start-token('STRING_LITERAL_CHAR')>
+                  <-[\]\\]>
+                  <.end-token('STRING_LITERAL_CHAR')>
+               ]
+               [
+                   <?before \s* '..'>
+                   [
+                       <.start-token('WHITE_SPACE')>
+                       \s+
+                       <.end-token('WHITE_SPACE')>
+                   ]?
+                   <.start-token('REGEX_CCLASS_SYNTAX')>
+                   '..'
+                   <.end-token('REGEX_CCLASS_SYNTAX')>
+                   [
+                       || <?before \s* ['\\'. || <-[\]\\]>]>
+                          [
+                              <.start-token('WHITE_SPACE')>
+                              \s+
+                              <.end-token('WHITE_SPACE')>
+                          ]?
+                          [
+                          || <.cclass_backslash>
+                          || <.start-token('STRING_LITERAL_CHAR')>
+                             <-[\]\\]>
+                             <.end-token('STRING_LITERAL_CHAR')>
+                          ]
+                          || <.start-token('REGEX_CCLASS_INCOMPLETE')>
+                             <?>
+                             <.end-token('REGEX_CCLASS_INCOMPLETE')>
+                   ]
+               ]?
+           ]*
+           [
+               <.start-token('WHITE_SPACE')>
+               \s+
+               <.end-token('WHITE_SPACE')>
+           ]?
+           [
+               || <.start-token('REGEX_CCLASS_SYNTAX')>
+                  ']'
+                  <.end-token('REGEX_CCLASS_SYNTAX')>
+               || <.start-token('REGEX_CCLASS_INCOMPLETE')>
+                  <?>
+                  <.end-token('REGEX_CCLASS_INCOMPLETE')>
+           ]
+        || <.start-token('METHOD_CALL_NAME')>
+           <.identifier>
+           <.end-token('METHOD_CALL_NAME')>
+        || <.start-token('REGEX_BUILTIN_CCLASS')>
+           ':' '!'? <.identifier>
+           # XXX optional coloncircumfix here, when MAIN has that
+           <.end-token('REGEX_BUILTIN_CCLASS')>
+        || <.start-token('REGEX_CCLASS_INCOMPLETE')>
+           <?{ $*SIGN }> <?>
+           <.end-token('REGEX_CCLASS_INCOMPLETE')>
+        ]
+        <.normspace>?
+        <.end-element('REGEX_CCLASS_ELEM')>
+    }
+
+    token cclass_backslash {
+        <.start-element('REGEX_BUILTIN_CCLASS')>
+        [
+        || <.start-token('REGEX_BUILTIN_CCLASS')>
+           '\\'
+           [
+           || 'o' [ <.octint> || '[' <.octints> ']' ]
+           || 'x' [ <.hexint> || '[' <.hexints> ']' ]
+           || 'c' <.charspec>
+           || .
+           ]
+           <.end-token('REGEX_BUILTIN_CCLASS')>
+        ]
+        <.end-element('REGEX_BUILTIN_CCLASS')>
     }
 }

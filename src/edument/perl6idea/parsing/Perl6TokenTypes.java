@@ -43,6 +43,9 @@ public interface Perl6TokenTypes {
     IElementType REGEX_BUILTIN_CCLASS = new Perl6ElementType("REGEX_BUILTIN_CCLASS");
     IElementType REGEX_CAPTURE_NAME = new Perl6ElementType("REGEX_CAPTURE_NAME");
     IElementType REGEX_CAPTURE_PARENTHESES = new Perl6ElementType("REGEX_CAPTURE_PARENTHESES");
+    IElementType REGEX_CCLASS_ATOM = new Perl6ElementType("REGEX_CCLASS_ATOM");
+    IElementType REGEX_CCLASS_INCOMPLETE = new Perl6ElementType("REGEX_CCLASS_INCOMPLETE");
+    IElementType REGEX_CCLASS_SYNTAX = new Perl6ElementType("REGEX_CCLASS_SYNTAX");
     IElementType REGEX_DECLARATOR = new Perl6ElementType("REGEX_DECLARATOR");
     IElementType REGEX_GROUP_BRACKET = new Perl6ElementType("REGEX_GROUP_BRACKET");
     IElementType REGEX_INFIX = new Perl6ElementType("REGEX_INFIX");

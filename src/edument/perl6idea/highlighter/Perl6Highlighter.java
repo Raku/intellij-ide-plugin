@@ -279,4 +279,10 @@ public final class Perl6Highlighter {
             REGEX_LOOKAROUND_ID,
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
+
+    static final String REGEX_CCLASS_SYNTAX_ID = "PERL6_CCLASS_SYNTAX";
+    public static final TextAttributesKey REGEX_CCLASS_SYNTAX = TextAttributesKey.createTextAttributesKey(
+            REGEX_CCLASS_SYNTAX_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
 }

@@ -60,6 +60,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Regex Invalid Backslash Sequence", Perl6Highlighter.REGEX_BACKSLASH_BAD),
             new AttributesDescriptor("Regex Assertion Angle Brackets", Perl6Highlighter.REGEX_ASSERTION_ANGLE),
             new AttributesDescriptor("Regex Lookaround (? and !)", Perl6Highlighter.REGEX_LOOKAROUND),
+            new AttributesDescriptor("Regex Character Class Syntax", Perl6Highlighter.REGEX_CCLASS_SYNTAX),
     };
 
     @Nullable
