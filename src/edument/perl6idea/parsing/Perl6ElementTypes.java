@@ -40,6 +40,7 @@ public interface Perl6ElementTypes {
     IElementType PARAMETER_DEFAULT = new Perl6ElementType("PARAMETER_DEFAULT");
     IElementType PARAMETER_VARIABLE = new Perl6ElementType("PARAMETER_VARIABLE");
     IElementType PHASER = new Perl6ElementType("PHASER");
+    IElementType POINTY_BLOCK = new Perl6ElementType("POINTY_BLOCK");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType QUIETLY = new Perl6ElementType("QUIETLY");

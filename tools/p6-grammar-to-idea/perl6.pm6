@@ -208,7 +208,8 @@ grammar MAIN {
     }
 
     token pblock {
-        || <.start-token('LAMBDA')>
+        || <.start-element('POINTY_BLOCK')>
+           <.start-token('LAMBDA')>
            <.lambda>
            <.end-token('LAMBDA')>
            :my $*GOAL = '{';
@@ -217,6 +218,7 @@ grammar MAIN {
            <.signature>
            <.end-element('SIGNATURE')>
            <.blockoid>?
+           <.end-element('POINTY_BLOCK')>
         || <?[{]> <.blockoid>
         || <.start-token('MISSING_BLOCK')> <?> <.end-token('MISSING_BLOCK')>
     }
@@ -897,6 +899,7 @@ grammar MAIN {
         || <.statement_prefix>
         || <.package_declarator>
         || <.dotty>
+        || <?lambda> <.pblock>
         || <.value>
         || <.term_name>
         || <.term_whatever>
@@ -1734,7 +1737,7 @@ grammar MAIN {
         || '?^' { $*PREC = 'v=' }
         || '+' { $*PREC = 'v=' }
         || '~' { $*PREC = 'v=' }
-        || '-' { $*PREC = 'v=' }
+        || '-' <![>]> { $*PREC = 'v=' }
         || '−' { $*PREC = 'v=' }
         || '?' { $*PREC = 'v=' }
         || '!' { $*PREC = 'v=' }
@@ -2023,7 +2026,7 @@ grammar MAIN {
         || '÷' { $*PREC = 'u=' }
         || '%' { $*PREC = 'u=' }
         || '+' { $*PREC = 't=' }
-        || '-' { $*PREC = 't=' }
+        || '-' [<?before '>>'> || <![>]>] { $*PREC = 't=' }
         || '−' { $*PREC = 't=' }
         || 'x' { $*PREC = 's=' }
         || '~' { $*PREC = 'r=' }
