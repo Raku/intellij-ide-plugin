@@ -79,6 +79,7 @@ public interface Perl6ElementTypes {
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType SUPPLY = new Perl6ElementType("SUPPLY");
+    IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRY = new Perl6ElementType("TRY");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");

@@ -991,7 +991,7 @@ grammar MAIN {
            <.semiarglist>
            [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
         || <.start-token('WHITE_SPACE')> \s <.end-token('WHITE_SPACE')> <.arglist>
-        || <?>
+        || <.start-token('NO_ARGS')> <?> <.end-token('NO_ARGS')>
         ]
     }
 
@@ -1004,10 +1004,12 @@ grammar MAIN {
     token arglist {
         :my $*GOAL = 'endargs';
         <.ws>
+        <.start-token('ARGLIST_START')> <?> <.end-token('ARGLIST_START')>
         [
-        || <!stdstopper> <.EXPR('e=')>
-        || <?>
+        || <?stdstopper> <.start-token('ARGLIST_EMPTY')> <?> <.end-token('ARGLIST_EMPTY')>
+        || <.EXPR('e=')>?
         ]
+        <.start-token('ARGLIST_END')> <?> <.end-token('ARGLIST_END')>
     }
 
     token variable {
@@ -1084,6 +1086,8 @@ grammar MAIN {
         :my $*IN_DECL = 'variable';
         <.variable>
         { $*IN_DECL = '' }
+        <.ws>
+        <.trait>*
     }
 
     token routine_declarator {
@@ -1128,6 +1132,7 @@ grammar MAIN {
             <.end-element('SIGNATURE')>
         ]?
         <.ws>
+        <.trait>*
         { $*IN_DECL = '' }
         [
         || <.onlystar>
@@ -1163,6 +1168,7 @@ grammar MAIN {
             <.end-element('SIGNATURE')>
         ]?
         <.ws>
+        <.trait>*
         { $*IN_DECL = '' }
         [
         || <.onlystar>
@@ -1224,6 +1230,7 @@ grammar MAIN {
         <.start-element('PARAMETER')>
         [ <.param_var> || <.named_param> ]
         <.ws>
+        <.trait>*
         <.post_constraint>*
         <.default_value>?
         <.end-element('PARAMETER')>
@@ -1350,13 +1357,102 @@ grammar MAIN {
     }
 
     token initializer {
+        <?before ['=' || ':=' || '::='] <.ws>>
         <.start-element('INFIX')>
-        <.start-token('INFIX')>
-        ['=' || ':=' || '::=']
-        <.end-token('INFIX')>
+        [
+        || <.start-token('INFIX')> '=' <.end-token('INFIX')>
+        || <.start-token('INFIX')> ':=' <.end-token('INFIX')>
+        || <.start-token('INFIX')> '::=' <.end-token('INFIX')>
+        ]
         <.end-element('INFIX')>
         <.ws>
-        <.EXPR('e=')>?
+        [
+        || <.EXPR('e=')>
+        || <.start-token('INITIALIZER_MISSING')> <?> <.end-token('INITIALIZER_MISSING')>
+        ]
+    }
+
+    token trait {
+        <.trait_mod> <.ws>
+    }
+
+    token trait_mod {
+        <.start-element('TRAIT')>
+        [
+        || <?before 'is' <.ws>>
+           <.start-token('TRAIT')>
+           'is'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.start-token('NAME')>
+              <.longname>
+              <.end-token('NAME')>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'hides' <.ws>>
+           <.start-token('TRAIT')>
+           'hides'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.typename>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'does' <.ws>>
+           <.start-token('TRAIT')>
+           'does'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.typename>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'will' <.ws>>
+           <.start-token('TRAIT')>
+           'will'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.start-token('NAME')>
+              <.identifier>
+              <.end-token('NAME')>
+              <.ws>
+              [
+              || <.pblock>
+              || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+              ]
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'of' <.ws>>
+           <.start-token('TRAIT')>
+           'of'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.typename>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'returns' <.ws>>
+           <.start-token('TRAIT')>
+           'returns'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.typename>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        || <?before 'handles' <.ws>>
+           <.start-token('TRAIT')>
+           'handles'
+           <.end-token('TRAIT')>
+           <.ws>
+           [
+           || <.term>
+           || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
+           ]
+        ]
+        <.end-element('TRAIT')>
     }
 
     token regex_declarator {
@@ -1412,6 +1508,7 @@ grammar MAIN {
             <.end-element('SIGNATURE')>
         ]?
         <.ws>
+        <.trait>*
         { $*IN_DECL = '' }
         [
             <.start-token('BLOCK_CURLY_BRACKET')>
@@ -1462,6 +1559,7 @@ grammar MAIN {
             <.ws>
         ]?
         { $*IN_DECL = '' }
+        <.trait>*
         [
         || <?[{]> <.blockoid>
         || <?[;]>
@@ -1568,6 +1666,60 @@ grammar MAIN {
         || \d+ [ '_' \d+]*
         || <[ ?..Z ]>
         ]
+    }
+
+    token typename {
+        <.start-element('TYPE_NAME')>
+        [
+        || <.start-token('NAME')>
+           '::?' <.identifier>
+           <.end-token('NAME')>
+           # XXX
+           # <.colonpair>*
+        || <.start-token('NAME')>
+           <.longname>
+           <.end-token('NAME')>
+        ]
+        <.unsp>?
+        [
+            <.start-token('TYPE_PARAMETER_BRACKET')>
+            '['
+            <.end-token('TYPE_PARAMETER_BRACKET')>
+            <.arglist>
+            [
+                <.start-token('TYPE_PARAMETER_BRACKET')>
+                ']'
+                <.end-token('TYPE_PARAMETER_BRACKET')>
+            ]?
+        ]?
+        <.unsp>?
+        [
+            <.start-token('TYPE_COERCION_PARENTHESES')>
+            '('
+            <.end-token('TYPE_COERCION_PARENTHESES')>
+            <.ws>
+            <.typename>?
+            <.ws>
+            [
+                || <.start-token('TYPE_COERCION_PARENTHESES')>
+                   ')'
+                   <.end-token('TYPE_COERCION_PARENTHESES')>
+                || <.start-token('INCOMPLETE_TYPE_NAME')> <?> <.end-token('INCOMPLETE_TYPE_NAME')>
+            ]
+        ]?
+        [
+            <?before <.ws> 'of' <.ws>>
+            <.ws>
+            <.start-token('NAME')>
+            'of'
+            <.end-token('NAME')>
+            <.ws>
+            [
+            || <.typename>
+            || <.start-token('INCOMPLETE_TYPE_NAME')> <?> <.end-token('INCOMPLETE_TYPE_NAME')>
+            ]
+        ]?
+        <.end-element('TYPE_NAME')>
     }
 
     token quote {
@@ -1695,8 +1847,10 @@ grammar MAIN {
         :my $*PREC = '';
         <.start-element('EXPR')>
 
-        <.prefixish>*
-        <.termish>
+        [
+        || <.prefixish>+ <.termish>?
+        || <.termish>
+        ]
         <.postfixish>*
 
         [
@@ -1705,8 +1859,10 @@ grammar MAIN {
             <.infixish>
             <.ws>
             [
-                <.prefixish>*
-                <.termish>
+                [
+                || <.prefixish>+ <.termish>?
+                || <.termish>
+                ]
                 <.postfixish>*
             ]?
         ]*

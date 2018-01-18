@@ -226,6 +226,24 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.STRING
     );
 
+    static final String TRAIT_ID = "PERL6_TRAIT";
+    public static final TextAttributesKey TRAIT = TextAttributesKey.createTextAttributesKey(
+            TRAIT_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
+    static final String TYPE_COERCION_PARENTHESES_ID = "PERL6_TYPE_COERCION_PARENTHESES";
+    public static final TextAttributesKey TYPE_COERCION_PARENTHESES = TextAttributesKey.createTextAttributesKey(
+            TYPE_COERCION_PARENTHESES_ID,
+            DefaultLanguageHighlighterColors.PARENTHESES
+    );
+
+    static final String TYPE_PARAMETER_BRACKET_ID = "PERL6_TYPE_PARAMETER_BRACKET";
+    public static final TextAttributesKey TYPE_PARAMETER_BRACKET = TextAttributesKey.createTextAttributesKey(
+            TYPE_PARAMETER_BRACKET_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
     static final String REGEX_INFIX_ID = "PERL6_REGEX_INFIX";
     public static final TextAttributesKey REGEX_INFIX = TextAttributesKey.createTextAttributesKey(
             REGEX_INFIX_ID,

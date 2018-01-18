@@ -202,6 +202,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6WhereConstraintImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER_DEFAULT)
             return new Perl6ParameterDefaultImpl(astNode);
+        if (type == Perl6ElementTypes.TRAIT)
+            return new Perl6TraitImpl(astNode);
         if (type == Perl6ElementTypes.REGEX)
             return new Perl6RegexImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_ATOM)

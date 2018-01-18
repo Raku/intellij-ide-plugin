@@ -3,6 +3,9 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 
 public interface Perl6TokenTypes {
+    IElementType ARGLIST_EMPTY = new Perl6ElementType("ARGLIST_EMPTY");
+    IElementType ARGLIST_END = new Perl6ElementType("ARGLIST_END");
+    IElementType ARGLIST_START = new Perl6ElementType("ARGLIST_START");
     IElementType ARRAY_INDEX_BRACKET = new Perl6ElementType("ARRAY_INDEX_BRACKET");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
@@ -13,7 +16,9 @@ public interface Perl6TokenTypes {
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
+    IElementType INCOMPLETE_TYPE_NAME = new Perl6ElementType("INCOMPLETE_TYPE_NAME");
     IElementType INFIX = new Perl6ElementType("INFIX");
+    IElementType INITIALIZER_MISSING = new Perl6ElementType("INITIALIZER_MISSING");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
     IElementType LAMBDA = new Perl6ElementType("LAMBDA");
@@ -26,6 +31,7 @@ public interface Perl6TokenTypes {
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
     IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");
+    IElementType NO_ARGS = new Perl6ElementType("NO_ARGS");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
@@ -68,6 +74,10 @@ public interface Perl6TokenTypes {
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
+    IElementType TRAIT = new Perl6ElementType("TRAIT");
+    IElementType TRAIT_INCOMPLETE = new Perl6ElementType("TRAIT_INCOMPLETE");
+    IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");
+    IElementType TYPE_PARAMETER_BRACKET = new Perl6ElementType("TYPE_PARAMETER_BRACKET");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType VERSION = new Perl6ElementType("VERSION");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
