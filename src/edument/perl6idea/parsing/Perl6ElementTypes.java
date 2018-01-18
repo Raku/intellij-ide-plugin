@@ -5,6 +5,7 @@ import edument.perl6idea.Perl6Language;
 
 public interface Perl6ElementTypes {
     IFileElementType FILE = new IFileElementType(Perl6Language.INSTANCE);
+    IElementType ARRAY_COMPOSER = new Perl6ElementType("ARRAY_COMPOSER");
     IElementType ARRAY_INDEX = new Perl6ElementType("ARRAY_INDEX");
     IElementType ARRAY_SHAPE = new Perl6ElementType("ARRAY_SHAPE");
     IElementType BLOCK = new Perl6ElementType("BLOCK");
@@ -39,6 +40,7 @@ public interface Perl6ElementTypes {
     IElementType PARAMETER = new Perl6ElementType("PARAMETER");
     IElementType PARAMETER_DEFAULT = new Perl6ElementType("PARAMETER_DEFAULT");
     IElementType PARAMETER_VARIABLE = new Perl6ElementType("PARAMETER_VARIABLE");
+    IElementType PARENTHESIZED_EXPRESSION = new Perl6ElementType("PARENTHESIZED_EXPRESSION");
     IElementType PHASER = new Perl6ElementType("PHASER");
     IElementType POINTY_BLOCK = new Perl6ElementType("POINTY_BLOCK");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");

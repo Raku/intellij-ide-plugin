@@ -898,6 +898,7 @@ grammar MAIN {
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
         || <.statement_prefix>
         || <.package_declarator>
+        || <.circumfix>
         || <.dotty>
         || <?lambda> <.pblock>
         || <.value>
@@ -1843,6 +1844,19 @@ grammar MAIN {
         || <?[{]> <?{ $*Q_CLOSURES }> <.block>
     }
 
+    token circumfix {
+        || <.start-element('PARENTHESIZED_EXPRESSION')>
+           <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
+           <.semilist>
+           [ <.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')> ]?
+           <.end-element('PARENTHESIZED_EXPRESSION')>
+        || <.start-element('ARRAY_COMPOSER')>
+           <.start-token('ARRAY_COMPOSER')> '[' <.end-token('ARRAY_COMPOSER')>
+           <.semilist>
+           [ <.start-token('ARRAY_COMPOSER')> ']' <.end-token('ARRAY_COMPOSER')> ]?
+           <.end-element('ARRAY_COMPOSER')>
+    }
+
     token EXPR($*PRECLIM) {
         :my $*PREC = '';
         <.start-element('EXPR')>
@@ -1990,8 +2004,7 @@ grammar MAIN {
            '['
            <.end-token('ARRAY_INDEX_BRACKET')>
            [
-               <.ws>
-               <.semilist>?
+               <.semilist>
                [
                    <.start-token('ARRAY_INDEX_BRACKET')>
                    ']'
@@ -2004,8 +2017,7 @@ grammar MAIN {
            '{'
            <.end-token('HASH_INDEX_BRACKET')>
            [
-               <.ws>
-               <.semilist>?
+               <.semilist>
                [
                    <.start-token('HASH_INDEX_BRACKET')>
                    '}'

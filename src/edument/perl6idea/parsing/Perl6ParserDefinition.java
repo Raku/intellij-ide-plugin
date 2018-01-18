@@ -204,6 +204,10 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ParameterDefaultImpl(astNode);
         if (type == Perl6ElementTypes.TRAIT)
             return new Perl6TraitImpl(astNode);
+        if (type == Perl6ElementTypes.PARENTHESIZED_EXPRESSION)
+            return new Perl6ParenthesizedExprImpl(astNode);
+        if (type == Perl6ElementTypes.ARRAY_COMPOSER)
+            return new Perl6ArrayComposerImpl(astNode);
         if (type == Perl6ElementTypes.REGEX)
             return new Perl6RegexImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_ATOM)

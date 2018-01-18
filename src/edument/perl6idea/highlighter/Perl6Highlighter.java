@@ -172,6 +172,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
     );
 
+    static final String ARRAY_COMPOSER_ID = "PERL6_ARRAY_COMPOSER";
+    public static final TextAttributesKey ARRAY_COMPOSER = TextAttributesKey.createTextAttributesKey(
+            ARRAY_COMPOSER_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
     static final String PARENTHESES_ID = "PERL6_PARENTHESES";
     public static final TextAttributesKey PARENTHESES = TextAttributesKey.createTextAttributesKey(
             PARENTHESES_ID,
