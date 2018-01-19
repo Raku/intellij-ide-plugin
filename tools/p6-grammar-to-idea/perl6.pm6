@@ -75,6 +75,10 @@ grammar MAIN {
         <?before \s || \# || $ > <.ws>
     }
 
+    token tok {
+        <.end_keyword>
+    }
+
     token ENDSTMT {
         [
         || <?before \h* $$ <.ws> > <?MARKER('endstmt')>
@@ -910,9 +914,14 @@ grammar MAIN {
         || <.dotty>
         || <?lambda> <.pblock>
         || <.value>
-        || <.term_name>
+        || <.term_now>
+        || <.term_time>
+        || <.term_empty_set>
+        || <.term_rand>
         || <.term_whatever>
         || <.term_hyperwhatever>
+        || <.term_type_const>
+        || <.term_name>
     }
 
     token term_ident {
@@ -970,6 +979,53 @@ grammar MAIN {
         '*'
         <.end-token('HYPER_WHATEVER')>
         <.end-element('HYPER_WHATEVER')>
+    }
+
+    token term_type_const {
+        <.start-element('TYPE_NAME')>
+        <.start-token('NAME')>
+        '::?' <.identifier> >>
+        <.end-token('NAME')>
+        <.end-element('TYPE_NAME')>
+    }
+
+    token term_now {
+        <?before 'now' <.tok>>
+        <.start-element('TERM')>
+        <.start-token('TERM')>
+        'now'
+        <.end-token('TERM')>
+        <.tok>
+        <.end-element('TERM')>
+    }
+
+    token term_time {
+        <?before 'time' <.tok>>
+        <.start-element('TERM')>
+        <.start-token('TERM')>
+        'time'
+        <.end-token('TERM')>
+        <.tok>
+        <.end-element('TERM')>
+    }
+
+    token term_empty_set {
+        <?before ['∅' <!before <[ \( \\ ' \- ]> || \h* '=>'>]>
+        <.start-element('TERM')>
+        <.start-token('TERM')>
+        '∅'
+        <.end-token('TERM')>
+        <.end-element('TERM')>
+    }
+
+    token term_rand {
+        <?before 'rand' >> <.end_keyword>>
+        <.start-element('TERM')>
+        <.start-token('TERM')>
+        'rand'
+        <.end-token('TERM')>
+        <.end_keyword>
+        <.end-element('TERM')>
     }
 
     token fatarrow {
