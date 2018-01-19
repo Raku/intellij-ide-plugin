@@ -80,6 +80,7 @@ public interface Perl6ElementTypes {
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
+    IElementType STUB_CODE = new Perl6ElementType("STUB_CODE");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType SUPPLY = new Perl6ElementType("SUPPLY");
     IElementType TERM = new Perl6ElementType("TERM");

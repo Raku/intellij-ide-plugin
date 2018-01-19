@@ -911,6 +911,7 @@ grammar MAIN {
         || <.statement_prefix>
         || <.package_declarator>
         || <.circumfix>
+        || <.term_stub_code>
         || <.dotty>
         || <?lambda> <.pblock>
         || <.value>
@@ -1026,6 +1027,18 @@ grammar MAIN {
         <.end-token('TERM')>
         <.end_keyword>
         <.end-element('TERM')>
+    }
+
+    token term_stub_code {
+        <.start-element('STUB_CODE')>
+        [
+        || <.start-token('STUB_CODE')> '…' <.end-token('STUB_CODE')>
+        || <.start-token('STUB_CODE')> '...' <.end-token('STUB_CODE')>
+        || <.start-token('STUB_CODE')> '???' <.end-token('STUB_CODE')>
+        || <.start-token('STUB_CODE')> '!!!' <.end-token('STUB_CODE')>
+        ]
+        <.args>
+        <.end-element('STUB_CODE')>
     }
 
     token fatarrow {
@@ -2058,8 +2071,8 @@ grammar MAIN {
         || '~' { $*PREC = 'v=' }
         || '-' <![>]> { $*PREC = 'v=' }
         || '−' { $*PREC = 'v=' }
-        || '?' { $*PREC = 'v=' }
-        || '!' { $*PREC = 'v=' }
+        || '?' <!before '??'> { $*PREC = 'v=' }
+        || '!' <!before '!!'> { $*PREC = 'v=' }
         || '|' { $*PREC = 'v=' }
         || '^' { $*PREC = 'v=' }
         || '⚛' { $*PREC = 'v=' }

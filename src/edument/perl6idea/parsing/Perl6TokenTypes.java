@@ -79,6 +79,7 @@ public interface Perl6TokenTypes {
     IElementType STRING_LITERAL_CHAR = new Perl6ElementType("STRING_LITERAL_CHAR");
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
+    IElementType STUB_CODE = new Perl6ElementType("STUB_CODE");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType TERM = new Perl6ElementType("TERM");
     IElementType TRAIT = new Perl6ElementType("TRAIT");

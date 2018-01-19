@@ -184,6 +184,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6HyperWhateverImpl(astNode);
         if (type == Perl6ElementTypes.TERM)
             return new Perl6TermImpl(astNode);
+        if (type == Perl6ElementTypes.STUB_CODE)
+            return new Perl6StubCodeImpl(astNode);
         if (type == Perl6ElementTypes.FATARROW)
             return new Perl6FatArrowImpl(astNode);
         if (type == Perl6ElementTypes.ROUTINE_DECLARATION)

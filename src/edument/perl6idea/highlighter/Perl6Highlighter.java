@@ -244,6 +244,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.CONSTANT
     );
 
+    static final String STUB_CODE_ID = "PERL6_STUB_CODE";
+    public static final TextAttributesKey STUB_CODE = TextAttributesKey.createTextAttributesKey(
+            STUB_CODE_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String PAIR_KEY_ID = "PERL6_PAIR_KEY";
     public static final TextAttributesKey PAIR_KEY = TextAttributesKey.createTextAttributesKey(
             PAIR_KEY_ID,
