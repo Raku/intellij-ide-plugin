@@ -47,6 +47,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.PARENTHESES, Perl6Highlighter.PARENTHESES);
         ATTRIBUTES.put(Perl6TokenTypes.SUB_CALL_NAME, Perl6Highlighter.SUB_CALL_NAME);
         ATTRIBUTES.put(Perl6TokenTypes.METHOD_CALL_NAME, Perl6Highlighter.METHOD_CALL_NAME);
+        ATTRIBUTES.put(Perl6TokenTypes.TERM, Perl6Highlighter.TERM);
         ATTRIBUTES.put(Perl6TokenTypes.SELF, Perl6Highlighter.SELF);
         ATTRIBUTES.put(Perl6TokenTypes.WHATEVER, Perl6Highlighter.WHATEVER);
         ATTRIBUTES.put(Perl6TokenTypes.HYPER_WHATEVER, Perl6Highlighter.WHATEVER);
@@ -56,6 +57,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.PARAMETER_SEPARATOR, Perl6Highlighter.PARAMETER_SEPARATOR);
         ATTRIBUTES.put(Perl6TokenTypes.NAMED_PARAMETER_SYNTAX, Perl6Highlighter.NAMED_PARAMETER_SYNTAX);
         ATTRIBUTES.put(Perl6TokenTypes.NAMED_PARAMETER_NAME_ALIAS, Perl6Highlighter.NAMED_PARAMETER_NAME_ALIAS);
+        ATTRIBUTES.put(Perl6TokenTypes.PARAMETER_QUANTIFIER, Perl6Highlighter.PARAMETER_QUANTIFIER);
         ATTRIBUTES.put(Perl6TokenTypes.WHERE_CONSTRAINT, Perl6Highlighter.WHERE_CONSTRAINT);
         ATTRIBUTES.put(Perl6TokenTypes.RETURN_ARROW, Perl6Highlighter.RETURN_ARROW);
         ATTRIBUTES.put(Perl6TokenTypes.BLOCK_CURLY_BRACKET, Perl6Highlighter.BLOCK_CURLY_BRACKETS);

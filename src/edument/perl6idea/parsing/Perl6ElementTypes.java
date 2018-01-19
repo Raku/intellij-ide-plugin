@@ -82,12 +82,14 @@ public interface Perl6ElementTypes {
     IElementType STRING_LITERAL = new Perl6ElementType("STRING_LITERAL");
     IElementType SUB_CALL = new Perl6ElementType("SUB_CALL");
     IElementType SUPPLY = new Perl6ElementType("SUPPLY");
+    IElementType TERM_DEFINITION = new Perl6ElementType("TERM_DEFINITION");
     IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRY = new Perl6ElementType("TRY");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");
     IElementType UNTIL_STATEMENT = new Perl6ElementType("UNTIL_STATEMENT");
     IElementType USE_STATEMENT = new Perl6ElementType("USE_STATEMENT");
+    IElementType VALUE_CONSTRAINT = new Perl6ElementType("VALUE_CONSTRAINT");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType VARIABLE_DECLARATION = new Perl6ElementType("VARIABLE_DECLARATION");
     IElementType VERSION = new Perl6ElementType("VERSION");

@@ -38,6 +38,9 @@ public interface Perl6TokenTypes {
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");
     IElementType PAIR_KEY = new Perl6ElementType("PAIR_KEY");
+    IElementType PARAMETER_ANON = new Perl6ElementType("PARAMETER_ANON");
+    IElementType PARAMETER_INCOMPLETE = new Perl6ElementType("PARAMETER_INCOMPLETE");
+    IElementType PARAMETER_QUANTIFIER = new Perl6ElementType("PARAMETER_QUANTIFIER");
     IElementType PARAMETER_SEPARATOR = new Perl6ElementType("PARAMETER_SEPARATOR");
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
     IElementType PHASER = new Perl6ElementType("PHASER");
@@ -77,6 +80,7 @@ public interface Perl6TokenTypes {
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
+    IElementType TERM = new Perl6ElementType("TERM");
     IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRAIT_INCOMPLETE = new Perl6ElementType("TRAIT_INCOMPLETE");
     IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");

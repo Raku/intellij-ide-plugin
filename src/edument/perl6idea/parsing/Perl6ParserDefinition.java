@@ -59,6 +59,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6SemiListImpl(astNode);
         if (type == Perl6ElementTypes.STATEMENT)
             return new Perl6StatementImpl(astNode);
+        if (type == Perl6ElementTypes.TERM_DEFINITION)
+            return new Perl6TermDefinitionImpl(astNode);
         if (type == Perl6ElementTypes.BLOCK)
             return new Perl6BlockImpl(astNode);
         if (type == Perl6ElementTypes.IF_STATEMENT)
@@ -200,6 +202,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ArrayShapeImpl(astNode);
         if (type == Perl6ElementTypes.WHERE_CONSTRAINT)
             return new Perl6WhereConstraintImpl(astNode);
+        if (type == Perl6ElementTypes.VALUE_CONSTRAINT)
+            return new Perl6ValueConstraintImpl(astNode);
         if (type == Perl6ElementTypes.PARAMETER_DEFAULT)
             return new Perl6ParameterDefaultImpl(astNode);
         if (type == Perl6ElementTypes.RETURN_CONSTRAINT)

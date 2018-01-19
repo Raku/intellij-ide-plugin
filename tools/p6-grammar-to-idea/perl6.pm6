@@ -44,6 +44,14 @@ grammar MAIN {
         ]?
     }
 
+    token defterm {
+        <.start-element('TERM_DEFINITION')>
+        <.start-token('TERM')>
+        <.identifier>
+        <.end-token('TERM')>
+        <.end-element('TERM_DEFINITION')>
+    }
+
     # XXX Missing its colonpairs
     token longname {
         <.name>
@@ -1243,7 +1251,50 @@ grammar MAIN {
 
     token parameter {
         <.start-element('PARAMETER')>
-        [ <.param_var> || <.named_param> ]
+        [
+        || <.type_constraint>+
+            [
+            || [
+               || <.start-token('PARAMETER_QUANTIFIER')> '\\' <.end-token('PARAMETER_QUANTIFIER')>
+               || <.start-token('PARAMETER_QUANTIFIER')> '|' <.end-token('PARAMETER_QUANTIFIER')>
+               || <.start-token('PARAMETER_QUANTIFIER')> '+' <.end-token('PARAMETER_QUANTIFIER')>
+               ]
+               <.param_term>
+            || <.start-token('PARAMETER_QUANTIFIER')>
+               ['**'||'*'||'+']
+               <.end-token('PARAMETER_QUANTIFIER')>
+               [
+               || <.param_var>
+               || <.start-token('PARAMETER_INCOMPLETE')> <?> <.end-token('PARAMETER_INCOMPLETE')>
+               ]
+            || [ <.param_var> || <.named_param> ]
+               [
+                   <.start-token('PARAMETER_QUANTIFIER')>
+                   <[?!]>
+                   <.end-token('PARAMETER_QUANTIFIER')>
+               ]?
+            || <.start-token('PARAMETER_ANON')> <?> <.end-token('PARAMETER_ANON')>
+            ]
+        || [
+           || <.start-token('PARAMETER_QUANTIFIER')> '\\' <.end-token('PARAMETER_QUANTIFIER')>
+           || <.start-token('PARAMETER_QUANTIFIER')> '|' <.end-token('PARAMETER_QUANTIFIER')>
+           || <.start-token('PARAMETER_QUANTIFIER')> '+' <.end-token('PARAMETER_QUANTIFIER')>
+           ]
+           <.param_term>
+        || <.start-token('PARAMETER_QUANTIFIER')>
+           ['**'||'*'||'+']
+           <.end-token('PARAMETER_QUANTIFIER')>
+           [
+           || <.param_var>
+           || <.start-token('PARAMETER_INCOMPLETE')> <?> <.end-token('PARAMETER_INCOMPLETE')>
+           ]
+        || [ <.param_var> || <.named_param> ]
+           [
+               <.start-token('PARAMETER_QUANTIFIER')>
+               <[?!]>
+               <.end-token('PARAMETER_QUANTIFIER')>
+           ]?
+        ]
         <.ws>
         <.trait>*
         <.post_constraint>*
@@ -1293,6 +1344,10 @@ grammar MAIN {
        ]
     }
 
+    token param_term {
+        <.defterm>?
+    }
+
     token named_param {
         :my $*GOAL = ')';
         <.start-element('NAMED_PARAMETER')>
@@ -1332,6 +1387,30 @@ grammar MAIN {
         <.ws>
         [ <.EXPR('i=')> <.ws> ]?
         <.end-element('PARAMETER_DEFAULT')>
+    }
+
+    token type_constraint {
+        :my $*IN_DECL = '';
+        [
+        || <?before 'where' <.ws>>
+           <.start-element('WHERE_CONSTRAINT')>
+           <.start-token('WHERE_CONSTRAINT')>
+           'where'
+           <.end-token('WHERE_CONSTRAINT')>
+           <.ws>
+           <.EXPR('i=')>?
+           <.end-element('WHERE_CONSTRAINT')>
+        || <.start-element('VALUE_CONSTRAINT')>
+           <.value>
+           <.end-element('VALUE_CONSTRAINT')>
+        || <?before <[-−i+]> <.numish>>
+           <.start-element('VALUE_CONSTRAINT')>
+           <.start-token('PREFIX')> <[-−i+]> <.end-token('PREFIX')>
+           <.numish>
+           <.end-element('VALUE_CONSTRAINT')>
+        || <.typename>
+        ]
+        <.ws>
     }
 
     token post_constraint {

@@ -88,6 +88,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String PARAMETER_QUANTIFIER_ID = "PERL6_PARAMETER_QUANTIFIER";
+    public static final TextAttributesKey PARAMETER_QUANTIFIER = TextAttributesKey.createTextAttributesKey(
+            PARAMETER_QUANTIFIER_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String RETURN_ARROW_ID = "PERL6_RETURN_ARROW";
     public static final TextAttributesKey RETURN_ARROW = TextAttributesKey.createTextAttributesKey(
             RETURN_ARROW_ID,
@@ -212,6 +218,12 @@ public final class Perl6Highlighter {
     public static final TextAttributesKey METHOD_CALL_NAME = TextAttributesKey.createTextAttributesKey(
             METHOD_CALL_NAME_ID,
             DefaultLanguageHighlighterColors.INSTANCE_METHOD
+    );
+
+    static final String TERM_ID = "PERL6_TERM";
+    public static final TextAttributesKey TERM = TextAttributesKey.createTextAttributesKey(
+            TERM_ID,
+            DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     );
 
     static final String SELF_ID = "PERL6_SELF";
