@@ -1225,6 +1225,20 @@ grammar MAIN {
         ]
         <.ws>
         { $*IN_DECL = '' }
+        [
+            <.start-element('RETURN_CONSTRAINT')>
+            <.start-token('RETURN_ARROW')>
+            '-->'
+            <.end-token('RETURN_ARROW')>
+            <.ws>
+            [
+            || [ <.typename> || <.value> ] <.ws>
+            || <.start-token('MISSING_RETURN_CONSTRAINT')>
+               <?>
+               <.end-token('MISSING_RETURN_CONSTRAINT')>
+            ]
+            <.end-element('RETURN_CONSTRAINT')>
+        ]?
     }
 
     token parameter {

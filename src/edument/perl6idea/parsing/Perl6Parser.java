@@ -11718,6 +11718,83 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
+    private boolean signature_173_alt_8(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.MISSING_RETURN_CONSTRAINT) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean signature_173_alt_9(PsiBuilder builder) {
+        if (!(this.value_68(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean signature_173_alt_10(PsiBuilder builder) {
+        if (!(this.typename_38(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean signature_173_alt_11(PsiBuilder builder) {
+        PsiBuilder.Marker altMarker11;
+        altMarker11 = builder.mark();
+        if (this.signature_173_alt_10(builder)) {
+            altMarker11.drop();
+        } else {
+            altMarker11.rollbackTo();
+            PsiBuilder.Marker altMarker10;;
+            altMarker10 = builder.mark();
+            if (this.signature_173_alt_9(builder)) {
+                altMarker10.drop();
+            } else {
+                altMarker10.rollbackTo();
+                return false;
+            }
+        }
+        if (!(this.ws_180(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean signature_173_quant_12(PsiBuilder builder) {
+        PsiBuilder.Marker marker8;
+        marker8 = builder.mark();
+        String tt1;
+        tt1 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.RETURN_ARROW) && (tt1.equals("-->"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.ws_180(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker altMarker12;
+        altMarker12 = builder.mark();
+        if (this.signature_173_alt_11(builder)) {
+            altMarker12.drop();
+        } else {
+            altMarker12.rollbackTo();
+            PsiBuilder.Marker altMarker9;;
+            altMarker9 = builder.mark();
+            if (this.signature_173_alt_8(builder)) {
+                altMarker9.drop();
+            } else {
+                altMarker9.rollbackTo();
+                return false;
+            }
+        }
+        marker8.done(Perl6ElementTypes.RETURN_CONSTRAINT);
+        return true;
+    }
+
     private boolean signature_173(PsiBuilder builder) {
         if (!(this.ws_180(builder))) {
             return false;
@@ -11746,6 +11823,13 @@ public class Perl6Parser implements PsiParser {
         }
         if (!(this.ws_180(builder))) {
             return false;
+        }
+        PsiBuilder.Marker quantMarker13;
+        quantMarker13 = builder.mark();
+        if (this.signature_173_quant_12(builder)) {
+            quantMarker13.drop();
+        } else {
+            quantMarker13.rollbackTo();
         }
         return true;
     }

@@ -10774,6 +10774,110 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.assignDynamicVariable("$*IN_DECL", "");
+                this.bsMark(28);
+                this.state = 17;
+                break;
+            case 17:
+                this.startToken(Perl6TokenTypes.RETURN_ARROW);
+                if (!(this.literal("-->"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.state = 18;
+                return -3;
+
+            case 18:
+                this.setArgs();
+                this.state = 19;
+                return 13;
+
+            case 19:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsFailMark(27);
+                this.bsMark(25);
+                this.bsFailMark(23);
+                this.bsMark(21);
+                this.setArgs();
+                this.state = 20;
+                return 129;
+
+            case 20:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(23);
+                this.state = 23;
+                continue;
+
+            case 21:
+                this.setArgs();
+                this.state = 22;
+                return 112;
+
+            case 22:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.state = 23;
+                continue;
+
+            case 23:
+                this.setArgs();
+                this.state = 24;
+                return 13;
+
+            case 24:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(27);
+                this.state = 27;
+                continue;
+
+            case 25:
+                this.startToken(Perl6TokenTypes.MISSING_RETURN_CONSTRAINT);
+                this.state = 26;
+                return -3;
+
+            case 26:
+                this.state = 27;
+                continue;
+
+            case 27:
+                this.bsCommit(28);
+                this.state = 28;
+                continue;
+
+            case 28:
                 return -1;
 
             }

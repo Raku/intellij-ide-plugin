@@ -67,6 +67,7 @@ public interface Perl6ElementTypes {
     IElementType REGEX_SIGSPACE = new Perl6ElementType("REGEX_SIGSPACE");
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");
+    IElementType RETURN_CONSTRAINT = new Perl6ElementType("RETURN_CONSTRAINT");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType SELF = new Perl6ElementType("SELF");

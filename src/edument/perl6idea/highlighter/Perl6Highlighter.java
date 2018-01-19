@@ -88,6 +88,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.KEYWORD
     );
 
+    static final String RETURN_ARROW_ID = "PERL6_RETURN_ARROW";
+    public static final TextAttributesKey RETURN_ARROW = TextAttributesKey.createTextAttributesKey(
+            RETURN_ARROW_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String TYPE_NAME_ID = "PERL6_TYPE_NAME";
     public static final TextAttributesKey TYPE_NAME = TextAttributesKey.createTextAttributesKey(
             TYPE_NAME_ID,
