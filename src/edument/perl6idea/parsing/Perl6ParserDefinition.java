@@ -188,6 +188,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6StubCodeImpl(astNode);
         if (type == Perl6ElementTypes.CAPTURE)
             return new Perl6CaptureImpl(astNode);
+        if (type == Perl6ElementTypes.ONLY_STAR)
+            return new Perl6OnlyStarImpl(astNode);
         if (type == Perl6ElementTypes.FATARROW)
             return new Perl6FatArrowImpl(astNode);
         if (type == Perl6ElementTypes.ROUTINE_DECLARATION)

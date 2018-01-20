@@ -910,6 +910,7 @@ grammar MAIN {
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
         || <.statement_prefix>
         || <.package_declarator>
+        || <.term_onlystar>
         || <.circumfix>
         || <.term_stub_code>
         || <.dotty>
@@ -1040,6 +1041,15 @@ grammar MAIN {
         ]
         <.args>
         <.end-element('STUB_CODE')>
+    }
+
+    token term_onlystar {
+        <.start-element('ONLY_STAR')>
+        <.start-token('ONLY_STAR')>
+        '{*}'
+        <.end-token('ONLY_STAR')>
+        <.end-element('ONLY_STAR')>
+        <?ENDSTMT>
     }
 
     token fatarrow {
