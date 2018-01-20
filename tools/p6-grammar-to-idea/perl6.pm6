@@ -2033,6 +2033,15 @@ grammar MAIN {
     }
 
     token circumfix {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        [
         || <.start-element('PARENTHESIZED_EXPRESSION')>
            <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
            <.semilist>
@@ -2043,6 +2052,48 @@ grammar MAIN {
            <.semilist>
            [ <.start-token('ARRAY_COMPOSER')> ']' <.end-token('ARRAY_COMPOSER')> ]?
            <.end-element('ARRAY_COMPOSER')>
+        || <?[{]>
+           <.start-element('BLOCK_OR_HASH')> <.pblock> <.end-element('BLOCK_OR_HASH')>
+        || <.start-element('STRING_LITERAL')>
+           <.start-token('STRING_LITERAL_QUOTE')>
+           '<<'
+           <.end-token('STRING_LITERAL_QUOTE')>
+           [
+               <.quote_qq('<<', '>>', '>>')>
+               [
+                   <.start-token('STRING_LITERAL_QUOTE')>
+                   '>>'
+                   <.end-token('STRING_LITERAL_QUOTE')>
+               ]?
+           ]?
+           <.end-element('STRING_LITERAL')>
+        || <.start-element('STRING_LITERAL')>
+           <.start-token('STRING_LITERAL_QUOTE')>
+           '«'
+           <.end-token('STRING_LITERAL_QUOTE')>
+           [
+               <.quote_qq('«', '»', '»')>
+               [
+                   <.start-token('STRING_LITERAL_QUOTE')>
+                   '»'
+                   <.end-token('STRING_LITERAL_QUOTE')>
+               ]?
+           ]?
+           <.end-element('STRING_LITERAL')>
+        || <.start-element('STRING_LITERAL')>
+           <.start-token('STRING_LITERAL_QUOTE')>
+           '<'
+           <.end-token('STRING_LITERAL_QUOTE')>
+           [
+               <.quote_q('<', '>', '>')>
+               [
+                   <.start-token('STRING_LITERAL_QUOTE')>
+                   '>'
+                   <.end-token('STRING_LITERAL_QUOTE')>
+               ]?
+           ]?
+           <.end-element('STRING_LITERAL')>
+        ]
     }
 
     token EXPR($*PRECLIM) {
