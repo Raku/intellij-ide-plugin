@@ -250,6 +250,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
+    static final String CAPTURE_TERM_ID = "PERL6_CAPTURE_TERM";
+    public static final TextAttributesKey CAPTURE_TERM = TextAttributesKey.createTextAttributesKey(
+            CAPTURE_TERM_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String PAIR_KEY_ID = "PERL6_PAIR_KEY";
     public static final TextAttributesKey PAIR_KEY = TextAttributesKey.createTextAttributesKey(
             PAIR_KEY_ID,

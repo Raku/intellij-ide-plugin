@@ -11,6 +11,8 @@ public interface Perl6TokenTypes {
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
+    IElementType CAPTURE_INVALID = new Perl6ElementType("CAPTURE_INVALID");
+    IElementType CAPTURE_TERM = new Perl6ElementType("CAPTURE_TERM");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
     IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");

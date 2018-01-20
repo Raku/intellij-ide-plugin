@@ -923,6 +923,7 @@ grammar MAIN {
         || <.term_hyperwhatever>
         || <.term_type_const>
         || <.term_name>
+        || <.capterm>
     }
 
     token term_ident {
@@ -1273,6 +1274,21 @@ grammar MAIN {
     }
 
     ## Captures and Signatures
+
+    token capterm {
+        <.start-element('CAPTURE')>
+        <.start-token('CAPTURE_TERM')>
+        '\\' <?before \S>
+        <.end-token('CAPTURE_TERM')>
+        [
+        || <.start-token('CAPTURE_TERM')> '(' <.end-token('CAPTURE_TERM')>
+           <.semiarglist>
+           [ <.start-token('CAPTURE_TERM')> ')' <.end-token('CAPTURE_TERM')> ]?
+        || <.termish>
+        || <.start-token('CAPTURE_INVALID')> <?> <.end-token('CAPTURE_INVALID')>
+        ]
+        <.end-element('CAPTURE')>
+    }
 
     token param_sep {
         <?before <.ws> [','||':'||';;'||';']>

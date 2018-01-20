@@ -10,6 +10,7 @@ public interface Perl6ElementTypes {
     IElementType ARRAY_SHAPE = new Perl6ElementType("ARRAY_SHAPE");
     IElementType BLOCK = new Perl6ElementType("BLOCK");
     IElementType CALL = new Perl6ElementType("CALL");
+    IElementType CAPTURE = new Perl6ElementType("CAPTURE");
     IElementType CATCH_STATEMENT = new Perl6ElementType("CATCH_STATEMENT");
     IElementType CONTROL_STATEMENT = new Perl6ElementType("CONTROL_STATEMENT");
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
