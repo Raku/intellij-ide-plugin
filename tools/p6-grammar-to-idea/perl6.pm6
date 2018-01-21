@@ -900,6 +900,7 @@ grammar MAIN {
     ## Terms
 
     token term {
+        || <.value>
         || <.fatarrow>
         || <.colonpair>
         || <.variable>
@@ -916,7 +917,6 @@ grammar MAIN {
         || <.term_stub_code>
         || <.dotty>
         || <?lambda> <.pblock>
-        || <.value>
         || <.term_now>
         || <.term_time>
         || <.term_empty_set>
@@ -1851,6 +1851,8 @@ grammar MAIN {
 
     token numish {
         [
+        || <.complex_number>
+        || <.rat_number>
         || <.dec_number>
         || <.integer>
         || <.start-element('NUMBER_LITERAL')>
@@ -1889,12 +1891,70 @@ grammar MAIN {
 
     token sign { '+' || '-' || '−' || '' }
 
+    token rat_number {
+        <?before [ '<' <.bare_rat_number> '>']>
+        <.start-element('RAT_LITERAL')>
+        <.start-token('RAT_LITERAL')>
+        '<'
+        <.end-token('RAT_LITERAL')>
+        <.bare_rat_number>
+        <.start-token('RAT_LITERAL')>
+        '>'
+        <.end-token('RAT_LITERAL')>
+        <.end-element('RAT_LITERAL')>
+    }
+    token bare_rat_number {
+        <.signed_integer>
+        <.start-token('RAT_LITERAL')>
+        '/'
+        <.end-token('RAT_LITERAL')>
+        <.integer>
+    }
+
+    token complex_number {
+        <?before [ '<' <.bare_complex_number> '>']>
+        <.start-element('COMPLEX_LITERAL')>
+        <.start-token('COMPLEX_LITERAL')>
+        '<'
+        <.end-token('COMPLEX_LITERAL')>
+        <.bare_complex_number>
+        <.start-token('COMPLEX_LITERAL')>
+        '>'
+        <.end-token('COMPLEX_LITERAL')>
+        <.end-element('COMPLEX_LITERAL')>
+    }
+
+    token bare_complex_number {
+        <.signed_number>
+        <.start-token('COMPLEX_LITERAL')>
+        <?[-−+]>
+        <.end-token('COMPLEX_LITERAL')>
+        <.signed_number>
+        <.start-token('COMPLEX_LITERAL')>
+        '\\'? 'i'
+        <.end-token('COMPLEX_LITERAL')>
+    }
+
+    token signed_number {
+        <.start-token('COMPLEX_LITERAL')>
+        <.sign>
+        <.end-token('COMPLEX_LITERAL')>
+        <.number>
+    }
+
     token integer {
         <.start-element('INTEGER_LITERAL')>
         <.start-token('INTEGER_LITERAL')>
         <.integer_lex>
         <.end-token('INTEGER_LITERAL')>
         <.end-element('INTEGER_LITERAL')>
+    }
+
+    token signed_integer {
+        <.start-token('RAT_LITERAL')>
+        <.sign>
+        <.end-token('RAT_LITERAL')>
+        <.integer>
     }
 
     token integer_lex {
