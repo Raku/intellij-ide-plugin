@@ -192,6 +192,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6OnlyStarImpl(astNode);
         if (type == Perl6ElementTypes.FATARROW)
             return new Perl6FatArrowImpl(astNode);
+        if (type == Perl6ElementTypes.COLON_PAIR)
+            return new Perl6ColonPairImpl(astNode);
         if (type == Perl6ElementTypes.ROUTINE_DECLARATION)
             return new Perl6RoutineDeclImpl(astNode);
         if (type == Perl6ElementTypes.MULTI_DECLARATION)

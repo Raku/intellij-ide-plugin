@@ -901,6 +901,7 @@ grammar MAIN {
 
     token term {
         || <.fatarrow>
+        || <.colonpair>
         || <.variable>
         || <.term_self>
         || <.term_ident>
@@ -1082,6 +1083,81 @@ grammar MAIN {
         || <.start-token('WHITE_SPACE')> \s <.end-token('WHITE_SPACE')> <.arglist>
         || <.start-token('NO_ARGS')> <?> <.end-token('NO_ARGS')>
         ]
+    }
+
+    token colonpair {
+        <.start-element('COLON_PAIR')>
+        [
+        || <?before [':' \d+ <.identifier>]>
+           <.start-token('COLON_PAIR')>
+           ':'
+           <.end-token('COLON_PAIR')>
+           <.start-token('INTEGER_LITERAL')>
+           \d+
+           <.end-token('INTEGER_LITERAL')>
+           <.start-token('COLON_PAIR')>
+           <.identifier>
+           <.end-token('COLON_PAIR')>
+        || <?before [':!' <.identifier>]>
+           <.start-token('COLON_PAIR')>
+           ':!'
+           <.end-token('COLON_PAIR')>
+           <.start-token('COLON_PAIR')>
+           <.identifier>
+           <.end-token('COLON_PAIR')>
+        || <.start-token('COLON_PAIR')>
+           ':('
+           <.end-token('COLON_PAIR')>
+           <.start-element('SIGNATURE')>
+           <.signature>
+           <.end-element('SIGNATURE')>
+           [
+               <.start-token('COLON_PAIR')>
+               ')'
+               <.end-token('COLON_PAIR')>
+           ]?
+        || <?before [':' <.sigil> [ <.twigil>? <.identifier> || '<']]>
+           <.start-token('COLON_PAIR')>
+           ':'
+           <.end-token('COLON_PAIR')>
+           <.colonpair_variable>
+        || <?before [':' <.identifier>]>
+           <.start-token('COLON_PAIR')>
+           ':'
+           <.end-token('COLON_PAIR')>
+           <.start-token('COLON_PAIR')>
+           <.identifier>
+           <.end-token('COLON_PAIR')>
+           [
+               <?before [<.unsp>? <[[{<«]>]>
+               <.start-token('COLON_PAIR_HAS_VALUE')> <?> <.end-token('COLON_PAIR_HAS_VALUE')>
+               <.unsp>?
+               <.coloncircumfix>
+           ]?
+        || <?before [':' <[[{<«]>]>
+           <.start-token('COLON_PAIR')>
+           ':'
+           <.end-token('COLON_PAIR')>
+           <.coloncircumfix>
+        ]
+        <.end-element('COLON_PAIR')>
+    }
+
+    token coloncircumfix {
+        <.circumfix>
+    }
+
+    token colonpair_variable {
+        <.start-element('VARIABLE')>
+        [
+        || <.start-token('VARIABLE')>
+           <.sigil> <.twigil>? <.desigilname>
+           <.end-token('VARIABLE')>
+        || <.start-token('REGEX_CAPTURE_NAME')>
+           <.sigil> '<' [ <.desigilname> '>'? ]?
+           <.end-token('REGEX_CAPTURE_NAME')>
+        ]
+        <.end-element('VARIABLE')>
     }
 
     # XXX Cheat

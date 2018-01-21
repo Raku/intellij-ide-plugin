@@ -13,6 +13,8 @@ public interface Perl6TokenTypes {
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
     IElementType CAPTURE_INVALID = new Perl6ElementType("CAPTURE_INVALID");
     IElementType CAPTURE_TERM = new Perl6ElementType("CAPTURE_TERM");
+    IElementType COLON_PAIR = new Perl6ElementType("COLON_PAIR");
+    IElementType COLON_PAIR_HAS_VALUE = new Perl6ElementType("COLON_PAIR_HAS_VALUE");
     IElementType COMMENT = new Perl6ElementType("COMMENT");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
     IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");

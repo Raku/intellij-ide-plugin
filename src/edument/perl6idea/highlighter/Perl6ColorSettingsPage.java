@@ -56,7 +56,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("String Literal Escape", Perl6Highlighter.STRING_LITERAL_ESCAPE),
             new AttributesDescriptor("String Literal Invalid Escape", Perl6Highlighter.STRING_LITERAL_BAD_ESCAPE),
             new AttributesDescriptor("Array Composer ([...])", Perl6Highlighter.ARRAY_COMPOSER),
-            new AttributesDescriptor("Pair Key", Perl6Highlighter.PAIR_KEY),
+            new AttributesDescriptor("Pair (Colon Pair or Key Before =>)", Perl6Highlighter.PAIR_KEY),
             new AttributesDescriptor("Trait Keyword", Perl6Highlighter.TRAIT),
             new AttributesDescriptor("Type Parameter Brackets", Perl6Highlighter.TYPE_PARAMETER_BRACKET),
             new AttributesDescriptor("Type Coercion Parentheses", Perl6Highlighter.TYPE_COERCION_PARENTHESES),

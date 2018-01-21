@@ -13,6 +13,7 @@ public interface Perl6ElementTypes {
     IElementType CALL = new Perl6ElementType("CALL");
     IElementType CAPTURE = new Perl6ElementType("CAPTURE");
     IElementType CATCH_STATEMENT = new Perl6ElementType("CATCH_STATEMENT");
+    IElementType COLON_PAIR = new Perl6ElementType("COLON_PAIR");
     IElementType CONTROL_STATEMENT = new Perl6ElementType("CONTROL_STATEMENT");
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType DO = new Perl6ElementType("DO");
