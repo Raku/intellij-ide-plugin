@@ -27,7 +27,6 @@ public class Perl6RunCommandLineState extends CommandLineState {
     }
 
     private void populateRunCommand() throws ExecutionException {
-        Perl6RunConfiguration runProfile = (Perl6RunConfiguration)getEnvironment().getRunProfile();
         Sdk projectSdk = ProjectRootManager.getInstance(getEnvironment().getProject()).getProjectSdk();
         if (projectSdk == null)
             throw new ExecutionException("Perl 6 SDK is not set for the project, please set one");
