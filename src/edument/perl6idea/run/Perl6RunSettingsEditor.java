@@ -53,7 +53,7 @@ public class Perl6RunSettingsEditor extends SettingsEditor<Perl6RunConfiguration
     @Override
     protected void resetEditorFrom(@NotNull Perl6RunConfiguration conf) {
         fileField.setText(conf.getMyScriptPath());
-        myScriptParamsTextField.setText(conf.getMyScriptArgs());
+        myScriptParamsTextField.setText(conf.getProgramParameters());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Perl6RunSettingsEditor extends SettingsEditor<Perl6RunConfiguration
             throw new ConfigurationException("Main script path is absent");
         } else  {
             conf.setMyScriptPath(fileLine);
-            conf.setMyScriptArgs(myScriptParamsTextField.getText());
+            conf.setProgramParameters(myScriptParamsTextField.getText());
         }
     }
 

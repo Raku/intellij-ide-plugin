@@ -1,36 +1,29 @@
 package edument.perl6idea.run;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.ConfigurationType;
+import com.intellij.execution.configurations.ConfigurationTypeBase;
+import com.intellij.execution.configurations.RunConfiguration;
+import com.intellij.openapi.project.Project;
 import edument.perl6idea.Perl6Icons;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+public class Perl6RunConfigurationType extends ConfigurationTypeBase {
+    private static final String PERL_6_RUN_CONFIGURATION = "PERL6_RUN_CONFIGURATION";
 
-public class Perl6RunConfigurationType implements ConfigurationType {
-    @Override
-    public String getDisplayName() {
-        return "Perl 6";
-    }
-
-    @Override
-    public String getConfigurationTypeDescription() {
-        return "Run Perl 6 configuration";
-    }
-
-    @Override
-    public Icon getIcon() {
-        return Perl6Icons.CAMELIA;
+    protected Perl6RunConfigurationType() {
+        super(PERL_6_RUN_CONFIGURATION, "Perl 6",
+                "Run Perl 6 configuration", Perl6Icons.CAMELIA);
+        addFactory(new ConfigurationFactory(this) {
+            @NotNull
+            @Override
+            public RunConfiguration createTemplateConfiguration(@NotNull Project project) {
+                return new Perl6RunConfiguration(project, this, "Unnamed run");
+            }
+        });
     }
 
     @NotNull
-    @Override
-    public String getId() {
-        return "PERL6_RUN_CONFIGURATION";
-    }
-
-    @Override
-    public ConfigurationFactory[] getConfigurationFactories() {
-        return new ConfigurationFactory[]{new Perl6RunConfigurationFactory(this)};
+    public static Perl6RunConfigurationType getInstance() {
+        return CONFIGURATION_TYPE_EP.findExtension(Perl6RunConfigurationType.class);
     }
 }
