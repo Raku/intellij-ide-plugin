@@ -53,6 +53,7 @@ public interface Perl6ElementTypes {
     IElementType QUIETLY = new Perl6ElementType("QUIETLY");
     IElementType QUIT_STATEMENT = new Perl6ElementType("QUIT_STATEMENT");
     IElementType RACE = new Perl6ElementType("RACE");
+    IElementType RADIX_NUMBER = new Perl6ElementType("RADIX_NUMBER");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REACT = new Perl6ElementType("REACT");
     IElementType REGEX = new Perl6ElementType("REGEX");

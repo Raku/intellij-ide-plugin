@@ -168,6 +168,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RatLiteralImpl(astNode);
         if (type == Perl6ElementTypes.COMPLEX_LITERAL)
             return new Perl6ComplexLiteralImpl(astNode);
+        if (type == Perl6ElementTypes.RADIX_NUMBER)
+            return new Perl6RadixNumberImpl(astNode);
         if (type == Perl6ElementTypes.STRING_LITERAL)
             return new Perl6StrLiteralImpl(astNode);
         if (type == Perl6ElementTypes.VERSION)

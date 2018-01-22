@@ -1853,6 +1853,7 @@ grammar MAIN {
         [
         || <.complex_number>
         || <.rat_number>
+        || <.rad_number>
         || <.dec_number>
         || <.integer>
         || <.start-element('NUMBER_LITERAL')>
@@ -1941,6 +1942,64 @@ grammar MAIN {
         <.end-token('COMPLEX_LITERAL')>
         <.number>
     }
+
+    token rad_number {
+        <?before [':' \d+ <.unsp>? <[<[(]>]>
+        <.start-element('RADIX_NUMBER')>
+        <.start-token('RADIX_NUMBER')>
+        ':'
+        <.end-token('RADIX_NUMBER')>
+        <.start-token('RADIX_NUMBER')>
+        \d+
+        <.end-token('RADIX_NUMBER')>
+        <.unsp>?
+        [
+        || <.start-token('RADIX_NUMBER')>
+           '<'
+           <.end-token('RADIX_NUMBER')>
+           [
+           || <.start-token('RADIX_NUMBER')> '0x' <.end-token('RADIX_NUMBER')>
+           || <.start-token('RADIX_NUMBER')> '0o' <.end-token('RADIX_NUMBER')>
+           || <.start-token('RADIX_NUMBER')> '0d' <.end-token('RADIX_NUMBER')>
+           || <.start-token('RADIX_NUMBER')> '0b' <.end-token('RADIX_NUMBER')>
+           ]?
+           <.start-token('RADIX_NUMBER')>
+           [
+               <.rad_digits>
+               ['.' <.rad_digits>]?
+               ['*' <.radint> '**' <.radint>]?
+           ]
+           <.end-token('RADIX_NUMBER')>
+           [
+               <.start-token('RADIX_NUMBER')>
+               '>'
+               <.end-token('RADIX_NUMBER')>
+           ]?
+        || <.start-token('RADIX_NUMBER')>
+           '['
+           <.end-token('RADIX_NUMBER')>
+           <.semilist>
+           [
+               <.start-token('RADIX_NUMBER')>
+               ']'
+               <.end-token('RADIX_NUMBER')>
+           ]?
+        || <.start-token('RADIX_NUMBER')>
+           '('
+           <.end-token('RADIX_NUMBER')>
+           <.semilist>
+           [
+               <.start-token('RADIX_NUMBER')>
+               ')'
+               <.end-token('RADIX_NUMBER')>
+           ]?
+        ]
+        <.end-element('RADIX_NUMBER')>
+    }
+
+    token rad_digits { <.rad_digit>+ [ '_' <.rad_digit>+ ]* }
+    token rad_digit  { \d || <[ a..z A..Z ａ..ｚ Ａ..Ｚ ]> }
+    token radint    { <.integer_lex> }
 
     token integer {
         <.start-element('INTEGER_LITERAL')>
