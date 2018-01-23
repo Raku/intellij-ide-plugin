@@ -77,6 +77,7 @@ public interface Perl6TokenTypes {
     IElementType SCOPE_DECLARATOR = new Perl6ElementType("SCOPE_DECLARATOR");
     IElementType SELF = new Perl6ElementType("SELF");
     IElementType SEMI_LIST_END = new Perl6ElementType("SEMI_LIST_END");
+    IElementType SHAPE_DECLARATION = new Perl6ElementType("SHAPE_DECLARATION");
     IElementType STATEMENT_CONTROL = new Perl6ElementType("STATEMENT_CONTROL");
     IElementType STATEMENT_MOD_COND = new Perl6ElementType("STATEMENT_MOD_COND");
     IElementType STATEMENT_MOD_LOOP = new Perl6ElementType("STATEMENT_MOD_LOOP");

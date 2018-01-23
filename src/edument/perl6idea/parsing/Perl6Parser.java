@@ -10745,13 +10745,132 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean variable_declarator_156_quant_1(PsiBuilder builder) {
-        if (!(this.trait_35(builder))) {
+        if (!(this.unsp_2(builder))) {
             return false;
         }
         return true;
     }
 
     private boolean variable_declarator_156_quant_2(PsiBuilder builder) {
+        String tt2;
+        tt2 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.SHAPE_DECLARATION) && (tt2.equals("}"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_alt_3(PsiBuilder builder) {
+        String tt1;
+        tt1 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.SHAPE_DECLARATION) && (tt1.equals("{"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.semilist_27(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker quantMarker2;
+        quantMarker2 = builder.mark();
+        if (this.variable_declarator_156_quant_2(builder)) {
+            quantMarker2.drop();
+        } else {
+            quantMarker2.rollbackTo();
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_quant_4(PsiBuilder builder) {
+        String tt4;
+        tt4 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.SHAPE_DECLARATION) && (tt4.equals("]"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_alt_5(PsiBuilder builder) {
+        String tt3;
+        tt3 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.SHAPE_DECLARATION) && (tt3.equals("["))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.semilist_27(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker quantMarker4;
+        quantMarker4 = builder.mark();
+        if (this.variable_declarator_156_quant_4(builder)) {
+            quantMarker4.drop();
+        } else {
+            quantMarker4.rollbackTo();
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_quant_6(PsiBuilder builder) {
+        PsiBuilder.Marker altMarker5;
+        altMarker5 = builder.mark();
+        if (this.variable_declarator_156_alt_5(builder)) {
+            altMarker5.drop();
+        } else {
+            altMarker5.rollbackTo();
+            PsiBuilder.Marker altMarker3;;
+            altMarker3 = builder.mark();
+            if (this.variable_declarator_156_alt_3(builder)) {
+                altMarker3.drop();
+            } else {
+                altMarker3.rollbackTo();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_quant_7(PsiBuilder builder) {
+        PsiBuilder.Marker quantMarker1;
+        quantMarker1 = builder.mark();
+        if (this.variable_declarator_156_quant_1(builder)) {
+            quantMarker1.drop();
+        } else {
+            quantMarker1.rollbackTo();
+        }
+        PsiBuilder.Marker quantMarker6;
+        quantMarker6 = builder.mark();
+        if (this.variable_declarator_156_quant_6(builder)) {
+            quantMarker6.drop();
+        } else {
+            quantMarker6.rollbackTo();
+            return false;
+        }
+        while (true) {
+            PsiBuilder.Marker quantMarker7;;
+            quantMarker7 = builder.mark();
+            if (this.variable_declarator_156_quant_6(builder)) {
+                quantMarker7.drop();
+            } else {
+                quantMarker7.rollbackTo();
+                break;
+            }
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_quant_8(PsiBuilder builder) {
+        if (!(this.trait_35(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean variable_declarator_156_quant_9(PsiBuilder builder) {
         if (!(this.post_constraint_88(builder))) {
             return false;
         }
@@ -10762,16 +10881,23 @@ public class Perl6Parser implements PsiParser {
         if (!(this.variable_77(builder))) {
             return false;
         }
+        PsiBuilder.Marker quantMarker8;
+        quantMarker8 = builder.mark();
+        if (this.variable_declarator_156_quant_7(builder)) {
+            quantMarker8.drop();
+        } else {
+            quantMarker8.rollbackTo();
+        }
         if (!(this.ws_204(builder))) {
             return false;
         }
         while (true) {
-            PsiBuilder.Marker quantMarker1;;
-            quantMarker1 = builder.mark();
-            if (this.variable_declarator_156_quant_1(builder)) {
-                quantMarker1.drop();
+            PsiBuilder.Marker quantMarker9;;
+            quantMarker9 = builder.mark();
+            if (this.variable_declarator_156_quant_8(builder)) {
+                quantMarker9.drop();
             } else {
-                quantMarker1.rollbackTo();
+                quantMarker9.rollbackTo();
                 break;
             }
         }
@@ -10779,12 +10905,12 @@ public class Perl6Parser implements PsiParser {
             return false;
         }
         while (true) {
-            PsiBuilder.Marker quantMarker2;;
-            quantMarker2 = builder.mark();
-            if (this.variable_declarator_156_quant_2(builder)) {
-                quantMarker2.drop();
+            PsiBuilder.Marker quantMarker10;;
+            quantMarker10 = builder.mark();
+            if (this.variable_declarator_156_quant_9(builder)) {
+                quantMarker10.drop();
             } else {
-                quantMarker2.rollbackTo();
+                quantMarker10.rollbackTo();
                 break;
             }
         }

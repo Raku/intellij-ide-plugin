@@ -1251,6 +1251,30 @@ grammar MAIN {
         :my $*IN_DECL = 'variable';
         <.variable>
         { $*IN_DECL = '' }
+        [
+            <?before [<.unsp>? <[[{]>]>
+            <.unsp>?
+            [
+            || <.start-token('SHAPE_DECLARATION')>
+               '['
+               <.end-token('SHAPE_DECLARATION')>
+               <.semilist>
+               [
+                   <.start-token('SHAPE_DECLARATION')>
+                   ']'
+                   <.end-token('SHAPE_DECLARATION')>
+               ]?
+            || <.start-token('SHAPE_DECLARATION')>
+               '{'
+               <.end-token('SHAPE_DECLARATION')>
+               <.semilist>
+               [
+                   <.start-token('SHAPE_DECLARATION')>
+                   '}'
+                   <.end-token('SHAPE_DECLARATION')>
+               ]?
+            ]+
+        ]?
         <.ws>
         <.trait>*
         <.ws>
