@@ -46,7 +46,6 @@ public class Perl6XDebugProcess extends XDebugProcess {
     @Override
     public void startPausing() {
         try {
-            System.out.println("Pause");
             myDebugThread.sendCommand("pause");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -56,7 +55,6 @@ public class Perl6XDebugProcess extends XDebugProcess {
     @Override
     public void resume(@Nullable XSuspendContext context) {
         try {
-            System.out.println("Resume");
             myDebugThread.sendCommand("resume");
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -65,7 +63,6 @@ public class Perl6XDebugProcess extends XDebugProcess {
 
     @Override
     public void stop() {
-        System.out.println("Stop");
         myDebugThread.stopDebug();
     }
 
