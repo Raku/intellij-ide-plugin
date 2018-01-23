@@ -1225,12 +1225,18 @@ grammar MAIN {
     }
 
     token declarator {
-        ||  [
-            <.start-element('VARIABLE_DECLARATION')>
-            <.variable_declarator>
-            <.ws> <.initializer>?
-            <.end-element('VARIABLE_DECLARATION')>
-            ]
+        || <?before '\\' <.defterm>>
+           <.start-element('VARIABLE_DECLARATION')>
+           <.start-token('TERM_DECLARATION_BACKSLASH')>
+           '\\'
+           <.end-token('TERM_DECLARATION_BACKSLASH')>
+           <.defterm>
+           <.ws> <.initializer>?
+           <.end-element('VARIABLE_DECLARATION')>
+        || <.start-element('VARIABLE_DECLARATION')>
+           <.variable_declarator>
+           <.ws> <.initializer>?
+           <.end-element('VARIABLE_DECLARATION')>
         || <.routine_declarator>
         || <.regex_declarator>
     }
@@ -1452,7 +1458,9 @@ grammar MAIN {
         || <.type_constraint>+
             [
             || [
-               || <.start-token('PARAMETER_QUANTIFIER')> '\\' <.end-token('PARAMETER_QUANTIFIER')>
+               || <.start-token('TERM_DECLARATION_BACKSLASH')>
+                  '\\'
+                  <.end-token('TERM_DECLARATION_BACKSLASH')>
                || <.start-token('PARAMETER_QUANTIFIER')> '|' <.end-token('PARAMETER_QUANTIFIER')>
                || <.start-token('PARAMETER_QUANTIFIER')> '+' <.end-token('PARAMETER_QUANTIFIER')>
                ]

@@ -89,6 +89,7 @@ public interface Perl6TokenTypes {
     IElementType STUB_CODE = new Perl6ElementType("STUB_CODE");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType TERM = new Perl6ElementType("TERM");
+    IElementType TERM_DECLARATION_BACKSLASH = new Perl6ElementType("TERM_DECLARATION_BACKSLASH");
     IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRAIT_INCOMPLETE = new Perl6ElementType("TRAIT_INCOMPLETE");
     IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");

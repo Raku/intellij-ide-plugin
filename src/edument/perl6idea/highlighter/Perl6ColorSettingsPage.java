@@ -33,6 +33,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Lambda (-> and <->)", Perl6Highlighter.LAMBDA),
             new AttributesDescriptor("Variable", Perl6Highlighter.VARIABLE),
             new AttributesDescriptor("Variable Shape Declaration", Perl6Highlighter.SHAPE_DECLARATION),
+            new AttributesDescriptor("Term Declaration Backslash (my \\answer = 42)", Perl6Highlighter.TERM_DECLARATION_BACKSLASH),
             new AttributesDescriptor("Numeric Literal", Perl6Highlighter.NUMERIC_LITERAL),
             new AttributesDescriptor("Version Literal", Perl6Highlighter.VERSION),
             new AttributesDescriptor("Comment", Perl6Highlighter.COMMENT),

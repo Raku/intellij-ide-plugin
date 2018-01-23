@@ -154,6 +154,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     );
 
+    static final String TERM_DECLARATION_BACKSLASH_ID = "PERL6_TERM_DECLARATION_BACKSLASH";
+    public static final TextAttributesKey TERM_DECLARATION_BACKSLASH = TextAttributesKey.createTextAttributesKey(
+            TERM_DECLARATION_BACKSLASH_ID,
+            DefaultLanguageHighlighterColors.BRACKETS
+    );
+
     static final String SHAPE_DECLARATION_ID = "PERL6_SHAPE_DECLARATION";
     public static final TextAttributesKey SHAPE_DECLARATION = TextAttributesKey.createTextAttributesKey(
             SHAPE_DECLARATION_ID,
