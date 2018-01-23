@@ -3,6 +3,7 @@ grammar MAIN {
         :my $*GOAL = '';
         :my $*IN_DECL = '';
         :my $*IN_REGEX_ASSERTION = 0;
+        :my $*QSIGIL = '';
         <.statementlist>
         [
         || $
@@ -38,6 +39,7 @@ grammar MAIN {
     }
 
     token morename {
+        :my $*QSIGIL = '';
         '::'
         [
         || <.identifier>
@@ -143,6 +145,7 @@ grammar MAIN {
     ## Top-level structure
 
     token statementlist {
+        :my $*QSIGIL = '';
         [<.ws> || $]
         <.start-element('STATEMENT_LIST')>
         [
@@ -1167,6 +1170,7 @@ grammar MAIN {
     }
 
     token arglist {
+        :my $*QSIGIL = '';
         :my $*GOAL = 'endargs';
         <.ws>
         <.start-token('ARGLIST_START')> <?> <.end-token('ARGLIST_START')>
@@ -1253,7 +1257,14 @@ grammar MAIN {
            <.end-token('REGEX_CAPTURE_NAME')>
            <.end-element('VARIABLE')>
         || <?before <.sigil> <?[ ( [ { ]>> <!{ $*IN_DECL }> <.contextualizer>
-       ]
+        || <!{ $*QSIGIL }>
+           <.start-element('VARIABLE')>
+           <.start-token('VARIABLE')>
+           <.sigil>
+           <.end-token('VARIABLE')>
+           <.end-element('VARIABLE')>
+           <?MARKER('baresigil')>
+        ]
     }
 
     token contextualizer {
@@ -2321,6 +2332,7 @@ grammar MAIN {
 
     token quote_escape {
         || <?[$]> <?{ $*Q_SCALARS }>
+            :my $*QSIGIL = '$';
             [
             || <.variable>
             || <.start-token('BAD_ESCAPE')> '$' <.end-token('BAD_ESCAPE')>
@@ -2554,6 +2566,7 @@ grammar MAIN {
     }
 
     token postcircumfix {
+        :my $*QSIGIL = '';
         :my $*Q_BACKSLASH = 0;
         :my $*Q_QBACKSLASH = 0;
         :my $*Q_QQBACKSLASH = 0;
