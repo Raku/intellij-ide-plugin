@@ -37,4 +37,8 @@ public class Perl6StackFrameDescriptor {
             return bytecodeFile + ":" + line;
         }
     }
+
+    public int getLine() {
+        return line;
+    }
 }
