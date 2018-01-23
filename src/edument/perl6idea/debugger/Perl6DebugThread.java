@@ -45,7 +45,7 @@ public class Perl6DebugThread extends Thread {
 
     public void sendCommand(String command) throws ExecutionException, InterruptedException {
         if (command.equals("pause")) {
-            client.suspend(1).get();
+            client.suspend().get();
             ExecutionStack stack = client.threadStackTrace(1).get();
             Perl6DebugEventStop stopEvent = new Perl6DebugEventStop();
             stopEvent.setDebugSession(mySession);
@@ -53,7 +53,7 @@ public class Perl6DebugThread extends Thread {
             stopEvent.setFrames(transformStack(stack));
             myExecutor.execute(stopEvent);
         } else if (command.equals("resume")) {
-            client.resume(1).get();
+            client.resume().get();
         }
     }
 
