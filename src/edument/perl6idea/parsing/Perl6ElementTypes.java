@@ -15,6 +15,7 @@ public interface Perl6ElementTypes {
     IElementType CATCH_STATEMENT = new Perl6ElementType("CATCH_STATEMENT");
     IElementType COLON_PAIR = new Perl6ElementType("COLON_PAIR");
     IElementType COMPLEX_LITERAL = new Perl6ElementType("COMPLEX_LITERAL");
+    IElementType CONTEXTUALIZER = new Perl6ElementType("CONTEXTUALIZER");
     IElementType CONTROL_STATEMENT = new Perl6ElementType("CONTROL_STATEMENT");
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType DO = new Perl6ElementType("DO");

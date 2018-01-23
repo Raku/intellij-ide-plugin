@@ -160,6 +160,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ExpressionImpl(astNode);
         if (type == Perl6ElementTypes.VARIABLE)
             return new Perl6VariableImpl(astNode);
+        if (type == Perl6ElementTypes.CONTEXTUALIZER)
+            return new Perl6ContextualizerImpl(astNode);
         if (type == Perl6ElementTypes.INTEGER_LITERAL)
             return new Perl6IntLiteralImpl(astNode);
         if (type == Perl6ElementTypes.NUMBER_LITERAL)

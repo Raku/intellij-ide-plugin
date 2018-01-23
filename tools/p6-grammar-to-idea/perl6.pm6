@@ -1239,7 +1239,32 @@ grammar MAIN {
            <.sigil> \d+
            <.end-token('REGEX_CAPTURE_NAME')>
            <.end-element('VARIABLE')>
+        || <?before <.sigil> <?[ ( [ { ]>> <!{ $*IN_DECL }> <.contextualizer>
        ]
+    }
+
+    token contextualizer {
+        <.start-element('CONTEXTUALIZER')>
+        [
+        || <.start-token('CONTEXTUALIZER')>
+           <.sigil>
+           <.end-token('CONTEXTUALIZER')>
+           <.start-token('CONTEXTUALIZER')>
+           '('
+           <.end-token('CONTEXTUALIZER')>
+           <.semilist>
+           [
+               <.start-token('CONTEXTUALIZER')>
+               ')'
+               <.end-token('CONTEXTUALIZER')>
+           ]?
+        || <?before [<.sigil> <?[ \[ \{ ]>]>
+           <.start-token('CONTEXTUALIZER')>
+           <.sigil>
+           <.end-token('CONTEXTUALIZER')>
+           <.circumfix>
+        ]
+        <.end-element('CONTEXTUALIZER')>
     }
 
     token scope_declarator {
