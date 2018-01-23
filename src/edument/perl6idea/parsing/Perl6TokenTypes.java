@@ -22,6 +22,7 @@ public interface Perl6TokenTypes {
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
+    IElementType INCOMPLETE_SCOPED_DECLARATION = new Perl6ElementType("INCOMPLETE_SCOPED_DECLARATION");
     IElementType INCOMPLETE_TYPE_NAME = new Perl6ElementType("INCOMPLETE_TYPE_NAME");
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType INITIALIZER_MISSING = new Perl6ElementType("INITIALIZER_MISSING");

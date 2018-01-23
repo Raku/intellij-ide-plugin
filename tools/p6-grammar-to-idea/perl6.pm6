@@ -1217,9 +1217,19 @@ grammar MAIN {
         <.end-token('SCOPE_DECLARATOR')>
         <.ws>
         [
-        || <.package_declarator>
         || <.declarator>
-        || <?>
+        || <.package_declarator>
+        || [
+               <!before [<.sigil> || <[\\(]> || 'sub' || 'method' ||
+                         'regex' || 'token' || 'rule' ||
+                         'multi' || 'proto' || 'only']>
+               <.typename> <.ws>
+           ]+
+           <.multi_declarator>?
+        || <.multi_declarator>
+        || <.start-token('INCOMPLETE_SCOPED_DECLARATION')>
+           <?>
+           <.end-token('INCOMPLETE_SCOPED_DECLARATION')>
         ]
         <.end-element('SCOPED_DECLARATION')>
     }
