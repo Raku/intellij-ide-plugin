@@ -1237,6 +1237,21 @@ grammar MAIN {
            <.variable_declarator>
            <.ws> <.initializer>?
            <.end-element('VARIABLE_DECLARATION')>
+        || <.start-element('VARIABLE_DECLARATION')>
+           <.start-token('PARENTHESES')>
+           '('
+           <.end-token('PARENTHESES')>
+           <.start-element('SIGNATURE')>
+           <.signature>
+           <.end-element('SIGNATURE')>
+           [
+               <.start-token('PARENTHESES')>
+               ')'
+               <.end-token('PARENTHESES')>
+               <.ws> <.trait>*
+               <.ws> <.initializer>?
+           ]?
+           <.end-element('VARIABLE_DECLARATION')>
         || <.routine_declarator>
         || <.regex_declarator>
     }
