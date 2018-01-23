@@ -1178,6 +1178,14 @@ grammar MAIN {
     }
 
     token variable {
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
         [
         || <!{ $*IN_DECL }> <?before <.sigil> '.' <.desigilname>>
            <.start-element('METHOD_CALL')>
@@ -1203,8 +1211,33 @@ grammar MAIN {
            <.end-element('METHOD_CALL')>
         || <.start-element('VARIABLE')>
            <.start-token('VARIABLE')>
+           '$' <[/_!¢]>
+           <.end-token('VARIABLE')>
+           <.end-element('VARIABLE')>
+        || <.start-element('VARIABLE')>
+           <.start-token('VARIABLE')>
            <.sigil> <.twigil>? <.desigilname>
            <.end-token('VARIABLE')>
+           <.end-element('VARIABLE')>
+        || <?before [<.sigil> '<']>
+           <.start-token('VARIABLE_REGEX_NAMED_CAPTURE')>
+           <?>
+           <.end-token('VARIABLE_REGEX_NAMED_CAPTURE')>
+           <.start-element('VARIABLE')>
+           <.start-token('REGEX_CAPTURE_NAME')>
+           <.sigil> '<'
+           <.end-token('REGEX_CAPTURE_NAME')>
+           <.quote_q('<', '>', '>')>
+           [
+               <.start-token('REGEX_CAPTURE_NAME')>
+               '>'
+               <.end-token('REGEX_CAPTURE_NAME')>
+           ]?
+           <.end-element('VARIABLE')>
+        || <.start-element('VARIABLE')>
+           <.start-token('REGEX_CAPTURE_NAME')>
+           <.sigil> \d+
+           <.end-token('REGEX_CAPTURE_NAME')>
            <.end-element('VARIABLE')>
        ]
     }
