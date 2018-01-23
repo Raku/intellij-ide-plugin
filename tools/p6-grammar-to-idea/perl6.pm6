@@ -1187,6 +1187,19 @@ grammar MAIN {
         :my $*Q_HASHES = 0;
         :my $*Q_FUNCTIONS = 0;
         [
+        || <.start-element('VARIABLE')>
+           <.start-token('VARIABLE')>
+           '&['
+           <.end-token('VARIABLE')>
+           [
+               <.infixish>
+               [
+                   <.start-token('VARIABLE')>
+                   ']'
+                   <.end-token('VARIABLE')>
+               ]?
+           ]?
+           <.end-element('VARIABLE')>
         || <!{ $*IN_DECL }> <?before <.sigil> '.' <.desigilname>>
            <.start-element('METHOD_CALL')>
            <.start-token('SELF')>
