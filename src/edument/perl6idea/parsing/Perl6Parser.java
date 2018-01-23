@@ -10751,6 +10751,13 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
+    private boolean variable_declarator_156_quant_2(PsiBuilder builder) {
+        if (!(this.post_constraint_88(builder))) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean variable_declarator_156(PsiBuilder builder) {
         if (!(this.variable_77(builder))) {
             return false;
@@ -10765,6 +10772,19 @@ public class Perl6Parser implements PsiParser {
                 quantMarker1.drop();
             } else {
                 quantMarker1.rollbackTo();
+                break;
+            }
+        }
+        if (!(this.ws_204(builder))) {
+            return false;
+        }
+        while (true) {
+            PsiBuilder.Marker quantMarker2;;
+            quantMarker2 = builder.mark();
+            if (this.variable_declarator_156_quant_2(builder)) {
+                quantMarker2.drop();
+            } else {
+                quantMarker2.rollbackTo();
                 break;
             }
         }

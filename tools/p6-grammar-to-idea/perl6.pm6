@@ -1253,6 +1253,8 @@ grammar MAIN {
         { $*IN_DECL = '' }
         <.ws>
         <.trait>*
+        <.ws>
+        <.post_constraint>*
     }
 
     token routine_declarator {
