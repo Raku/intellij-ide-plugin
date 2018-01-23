@@ -32,8 +32,6 @@ public class Perl6DebugThread extends Thread {
             client = RemoteInstance.connect(debugPort).get(2, TimeUnit.SECONDS);
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             e.printStackTrace();
-        } finally {
-            System.out.println("End");
         }
     }
 
