@@ -11599,7 +11599,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                this.bsFailMark(13);
+                this.bsFailMark(14);
                 this.bsMark(11);
                 if (!(this.lookahead(301))) {
                     if (this.backtrack()) {
@@ -11710,16 +11710,21 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 continue;
 
             case 10:
-                this.bsCommit(13);
-                this.state = 13;
+                this.bsCommit(14);
+                this.state = 14;
                 continue;
 
             case 11:
-                this.setArgs();
+                this.startToken(Perl6TokenTypes.MULTI_DECLARATOR_NULL);
                 this.state = 12;
-                return 100;
+                return -3;
 
             case 12:
+                this.setArgs();
+                this.state = 13;
+                return 100;
+
+            case 13:
                 if (this.lastResult.isFailed()) {
                     if (this.backtrack()) {
                         continue;
@@ -11729,10 +11734,10 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.state = 13;
+                this.state = 14;
                 continue;
 
-            case 13:
+            case 14:
                 return -1;
 
             }

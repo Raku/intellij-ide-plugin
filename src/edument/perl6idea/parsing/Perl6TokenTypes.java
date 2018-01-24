@@ -37,6 +37,7 @@ public interface Perl6TokenTypes {
     IElementType MISSING_REGEX = new Perl6ElementType("MISSING_REGEX");
     IElementType MISSING_RETURN_CONSTRAINT = new Perl6ElementType("MISSING_RETURN_CONSTRAINT");
     IElementType MULTI_DECLARATOR = new Perl6ElementType("MULTI_DECLARATOR");
+    IElementType MULTI_DECLARATOR_NULL = new Perl6ElementType("MULTI_DECLARATOR_NULL");
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
     IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");

@@ -7602,6 +7602,11 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean multi_declarator_100_alt_1(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.MULTI_DECLARATOR_NULL) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
         if (!(this.declarator_57(builder))) {
             return false;
         }

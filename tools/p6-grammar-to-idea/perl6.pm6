@@ -1357,7 +1357,10 @@ grammar MAIN {
            <.kok>
            [ <.declarator> || <.routine_def> || <?> ]
            <.end-element('MULTI_DECLARATION')>
-        || <.declarator>
+        || <.start-token('MULTI_DECLARATOR_NULL')>
+           <?>
+           <.end-token('MULTI_DECLARATOR_NULL')>
+           <.declarator>
     }
 
     token variable_declarator {
