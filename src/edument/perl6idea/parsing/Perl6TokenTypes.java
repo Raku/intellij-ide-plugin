@@ -21,6 +21,8 @@ public interface Perl6TokenTypes {
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
     IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
+    IElementType ENUM_ANON = new Perl6ElementType("ENUM_ANON");
+    IElementType ENUM_INCOMPLETE = new Perl6ElementType("ENUM_INCOMPLETE");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INCOMPLETE_SCOPED_DECLARATION = new Perl6ElementType("INCOMPLETE_SCOPED_DECLARATION");
@@ -96,6 +98,7 @@ public interface Perl6TokenTypes {
     IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRAIT_INCOMPLETE = new Perl6ElementType("TRAIT_INCOMPLETE");
     IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");
+    IElementType TYPE_DECLARATOR = new Perl6ElementType("TYPE_DECLARATOR");
     IElementType TYPE_PARAMETER_BRACKET = new Perl6ElementType("TYPE_PARAMETER_BRACKET");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType VARIABLE_REGEX_NAMED_CAPTURE = new Perl6ElementType("VARIABLE_REGEX_NAMED_CAPTURE");

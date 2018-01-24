@@ -172,6 +172,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.BRACKETS
     );
 
+    static final String TYPE_DECLARATOR_ID = "PERL6_TYPE_DECLARATOR";
+    public static final TextAttributesKey TYPE_DECLARATOR = TextAttributesKey.createTextAttributesKey(
+            TYPE_DECLARATOR_ID,
+            DefaultLanguageHighlighterColors.KEYWORD
+    );
+
     static final String NUMERIC_LITERAL_ID = "PERL6_NUMERIC_LITERAL";
     public static final TextAttributesKey NUMERIC_LITERAL = TextAttributesKey.createTextAttributesKey(
             NUMERIC_LITERAL_ID,

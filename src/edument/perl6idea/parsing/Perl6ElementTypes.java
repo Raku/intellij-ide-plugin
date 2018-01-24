@@ -20,6 +20,7 @@ public interface Perl6ElementTypes {
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType DO = new Perl6ElementType("DO");
     IElementType EAGER = new Perl6ElementType("EAGER");
+    IElementType ENUM = new Perl6ElementType("ENUM");
     IElementType EXPR = new Perl6ElementType("EXPR");
     IElementType FATARROW = new Perl6ElementType("FATARROW");
     IElementType FOR_STATEMENT = new Perl6ElementType("FOR_STATEMENT");

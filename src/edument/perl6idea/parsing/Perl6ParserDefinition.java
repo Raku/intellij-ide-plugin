@@ -232,6 +232,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6ArrayComposerImpl(astNode);
         if (type == Perl6ElementTypes.BLOCK_OR_HASH)
             return new Perl6BlockOrHashImpl(astNode);
+        if (type == Perl6ElementTypes.ENUM)
+            return new Perl6EnumImpl(astNode);
         if (type == Perl6ElementTypes.REGEX)
             return new Perl6RegexImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_ATOM)

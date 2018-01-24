@@ -913,6 +913,7 @@ grammar MAIN {
         || <.routine_declarator>
         || <.regex_declarator>
         || <?before 'multi'||'proto'||'only'> <.multi_declarator>
+        || <.type_declarator>
         || <.statement_prefix>
         || <.package_declarator>
         || <.term_onlystar>
@@ -1346,6 +1347,7 @@ grammar MAIN {
            <.end-element('VARIABLE_DECLARATION')>
         || <.routine_declarator>
         || <.regex_declarator>
+        || <.type_declarator>
     }
 
     token multi_declarator {
@@ -1937,6 +1939,32 @@ grammar MAIN {
                 <?ENDSTMT>
             ]?
         ]?
+    }
+
+    token type_declarator {
+        || <?before ['enum' <.kok>]>
+           <.start-element('ENUM')>
+           <.start-token('TYPE_DECLARATOR')>
+           'enum'
+           <.end-token('TYPE_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'enum';
+           [
+               [
+               || <.start-token('NAME')> <.longname> <.end-token('NAME')>
+               || <.variable>
+               || <.start-token('ENUM_ANON')> <?> <.end-token('ENUM_ANON')>
+               ]
+               { $*IN_DECL = '' }
+               <.ws>
+               <.trait>*
+               [
+               || <![<(«]> <.start-token('ENUM_INCOMPLETE')> <?> <.end-token('ENUM_INCOMPLETE')>
+               || <.term>
+               ]
+               <.ws>
+           ]?
+           <.end-element('ENUM')>
     }
 
     token sigil { <[$@%&]> }
