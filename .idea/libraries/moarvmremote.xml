@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="moarvmremote1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/moarvmremote.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
