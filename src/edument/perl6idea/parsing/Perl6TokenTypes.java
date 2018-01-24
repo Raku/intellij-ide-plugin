@@ -92,6 +92,8 @@ public interface Perl6TokenTypes {
     IElementType STRING_LITERAL_ESCAPE = new Perl6ElementType("STRING_LITERAL_ESCAPE");
     IElementType STRING_LITERAL_QUOTE = new Perl6ElementType("STRING_LITERAL_QUOTE");
     IElementType STUB_CODE = new Perl6ElementType("STUB_CODE");
+    IElementType SUBSET_ANON = new Perl6ElementType("SUBSET_ANON");
+    IElementType SUBSET_INCOMPLETE = new Perl6ElementType("SUBSET_INCOMPLETE");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType TERM = new Perl6ElementType("TERM");
     IElementType TERM_DECLARATION_BACKSLASH = new Perl6ElementType("TERM_DECLARATION_BACKSLASH");

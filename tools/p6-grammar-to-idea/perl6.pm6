@@ -1958,6 +1958,7 @@ grammar MAIN {
                { $*IN_DECL = '' }
                <.ws>
                <.trait>*
+               <.ws>
                [
                || <![<(«]> <.start-token('ENUM_INCOMPLETE')> <?> <.end-token('ENUM_INCOMPLETE')>
                || <.term>
@@ -1965,6 +1966,36 @@ grammar MAIN {
                <.ws>
            ]?
            <.end-element('ENUM')>
+        || <?before ['subset' <.kok>]>
+           <.start-element('SUBSET')>
+           <.start-token('TYPE_DECLARATOR')>
+           'subset'
+           <.end-token('TYPE_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'subset';
+           [
+               [
+               || <.start-token('NAME')> <.longname> <.end-token('NAME')>
+               || <.start-token('SUBSET_ANON')> <?> <.end-token('SUBSET_ANON')>
+               ]
+               { $*IN_DECL = '' }
+               <.ws>
+               <.trait>*
+               <.ws>
+               [
+                   <?before ['where' <.ws>]>
+                   <.start-token('WHERE_CONSTRAINT')>
+                   'where'
+                   <.end-token('WHERE_CONSTRAINT')>
+                   <.ws>
+                   [
+                   || <.EXPR('e=')>
+                   || <.start-token('SUBSET_INCOMPLETE')> <?> <.end-token('SUBSET_INCOMPLETE')>
+                   ]
+               ]?
+               <.ws>
+           ]?
+           <.end-element('SUBSET')>
     }
 
     token sigil { <[$@%&]> }
