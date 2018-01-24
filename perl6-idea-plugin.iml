@@ -12,5 +12,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.json:json:20171018" level="project" />
     <orderEntry type="library" name="org.tap4j:tap4j:4.2.1" level="project" />
+    <orderEntry type="library" name="moarvmremote1" level="project" />
   </component>
 </module>
