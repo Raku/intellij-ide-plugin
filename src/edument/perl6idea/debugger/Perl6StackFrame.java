@@ -1,7 +1,7 @@
 package edument.perl6idea.debugger;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.AtomicNullableLazyValue;
+import com.intellij.openapi.util.NullableLazyValue;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.ColoredTextContainer;
@@ -18,13 +18,13 @@ public class Perl6StackFrame extends XStackFrame {
     private final Perl6StackFrameDescriptor myFrameDescriptor;
     private final Perl6ExecutionStack myStack;
     private final Perl6DebugThread myDebugThread;
-    private final AtomicNullableLazyValue<VirtualFile> myVirtualFile;
+    private final NullableLazyValue<VirtualFile> myVirtualFile;
 
     public Perl6StackFrame(Perl6StackFrameDescriptor frame, Perl6ExecutionStack stack) {
         myFrameDescriptor = frame;
         myStack = stack;
         myDebugThread = stack.getSuspendContext().getDebugThread();
-        myVirtualFile = AtomicNullableLazyValue.createValue(() -> {
+        myVirtualFile = NullableLazyValue.createValue(() -> {
             String localFilePath = myFrameDescriptor.getFile().getPath();
             return VfsUtil.findFileByIoFile(new File(localFilePath), true);
         });
