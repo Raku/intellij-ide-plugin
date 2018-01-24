@@ -1996,6 +1996,32 @@ grammar MAIN {
                <.ws>
            ]?
            <.end-element('SUBSET')>
+        || <?before ['constant' <.kok>]>
+           <.start-element('CONSTANT')>
+           <.start-token('TYPE_DECLARATOR')>
+           'constant'
+           <.end-token('TYPE_DECLARATOR')>
+           <.kok>
+           :my $*IN_DECL = 'constant';
+           [
+           || <?before '\\' <.defterm>>
+              <.start-token('TERM_DECLARATION_BACKSLASH')>
+              '\\'
+              <.end-token('TERM_DECLARATION_BACKSLASH')>
+              <.defterm>
+           || <.variable>
+           || <.start-token('CONSTANT_ANON')> <?> <.end-token('CONSTANT_ANON')>
+           ]
+           { $*IN_DECL = '' }
+           <.ws>
+           <.trait>*
+           [
+           || <.initializer>
+           || <.start-token('CONSTANT_MISSING_INITIALIZER')>
+              <?>
+              <.end-token('CONSTANT_MISSING_INITIALIZER')>
+           ]
+           <.end-element('CONSTANT')>
     }
 
     token sigil { <[$@%&]> }
