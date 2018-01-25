@@ -4,60 +4,93 @@ import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.actions.StopProcessAction;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.xdebugger.XDebugSession;
+import com.intellij.xdebugger.breakpoints.XLineBreakpoint;
+import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointReached;
+import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointSet;
 import edument.perl6idea.debugger.event.Perl6DebugEventStop;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
+import org.edument.moarvm.DebugEvent;
+import org.edument.moarvm.EventType;
 import org.edument.moarvm.RemoteInstance;
 import org.edument.moarvm.types.ExecutionStack;
 import org.edument.moarvm.types.StackFrame;
+import org.edument.moarvm.types.event.BreakpointNotification;
 
 import java.util.List;
 import java.util.concurrent.*;
 
 public class Perl6DebugThread extends Thread {
+    private static final Logger LOG = Logger.getInstance(Perl6DebugThread.class);
     private final XDebugSession mySession;
-    private final Perl6DebugCommandLineState myDebugProfileState;
     private final ExecutionResult myExecutionResult;
     private RemoteInstance client;
-    private static Executor myExecutor = Executors.newSingleThreadExecutor();
+    private static final Executor myExecutor = Executors.newSingleThreadExecutor();
+    private final List<BreakpointActionRequest> breakpointQueue = new CopyOnWriteArrayList<>();
+    private boolean ready = false;
 
-    Perl6DebugThread(XDebugSession session, Perl6DebugCommandLineState state,
-                     ExecutionResult result) {
+    Perl6DebugThread(XDebugSession session, ExecutionResult result) {
         super("Perl6DebugThread");
         mySession = session;
-        myDebugProfileState = state;
         myExecutionResult = result;
     }
 
     @Override
     public void run() {
         try {
-            int debugPort = 9999;
-            client = RemoteInstance.connect(debugPort).get(2, TimeUnit.SECONDS);
-        } catch (InterruptedException | TimeoutException | ExecutionException e) {
-            e.printStackTrace();
+            client = RemoteInstance.connect(9999).get(2, TimeUnit.SECONDS);
+            ready = true;
+            sendBreakpoints();
+            setEventHandler();
+            client.resume().get(2, TimeUnit.SECONDS);
+        } catch (CancellationException | InterruptedException | TimeoutException | ExecutionException e) {
+            LOG.error(e);
         }
     }
 
-    public void stopDebug() {
-        StopProcessAction.stopProcess(myExecutionResult.getProcessHandler());;
+    private void setEventHandler() {
+        PublishSubject<DebugEvent> events = client.getSubject();
+        events.subscribeOn(Schedulers.newThread()).subscribe(event -> {
+            if (event.getEventType() == EventType.BreakpointNotification) {
+                BreakpointNotification bpn = (BreakpointNotification)event;
+                Perl6DebugEventBreakpointReached reachedEvent =
+                        new Perl6DebugEventBreakpointReached(stackToFrames(bpn.getStack()),
+                                mySession, this, bpn.getFile(), bpn.getLine());
+                myExecutor.execute(reachedEvent);
+            } else {
+                System.out.println("Event + " + event.getClass().getName());
+            }
+        });
+    }
+
+    public void stopDebugThread() {
+        StopProcessAction.stopProcess(myExecutionResult.getProcessHandler());
         ((ConsoleView)myExecutionResult.getExecutionConsole()).print("Disconnected\n", ConsoleViewContentType.SYSTEM_OUTPUT);
     }
 
-    public void sendCommand(String command) throws ExecutionException, InterruptedException {
-        if (command.equals("pause")) {
-            client.suspend().get();
-            ExecutionStack stack = client.threadStackTrace(1).get();
-            Perl6DebugEventStop stopEvent = new Perl6DebugEventStop();
-            stopEvent.setDebugSession(mySession);
-            stopEvent.setDebugThread(this);
-            stopEvent.setFrames(transformStack(stack));
-            myExecutor.execute(stopEvent);
-        } else if (command.equals("resume")) {
+    public void resumeExecution() {
+        try {
             client.resume().get();
+        } catch (CancellationException | InterruptedException | ExecutionException e) {
+            LOG.error(e);
         }
     }
 
-    private Perl6StackFrameDescriptor[] transformStack(ExecutionStack stack) {
+    public void pauseExecution() {
+        try {
+            client.suspend().get();
+            ExecutionStack stack = client.threadStackTrace(1).get();
+            Perl6DebugEventStop stopEvent =
+                    new Perl6DebugEventStop(stackToFrames(stack), mySession, this);
+            myExecutor.execute(stopEvent);
+        } catch (CancellationException | InterruptedException | ExecutionException e) {
+            LOG.error(e);
+        }
+    }
+
+    private Perl6StackFrameDescriptor[] stackToFrames(ExecutionStack stack) {
         List<StackFrame> frames = stack.getFrames();
         Perl6StackFrameDescriptor[] result = new Perl6StackFrameDescriptor[frames.size()];
         for (int i = 0; i < frames.size(); i++) {
@@ -66,5 +99,45 @@ public class Perl6DebugThread extends Thread {
             result[i] = new Perl6StackFrameDescriptor(fileDescriptor, frame.getBytecode_file(), frame.getLine());
         }
         return result;
+    }
+
+    private void sendBreakpoints() {
+        if (ready) {
+            try {
+                for (BreakpointActionRequest request : breakpointQueue) {
+                    if (!request.isRemove) {
+                        int realLine = client.setBreakpoint(request.file, request.line, true, true).get();
+                        // TODO handle difference between real line
+                        Perl6DebugEventBreakpointSet setEvent =
+                                new Perl6DebugEventBreakpointSet(request.file, realLine);
+                        setEvent.setDebugSession(mySession);
+                        setEvent.setDebugThread(this);
+                        myExecutor.execute(setEvent);
+                    } else {
+                        client.clearBreakpoint(request.file, request.line).get();
+                    }
+                }
+            } catch (CancellationException | InterruptedException | ExecutionException e) {
+                LOG.error(e);
+            }
+            breakpointQueue.clear();
+        }
+    }
+
+    public void queueBreakpoint(XLineBreakpoint breakpoint, boolean isRemove) {
+        breakpointQueue.add(new BreakpointActionRequest(isRemove, breakpoint));
+        sendBreakpoints();
+    }
+
+    class BreakpointActionRequest {
+        final boolean isRemove;
+        final String file;
+        final int line;
+
+        BreakpointActionRequest(boolean isRemove, XLineBreakpoint bp) {
+            this.isRemove = isRemove;
+            this.file = bp.getFileUrl().substring(7);
+            this.line = bp.getLine();
+        }
     }
 }

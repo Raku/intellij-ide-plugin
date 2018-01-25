@@ -11,18 +11,14 @@ import com.intellij.xdebugger.frame.XSuspendContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.ExecutionException;
-
-public class Perl6XDebugProcess extends XDebugProcess {
+class Perl6XDebugProcess extends XDebugProcess {
     private final ExecutionResult myExecutionResult;
     private final Perl6DebugThread myDebugThread;
-    private final Perl6DebugCommandLineState myDebugProfileState;
 
-    public Perl6XDebugProcess(XDebugSession session, Perl6DebugCommandLineState state, ExecutionResult result) {
+    Perl6XDebugProcess(XDebugSession session, ExecutionResult result) {
         super(session);
         myExecutionResult = result;
-        myDebugThread = new Perl6DebugThread(session, state, result);
-        myDebugProfileState = state;
+        myDebugThread = new Perl6DebugThread(session, result);
         myDebugThread.start();
     }
 
@@ -40,30 +36,22 @@ public class Perl6XDebugProcess extends XDebugProcess {
     @NotNull
     @Override
     public XBreakpointHandler<?>[] getBreakpointHandlers() {
-        return new XBreakpointHandler[]{}; // LineBreakpointHandler
+        return new XBreakpointHandler[]{new Perl6BreakpointHandler(myDebugThread)};
     }
 
     @Override
     public void startPausing() {
-        try {
-            myDebugThread.sendCommand("pause");
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        myDebugThread.pauseExecution();
     }
 
     @Override
     public void resume(@Nullable XSuspendContext context) {
-        try {
-            myDebugThread.sendCommand("resume");
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        myDebugThread.resumeExecution();
     }
 
     @Override
     public void stop() {
-        myDebugThread.stopDebug();
+        myDebugThread.stopDebugThread();
     }
 
     @Nullable

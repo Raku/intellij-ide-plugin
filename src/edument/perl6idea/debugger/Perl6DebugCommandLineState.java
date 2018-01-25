@@ -23,8 +23,7 @@ public class Perl6DebugCommandLineState extends Perl6RunCommandLineState {
         }
         this.command.add(moar_path);
         this.command.add("--debug-port=9999");
-        // TODO Make suspend on start is optional
-        // this.command.add("--debug-suspend");
+        this.command.add("--debug-suspend");
         this.command.add("--libpath=" + libpath);
         this.command.add(nqp);
     }
