@@ -769,3 +769,13 @@ resolving methods, decontainerizing values, and invoking code.
             }
         ]
     }
+
+### Operation Unsuccessful (39)
+
+A generic message sent by MoarVM if something went wrong while handling
+a request.
+
+    {
+        "type": 39,
+        "id": $id
+    }
