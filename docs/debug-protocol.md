@@ -146,15 +146,18 @@ message from the client that was successfully processed.
 
 ### Is Execution Suspended Request (3)
 
+Sent by the client to ask the MoarVM instance if execution is currently
+suspended.
+
     {
         "type": 3,
         "id": $id
     }
 
-Sent by the client to ask the MoarVM instance if execution is currently
-suspended.
-
 ### Is Execution Suspended Response (4)
+
+Response from the MoarVM instance, with the `suspended` key set to `true` if
+execution is currently suspended and `false` otherwise.
 
     {
         "type": 4,
@@ -162,38 +165,29 @@ suspended.
         "suspended": true
     }
 
-Response from the MoarVM instance, with the `suspended` key set to `true` if
-execution is currently suspended and `false` otherwise.
-
 ### Suspend All (5)
+
+Requests that all threads be suspended. Once this has happened, an Operation
+Successful message will be sent. If all threads were already suspended, then
+nothing happens and an Operation Successful message will be sent.
 
     {
         "type": 5,
         "id": $id
     }
 
-Requests that all threads be suspended. Once this has happened, an Operation
-Successful message will be sent. If all threads were already suspended, then
-nothing happens and an Operation Successful message will be sent.
-
 ### Resume All (6)
+
+Requests that all suspended threads be resumed. Once this has happened, an
+Operation Successful message will be sent. If no threads were suspended, then
+nothing happens and an Operation Successful message will be sent.
 
     {
         "type": 6,
         "id": $id
     }
 
-Requests that all suspended threads be resumed. Once this has happened, an
-Operation Successful message will be sent. If no threads were suspended, then
-nothing happens and an Operation Successful message will be sent.
-
 ### Suspend One (7)
-
-    {
-        "type": 7,
-        "id": $id,
-        "thread": 1
-    }
 
 Requests that a specific thread be suspended, with the thread ID specified by
 the `thread` key. Once this has happened, an Operation Successful message will
@@ -201,18 +195,24 @@ be sent. If the threads was already suspended, then nothing happens and an
 Operation Successful message will also be sent. An error will be reported if
 the thread ID is not recognized.
 
+    {
+        "type": 7,
+        "id": $id,
+        "thread": 1
+    }
+
 ### Resume One (8)
+
+Requests that a specific thread be resumed, with the thread ID specified by
+the `thread` key. Once this has happened, an Operation Successful message will
+be sent. If the thread was not suspended, then nothing happens and an
+Operation Successful message will be sent.
 
     {
         "type": 8,
         "id": $id,
         "thread": 1
     }
-
-Requests that a specific thread be resumed, with the thread ID specified by
-the `thread` key. Once this has happened, an Operation Successful message will
-be sent. If the thread was not suspended, then nothing happens and an
-Operation Successful message will be sent.
 
 ### Thread Started (9)
 
