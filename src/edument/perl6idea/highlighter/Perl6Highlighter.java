@@ -130,6 +130,12 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.OPERATION_SIGN
     );
 
+    static final String METAOP_ID = "PERL6_METAOP";
+    public static final TextAttributesKey METAOP = TextAttributesKey.createTextAttributesKey(
+            METAOP_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
     static final String ARRAY_INDEXER_ID = "PERL6_ARRAY_INDEXER";
     public static final TextAttributesKey ARRAY_INDEXER = TextAttributesKey.createTextAttributesKey(
             ARRAY_INDEXER_ID,

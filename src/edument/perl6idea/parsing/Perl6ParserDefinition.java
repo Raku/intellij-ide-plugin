@@ -149,6 +149,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6InfixImpl(astNode);
         if (type == Perl6ElementTypes.POSTFIX)
             return new Perl6PostfixImpl(astNode);
+        if (type == Perl6ElementTypes.REDUCE_METAOP)
+            return new Perl6ReduceMetaOpImpl(astNode);
         if (type == Perl6ElementTypes.ARRAY_INDEX)
             return new Perl6ArrayIndexImpl(astNode);
         if (type == Perl6ElementTypes.HASH_INDEX)

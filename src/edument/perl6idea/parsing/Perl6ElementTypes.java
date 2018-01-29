@@ -59,6 +59,7 @@ public interface Perl6ElementTypes {
     IElementType RADIX_NUMBER = new Perl6ElementType("RADIX_NUMBER");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REACT = new Perl6ElementType("REACT");
+    IElementType REDUCE_METAOP = new Perl6ElementType("REDUCE_METAOP");
     IElementType REGEX = new Perl6ElementType("REGEX");
     IElementType REGEX_ANCHOR = new Perl6ElementType("REGEX_ANCHOR");
     IElementType REGEX_ASSERTION = new Perl6ElementType("REGEX_ASSERTION");

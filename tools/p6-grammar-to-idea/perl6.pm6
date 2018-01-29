@@ -917,6 +917,7 @@ grammar MAIN {
         || <.statement_prefix>
         || <.package_declarator>
         || <.term_onlystar>
+        || <.term_reduce>
         || <.circumfix>
         || <.term_stub_code>
         || <.dotty>
@@ -2906,6 +2907,25 @@ grammar MAIN {
 
     token termish {
         <.term>
+    }
+
+    token term_reduce {
+        <!before [ '[' <[ - + ? ~ ^ ]> [\w || <[$@]>] ]>
+        <?before [ '[' [ <.infixish> || '\\' <.infixish> ] ']' ]>
+
+        <.start-element('REDUCE_METAOP')>
+        <.start-token('METAOP')>
+        '['
+        <.end-token('METAOP')>
+        [
+        || <.start-token('METAOP')> '\\' <.end-token('METAOP')> <.infixish>
+        || <.infixish>
+        ]
+        <.start-token('METAOP')>
+        ']'
+        <.end-token('METAOP')>
+        <.args>
+        <.end-element('REDUCE_METAOP')>
     }
 
     token enter_regex_nibblier($*STARTER, $*STOPPER) {

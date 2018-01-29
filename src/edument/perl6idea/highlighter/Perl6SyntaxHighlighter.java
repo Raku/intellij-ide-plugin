@@ -28,6 +28,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.STATEMENT_TERMINATOR, Perl6Highlighter.STATEMENT_TERMINATOR);
         ATTRIBUTES.put(Perl6TokenTypes.PREFIX, Perl6Highlighter.PREFIX);
         ATTRIBUTES.put(Perl6TokenTypes.INFIX, Perl6Highlighter.INFIX);
+        ATTRIBUTES.put(Perl6TokenTypes.METAOP, Perl6Highlighter.METAOP);
         ATTRIBUTES.put(Perl6TokenTypes.METHOD_CALL_OPERATOR, Perl6Highlighter.INFIX);
         ATTRIBUTES.put(Perl6TokenTypes.INVOCANT_MARKER, Perl6Highlighter.INFIX);
         ATTRIBUTES.put(Perl6TokenTypes.LAMBDA, Perl6Highlighter.LAMBDA);

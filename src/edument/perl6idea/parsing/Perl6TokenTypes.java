@@ -34,6 +34,7 @@ public interface Perl6TokenTypes {
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
     IElementType LAMBDA = new Perl6ElementType("LAMBDA");
+    IElementType METAOP = new Perl6ElementType("METAOP");
     IElementType METHOD_CALL_NAME = new Perl6ElementType("METHOD_CALL_NAME");
     IElementType METHOD_CALL_OPERATOR = new Perl6ElementType("METHOD_CALL_OPERATOR");
     IElementType MISSING_BLOCK = new Perl6ElementType("MISSING_BLOCK");
