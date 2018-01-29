@@ -15,16 +15,17 @@ public class Perl6DebugCommandLineState extends Perl6RunCommandLineState {
 
     private void populateRunCommand() throws ExecutionException {
         String moar_path = System.getenv("DEBUG_MOAR_PATH");
-        String libpath =  System.getenv("DEBUG_LIBPATH_PATH");
-        String nqp = System.getenv("DEBUG_NQP_PATH");
-        if (moar_path == null || libpath == null || nqp == null) {
+        String libpath =  System.getenv("DEBUG_LIBPATH_BASE_PATH");
+        String runtime = System.getenv("DEBUG_RUNTIME_PATH");
+        if (moar_path == null || libpath == null || runtime == null) {
             System.out.println("Variables DEBUG_MOAR_PATH, DEBUG_LIBPATH_PATH and DEBUG_NQP_PATH must be set!");
             throw new ExecutionException("Variables DEBUG_MOAR_PATH, DEBUG_LIBPATH_PATH and DEBUG_NQP_PATH must be set!");
         }
         this.command.add(moar_path);
         this.command.add("--debug-port=9999");
         this.command.add("--debug-suspend");
-        this.command.add("--libpath=" + libpath);
-        this.command.add(nqp);
+        this.command.add("--libpath=" + libpath + "nqp/lib");
+        this.command.add("--libpath=" + libpath + "perl6/runtime");
+        this.command.add(runtime);
     }
 }
