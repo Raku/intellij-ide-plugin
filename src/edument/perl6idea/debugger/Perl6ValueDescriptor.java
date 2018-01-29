@@ -5,6 +5,12 @@ public class Perl6ValueDescriptor {
     private String type;
     private String value;
 
+    Perl6ValueDescriptor(String name, String type, String value) {
+        this.name = name;
+        this.type = type;
+        this.value = value;
+    }
+
     public String getName() {
         return name;
     }
@@ -15,5 +21,9 @@ public class Perl6ValueDescriptor {
 
     public String getValue() {
         return value;
+    }
+
+    public boolean isExpandableNode() {
+        return type.equals("obj");
     }
 }

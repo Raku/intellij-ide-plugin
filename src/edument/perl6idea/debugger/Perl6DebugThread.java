@@ -11,16 +11,20 @@ import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointReached;
 import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointSet;
 import edument.perl6idea.debugger.event.Perl6DebugEventStop;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 import org.edument.moarvm.DebugEvent;
 import org.edument.moarvm.EventType;
 import org.edument.moarvm.RemoteInstance;
 import org.edument.moarvm.types.ExecutionStack;
+import org.edument.moarvm.types.Kind;
+import org.edument.moarvm.types.Lexical.*;
 import org.edument.moarvm.types.StackFrame;
 import org.edument.moarvm.types.event.BreakpointNotification;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Perl6DebugThread extends Thread {
     private static final Logger LOG = Logger.getInstance(Perl6DebugThread.class);
@@ -51,14 +55,17 @@ public class Perl6DebugThread extends Thread {
     }
 
     private void setEventHandler() {
-        PublishSubject<DebugEvent> events = client.getSubject();
+        Subject<DebugEvent> events = client.getSubject();
         events.subscribeOn(Schedulers.newThread()).subscribe(event -> {
             if (event.getEventType() == EventType.BreakpointNotification) {
-                BreakpointNotification bpn = (BreakpointNotification)event;
-                Perl6DebugEventBreakpointReached reachedEvent =
-                        new Perl6DebugEventBreakpointReached(stackToFrames(bpn.getStack()),
-                                mySession, this, bpn.getFile(), bpn.getLine());
-                myExecutor.execute(reachedEvent);
+                Perl6DebugThread thread = this;
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    BreakpointNotification bpn = (BreakpointNotification) event;
+                    Perl6DebugEventBreakpointReached reachedEvent =
+                            new Perl6DebugEventBreakpointReached(stackToFrames(bpn.getStack()),
+                                    mySession, thread, bpn.getFile(), bpn.getLine());
+                    myExecutor.execute(reachedEvent);
+                });
             } else {
                 System.out.println("Event + " + event.getClass().getName());
             }
@@ -97,7 +104,38 @@ public class Perl6DebugThread extends Thread {
             StackFrame frame = frames.get(i);
             Perl6LoadedFileDescriptor fileDescriptor = new Perl6LoadedFileDescriptor(frame.getFile(), "");
             result[i] = new Perl6StackFrameDescriptor(fileDescriptor, frame.getBytecode_file(), frame.getLine());
+            int finalI = i;
+            client.contextHandle(1, 0)
+                    .thenApply(v -> client.contextLexicals(v).thenApply(lex -> {
+                        result[finalI].setLexicals(convertLexicals(lex));
+                        return null;
+                    }));
         }
+        return result;
+    }
+
+    private Perl6ValueDescriptor[] convertLexicals(Map<String, Lexical> lex) {
+        Perl6ValueDescriptor[] result = new Perl6ValueDescriptor[lex.size()];
+        AtomicInteger i = new AtomicInteger();
+        lex.forEach((k, v) -> {
+            String value;
+            String type;
+            if (v.getKind() == Kind.INT) {
+                type = "int";
+                value = String.valueOf(((IntValue)v).getValue());
+            } else if (v.getKind() == Kind.NUM) {
+                type = "num";
+                value = String.valueOf(((NumValue)v).getValue());
+            } else if (v.getKind() == Kind.STR) {
+                type = "str";
+                value = String.valueOf(((StrValue)v).getValue());
+            } else {
+                type = "obj";
+                value = "OBJECT";
+            }
+            result[i.get()] = new Perl6ValueDescriptor(k, type, value);
+            i.getAndIncrement();
+        });
         return result;
     }
 

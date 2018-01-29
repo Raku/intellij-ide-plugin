@@ -5,8 +5,6 @@ public class Perl6StackFrameDescriptor {
     private String bytecodeFile;
     private int line;
     private Perl6ValueDescriptor[] lexicals;
-    private Perl6ValueDescriptor[] globals;
-    private Perl6ValueDescriptor[] args;
 
     Perl6StackFrameDescriptor(Perl6LoadedFileDescriptor descriptor, String bytecodeFile, int line) {
         this.file = descriptor;
@@ -22,12 +20,8 @@ public class Perl6StackFrameDescriptor {
         return lexicals;
     }
 
-    public Perl6ValueDescriptor[] getGlobals() {
-        return globals;
-    }
-
-    public Perl6ValueDescriptor[] getArgs() {
-        return args;
+    public void setLexicals(Perl6ValueDescriptor[] lexicals) {
+        this.lexicals = lexicals;
     }
 
     public String getPresentableName() {
