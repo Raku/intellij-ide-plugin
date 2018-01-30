@@ -22,7 +22,7 @@ public class Perl6DebugCommandLineState extends Perl6RunCommandLineState {
             throw new ExecutionException("Variables DEBUG_MOAR_PATH, DEBUG_LIBPATH_PATH and DEBUG_NQP_PATH must be set!");
         }
         this.command.add(moar_path);
-        this.command.add("--debug-port=9999");
+        this.command.add("--debug-port=" + runConfiguration.getDebugPort());
         this.command.add("--debug-suspend");
         this.command.add("--libpath=" + libpath + "nqp/lib");
         this.command.add("--libpath=" + libpath + "perl6/runtime");

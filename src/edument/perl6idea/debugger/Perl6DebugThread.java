@@ -10,6 +10,7 @@ import com.intellij.xdebugger.breakpoints.XLineBreakpoint;
 import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointReached;
 import edument.perl6idea.debugger.event.Perl6DebugEventBreakpointSet;
 import edument.perl6idea.debugger.event.Perl6DebugEventStop;
+import edument.perl6idea.run.Perl6RunConfiguration;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.Subject;
 import org.edument.moarvm.DebugEvent;
@@ -44,7 +45,8 @@ public class Perl6DebugThread extends Thread {
     @Override
     public void run() {
         try {
-            client = RemoteInstance.connect(9999).get(2, TimeUnit.SECONDS);
+            Perl6RunConfiguration runConfiguration = (Perl6RunConfiguration) mySession.getRunProfile();
+            client = RemoteInstance.connect(runConfiguration.getDebugPort()).get(2, TimeUnit.SECONDS);
             ready = true;
             sendBreakpoints();
             setEventHandler();
@@ -103,11 +105,12 @@ public class Perl6DebugThread extends Thread {
         for (int i = 0; i < frames.size(); i++) {
             StackFrame frame = frames.get(i);
             Perl6LoadedFileDescriptor fileDescriptor = new Perl6LoadedFileDescriptor(frame.getFile(), "");
-            result[i] = new Perl6StackFrameDescriptor(fileDescriptor, frame.getBytecode_file(), frame.getLine());
+            result[i] = new Perl6StackFrameDescriptor(fileDescriptor, frame);
             int finalI = i;
-            client.contextHandle(1, 0)
+            client.contextHandle(1, i)
                     .thenApply(v -> client.contextLexicals(v).thenApply(lex -> {
                         result[finalI].setLexicals(convertLexicals(lex));
+                        client.releaseHandle(new int[]{v});
                         return null;
                     }));
         }
