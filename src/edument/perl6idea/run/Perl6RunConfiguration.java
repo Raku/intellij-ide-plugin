@@ -32,6 +32,10 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
     private String myWorkingDirectory;
     private Map<String, String> myEnvs = new HashMap<>();
     private boolean myPassParentEnvs;
+    private String myInterpreterParameters;
+
+    private int debugPort;
+    private boolean startSuspended;
 
     Perl6RunConfiguration(@NotNull Project project, @NotNull ConfigurationFactory factory, String name) {
         super(project, factory, name);
@@ -54,15 +58,15 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
 
     @Override
     public String suggestedName() {
-        VirtualFile script = LocalFileSystem.getInstance().findFileByPath(getMyScriptPath());
+        VirtualFile script = LocalFileSystem.getInstance().findFileByPath(getScriptPath());
         return script == null ? null : script.getName();
     }
 
-    String getMyScriptPath() {
+    String getScriptPath() {
         return myScriptPath;
     }
 
-    void setMyScriptPath(String myScriptPath) {
+    void setScriptPath(String myScriptPath) {
         this.myScriptPath = myScriptPath;
     }
 
@@ -139,5 +143,29 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
     @Override
     public boolean isPassParentEnvs() {
         return myPassParentEnvs;
+    }
+
+    public int getDebugPort() {
+        return debugPort;
+    }
+
+    public void setDebugPort(int debugPort) {
+        this.debugPort = debugPort;
+    }
+
+    public boolean isStartSuspended() {
+        return startSuspended;
+    }
+
+    public void setStartSuspended(boolean startSuspended) {
+        this.startSuspended = startSuspended;
+    }
+
+    public String getInterpreterParameters() {
+        return myInterpreterParameters;
+    }
+
+    public void setInterpreterParameters(String interpreterParameters) {
+        this.myInterpreterParameters = interpreterParameters;
     }
 }

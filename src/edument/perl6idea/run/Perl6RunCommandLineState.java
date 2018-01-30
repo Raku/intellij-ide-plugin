@@ -19,9 +19,11 @@ import java.util.List;
 
 public class Perl6RunCommandLineState extends CommandLineState {
     protected List<String> command;
+    protected Perl6RunConfiguration runConfiguration;
 
     protected Perl6RunCommandLineState(ExecutionEnvironment environment) throws ExecutionException {
         super(environment);
+        runConfiguration = (Perl6RunConfiguration)getEnvironment().getRunProfile();
         this.command = new LinkedList<>();
         populateRunCommand();
     }
@@ -34,6 +36,8 @@ public class Perl6RunCommandLineState extends CommandLineState {
         if (path == null)
             throw new ExecutionException("Perl 6 SDK path is likely to be corrupt");
         this.command.add(Paths.get(path, "perl6").toAbsolutePath().toString());
+        if (StringUtils.isNotBlank(runConfiguration.getInterpreterParameters()))
+            this.command.add(runConfiguration.getInterpreterParameters());
     }
 
     @NotNull
@@ -41,17 +45,17 @@ public class Perl6RunCommandLineState extends CommandLineState {
     protected ProcessHandler startProcess() throws ExecutionException {
         setScript();
         GeneralCommandLine cmd = new GeneralCommandLine(command);
+        cmd.setWorkDirectory(runConfiguration.getWorkingDirectory());
+        cmd.withEnvironment(runConfiguration.getEnvs());
         KillableColoredProcessHandler handler = new KillableColoredProcessHandler(cmd, true);
         ProcessTerminatedListener.attach(handler);
         return handler;
     }
 
     private void setScript() {
-        Perl6RunConfiguration runProfile = (Perl6RunConfiguration)getEnvironment().getRunProfile();
-        this.command.add(runProfile.getMyScriptPath());
+        this.command.add(runConfiguration.getScriptPath());
         // To avoid a call like `perl6 script.p6 ""`
-        if (StringUtils.isNotBlank(runProfile.getProgramParameters())) {
-            this.command.addAll(Arrays.asList(runProfile.getProgramParameters().split(" ")));
-        }
+        if (StringUtils.isNotBlank(runConfiguration.getProgramParameters()))
+            this.command.addAll(Arrays.asList(runConfiguration.getProgramParameters().split(" ")));
     }
 }
