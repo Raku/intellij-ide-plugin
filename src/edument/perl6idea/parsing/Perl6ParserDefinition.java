@@ -151,6 +151,16 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6PostfixImpl(astNode);
         if (type == Perl6ElementTypes.REDUCE_METAOP)
             return new Perl6ReduceMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.CROSS_METAOP)
+            return new Perl6CrossMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.NEGATION_METAOP)
+            return new Perl6NegationMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.REVERSE_METAOP)
+            return new Perl6ReverseMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.SEQUENTIAL_METAOP)
+            return new Perl6SequentialMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.ZIP_METAOP)
+            return new Perl6ZipMetaOpImpl(astNode);
         if (type == Perl6ElementTypes.ARRAY_INDEX)
             return new Perl6ArrayIndexImpl(astNode);
         if (type == Perl6ElementTypes.HASH_INDEX)

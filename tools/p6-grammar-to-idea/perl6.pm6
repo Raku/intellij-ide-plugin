@@ -2533,7 +2533,7 @@ grammar MAIN {
         <.postfixish>*
 
         [
-            <?before <.ws> <.infixish>>
+            <?before <.ws> <.infixish> <.ws>>
             <.ws>
             <.infixish>
             <.ws>
@@ -2741,9 +2741,12 @@ grammar MAIN {
     token infixish {
         <!stdstopper>
         <!infixstopper>
-        <.start-element('INFIX')>
-        <.infix>
-        <.end-element('INFIX')>
+        [
+        || <.infix_prefix_meta_operator>
+        || <.start-element('INFIX')>
+           <.infix>
+           <.end-element('INFIX')>
+       ]
     }
 
     token infixstopper {
@@ -2903,6 +2906,44 @@ grammar MAIN {
         ]
         <!{ $*PREC le $*PRECLIM }>
         <.end-token('INFIX')>
+    }
+
+    token infix_prefix_meta_operator {
+        || <?before ['!' <![!]> <.infixish>]>
+           <.start-element('NEGATION_METAOP')>
+           <.start-token('METAOP')>
+           '!'
+           <.end-token('METAOP')>
+           <.infixish>
+           <.end-element('NEGATION_METAOP')>
+        || <?before ['R' <.infixish>]>
+           <.start-element('REVERSE_METAOP')>
+           <.start-token('METAOP')>
+           'R'
+           <.end-token('METAOP')>
+           <.infixish>
+           <.end-element('REVERSE_METAOP')>
+        || <?before ['S' <.infixish>]>
+           <.start-element('SEQUENTIAL_METAOP')>
+           <.start-token('METAOP')>
+           'S'
+           <.end-token('METAOP')>
+           <.infixish>
+           <.end-element('SEQUENTIAL_METAOP')>
+        || <?before ['X' <.infixish>]>
+           <.start-element('CROSS_METAOP')>
+           <.start-token('METAOP')>
+           'X'
+           <.end-token('METAOP')>
+           <.infixish>
+           <.end-element('CROSS_METAOP')>
+        || <?before ['Z' <.infixish>]>
+           <.start-element('ZIP_METAOP')>
+           <.start-token('METAOP')>
+           'Z'
+           <.end-token('METAOP')>
+           <.infixish>
+           <.end-element('ZIP_METAOP')>
     }
 
     token termish {

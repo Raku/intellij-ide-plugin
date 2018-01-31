@@ -18,6 +18,7 @@ public interface Perl6ElementTypes {
     IElementType CONSTANT = new Perl6ElementType("CONSTANT");
     IElementType CONTEXTUALIZER = new Perl6ElementType("CONTEXTUALIZER");
     IElementType CONTROL_STATEMENT = new Perl6ElementType("CONTROL_STATEMENT");
+    IElementType CROSS_METAOP = new Perl6ElementType("CROSS_METAOP");
     IElementType DEFAULT_STATEMENT = new Perl6ElementType("DEFAULT_STATEMENT");
     IElementType DO = new Perl6ElementType("DO");
     IElementType EAGER = new Perl6ElementType("EAGER");
@@ -40,6 +41,7 @@ public interface Perl6ElementTypes {
     IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
     IElementType NAMED_PARAMETER = new Perl6ElementType("NAMED_PARAMETER");
     IElementType NEED_STATEMENT = new Perl6ElementType("NEED_STATEMENT");
+    IElementType NEGATION_METAOP = new Perl6ElementType("NEGATION_METAOP");
     IElementType NO_STATEMENT = new Perl6ElementType("NO_STATEMENT");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType ONCE = new Perl6ElementType("ONCE");
@@ -78,10 +80,12 @@ public interface Perl6ElementTypes {
     IElementType REPEAT_STATEMENT = new Perl6ElementType("REPEAT_STATEMENT");
     IElementType REQUIRE_STATEMENT = new Perl6ElementType("REQUIRE_STATEMENT");
     IElementType RETURN_CONSTRAINT = new Perl6ElementType("RETURN_CONSTRAINT");
+    IElementType REVERSE_METAOP = new Perl6ElementType("REVERSE_METAOP");
     IElementType ROUTINE_DECLARATION = new Perl6ElementType("ROUTINE_DECLARATION");
     IElementType SCOPED_DECLARATION = new Perl6ElementType("SCOPED_DECLARATION");
     IElementType SELF = new Perl6ElementType("SELF");
     IElementType SEMI_LIST = new Perl6ElementType("SEMI_LIST");
+    IElementType SEQUENTIAL_METAOP = new Perl6ElementType("SEQUENTIAL_METAOP");
     IElementType SIGNATURE = new Perl6ElementType("SIGNATURE");
     IElementType SINK = new Perl6ElementType("SINK");
     IElementType START = new Perl6ElementType("START");
@@ -112,4 +116,5 @@ public interface Perl6ElementTypes {
     IElementType WHERE_CONSTRAINT = new Perl6ElementType("WHERE_CONSTRAINT");
     IElementType WHILE_STATEMENT = new Perl6ElementType("WHILE_STATEMENT");
     IElementType WITHOUT_STATEMENT = new Perl6ElementType("WITHOUT_STATEMENT");
+    IElementType ZIP_METAOP = new Perl6ElementType("ZIP_METAOP");
 }
