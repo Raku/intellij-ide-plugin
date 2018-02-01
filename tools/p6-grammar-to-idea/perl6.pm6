@@ -2555,9 +2555,16 @@ grammar MAIN {
     }
 
     token prefixish {
-        <.start-element('PREFIX')>
-        <.prefix>
-        <.end-element('PREFIX')>
+        || <?before [<.prefix> ['«'||'<<']]>
+           <.start-element('HYPER_METAOP')>
+           <.prefix>
+           <.start-token('METAOP')>
+           ['«'||'<<']
+           <.end-token('METAOP')>
+           <.end-element('HYPER_METAOP')>
+        || <.start-element('PREFIX')>
+           <.prefix>
+           <.end-element('PREFIX')>
     }
 
     token prefix {
@@ -2584,6 +2591,20 @@ grammar MAIN {
     }
 
     token postfixish {
+        || <?before [ ['»' || '>>'] [ <!{ $*QSIGIL }> || <![(]> ] ]>
+           <.start-element('HYPER_METAOP')>
+           <.start-token('METAOP')>
+           ['»' || '>>']
+           <.end-token('METAOP')>
+           [
+           || <.postfixish_nometa>
+           || <.start-token('HYPER_METAOP_MISSING')> <?> <.end-token('HYPER_METAOP_MISSING')>
+           ]
+           <.end-element('HYPER_METAOP')>
+        || <.postfixish_nometa>
+    }
+
+    token postfixish_nometa {
         || <.start-element('POSTFIX')>
            <.postfix>
            <.end-element('POSTFIX')>
@@ -2743,6 +2764,7 @@ grammar MAIN {
         <!infixstopper>
         [
         || <.infix_prefix_meta_operator>
+        || <.infix_circumfix_meta_operator>
         || <.start-element('INFIX')>
            <.infix>
            <.end-element('INFIX')>
@@ -2944,6 +2966,35 @@ grammar MAIN {
            <.end-token('METAOP')>
            <.infixish>
            <.end-element('ZIP_METAOP')>
+    }
+
+    token infix_circumfix_meta_operator {
+        || <?before [<[«»]> <.infixish>]>
+           <.start-element('HYPER_METAOP')>
+           <.start-token('METAOP')>
+           <[«»]>
+           <.end-token('METAOP')>
+           <.infixish>
+           [
+           || <.start-token('METAOP')>
+              <[«»]>
+              <.end-token('METAOP')>
+           || <.start-token('HYPER_METAOP_MISSING')> <?> <.end-token('HYPER_METAOP_MISSING')>
+           ]
+           <.end-element('HYPER_METAOP')>
+        || <?before [[ '<<' || '>>' ] <.infixish>]>
+           <.start-element('HYPER_METAOP')>
+           <.start-token('METAOP')>
+           [ '<<' || '>>' ]
+           <.end-token('METAOP')>
+           <.infixish>
+           [
+           || <.start-token('METAOP')>
+              [ '<<' || '>>' ]
+              <.end-token('METAOP')>
+           || <.start-token('HYPER_METAOP_MISSING')> <?> <.end-token('HYPER_METAOP_MISSING')>
+           ]
+           <.end-element('HYPER_METAOP')>
     }
 
     token termish {

@@ -26,6 +26,7 @@ public interface Perl6TokenTypes {
     IElementType ENUM_ANON = new Perl6ElementType("ENUM_ANON");
     IElementType ENUM_INCOMPLETE = new Perl6ElementType("ENUM_INCOMPLETE");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
+    IElementType HYPER_METAOP_MISSING = new Perl6ElementType("HYPER_METAOP_MISSING");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INCOMPLETE_SCOPED_DECLARATION = new Perl6ElementType("INCOMPLETE_SCOPED_DECLARATION");
     IElementType INCOMPLETE_TYPE_NAME = new Perl6ElementType("INCOMPLETE_TYPE_NAME");

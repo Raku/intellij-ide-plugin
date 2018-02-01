@@ -30,6 +30,7 @@ public interface Perl6ElementTypes {
     IElementType GIVEN_STATEMENT = new Perl6ElementType("GIVEN_STATEMENT");
     IElementType HASH_INDEX = new Perl6ElementType("HASH_INDEX");
     IElementType HYPER = new Perl6ElementType("HYPER");
+    IElementType HYPER_METAOP = new Perl6ElementType("HYPER_METAOP");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType IF_STATEMENT = new Perl6ElementType("IF_STATEMENT");
     IElementType IMPORT_STATEMENT = new Perl6ElementType("IMPORT_STATEMENT");
