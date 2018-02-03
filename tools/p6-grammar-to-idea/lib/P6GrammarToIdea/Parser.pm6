@@ -217,7 +217,7 @@ grammar P6GrammarToIdea::Parser {
         .
     }
 
-    rule arglist { '' <arg=.value> +% [',' ] }
+    rule arglist { '' <arg=.operand> +% [',' ] }
 
     proto token value {*}
     token value:sym<string> {

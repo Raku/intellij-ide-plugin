@@ -259,7 +259,7 @@ my class GrammarCompiler {
             default {
                 my $next = self!new-state();
                 my $rule-number = %!rule-numbers{$rule.name};
-                my @args = $rule.args.map(&compile-value);
+                my @args = $rule.args.map({ self.compile-value($_) });
                 $append-to.push: this-call('setArgs', |@args);
                 $append-to.push: assign(field('state', 'int'), int-lit($next));
                 $append-to.push: ret(int-lit($rule-number));
@@ -352,7 +352,7 @@ my class GrammarCompiler {
     multi method compile(Declaration $d) {
         $*CUR-STATEMENTS.push: this-call('declareDynamicVariable',
             str-lit($d.variable-name),
-            compile-value($d.value));
+            self.compile-value($d.value));
     }
 
     multi method compile(CodeBlock $c) {
@@ -384,7 +384,7 @@ my class GrammarCompiler {
     multi method compile-code(DynamicAssignment $a) {
         this-call('assignDynamicVariable',
             str-lit($a.variable-name),
-            compile-value($a.value));
+            self.compile-value($a.value));
     }
 
     multi method compile-code(TestStr $t) {
@@ -404,9 +404,10 @@ my class GrammarCompiler {
         die "Unimplemented compilation of node type $unknown.^name()";
     }
 
-    sub compile-value($_) {
+    method compile-value($_) {
         when StrValue { str-lit(.value) }
         when IntValue { int-lit(.value) }
+        when DynamicLookup { self.compile-code($_) }
         default { die "Unknown argument type $_.^name()" }
     }
 
