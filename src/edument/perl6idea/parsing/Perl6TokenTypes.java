@@ -78,8 +78,11 @@ public interface Perl6TokenTypes {
     IElementType REGEX_LOOKAROUND = new Perl6ElementType("REGEX_LOOKAROUND");
     IElementType REGEX_MISSING_ASSERTION = new Perl6ElementType("REGEX_MISSING_ASSERTION");
     IElementType REGEX_MISSING_TERM = new Perl6ElementType("REGEX_MISSING_TERM");
+    IElementType REGEX_MOD_INTERNAL = new Perl6ElementType("REGEX_MOD_INTERNAL");
+    IElementType REGEX_MOD_INTERNAL_NUMERIC = new Perl6ElementType("REGEX_MOD_INTERNAL_NUMERIC");
     IElementType REGEX_QUANTIFIER = new Perl6ElementType("REGEX_QUANTIFIER");
     IElementType REGEX_QUANTIFIER_MISSING = new Perl6ElementType("REGEX_QUANTIFIER_MISSING");
+    IElementType REGEX_SIGSPACE = new Perl6ElementType("REGEX_SIGSPACE");
     IElementType RETURN_ARROW = new Perl6ElementType("RETURN_ARROW");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");

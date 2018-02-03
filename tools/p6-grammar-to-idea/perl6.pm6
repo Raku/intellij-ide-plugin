@@ -3026,6 +3026,10 @@ grammar MAIN {
         <.end-element('REGEX')>
     }
 
+    token regex_nibbler_fresh_rx($*RX_S) {
+        <.regex_nibbler>
+    }
+
     token regex_nibbler {
         <.ws>
         [
@@ -3107,9 +3111,10 @@ grammar MAIN {
     token sigmaybe {
         || <?{ $*SIGOK }>
            <.start-element('REGEX_SIGSPACE')>
+           <.start-token('REGEX_SIGSPACE')> <?> <.end-token('REGEX_SIGSPACE')>
            <.normspace>
            <.end-element('REGEX_SIGSPACE')>
-        || <!{ $*SIGOK }> <.normspace>
+        || <.normspace>
     }
 
     token normspace { <?before \s || '#'> <.ws> }
@@ -3219,7 +3224,7 @@ grammar MAIN {
            <.start-token('REGEX_GROUP_BRACKET')>
            '['
            <.end-token('REGEX_GROUP_BRACKET')>
-           <.regex_nibbler>?
+           <.regex_nibbler_fresh_rx($*RX_S)>?
            [
                <.start-token('REGEX_GROUP_BRACKET')>
                ']'
@@ -3230,7 +3235,7 @@ grammar MAIN {
            <.start-token('REGEX_CAPTURE_PARENTHESES')>
            '('
            <.end-token('REGEX_CAPTURE_PARENTHESES')>
-           <.regex_nibbler>?
+           <.regex_nibbler_fresh_rx($*RX_S)>?
            [
                <.start-token('REGEX_CAPTURE_PARENTHESES')>
                ')'
@@ -3270,6 +3275,7 @@ grammar MAIN {
                <.quantified_atom>?
            ]?
            <.end-element('REGEX_GOAL')>
+        || <.mod_internal>
     }
 
     token rxq {
@@ -3550,5 +3556,61 @@ grammar MAIN {
            <.end-token('REGEX_BUILTIN_CCLASS')>
         ]
         <.end-element('REGEX_BUILTIN_CCLASS')>
+    }
+
+    token mod_internal {
+        <?before [':' ['!'||\d+]? <.mod_ident> ]>
+        [
+        || <?before [':s' 'igspace'? >>]> { $*RX_S = 1 }
+        || <?before [':!s' 'igspace'? >>]> { $*RX_S = 0 }
+        ]?
+        <.start-element('REGEX_MOD_INTERNAL')>
+        <.start-token('REGEX_MOD_INTERNAL')>
+        ':'
+        <.end-token('REGEX_MOD_INTERNAL')>
+        [
+        || <.start-token('REGEX_MOD_INTERNAL')>
+           '!'
+           <.end-token('REGEX_MOD_INTERNAL')>
+           <.start-token('REGEX_MOD_INTERNAL')>
+           <.mod_ident>
+           <.end-token('REGEX_MOD_INTERNAL')>
+        || <?before \d+>
+           <.start-token('REGEX_MOD_INTERNAL_NUMERIC')>
+           <?>
+           <.end-token('REGEX_MOD_INTERNAL_NUMERIC')>
+           <.start-token('REGEX_MOD_INTERNAL')>
+           \d+
+           <.end-token('REGEX_MOD_INTERNAL')>
+           <.start-token('REGEX_MOD_INTERNAL')>
+           <.mod_ident>
+           <.end-token('REGEX_MOD_INTERNAL')>
+        || <.start-token('REGEX_MOD_INTERNAL')>
+           <.mod_ident>
+           <.end-token('REGEX_MOD_INTERNAL')>
+           [
+               <.start-token('REGEX_MOD_INTERNAL')>
+               '('
+               <.end-token('REGEX_MOD_INTERNAL')>
+               [
+                   <.value>
+                   [
+                       <.start-token('REGEX_MOD_INTERNAL')>
+                       ')'
+                       <.end-token('REGEX_MOD_INTERNAL')>
+                   ]?
+               ]?
+           ]?
+        ]
+        <.end-element('REGEX_MOD_INTERNAL')>
+    }
+
+    token mod_ident {
+        || 'i' 'gnorecase'? >>
+        || 'm' >>
+        || 'ignoremark' >>
+        || 'r' 'atchet'? >>
+        || 's' 'igspace'? >>
+        || 'dba' >>
     }
 }

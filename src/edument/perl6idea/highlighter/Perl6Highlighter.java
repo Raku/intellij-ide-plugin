@@ -369,4 +369,10 @@ public final class Perl6Highlighter {
             REGEX_CCLASS_SYNTAX_ID,
             DefaultLanguageHighlighterColors.BRACKETS
     );
+
+    static final String REGEX_MOD_ID = "PERL6_REGEX_MOD";
+    public static final TextAttributesKey REGEX_MOD = TextAttributesKey.createTextAttributesKey(
+            REGEX_MOD_ID,
+            DefaultLanguageHighlighterColors.IDENTIFIER
+    );
 }

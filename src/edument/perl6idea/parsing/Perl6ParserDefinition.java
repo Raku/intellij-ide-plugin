@@ -280,6 +280,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexCClassImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_CCLASS_ELEM)
             return new Perl6RegexCClassElemImpl(astNode);
+        if (type == Perl6ElementTypes.REGEX_MOD_INTERNAL)
+            return new Perl6RegexModInternalImpl(astNode);
         return null;
     }
 
