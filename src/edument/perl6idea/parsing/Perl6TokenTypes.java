@@ -83,6 +83,9 @@ public interface Perl6TokenTypes {
     IElementType REGEX_QUANTIFIER = new Perl6ElementType("REGEX_QUANTIFIER");
     IElementType REGEX_QUANTIFIER_MISSING = new Perl6ElementType("REGEX_QUANTIFIER_MISSING");
     IElementType REGEX_SIGSPACE = new Perl6ElementType("REGEX_SIGSPACE");
+    IElementType REGEX_VARIABLE = new Perl6ElementType("REGEX_VARIABLE");
+    IElementType REGEX_VARIABLE_BINDING = new Perl6ElementType("REGEX_VARIABLE_BINDING");
+    IElementType REGEX_VARIABLE_BINDING_INCOMPLETE = new Perl6ElementType("REGEX_VARIABLE_BINDING_INCOMPLETE");
     IElementType RETURN_ARROW = new Perl6ElementType("RETURN_ARROW");
     IElementType ROUTINE_DECLARATOR = new Perl6ElementType("ROUTINE_DECLARATOR");
     IElementType ROUTINE_NAME = new Perl6ElementType("ROUTINE_NAME");

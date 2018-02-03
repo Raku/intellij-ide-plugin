@@ -3201,6 +3201,33 @@ grammar MAIN {
     token backmod { ':'? [ '?' || '!' || <!before ':'> ] }
 
     token metachar {
+        || <?before [<.sigil> [<.alpha> || \W<.alpha> || '(' || \d]]>
+           <!before [<.sigil> <.rxstopper>]>
+           <.start-element('REGEX_VARIABLE')>
+           <.start-token('REGEX_VARIABLE')> <?> <.end-token('REGEX_VARIABLE')>
+           <.variable>
+           [
+               <?before [\s*'='\s*]>
+               <.start-token('REGEX_VARIABLE_BINDING')>
+               <?>
+               <.end-token('REGEX_VARIABLE_BINDING')>
+               <.start-token('WHITE_SPACE')>
+               \s*
+               <.end-token('WHITE_SPACE')>
+               <.start-token('INFIX')>
+               '='
+               <.end-token('INFIX')>
+               <.start-token('WHITE_SPACE')>
+               \s*
+               <.end-token('WHITE_SPACE')>
+               [
+               || <.quantified_atom>
+               || <.start-token('REGEX_VARIABLE_BINDING_INCOMPLETE')>
+                  <?>
+                  <.end-token('REGEX_VARIABLE_BINDING_INCOMPLETE')>
+               ]
+           ]?
+           <.end-element('REGEX_VARIABLE')>
         || <.start-element('REGEX_ANCHOR')>
            [
            || <.start-token('REGEX_ANCHOR')> '^^' <.end-token('REGEX_ANCHOR')> <.SIGOK>

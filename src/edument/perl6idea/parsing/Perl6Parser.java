@@ -13771,86 +13771,172 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean metachar_181(PsiBuilder builder) {
-        PsiBuilder.Marker altMarker36;
-        altMarker36 = builder.mark();
-        if (this.metachar_181_alt_30(builder)) {
-            altMarker36.drop();
+    private boolean metachar_181_alt_31(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.REGEX_VARIABLE_BINDING_INCOMPLETE) {
+            builder.advanceLexer();
         } else {
-            altMarker36.rollbackTo();
-            PsiBuilder.Marker altMarker24;;
-            altMarker24 = builder.mark();
-            if (this.metachar_181_alt_19(builder)) {
-                altMarker24.drop();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean metachar_181_alt_32(PsiBuilder builder) {
+        if (!(this.quantified_atom_50(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean metachar_181_quant_33(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.REGEX_VARIABLE_BINDING) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if ((builder.getTokenType()) == Perl6TokenTypes.WHITE_SPACE) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        String tt20;
+        tt20 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.INFIX) && (tt20.equals("="))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if ((builder.getTokenType()) == Perl6TokenTypes.WHITE_SPACE) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        PsiBuilder.Marker altMarker39;
+        altMarker39 = builder.mark();
+        if (this.metachar_181_alt_32(builder)) {
+            altMarker39.drop();
+        } else {
+            altMarker39.rollbackTo();
+            PsiBuilder.Marker altMarker38;;
+            altMarker38 = builder.mark();
+            if (this.metachar_181_alt_31(builder)) {
+                altMarker38.drop();
             } else {
-                altMarker24.rollbackTo();
-                PsiBuilder.Marker altMarker22;;
-                altMarker22 = builder.mark();
-                if (this.metachar_181_alt_18(builder)) {
-                    altMarker22.drop();
+                altMarker38.rollbackTo();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean metachar_181_alt_34(PsiBuilder builder) {
+        PsiBuilder.Marker marker37;
+        marker37 = builder.mark();
+        if ((builder.getTokenType()) == Perl6TokenTypes.REGEX_VARIABLE) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.variable_81(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker quantMarker40;
+        quantMarker40 = builder.mark();
+        if (this.metachar_181_quant_33(builder)) {
+            quantMarker40.drop();
+        } else {
+            quantMarker40.rollbackTo();
+        }
+        marker37.done(Perl6ElementTypes.REGEX_VARIABLE);
+        return true;
+    }
+
+    private boolean metachar_181(PsiBuilder builder) {
+        PsiBuilder.Marker altMarker41;
+        altMarker41 = builder.mark();
+        if (this.metachar_181_alt_34(builder)) {
+            altMarker41.drop();
+        } else {
+            altMarker41.rollbackTo();
+            PsiBuilder.Marker altMarker36;;
+            altMarker36 = builder.mark();
+            if (this.metachar_181_alt_30(builder)) {
+                altMarker36.drop();
+            } else {
+                altMarker36.rollbackTo();
+                PsiBuilder.Marker altMarker24;;
+                altMarker24 = builder.mark();
+                if (this.metachar_181_alt_19(builder)) {
+                    altMarker24.drop();
                 } else {
-                    altMarker22.rollbackTo();
-                    PsiBuilder.Marker altMarker18;;
-                    altMarker18 = builder.mark();
-                    if (this.metachar_181_alt_15(builder)) {
-                        altMarker18.drop();
+                    altMarker24.rollbackTo();
+                    PsiBuilder.Marker altMarker22;;
+                    altMarker22 = builder.mark();
+                    if (this.metachar_181_alt_18(builder)) {
+                        altMarker22.drop();
                     } else {
-                        altMarker18.rollbackTo();
-                        PsiBuilder.Marker altMarker14;;
-                        altMarker14 = builder.mark();
-                        if (this.metachar_181_alt_12(builder)) {
-                            altMarker14.drop();
+                        altMarker22.rollbackTo();
+                        PsiBuilder.Marker altMarker18;;
+                        altMarker18 = builder.mark();
+                        if (this.metachar_181_alt_15(builder)) {
+                            altMarker18.drop();
                         } else {
-                            altMarker14.rollbackTo();
-                            PsiBuilder.Marker altMarker13;;
-                            altMarker13 = builder.mark();
-                            if (this.metachar_181_alt_11(builder)) {
-                                altMarker13.drop();
+                            altMarker18.rollbackTo();
+                            PsiBuilder.Marker altMarker14;;
+                            altMarker14 = builder.mark();
+                            if (this.metachar_181_alt_12(builder)) {
+                                altMarker14.drop();
                             } else {
-                                altMarker13.rollbackTo();
-                                PsiBuilder.Marker altMarker12;;
-                                altMarker12 = builder.mark();
-                                if (this.metachar_181_alt_10(builder)) {
-                                    altMarker12.drop();
+                                altMarker14.rollbackTo();
+                                PsiBuilder.Marker altMarker13;;
+                                altMarker13 = builder.mark();
+                                if (this.metachar_181_alt_11(builder)) {
+                                    altMarker13.drop();
                                 } else {
-                                    altMarker12.rollbackTo();
-                                    PsiBuilder.Marker altMarker9;;
-                                    altMarker9 = builder.mark();
-                                    if (this.metachar_181_alt_8(builder)) {
-                                        altMarker9.drop();
+                                    altMarker13.rollbackTo();
+                                    PsiBuilder.Marker altMarker12;;
+                                    altMarker12 = builder.mark();
+                                    if (this.metachar_181_alt_10(builder)) {
+                                        altMarker12.drop();
                                     } else {
-                                        altMarker9.rollbackTo();
-                                        PsiBuilder.Marker altMarker8;;
-                                        altMarker8 = builder.mark();
-                                        if (this.metachar_181_alt_7(builder)) {
-                                            altMarker8.drop();
+                                        altMarker12.rollbackTo();
+                                        PsiBuilder.Marker altMarker9;;
+                                        altMarker9 = builder.mark();
+                                        if (this.metachar_181_alt_8(builder)) {
+                                            altMarker9.drop();
                                         } else {
-                                            altMarker8.rollbackTo();
-                                            PsiBuilder.Marker altMarker7;;
-                                            altMarker7 = builder.mark();
-                                            if (this.metachar_181_alt_6(builder)) {
-                                                altMarker7.drop();
+                                            altMarker9.rollbackTo();
+                                            PsiBuilder.Marker altMarker8;;
+                                            altMarker8 = builder.mark();
+                                            if (this.metachar_181_alt_7(builder)) {
+                                                altMarker8.drop();
                                             } else {
-                                                altMarker7.rollbackTo();
-                                                PsiBuilder.Marker altMarker6;;
-                                                altMarker6 = builder.mark();
-                                                if (this.metachar_181_alt_5(builder)) {
-                                                    altMarker6.drop();
+                                                altMarker8.rollbackTo();
+                                                PsiBuilder.Marker altMarker7;;
+                                                altMarker7 = builder.mark();
+                                                if (this.metachar_181_alt_6(builder)) {
+                                                    altMarker7.drop();
                                                 } else {
-                                                    altMarker6.rollbackTo();
-                                                    PsiBuilder.Marker altMarker5;;
-                                                    altMarker5 = builder.mark();
-                                                    if (this.metachar_181_alt_4(builder)) {
-                                                        altMarker5.drop();
+                                                    altMarker7.rollbackTo();
+                                                    PsiBuilder.Marker altMarker6;;
+                                                    altMarker6 = builder.mark();
+                                                    if (this.metachar_181_alt_5(builder)) {
+                                                        altMarker6.drop();
                                                     } else {
-                                                        altMarker5.rollbackTo();
-                                                        PsiBuilder.Marker altMarker1;;
-                                                        altMarker1 = builder.mark();
-                                                        if (this.metachar_181_alt_1(builder)) {
-                                                            altMarker1.drop();
+                                                        altMarker6.rollbackTo();
+                                                        PsiBuilder.Marker altMarker5;;
+                                                        altMarker5 = builder.mark();
+                                                        if (this.metachar_181_alt_4(builder)) {
+                                                            altMarker5.drop();
                                                         } else {
-                                                            altMarker1.rollbackTo();
-                                                            return false;
+                                                            altMarker5.rollbackTo();
+                                                            PsiBuilder.Marker altMarker1;;
+                                                            altMarker1 = builder.mark();
+                                                            if (this.metachar_181_alt_1(builder)) {
+                                                                altMarker1.drop();
+                                                            } else {
+                                                                altMarker1.rollbackTo();
+                                                                return false;
+                                                            }
                                                         }
                                                     }
                                                 }
