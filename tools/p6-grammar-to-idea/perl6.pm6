@@ -2350,6 +2350,20 @@ grammar MAIN {
         || <?before ['Q' <.has-delimiter>]>
            <.start-token('STRING_LITERAL_QUOTE')> 'Q' <.end-token('STRING_LITERAL_QUOTE')>
            <.quibble>
+        || <?before ['qq' <.has-delimiter>]>
+           <.start-token('STRING_LITERAL_QUOTE')> 'qq' <.end-token('STRING_LITERAL_QUOTE')>
+           { $*Q_BACKSLASH = 1 }
+           { $*Q_QQBACKSLASH = 1 }
+           { $*Q_CLOSURES = 1 }
+           { $*Q_SCALARS = 1 }
+           { $*Q_ARRAYS = 1 }
+           { $*Q_HASHES = 1 }
+           { $*Q_FUNCTIONS = 1 }
+           <.quibble>
+        || <?before ['q' <.has-delimiter>]>
+           <.start-token('STRING_LITERAL_QUOTE')> 'q' <.end-token('STRING_LITERAL_QUOTE')>
+           { $*Q_QBACKSLASH = 1 }
+           <.quibble>
         || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
            <.quote_q('\'', '\'', '\'')>
            [<.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>]?
