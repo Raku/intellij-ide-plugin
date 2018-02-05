@@ -2763,12 +2763,24 @@ grammar MAIN {
         <!stdstopper>
         <!infixstopper>
         [
+        || <?before [<![!]> <.infixish_non_assignment_meta> '=']>
+           <.start-element('ASSIGN_METAOP')>
+           <.start-token('ASSIGN_METAOP')> <?> <.end-token('ASSIGN_METAOP')>
+           <.infixish_non_assignment_meta>
+           <.start-token('METAOP')>
+           '='
+           <.end-token('METAOP')>
+           <.end-element('ASSIGN_METAOP')>
+        || <.infixish_non_assignment_meta>
+        ]
+    }
+
+    token infixish_non_assignment_meta {
         || <.infix_prefix_meta_operator>
         || <.infix_circumfix_meta_operator>
         || <.start-element('INFIX')>
            <.infix>
            <.end-element('INFIX')>
-       ]
     }
 
     token infixstopper {
@@ -2932,6 +2944,7 @@ grammar MAIN {
 
     token infix_prefix_meta_operator {
         || <?before ['!' <![!]> <.infixish>]>
+           <!before ['!=' <![=]>]>
            <.start-element('NEGATION_METAOP')>
            <.start-token('METAOP')>
            '!'

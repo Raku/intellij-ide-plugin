@@ -8,6 +8,7 @@ public interface Perl6TokenTypes {
     IElementType ARGLIST_START = new Perl6ElementType("ARGLIST_START");
     IElementType ARRAY_COMPOSER = new Perl6ElementType("ARRAY_COMPOSER");
     IElementType ARRAY_INDEX_BRACKET = new Perl6ElementType("ARRAY_INDEX_BRACKET");
+    IElementType ASSIGN_METAOP = new Perl6ElementType("ASSIGN_METAOP");
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");

@@ -8,6 +8,7 @@ public interface Perl6ElementTypes {
     IElementType ARRAY_COMPOSER = new Perl6ElementType("ARRAY_COMPOSER");
     IElementType ARRAY_INDEX = new Perl6ElementType("ARRAY_INDEX");
     IElementType ARRAY_SHAPE = new Perl6ElementType("ARRAY_SHAPE");
+    IElementType ASSIGN_METAOP = new Perl6ElementType("ASSIGN_METAOP");
     IElementType BLOCK = new Perl6ElementType("BLOCK");
     IElementType BLOCK_OR_HASH = new Perl6ElementType("BLOCK_OR_HASH");
     IElementType CALL = new Perl6ElementType("CALL");
