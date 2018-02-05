@@ -242,6 +242,9 @@ my class GrammarCompiler {
             when 'ww' {
                 $append-to.push: unless(this-call('ww'), [backtrack()]);
             }
+            when 'peek-delimiters' {
+                $append-to.push: unless(this-call('peekDelimiters'), [backtrack()]);
+            }
             when 'MARKER' {
                 unless $rule.args.elems == 1 && $rule.args[0] ~~ StrValue {
                     die "MARKER must be called with a single string argument";

@@ -15,7 +15,7 @@ use P6GrammarToIdea::AST;
 # means it also descends into rules.
 
 my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha', 'ww',
-                                'MARKER', 'MARKED';
+                                'MARKER', 'MARKED', 'peek-delimiters';
 
 class X::P6GrammarToIdea::UncoveredByToken is Exception {
     has $.production-name;

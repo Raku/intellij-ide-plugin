@@ -2347,6 +2347,9 @@ grammar MAIN {
         :my $*Q_FUNCTIONS = 0;
         <.start-element('STRING_LITERAL')>
         [
+        || <?before ['Q' <.has-delimiter>]>
+           <.start-token('STRING_LITERAL_QUOTE')> 'Q' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quibble>
         || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
            <.quote_q('\'', '\'', '\'')>
            [<.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>]?
@@ -2396,6 +2399,23 @@ grammar MAIN {
         { $*Q_HASHES = 1 }
         { $*Q_FUNCTIONS = 1 }
         <.quote_nibbler>
+    }
+
+    token has-delimiter {
+        :my $*STARTER = '';
+        :my $*STOPPER = '';
+        :my $*ALT_STOPPER = '';
+        <.peek-delimiters>
+    }
+
+    token quibble {
+        :my $*STARTER = '';
+        :my $*STOPPER = '';
+        :my $*ALT_STOPPER = '';
+        <.peek-delimiters>
+        <.start-token('STRING_LITERAL_QUOTE')> $*STARTER <.end-token('STRING_LITERAL_QUOTE')>
+        <.quote_nibbler>
+        [<.start-token('STRING_LITERAL_QUOTE')> $*STOPPER <.end-token('STRING_LITERAL_QUOTE')>]?
     }
 
     token quote_nibbler {
