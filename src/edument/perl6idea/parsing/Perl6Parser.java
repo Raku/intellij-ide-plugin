@@ -12986,26 +12986,167 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean infixish_non_assignment_meta_174(PsiBuilder builder) {
-        PsiBuilder.Marker altMarker4;
-        altMarker4 = builder.mark();
-        if (this.infixish_non_assignment_meta_174_alt_3(builder)) {
-            altMarker4.drop();
+    private boolean infixish_non_assignment_meta_174_alt_4(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.BRACKETED_INFIX_INCOMPLETE) {
+            builder.advanceLexer();
         } else {
-            altMarker4.rollbackTo();
-            PsiBuilder.Marker altMarker3;;
-            altMarker3 = builder.mark();
-            if (this.infixish_non_assignment_meta_174_alt_2(builder)) {
-                altMarker3.drop();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_5(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.BRACKETED_INFIX_INCOMPLETE) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_6(PsiBuilder builder) {
+        String tt2;
+        tt2 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.INFIX) && (tt2.equals("]"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_7(PsiBuilder builder) {
+        if (!(this.infixish_136(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker altMarker8;
+        altMarker8 = builder.mark();
+        if (this.infixish_non_assignment_meta_174_alt_6(builder)) {
+            altMarker8.drop();
+        } else {
+            altMarker8.rollbackTo();
+            PsiBuilder.Marker altMarker7;;
+            altMarker7 = builder.mark();
+            if (this.infixish_non_assignment_meta_174_alt_5(builder)) {
+                altMarker7.drop();
             } else {
-                altMarker3.rollbackTo();
-                PsiBuilder.Marker altMarker2;;
-                altMarker2 = builder.mark();
-                if (this.infixish_non_assignment_meta_174_alt_1(builder)) {
-                    altMarker2.drop();
+                altMarker7.rollbackTo();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_8(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.BRACKETED_INFIX_INCOMPLETE) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_9(PsiBuilder builder) {
+        String tt3;
+        tt3 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.INFIX) && (tt3.equals("]"))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_10(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.INFIX_FUNCTION) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.variable_81(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker altMarker11;
+        altMarker11 = builder.mark();
+        if (this.infixish_non_assignment_meta_174_alt_9(builder)) {
+            altMarker11.drop();
+        } else {
+            altMarker11.rollbackTo();
+            PsiBuilder.Marker altMarker10;;
+            altMarker10 = builder.mark();
+            if (this.infixish_non_assignment_meta_174_alt_8(builder)) {
+                altMarker10.drop();
+            } else {
+                altMarker10.rollbackTo();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174_alt_11(PsiBuilder builder) {
+        PsiBuilder.Marker marker5;
+        marker5 = builder.mark();
+        String tt1;
+        tt1 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.INFIX) && (tt1.equals("["))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        PsiBuilder.Marker altMarker12;
+        altMarker12 = builder.mark();
+        if (this.infixish_non_assignment_meta_174_alt_10(builder)) {
+            altMarker12.drop();
+        } else {
+            altMarker12.rollbackTo();
+            PsiBuilder.Marker altMarker9;;
+            altMarker9 = builder.mark();
+            if (this.infixish_non_assignment_meta_174_alt_7(builder)) {
+                altMarker9.drop();
+            } else {
+                altMarker9.rollbackTo();
+                PsiBuilder.Marker altMarker6;;
+                altMarker6 = builder.mark();
+                if (this.infixish_non_assignment_meta_174_alt_4(builder)) {
+                    altMarker6.drop();
                 } else {
-                    altMarker2.rollbackTo();
+                    altMarker6.rollbackTo();
                     return false;
+                }
+            }
+        }
+        marker5.done(Perl6ElementTypes.BRACKETED_INFIX);
+        return true;
+    }
+
+    private boolean infixish_non_assignment_meta_174(PsiBuilder builder) {
+        PsiBuilder.Marker altMarker13;
+        altMarker13 = builder.mark();
+        if (this.infixish_non_assignment_meta_174_alt_11(builder)) {
+            altMarker13.drop();
+        } else {
+            altMarker13.rollbackTo();
+            PsiBuilder.Marker altMarker4;;
+            altMarker4 = builder.mark();
+            if (this.infixish_non_assignment_meta_174_alt_3(builder)) {
+                altMarker4.drop();
+            } else {
+                altMarker4.rollbackTo();
+                PsiBuilder.Marker altMarker3;;
+                altMarker3 = builder.mark();
+                if (this.infixish_non_assignment_meta_174_alt_2(builder)) {
+                    altMarker3.drop();
+                } else {
+                    altMarker3.rollbackTo();
+                    PsiBuilder.Marker altMarker2;;
+                    altMarker2 = builder.mark();
+                    if (this.infixish_non_assignment_meta_174_alt_1(builder)) {
+                        altMarker2.drop();
+                    } else {
+                        altMarker2.rollbackTo();
+                        return false;
+                    }
                 }
             }
         }

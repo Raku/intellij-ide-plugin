@@ -2776,6 +2776,36 @@ grammar MAIN {
     }
 
     token infixish_non_assignment_meta {
+        || <.start-element('BRACKETED_INFIX')>
+           <.start-token('INFIX')>
+           '['
+           <.end-token('INFIX')>
+           [
+           || <?before ['&' <.twigil>? [<.alpha>||'(']]>
+              <.start-token('INFIX_FUNCTION')> <?> <.end-token('INFIX_FUNCTION')>
+              <.variable>
+              [
+              || <.start-token('INFIX')>
+                 ']'
+                 <.end-token('INFIX')>
+              || <.start-token('BRACKETED_INFIX_INCOMPLETE')>
+                 <?>
+                 <.end-token('BRACKETED_INFIX_INCOMPLETE')>
+              ]
+           || <.infixish>
+              [
+              || <.start-token('INFIX')>
+                 ']'
+                 <.end-token('INFIX')>
+              || <.start-token('BRACKETED_INFIX_INCOMPLETE')>
+                 <?>
+                 <.end-token('BRACKETED_INFIX_INCOMPLETE')>
+              ]
+           || <.start-token('BRACKETED_INFIX_INCOMPLETE')>
+              <?>
+              <.end-token('BRACKETED_INFIX_INCOMPLETE')>
+           ]
+           <.end-element('BRACKETED_INFIX')>
         || <.infix_prefix_meta_operator>
         || <.infix_circumfix_meta_operator>
         || <.start-element('INFIX')>

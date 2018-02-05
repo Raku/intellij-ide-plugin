@@ -11,6 +11,7 @@ public interface Perl6ElementTypes {
     IElementType ASSIGN_METAOP = new Perl6ElementType("ASSIGN_METAOP");
     IElementType BLOCK = new Perl6ElementType("BLOCK");
     IElementType BLOCK_OR_HASH = new Perl6ElementType("BLOCK_OR_HASH");
+    IElementType BRACKETED_INFIX = new Perl6ElementType("BRACKETED_INFIX");
     IElementType CALL = new Perl6ElementType("CALL");
     IElementType CAPTURE = new Perl6ElementType("CAPTURE");
     IElementType CATCH_STATEMENT = new Perl6ElementType("CATCH_STATEMENT");

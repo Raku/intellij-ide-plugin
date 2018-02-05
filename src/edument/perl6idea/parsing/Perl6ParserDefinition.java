@@ -165,6 +165,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6HyperMetaOpImpl(astNode);
         if (type == Perl6ElementTypes.ASSIGN_METAOP)
             return new Perl6AssignMetaOpImpl(astNode);
+        if (type == Perl6ElementTypes.BRACKETED_INFIX)
+            return new Perl6BracketedInfixImpl(astNode);
         if (type == Perl6ElementTypes.ARRAY_INDEX)
             return new Perl6ArrayIndexImpl(astNode);
         if (type == Perl6ElementTypes.HASH_INDEX)

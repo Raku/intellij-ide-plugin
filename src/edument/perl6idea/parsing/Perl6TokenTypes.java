@@ -12,6 +12,7 @@ public interface Perl6TokenTypes {
     IElementType BAD_CHARACTER = TokenType.BAD_CHARACTER;
     IElementType BAD_ESCAPE = new Perl6ElementType("BAD_ESCAPE");
     IElementType BLOCK_CURLY_BRACKET = new Perl6ElementType("BLOCK_CURLY_BRACKET");
+    IElementType BRACKETED_INFIX_INCOMPLETE = new Perl6ElementType("BRACKETED_INFIX_INCOMPLETE");
     IElementType CAPTURE_INVALID = new Perl6ElementType("CAPTURE_INVALID");
     IElementType CAPTURE_TERM = new Perl6ElementType("CAPTURE_TERM");
     IElementType COLON_PAIR = new Perl6ElementType("COLON_PAIR");
@@ -32,6 +33,7 @@ public interface Perl6TokenTypes {
     IElementType INCOMPLETE_SCOPED_DECLARATION = new Perl6ElementType("INCOMPLETE_SCOPED_DECLARATION");
     IElementType INCOMPLETE_TYPE_NAME = new Perl6ElementType("INCOMPLETE_TYPE_NAME");
     IElementType INFIX = new Perl6ElementType("INFIX");
+    IElementType INFIX_FUNCTION = new Perl6ElementType("INFIX_FUNCTION");
     IElementType INITIALIZER_MISSING = new Perl6ElementType("INITIALIZER_MISSING");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
