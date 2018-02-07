@@ -214,6 +214,13 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
     );
 
+    static final String QUOTE_PAIR_ID = "PERL6_QUOTE_PAIR";
+    public static final TextAttributesKey QUOTE_PAIR = TextAttributesKey.createTextAttributesKey(
+            QUOTE_PAIR_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
+
+
     static final String ARRAY_COMPOSER_ID = "PERL6_ARRAY_COMPOSER";
     public static final TextAttributesKey ARRAY_COMPOSER = TextAttributesKey.createTextAttributesKey(
             ARRAY_COMPOSER_ID,

@@ -2347,10 +2347,10 @@ grammar MAIN {
         :my $*Q_FUNCTIONS = 0;
         <.start-element('STRING_LITERAL')>
         [
-        || <?before ['Q' <.has-delimiter>]>
+        || <?before ['Q' [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'Q' <.end-token('STRING_LITERAL_QUOTE')>
            <.quibble>
-        || <?before ['qq' <.has-delimiter>]>
+        || <?before ['qq' [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'qq' <.end-token('STRING_LITERAL_QUOTE')>
            { $*Q_BACKSLASH = 1 }
            { $*Q_QQBACKSLASH = 1 }
@@ -2360,7 +2360,7 @@ grammar MAIN {
            { $*Q_HASHES = 1 }
            { $*Q_FUNCTIONS = 1 }
            <.quibble>
-        || <?before ['q' <.has-delimiter>]>
+        || <?before ['q' [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'q' <.end-token('STRING_LITERAL_QUOTE')>
            { $*Q_QBACKSLASH = 1 }
            <.quibble>
@@ -2426,10 +2426,89 @@ grammar MAIN {
         :my $*STARTER = '';
         :my $*STOPPER = '';
         :my $*ALT_STOPPER = '';
-        <.peek-delimiters>
-        <.start-token('STRING_LITERAL_QUOTE')> $*STARTER <.end-token('STRING_LITERAL_QUOTE')>
-        <.quote_nibbler>
-        [<.start-token('STRING_LITERAL_QUOTE')> $*STOPPER <.end-token('STRING_LITERAL_QUOTE')>]?
+        [
+        || [ <.quotepair_Q> <.ws> ]+
+           [
+               <.peek-delimiters>
+               <.start-token('STRING_LITERAL_QUOTE')>
+               $*STARTER
+               <.end-token('STRING_LITERAL_QUOTE')>
+               <.quote_nibbler>
+               [
+                   <.start-token('STRING_LITERAL_QUOTE')>
+                   $*STOPPER
+                   <.end-token('STRING_LITERAL_QUOTE')>
+               ]?
+           ]?
+        || <.peek-delimiters>
+           <.start-token('STRING_LITERAL_QUOTE')>
+           $*STARTER
+           <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_nibbler>
+           [
+               <.start-token('STRING_LITERAL_QUOTE')>
+               $*STOPPER
+               <.end-token('STRING_LITERAL_QUOTE')>
+           ]?
+        ]
+    }
+
+    # This delegates to quotepair to actually lex/parse, but looks ahead
+    # first to see if we need to tweak the parse state for the Q language.
+    token quotepair_Q {
+        [
+        || <?before ':b''ackslash'? >>> { $*Q_BACKSLASH = 1 }
+        || <?before ':!b''ackslash'? >>> { $*Q_BACKSLASH = 0 }
+        || <?before ':s''calar'? >>> { $*Q_SCALARS = 1 }
+        || <?before ':!s''calar'? >>> { $*Q_SCALARS = 0 }
+        || <?before ':a''rray'? >>> { $*Q_ARRAYS = 1 }
+        || <?before ':!a''rray'? >>> { $*Q_ARRAYS = 0 }
+        || <?before ':h''ash'? >>> { $*Q_HASHES = 1 }
+        || <?before ':!h''ash'? >>> { $*Q_HASHES = 0 }
+        || <?before ':f''unction'? >>> { $*Q_FUNCTIONS = 1 }
+        || <?before ':!f''unction'? >>> { $*Q_FUNCTIONS = 0 }
+        || <?before ':c''losure'? >>> { $*Q_CLOSURES = 1 }
+        || <?before ':!c''losure'? >>> { $*Q_CLOSURES = 0 }
+        ]?
+        <.quotepair>
+    }
+
+    # General case of quotepair parses any pair, but has no effect on the
+    # parse state.
+    token quotepair {
+        <.start-element('QUOTE_PAIR')>
+        [
+        || <?before [':' \d+ <.identifier>]>
+           <.start-token('QUOTE_PAIR')>
+           ':'
+           <.end-token('QUOTE_PAIR')>
+           <.start-token('INTEGER_LITERAL')>
+           \d+
+           <.end-token('INTEGER_LITERAL')>
+           <.start-token('QUOTE_PAIR')>
+           <.identifier>
+           <.end-token('QUOTE_PAIR')>
+        || <?before [':!' <.identifier>]>
+           <.start-token('QUOTE_PAIR')>
+           ':!'
+           <.end-token('QUOTE_PAIR')>
+           <.start-token('QUOTE_PAIR')>
+           <.identifier>
+           <.end-token('QUOTE_PAIR')>
+        || <?before [':' <.identifier>]>
+           <.start-token('QUOTE_PAIR')>
+           ':'
+           <.end-token('QUOTE_PAIR')>
+           <.start-token('QUOTE_PAIR')>
+           <.identifier>
+           <.end-token('QUOTE_PAIR')>
+           [
+               <?[(]>
+               <.start-token('COLON_PAIR_HAS_VALUE')> <?> <.end-token('COLON_PAIR_HAS_VALUE')>
+               <.circumfix>
+           ]?
+        ]
+        <.end-element('QUOTE_PAIR')>
     }
 
     token quote_nibbler {
