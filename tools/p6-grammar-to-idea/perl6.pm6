@@ -2337,6 +2337,8 @@ grammar MAIN {
     }
 
     token quote {
+        :my $*Q_Q = 0;
+        :my $*Q_QQ = 0;
         :my $*Q_BACKSLASH = 0;
         :my $*Q_QBACKSLASH = 0;
         :my $*Q_QQBACKSLASH = 0;
@@ -2353,6 +2355,7 @@ grammar MAIN {
            <.quibble>
         || <?before ['qq' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'qq' <.end-token('STRING_LITERAL_QUOTE')>
+           { $*Q_QQ = 1 }
            { $*Q_BACKSLASH = 1 }
            { $*Q_QQBACKSLASH = 1 }
            { $*Q_CLOSURES = 1 }
@@ -2364,6 +2367,7 @@ grammar MAIN {
            <.quibble>
         || <?before ['q' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'q' <.end-token('STRING_LITERAL_QUOTE')>
+           { $*Q_Q = 1 }
            { $*Q_QBACKSLASH = 1 }
            <.quote_mod_Q>?
            <.quibble>
@@ -2492,6 +2496,21 @@ grammar MAIN {
         || <?before ':!f''unction'? >>> { $*Q_FUNCTIONS = 0 }
         || <?before ':c''losure'? >>> { $*Q_CLOSURES = 1 }
         || <?before ':!c''losure'? >>> { $*Q_CLOSURES = 0 }
+        || <!{ $*Q_QQ }> <!{ $*Q_Q }>
+           [
+           || <?before ':qq' >>>
+              { $*Q_QQ = 1 }
+              { $*Q_BACKSLASH = 1 }
+              { $*Q_QQBACKSLASH = 1 }
+              { $*Q_CLOSURES = 1 }
+              { $*Q_SCALARS = 1 }
+              { $*Q_ARRAYS = 1 }
+              { $*Q_HASHES = 1 }
+              { $*Q_FUNCTIONS = 1 }
+           || <?before ':q' >>>
+              { $*Q_Q = 1 }
+              { $*Q_QBACKSLASH = 1 }
+           ]
         ]?
         <.quotepair>
     }
