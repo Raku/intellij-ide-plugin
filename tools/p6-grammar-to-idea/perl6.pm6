@@ -145,7 +145,6 @@ grammar MAIN {
     ## Top-level structure
 
     token statementlist {
-        :my $*QSIGIL = '';
         [<.ws> || $]
         <.start-element('STATEMENT_LIST')>
         [
@@ -175,6 +174,7 @@ grammar MAIN {
     }
 
     token statement {
+        :my $*QSIGIL = '';
         <!before <[\])}]> || $ >
         [
         || <.statement_control>
@@ -2578,9 +2578,32 @@ grammar MAIN {
         || <?[$]> <?{ $*Q_SCALARS }>
             :my $*QSIGIL = '$';
             [
-            || <.variable>
+            || <?variable>
+               <.start-token('ESCAPE_SCALAR')> <?> <.end-token('ESCAPE_SCALAR')>
+               [
+               || <.variable> <.quote_interpolation_postfix>*
+               || <.start-token('BAD_ESCAPE')> '$' <.end-token('BAD_ESCAPE')>
+               ]
             || <.start-token('BAD_ESCAPE')> '$' <.end-token('BAD_ESCAPE')>
             ]
+        || <?[@]> <?{ $*Q_ARRAYS }>
+            :my $*QSIGIL = '@';
+            <?before [<.variable> <.quote_interpolation_postfix>]>
+            <.start-token('ESCAPE_ARRAY')> <?> <.end-token('ESCAPE_ARRAY')>
+            <.variable>
+            <.quote_interpolation_postfix>+
+        || <?[%]> <?{ $*Q_HASHES }>
+            :my $*QSIGIL = '%';
+            <?before [<.variable> <.quote_interpolation_postfix>]>
+            <.start-token('ESCAPE_HASH')> <?> <.end-token('ESCAPE_HASH')>
+            <.variable>
+            <.quote_interpolation_postfix>+
+        || <?[&]> <?{ $*Q_FUNCTIONS }>
+            :my $*QSIGIL = '&';
+            <?before [<.variable> <.quote_interpolation_postfix>]>
+            <.start-token('ESCAPE_FUNCTION')> <?> <.end-token('ESCAPE_FUNCTION')>
+            <.variable>
+            <.quote_interpolation_postfix>+
         || <?[\\]> <?{ $*Q_BACKSLASH }>
             <.start-token('STRING_LITERAL_ESCAPE')>
             '\\'
@@ -2611,6 +2634,21 @@ grammar MAIN {
             ]
             <.end-token('STRING_LITERAL_ESCAPE')>
         || <?[{]> <?{ $*Q_CLOSURES }> <.block>
+    }
+
+    token quote_interpolation_postfix {
+        <?before [<.interpolation_opener> || <.postfixish> <?bracket-ending>]>
+        <.start-token('POSTFIX_INTERPOLATIN')> <?> <.end-token('POSTFIX_INTERPOLATIN')>
+        <.postfixish>
+    }
+
+    # We want to provide better feedback when the user starts to type some
+    # kind of postcircumfix that has an opening thingy. Thus we recognize
+    # various "openers", on the basis that Perl 6 will give a parse fail if
+    # they are not closed later anyway.
+    token interpolation_opener {
+        || <?[([{<]>
+        || '.' <[^&*+?$@&]>? [ <.longname> || <?["']> <.quote> ] '('
     }
 
     token circumfix {
@@ -2813,14 +2851,14 @@ grammar MAIN {
            <.end-token('METHOD_CALL_NAME')>
         || <?[$@&]> <.variable>
         || <?['"]>
-           # XXX Add this once we set up $*QSIGIL
-           #[ <!{$*QSIGIL}> || <!before '"' <-["]>*? [\s|$] > ]
+           [ <!{$*QSIGIL}> || <!before ['"' [<!["]>\S]* [\s||$] ]> ]
            <.quote>
         ] <.unsp>?
         [
             [
             || <?[(]> <.args>
-            || <?before ':' [ \s || '{']>
+            || <!{ $*QSIGIL }>
+               <?before ':' [ \s || '{']>
                <.start-token('INVOCANT_MARKER')>
                ':'
                <.end-token('INVOCANT_MARKER')>

@@ -27,6 +27,10 @@ public interface Perl6TokenTypes {
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
     IElementType ENUM_ANON = new Perl6ElementType("ENUM_ANON");
     IElementType ENUM_INCOMPLETE = new Perl6ElementType("ENUM_INCOMPLETE");
+    IElementType ESCAPE_ARRAY = new Perl6ElementType("ESCAPE_ARRAY");
+    IElementType ESCAPE_FUNCTION = new Perl6ElementType("ESCAPE_FUNCTION");
+    IElementType ESCAPE_HASH = new Perl6ElementType("ESCAPE_HASH");
+    IElementType ESCAPE_SCALAR = new Perl6ElementType("ESCAPE_SCALAR");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
     IElementType HYPER_METAOP_MISSING = new Perl6ElementType("HYPER_METAOP_MISSING");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
@@ -62,6 +66,7 @@ public interface Perl6TokenTypes {
     IElementType PARENTHESES = new Perl6ElementType("PARENTHESES");
     IElementType PHASER = new Perl6ElementType("PHASER");
     IElementType POSTFIX = new Perl6ElementType("POSTFIX");
+    IElementType POSTFIX_INTERPOLATIN = new Perl6ElementType("POSTFIX_INTERPOLATIN");
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType QUOTE_MOD = new Perl6ElementType("QUOTE_MOD");
     IElementType QUOTE_PAIR = new Perl6ElementType("QUOTE_PAIR");
