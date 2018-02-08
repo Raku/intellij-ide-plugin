@@ -12,7 +12,8 @@ use P6GrammarToIdea::AST;
 # inside of a token are not considered, for example. However, a quantifier or
 # alternation falling outside of any token will be part of the model.
 
-my constant %IGNORE-NAMES = set 'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters';
+my constant %IGNORE-NAMES = set 'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters',
+                                'bracket-ending';
 
 role ParseNode is export {}
 

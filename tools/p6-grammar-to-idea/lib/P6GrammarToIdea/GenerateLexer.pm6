@@ -245,6 +245,9 @@ my class GrammarCompiler {
             when 'peek-delimiters' {
                 $append-to.push: unless(this-call('peekDelimiters'), [backtrack()]);
             }
+            when 'bracket-ending' {
+                $append-to.push: unless(this-call('bracketEnding'), [backtrack()]);
+            }
             when 'MARKER' {
                 unless $rule.args.elems == 1 && $rule.args[0] ~~ StrValue {
                     die "MARKER must be called with a single string argument";

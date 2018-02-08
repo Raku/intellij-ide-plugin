@@ -6,7 +6,8 @@ use P6GrammarToIdea::AST;
 # * Calling of unknown rules
 
 my constant %BUILTIN-RULES := set 'start-token', 'end-token', 'start-element', 'end-element',
-                                  'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters';
+                                  'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters',
+                                  'bracket-ending';
 
 multi sub sanity-check(Braids $braids) is export {
     my @*ERRORS;

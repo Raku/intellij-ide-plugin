@@ -562,5 +562,13 @@ public abstract class Cursor<TCursor extends Cursor> {
         return out;
     }
 
+    public boolean bracketEnding() {
+        if (pos == 0)
+            return false;
+        String prev = stack.target.subSequence(pos - 1, pos).toString();
+        return prev.contentEquals(")") || prev.contentEquals("}") ||
+                prev.contentEquals("]") || prev.contentEquals(">");
+    }
+
     public abstract int runRule();
 }
