@@ -60,6 +60,7 @@ public class Perl6ColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("String Literal Value", Perl6Highlighter.STRING_LITERAL_CHAR),
             new AttributesDescriptor("String Literal Escape", Perl6Highlighter.STRING_LITERAL_ESCAPE),
             new AttributesDescriptor("String Literal Invalid Escape", Perl6Highlighter.STRING_LITERAL_BAD_ESCAPE),
+            new AttributesDescriptor("Regex Literal Quote", Perl6Highlighter.QUOTE_REGEX),
             new AttributesDescriptor("Quote Pair (on string and regex literals)", Perl6Highlighter.QUOTE_PAIR),
             new AttributesDescriptor("Quote Modifier", Perl6Highlighter.QUOTE_MOD),
             new AttributesDescriptor("Array Composer ([...])", Perl6Highlighter.ARRAY_COMPOSER),

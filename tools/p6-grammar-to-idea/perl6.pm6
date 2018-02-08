@@ -1929,7 +1929,7 @@ grammar MAIN {
             <.ws>
             [
             || <.start-token('ONLY_STAR')> ['*'||'<...>'||'<*>'] <.end-token('ONLY_STAR')>
-            || <.enter_regex_nibblier('{', '}')>
+            || <.enter_regex_nibbler('{', '}')>
             || <.start-token('MISSING_REGEX')> <?> <.end-token('MISSING_REGEX')>
             ]
             <.ws>
@@ -2337,6 +2337,10 @@ grammar MAIN {
     }
 
     token quote {
+         <.quote_rxlang> || <.quote_qlang>
+    }
+
+    token quote_qlang {
         :my $*Q_Q = 0;
         :my $*Q_QQ = 0;
         :my $*Q_BACKSLASH = 0;
@@ -2398,8 +2402,22 @@ grammar MAIN {
         || <.start-token('STRING_LITERAL_QUOTE')> '｢' <.end-token('STRING_LITERAL_QUOTE')>
            <.quote_Q('｢', '｣', '｣')>
            [<.start-token('STRING_LITERAL_QUOTE')> '｣' <.end-token('STRING_LITERAL_QUOTE')>]?
-       ]
-       <.end-element('STRING_LITERAL')>
+        ]
+        <.end-element('STRING_LITERAL')>
+    }
+
+   token quote_rxlang {
+        <.start-element('QUOTE_REGEX')>
+        :my $*RX_S = 0;
+        [
+        || <.start-token('QUOTE_REGEX')> '/' <.end-token('QUOTE_REGEX')>
+           [
+           || <.enter_regex_nibbler('/', '/')>
+           || <.start-token('MISSING_REGEX')> <?> <.end-token('MISSING_REGEX')>
+           ]
+           [<.start-token('QUOTE_REGEX')> '/' <.end-token('QUOTE_REGEX')>]?
+        ]
+        <.end-element('QUOTE_REGEX')>
     }
 
     token quote_Q($*STARTER, $*STOPPER, $*ALT_STOPPER) {
@@ -3256,7 +3274,7 @@ grammar MAIN {
         <.end-element('REDUCE_METAOP')>
     }
 
-    token enter_regex_nibblier($*STARTER, $*STOPPER) {
+    token enter_regex_nibbler($*STARTER, $*STOPPER) {
         <.start-element('REGEX')>
         <.regex_nibbler>
         <.end-element('REGEX')>

@@ -48,6 +48,7 @@ public class Perl6SyntaxHighlighter extends SyntaxHighlighterBase {
         ATTRIBUTES.put(Perl6TokenTypes.STRING_LITERAL_QUOTE, Perl6Highlighter.STRING_LITERAL_QUOTE);
         ATTRIBUTES.put(Perl6TokenTypes.STRING_LITERAL_CHAR, Perl6Highlighter.STRING_LITERAL_CHAR);
         ATTRIBUTES.put(Perl6TokenTypes.STRING_LITERAL_ESCAPE, Perl6Highlighter.STRING_LITERAL_ESCAPE);
+        ATTRIBUTES.put(Perl6TokenTypes.QUOTE_REGEX, Perl6Highlighter.QUOTE_REGEX);
         ATTRIBUTES.put(Perl6TokenTypes.QUOTE_PAIR, Perl6Highlighter.QUOTE_PAIR);
         ATTRIBUTES.put(Perl6TokenTypes.QUOTE_MOD, Perl6Highlighter.QUOTE_MOD);
         ATTRIBUTES.put(Perl6TokenTypes.ARRAY_COMPOSER, Perl6Highlighter.ARRAY_COMPOSER);

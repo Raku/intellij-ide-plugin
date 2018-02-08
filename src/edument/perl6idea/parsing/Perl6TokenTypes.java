@@ -70,6 +70,7 @@ public interface Perl6TokenTypes {
     IElementType PREFIX = new Perl6ElementType("PREFIX");
     IElementType QUOTE_MOD = new Perl6ElementType("QUOTE_MOD");
     IElementType QUOTE_PAIR = new Perl6ElementType("QUOTE_PAIR");
+    IElementType QUOTE_REGEX = new Perl6ElementType("QUOTE_REGEX");
     IElementType RADIX_NUMBER = new Perl6ElementType("RADIX_NUMBER");
     IElementType RAT_LITERAL = new Perl6ElementType("RAT_LITERAL");
     IElementType REGEX_ANCHOR = new Perl6ElementType("REGEX_ANCHOR");
