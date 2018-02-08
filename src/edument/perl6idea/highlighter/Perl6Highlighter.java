@@ -220,6 +220,11 @@ public final class Perl6Highlighter {
             DefaultLanguageHighlighterColors.STRING
     );
 
+    static final String QUOTE_MOD_ID = "PERL6_QUOTE_MOD";
+    public static final TextAttributesKey QUOTE_MOD = TextAttributesKey.createTextAttributesKey(
+            QUOTE_MOD_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
 
     static final String ARRAY_COMPOSER_ID = "PERL6_ARRAY_COMPOSER";
     public static final TextAttributesKey ARRAY_COMPOSER = TextAttributesKey.createTextAttributesKey(

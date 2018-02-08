@@ -2347,10 +2347,11 @@ grammar MAIN {
         :my $*Q_FUNCTIONS = 0;
         <.start-element('STRING_LITERAL')>
         [
-        || <?before ['Q' [<.has-delimiter> || <.quotepair>]]>
+        || <?before ['Q' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'Q' <.end-token('STRING_LITERAL_QUOTE')>
+           <.quote_mod_Q>?
            <.quibble>
-        || <?before ['qq' [<.has-delimiter> || <.quotepair>]]>
+        || <?before ['qq' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'qq' <.end-token('STRING_LITERAL_QUOTE')>
            { $*Q_BACKSLASH = 1 }
            { $*Q_QQBACKSLASH = 1 }
@@ -2359,10 +2360,12 @@ grammar MAIN {
            { $*Q_ARRAYS = 1 }
            { $*Q_HASHES = 1 }
            { $*Q_FUNCTIONS = 1 }
+           <.quote_mod_Q>?
            <.quibble>
-        || <?before ['q' [<.has-delimiter> || <.quotepair>]]>
+        || <?before ['q' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
            <.start-token('STRING_LITERAL_QUOTE')> 'q' <.end-token('STRING_LITERAL_QUOTE')>
            { $*Q_QBACKSLASH = 1 }
+           <.quote_mod_Q>?
            <.quibble>
         || <.start-token('STRING_LITERAL_QUOTE')> '\'' <.end-token('STRING_LITERAL_QUOTE')>
            <.quote_q('\'', '\'', '\'')>
@@ -2451,6 +2454,26 @@ grammar MAIN {
                <.end-token('STRING_LITERAL_QUOTE')>
            ]?
         ]
+    }
+
+    # This delegates to quote_mod to actually lex/parse, but looks ahead
+    # first to see if we need to tweak the parse state for the Q language.
+    token quote_mod_Q {
+        [
+        || <?before 's'> { $*Q_SCALARS = 1 }
+        || <?before 'a'> { $*Q_ARRAYS = 1 }
+        || <?before 'h'> { $*Q_HASHES = 1 }
+        || <?before 'f'> { $*Q_FUNCTIONS = 1 }
+        || <?before 'c'> { $*Q_CLOSURES = 1 }
+        || <?before 'b'> { $*Q_BACKSLASHES = 1 }
+        ]
+        <.quote_mod>
+    }
+
+    token quote_mod {
+        <.start-token('QUOTE_MOD')>
+        [ 'ww' || 'to' || <[wxsahfcb]> ]
+        <.end-token('QUOTE_MOD')>
     }
 
     # This delegates to quotepair to actually lex/parse, but looks ahead
