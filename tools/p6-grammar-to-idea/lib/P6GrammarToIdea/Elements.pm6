@@ -13,7 +13,8 @@ use P6GrammarToIdea::AST;
 # alternation falling outside of any token will be part of the model.
 
 my constant %IGNORE-NAMES = set 'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters',
-                                'bracket-ending';
+                                'bracket-ending', 'start-queue-heredoc',
+                                'end-queue-heredoc', 'dequeue-heredoc';
 
 role ParseNode is export {}
 

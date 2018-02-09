@@ -32,6 +32,7 @@ public interface Perl6TokenTypes {
     IElementType ESCAPE_HASH = new Perl6ElementType("ESCAPE_HASH");
     IElementType ESCAPE_SCALAR = new Perl6ElementType("ESCAPE_SCALAR");
     IElementType HASH_INDEX_BRACKET = new Perl6ElementType("HASH_INDEX_BRACKET");
+    IElementType HEREDOC = new Perl6ElementType("HEREDOC");
     IElementType HYPER_METAOP_MISSING = new Perl6ElementType("HYPER_METAOP_MISSING");
     IElementType HYPER_WHATEVER = new Perl6ElementType("HYPER_WHATEVER");
     IElementType INCOMPLETE_SCOPED_DECLARATION = new Perl6ElementType("INCOMPLETE_SCOPED_DECLARATION");

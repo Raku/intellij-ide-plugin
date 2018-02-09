@@ -4,6 +4,7 @@ grammar MAIN {
         :my $*IN_DECL = '';
         :my $*IN_REGEX_ASSERTION = 0;
         :my $*QSIGIL = '';
+        :my $*DELIM = '';
         <.statementlist>
         [
         || $
@@ -89,13 +90,39 @@ grammar MAIN {
     }
 
     token ws {
-        <!ww>        
+        <!ww>
         [
         || <.start-token('WHITE_SPACE')>
            [\r\n || \v]
            <.end-token('WHITE_SPACE')>
+           <.heredoc>
         || <.unv>
         || <.unsp>
+        ]*
+    }
+
+    token heredoc {
+        :my $*Q_Q = 0;
+        :my $*Q_QQ = 0;
+        :my $*Q_BACKSLASH = 0;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 0;
+        :my $*Q_CLOSURES = 0;
+        :my $*Q_SCALARS = 0;
+        :my $*Q_ARRAYS = 0;
+        :my $*Q_HASHES = 0;
+        :my $*Q_FUNCTIONS = 0;
+        :my $*Q_TO = 0;
+        :my $*DELIM = '';
+        [
+            <.dequeue-heredoc>
+            <.start-token('HEREDOC')> <?> <.end-token('HEREDOC')>
+            <.quote_nibbler>
+            [
+                <.start-token('STRING_LITERAL_QUOTE')>
+                <.stopper>
+                <.end-token('STRING_LITERAL_QUOTE')>
+            ]?
         ]*
     }
 
@@ -2350,6 +2377,7 @@ grammar MAIN {
         :my $*Q_ARRAYS = 0;
         :my $*Q_HASHES = 0;
         :my $*Q_FUNCTIONS = 0;
+        :my $*Q_TO = 0;
         <.start-element('STRING_LITERAL')>
         [
         || <?before ['Q' <.quote_mod>? [<.has-delimiter> || <.quotepair>]]>
@@ -2493,10 +2521,12 @@ grammar MAIN {
                <.start-token('STRING_LITERAL_QUOTE')>
                $*STARTER
                <.end-token('STRING_LITERAL_QUOTE')>
+               [ <?{ $*Q_TO }> <.start-queue-heredoc> ]?
                <.quote_nibbler>
+               [ <?{ $*Q_TO }> <.end-queue-heredoc> ]?
                [
                    <.start-token('STRING_LITERAL_QUOTE')>
-                   $*STOPPER
+                   <.stopper>
                    <.end-token('STRING_LITERAL_QUOTE')>
                ]?
            ]?
@@ -2635,6 +2665,7 @@ grammar MAIN {
         || <?before ':!f''unction'? >>> { $*Q_FUNCTIONS = 0 }
         || <?before ':c''losure'? >>> { $*Q_CLOSURES = 1 }
         || <?before ':!c''losure'? >>> { $*Q_CLOSURES = 0 }
+        || <?before ':to' >>> { $*Q_TO = 1 }
         || <!{ $*Q_QQ }> <!{ $*Q_Q }>
            [
            || <?before ':qq' >>>
@@ -2721,7 +2752,12 @@ grammar MAIN {
     }
 
     token stopper {
-        $*STOPPER || $*ALT_STOPPER
+        || <?{ $*DELIM }> ^^ \h* $*DELIM \h* $$ [\r\n || \v]?
+        || <!{ $*DELIM }>
+           [
+           || $*STOPPER
+           || $*ALT_STOPPER
+           ]
     }
 
     token quote_escape {

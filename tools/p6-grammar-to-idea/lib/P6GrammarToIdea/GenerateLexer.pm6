@@ -248,6 +248,15 @@ my class GrammarCompiler {
             when 'bracket-ending' {
                 $append-to.push: unless(this-call('bracketEnding'), [backtrack()]);
             }
+            when 'start-queue-heredoc' {
+                $append-to.push: this-call('startQueueHeredoc');
+            }
+            when 'end-queue-heredoc' {
+                $append-to.push: this-call('endQueueHeredoc');
+            }
+            when 'dequeue-heredoc' {
+                $append-to.push: unless(this-call('dequeueHeredoc'), [backtrack()]);
+            }
             when 'MARKER' {
                 unless $rule.args.elems == 1 && $rule.args[0] ~~ StrValue {
                     die "MARKER must be called with a single string argument";

@@ -27,6 +27,15 @@ public class CursorStack {
     /* Set of markers. */
     private Map<String, Integer> markers = new HashMap<>();
 
+    /* Heredoc queue. */
+    public List<Heredoc> heredocs = new ArrayList<>();
+
+    /* Start of current heredoc delimiter being parsed. */
+    public int heredocDelimStart = -1;
+
+    /* If we're in a lookahed or not. */
+    public int inLookahead = 0;
+
     public CursorStack(CharSequence target) {
         this.target = target;
     }

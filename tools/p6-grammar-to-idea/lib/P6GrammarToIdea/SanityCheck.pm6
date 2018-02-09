@@ -7,7 +7,8 @@ use P6GrammarToIdea::AST;
 
 my constant %BUILTIN-RULES := set 'start-token', 'end-token', 'start-element', 'end-element',
                                   'alpha', 'ww', 'MARKER', 'MARKED', 'peek-delimiters',
-                                  'bracket-ending';
+                                  'bracket-ending', 'start-queue-heredoc',
+                                  'end-queue-heredoc', 'dequeue-heredoc';
 
 multi sub sanity-check(Braids $braids) is export {
     my @*ERRORS;

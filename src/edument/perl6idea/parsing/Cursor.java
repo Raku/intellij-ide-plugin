@@ -372,9 +372,10 @@ public abstract class Cursor<TCursor extends Cursor> {
     }
 
     public boolean lookahead(int ruleNumber) {
-        // Save original token and token start.
+        // Save original token and token start; note we're in lookahead.
         int origTokenStart = stack.tokenStart;
         IElementType origToken = stack.token;
+        stack.inLookahead++;
 
         // Run ignoring any tokens, until we leave the base.
         Cursor<TCursor> base = stack.peek().start(ruleNumber);
@@ -405,9 +406,10 @@ public abstract class Cursor<TCursor extends Cursor> {
             }
         }
 
-        // Restore original token and token start.
+        // Restore original token and token start; note we left lookahead.
         stack.token = origToken;
         stack.tokenStart = origTokenStart;
+        stack.inLookahead--;
 
         // Return lookahead result.
         return result;
@@ -581,6 +583,41 @@ public abstract class Cursor<TCursor extends Cursor> {
         String prev = stack.target.subSequence(pos - 1, pos).toString();
         return prev.contentEquals(")") || prev.contentEquals("}") ||
                 prev.contentEquals("]") || prev.contentEquals(">");
+    }
+
+    private static final String[] saveLang = new String[] {
+            "$*Q_Q", "$*Q_QQ", "$*Q_BACKSLASH", "$*Q_QBACKSLASH",
+            "$*Q_QQBACKSLASH", "$*Q_CLOSURES", "$*Q_SCALARS",
+            "$*Q_ARRAYS", "$*Q_HASHES", "$*Q_FUNCTIONS"
+    };
+
+    public void startQueueHeredoc() {
+        Heredoc h = new Heredoc();
+        for (String save : saveLang) {
+            h.language.put(save, findDynamicVariable(save));
+            assignDynamicVariable(save, 0);
+        }
+        stack.heredocs.add(h);
+        stack.heredocDelimStart = pos;
+    }
+
+    public void endQueueHeredoc() {
+        if (stack.heredocDelimStart < 0)
+            throw new RuntimeException("End queue heredoc without matching start");
+        String delim = stack.target.subSequence(stack.heredocDelimStart, pos).toString();
+        stack.heredocs.get(stack.heredocs.size() - 1).delim = delim;
+    }
+
+    public boolean dequeueHeredoc() {
+        if (stack.heredocs.isEmpty())
+            return false;
+        if (stack.inLookahead > 0)
+            return false;
+        Heredoc h = stack.heredocs.remove(0);
+        for (String restore : saveLang)
+            assignDynamicVariable(restore, h.language.get(restore));
+        assignDynamicVariable("$*DELIM", h.delim);
+        return true;
     }
 
     public abstract int runRule();
