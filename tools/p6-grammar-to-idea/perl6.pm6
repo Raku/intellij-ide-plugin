@@ -912,7 +912,9 @@ grammar MAIN {
         || <.scope_declarator>
         || <.routine_declarator>
         || <.regex_declarator>
-        || <?before 'multi'||'proto'||'only'> <.multi_declarator>
+        || <?before ['multi' || 'proto' || 'only'] <.kok>>
+           <.start-token('TERM_IS_MULTI')> <?> <.end-token('TERM_IS_MULTI')>
+           <.multi_declarator>
         || <.type_declarator>
         || <.statement_prefix>
         || <.package_declarator>
@@ -1360,10 +1362,7 @@ grammar MAIN {
            <.kok>
            [ <.declarator> || <.routine_def> || <?> ]
            <.end-element('MULTI_DECLARATION')>
-        || <.start-token('MULTI_DECLARATOR_NULL')>
-           <?>
-           <.end-token('MULTI_DECLARATOR_NULL')>
-           <.declarator>
+        || <.declarator>
     }
 
     token variable_declarator {

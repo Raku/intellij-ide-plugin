@@ -3212,6 +3212,11 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean term_49_alt_19(PsiBuilder builder) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.TERM_IS_MULTI) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
         if (!(this.multi_declarator_114(builder))) {
             return false;
         }
@@ -9161,11 +9166,6 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean multi_declarator_114_alt_1(PsiBuilder builder) {
-        if ((builder.getTokenType()) == Perl6TokenTypes.MULTI_DECLARATOR_NULL) {
-            builder.advanceLexer();
-        } else {
-            return false;
-        }
         if (!(this.declarator_66(builder))) {
             return false;
         }
