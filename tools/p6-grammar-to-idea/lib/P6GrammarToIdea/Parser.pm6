@@ -90,6 +90,7 @@ grammar P6GrammarToIdea::Parser {
     token metachar:sym<.> { <sym> }
     token metachar:sym<$> { <sym> }
     token metachar:sym<$$> { <sym> }
+    token metachar:sym<^^> { <sym> }
     rule metachar:sym<group> {
         '[' <nibbler> ']'
     }

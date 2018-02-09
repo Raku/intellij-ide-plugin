@@ -79,6 +79,10 @@ class P6GrammarToIdea::Actions {
         make AnchorLineEnd.new
     }
 
+    method metachar:sym<^^>($/) {
+        make AnchorLineStart.new
+    }
+
     method metachar:sym<group>($/) {
         make $<nibbler>.ast;
     }

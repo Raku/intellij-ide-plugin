@@ -178,6 +178,7 @@ multi sub walk(AnchorLeftWordBoundary) { }
 multi sub walk(AnchorRightWordBoundary) { }
 multi sub walk(AnchorEnd) { }
 multi sub walk(AnchorLineEnd) { }
+multi sub walk(AnchorLineStart) { }
 multi sub walk(AnchorPass) { }
 multi sub walk(AnchorFail) { }
 multi sub walk(Declaration) { }

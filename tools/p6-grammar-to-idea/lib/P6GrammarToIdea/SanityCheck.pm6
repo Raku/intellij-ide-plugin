@@ -74,6 +74,7 @@ multi sub sanity-check(AnchorLeftWordBoundary) { }
 multi sub sanity-check(AnchorRightWordBoundary) { }
 multi sub sanity-check(AnchorEnd) { }
 multi sub sanity-check(AnchorLineEnd) { }
+multi sub sanity-check(AnchorLineStart) { }
 multi sub sanity-check(AnchorPass) { }
 multi sub sanity-check(AnchorFail) { }
 multi sub sanity-check(Interpolation) { }

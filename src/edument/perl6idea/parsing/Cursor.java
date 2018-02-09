@@ -358,6 +358,19 @@ public abstract class Cursor<TCursor extends Cursor> {
         return pos == stack.target.length();
     }
 
+    public boolean startOfLine() {
+        if (pos == 0)
+            return true;
+        if (pos >= stack.target.length())
+            return false;
+
+        int origPos = pos;
+        pos--;
+        Boolean isNewline = newlineChar();
+        this.pos = origPos;
+        return isNewline;
+    }
+
     public boolean lookahead(int ruleNumber) {
         // Save original token and token start.
         int origTokenStart = stack.tokenStart;

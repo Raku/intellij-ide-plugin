@@ -179,6 +179,12 @@ class AnchorEnd is export {
     }
 }
 
+class AnchorLineStart is export {
+    method dump($level = 0) {
+        i($level, "Anchor (Start Of Line)\n")
+    }
+}
+
 class AnchorLineEnd is export {
     method dump($level = 0) {
         i($level, "Anchor (End Of Line)\n")

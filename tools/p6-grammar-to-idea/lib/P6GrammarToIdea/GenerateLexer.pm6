@@ -318,6 +318,10 @@ my class GrammarCompiler {
         $*CUR-STATEMENTS.push: unless(this-call('endOfLine'), [backtrack()]);
     }
 
+    multi method compile(AnchorLineStart) {
+        $*CUR-STATEMENTS.push: unless(this-call('startOfLine'), [backtrack()]);
+    }
+
     multi method compile(AnchorEnd) {
         $*CUR-STATEMENTS.push: unless(this-call('endOfString'), [backtrack()]);
     }
