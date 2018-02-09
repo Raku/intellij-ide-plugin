@@ -2416,6 +2416,16 @@ grammar MAIN {
            || <.start-token('MISSING_REGEX')> <?> <.end-token('MISSING_REGEX')>
            ]
            [<.start-token('QUOTE_REGEX')> '/' <.end-token('QUOTE_REGEX')>]?
+        || <?before ['rx' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'rx' <.end-token('QUOTE_REGEX')>
+           <.quibble_rx>
+        || <?before ['ms' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'ms' <.end-token('QUOTE_REGEX')>
+           { $*RX_S = 1 }
+           <.quibble_rx>
+        || <?before ['m' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'm' <.end-token('QUOTE_REGEX')>
+           <.quibble_rx>
         ]
         <.end-element('QUOTE_REGEX')>
     }
@@ -2478,6 +2488,37 @@ grammar MAIN {
         ]
     }
 
+    token quibble_rx {
+        :my $*STARTER = '';
+        :my $*STOPPER = '';
+        :my $*ALT_STOPPER = '';
+        [
+        || [ <.quotepair_rx> <.ws> ]+
+           [
+               <.peek-delimiters>
+               <.start-token('QUOTE_REGEX')>
+               $*STARTER
+               <.end-token('QUOTE_REGEX')>
+               <.enter_regex_nibbler($*STARTER, $*STOPPER)>
+               [
+                   <.start-token('QUOTE_REGEX')>
+                   $*STOPPER
+                   <.end-token('QUOTE_REGEX')>
+               ]?
+           ]?
+        || <.peek-delimiters>
+           <.start-token('QUOTE_REGEX')>
+           $*STARTER
+           <.end-token('QUOTE_REGEX')>
+           <.enter_regex_nibbler($*STARTER, $*STOPPER)>
+           [
+               <.start-token('QUOTE_REGEX')>
+               $*STOPPER
+               <.end-token('QUOTE_REGEX')>
+           ]?
+        ]
+    }
+
     # This delegates to quote_mod to actually lex/parse, but looks ahead
     # first to see if we need to tweak the parse state for the Q language.
     token quote_mod_Q {
@@ -2529,6 +2570,17 @@ grammar MAIN {
               { $*Q_Q = 1 }
               { $*Q_QBACKSLASH = 1 }
            ]
+        ]?
+        <.quotepair>
+    }
+
+    # This delegates to quotepair to actually lex/parse, but looks ahead
+    # first to see if we need to tweak the parse state for the regex
+    # language.
+    token quotepair_rx {
+        [
+        || <?before ':s''igspace'? >>> { $*RX_S = 1 }
+        || <?before ':!s''igspace'? >>> { $*RX_S = 0 }
         ]?
         <.quotepair>
     }
