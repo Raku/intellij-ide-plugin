@@ -115,6 +115,7 @@ public interface Perl6TokenTypes {
     IElementType STUB_CODE = new Perl6ElementType("STUB_CODE");
     IElementType SUBSET_ANON = new Perl6ElementType("SUBSET_ANON");
     IElementType SUBSET_INCOMPLETE = new Perl6ElementType("SUBSET_INCOMPLETE");
+    IElementType SUBST_ASSIGNISH = new Perl6ElementType("SUBST_ASSIGNISH");
     IElementType SUB_CALL_NAME = new Perl6ElementType("SUB_CALL_NAME");
     IElementType TERM = new Perl6ElementType("TERM");
     IElementType TERM_DECLARATION_BACKSLASH = new Perl6ElementType("TERM_DECLARATION_BACKSLASH");

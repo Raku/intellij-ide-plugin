@@ -2426,6 +2426,32 @@ grammar MAIN {
         || <?before ['m' [<.has-delimiter> || <.quotepair>]]>
            <.start-token('QUOTE_REGEX')> 'm' <.end-token('QUOTE_REGEX')>
            <.quibble_rx>
+        || <?before ['Ss' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'Ss' <.end-token('QUOTE_REGEX')>
+           { $*RX_S = 1 }
+           [
+           || [ <.quotepair_rx> <.ws> ]+ <.sibble>
+           || <.sibble>
+           ]
+        || <?before ['ss' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'ss' <.end-token('QUOTE_REGEX')>
+           { $*RX_S = 1 }
+           [
+           || [ <.quotepair_rx> <.ws> ]+ <.sibble>
+           || <.sibble>
+           ]
+        || <?before ['S' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 'S' <.end-token('QUOTE_REGEX')>
+           [
+           || [ <.quotepair_rx> <.ws> ]+ <.sibble>
+           || <.sibble>
+           ]
+        || <?before ['s' [<.has-delimiter> || <.quotepair>]]>
+           <.start-token('QUOTE_REGEX')> 's' <.end-token('QUOTE_REGEX')>
+           [
+           || [ <.quotepair_rx> <.ws> ]+ <.sibble>
+           || <.sibble>
+           ]
         ]
         <.end-element('QUOTE_REGEX')>
     }
@@ -2517,6 +2543,61 @@ grammar MAIN {
                <.end-token('QUOTE_REGEX')>
            ]?
         ]
+    }
+
+    token sibble {
+        :my $*STARTER = '';
+        :my $*STOPPER = '';
+        :my $*ALT_STOPPER = '';
+        :my $*Q_Q = 0;
+        :my $*Q_QQ = 1;
+        :my $*Q_BACKSLASH = 1;
+        :my $*Q_QBACKSLASH = 0;
+        :my $*Q_QQBACKSLASH = 1;
+        :my $*Q_CLOSURES = 1;
+        :my $*Q_SCALARS = 1;
+        :my $*Q_ARRAYS = 1;
+        :my $*Q_HASHES = 1;
+        :my $*Q_FUNCTIONS = 1;
+        <.peek-delimiters>
+        <.start-token('QUOTE_REGEX')>
+        $*STARTER
+        <.end-token('QUOTE_REGEX')>
+        <.enter_regex_nibbler($*STARTER, $*STOPPER)>
+        [
+            <.start-token('QUOTE_REGEX')>
+            $*STOPPER
+            <.end-token('QUOTE_REGEX')>
+            [
+            || <?{ $*STARTER ne $*STOPPER }>
+               <.start-token('SUBST_ASSIGNISH')> <?> <.end-token('SUBST_ASSIGNISH')>
+               <.ws>
+               [
+                   [
+                   || <?before [<![!]> <.infixish_non_assignment_meta> '=']>
+                      <.start-element('ASSIGN_METAOP')>
+                      <.start-token('ASSIGN_METAOP')> <?> <.end-token('ASSIGN_METAOP')>
+                      <.infixish_non_assignment_meta>
+                      <.start-token('METAOP')>
+                      '='
+                      <.end-token('METAOP')>
+                      <.end-element('ASSIGN_METAOP')>
+                   || <.start-element('INFIX')>
+                      <.start-token('INFIX')>
+                      '='
+                      <.end-token('INFIX')>
+                      <.end-element('INFIX')>
+                   ]
+                   [ <.ws> <.EXPR('i')>? ]?
+               ]?
+            || <.quote_nibbler>
+               [
+                   <.start-token('QUOTE_REGEX')>
+                   $*STOPPER
+                   <.end-token('QUOTE_REGEX')>
+               ]?
+            ]?
+        ]?
     }
 
     # This delegates to quote_mod to actually lex/parse, but looks ahead
