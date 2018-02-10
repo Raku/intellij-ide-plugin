@@ -246,7 +246,7 @@ grammar MAIN {
 
     token xblock {
         :my $*GOAL = '{';
-        <.EXPR('')> <.ws> <.pblock>?
+        <.EXPR('')> [<.ws> <.pblock>?]?
     }
 
     token pblock {
@@ -339,29 +339,32 @@ grammar MAIN {
         <.ws>
         [
             <.xblock>
-            <.ws>
             [
-                <?before ['elsif' || 'orwith'] <.ws>>
+                <.ws>
                 [
-                || <.start-token('STATEMENT_CONTROL')>
-                   'elsif'
-                   <.end-token('STATEMENT_CONTROL')>
-                || <.start-token('STATEMENT_CONTROL')>
-                   'orwith'
-                   <.end-token('STATEMENT_CONTROL')>
-                ]
-                <.ws>
-                <.xblock>?
-                <.ws>
-            ]*
-            <.ws>
-            [
-                <?before 'else' <.ws>>
-                <.start-token('STATEMENT_CONTROL')>
-                'else'
-                <.end-token('STATEMENT_CONTROL')>
-                <.ws>
-                <.pblock>?
+                    <?before ['elsif' || 'orwith'] <.ws>>
+                    [
+                    || <.start-token('STATEMENT_CONTROL')>
+                       'elsif'
+                       <.end-token('STATEMENT_CONTROL')>
+                    || <.start-token('STATEMENT_CONTROL')>
+                       'orwith'
+                       <.end-token('STATEMENT_CONTROL')>
+                    ]
+                    <.ws>
+                    [ <.xblock>  <.ws>? ]?
+                ]*
+                [
+                    <.ws>
+                    [
+                        <?before 'else' <.ws>>
+                        <.start-token('STATEMENT_CONTROL')>
+                        'else'
+                        <.end-token('STATEMENT_CONTROL')>
+                        <.ws>
+                        <.pblock>?
+                    ]?
+                ]?
             ]?
         ]?
         <.end-element('IF_STATEMENT')>
@@ -434,21 +437,23 @@ grammar MAIN {
                <.end-token('STATEMENT_CONTROL')>
            ]
            <.kok>
-           <.ws>
-           <.xblock>?
+           [ <.ws> <.xblock>? ]?
         || <.pblock>
-           <.ws>
            [
-               <?before ['while'||'until'] <.kok>>
+               <.ws>
                [
-               || <.start-token('STATEMENT_CONTROL')>
-                  'while'
-                  <.end-token('STATEMENT_CONTROL')>
-               || <.start-token('STATEMENT_CONTROL')>
-                  'until'
-                   <.end-token('STATEMENT_CONTROL')>
-               ]
-               <.EXPR('')>?
+                   <?before ['while'||'until'] <.kok>>
+                   [
+                   || <.start-token('STATEMENT_CONTROL')>
+                      'while'
+                      <.end-token('STATEMENT_CONTROL')>
+                   || <.start-token('STATEMENT_CONTROL')>
+                      'until'
+                       <.end-token('STATEMENT_CONTROL')>
+                   ]
+                   <.ws>
+                   <.EXPR('')>?
+               ]?
            ]?
         || <?>
         ]
@@ -491,13 +496,7 @@ grammar MAIN {
             <.start-token('PARENTHESES')> '(' <.end-token('PARENTHESES')>
             <.ws>
             <.EXPR('')>?
-            <.ws>
             [
-                <.start-token('STATEMENT_TERMINATOR')>
-                ';'
-                <.end-token('STATEMENT_TERMINATOR')>
-                <.ws>
-                <.EXPR('')>?
                 <.ws>
                 [
                     <.start-token('STATEMENT_TERMINATOR')>
@@ -505,17 +504,28 @@ grammar MAIN {
                     <.end-token('STATEMENT_TERMINATOR')>
                     <.ws>
                     <.EXPR('')>?
-                    <.ws>
+                    [
+                        <.ws>
+                        [
+                            <.start-token('STATEMENT_TERMINATOR')>
+                            ';'
+                            <.end-token('STATEMENT_TERMINATOR')>
+                            <.ws>
+                            <.EXPR('')>?
+                            <.ws>?
+                        ]?
+                    ]?
                 ]?
+                [<.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')>]?
+                <.ws>
             ]?
-            [<.start-token('PARENTHESES')> ')' <.end-token('PARENTHESES')>]?
-            <.ws>
         ]?
         <.block>?
         <.end-element('LOOP_STATEMENT')>
     }
 
     token statement_control_need {
+        <?before ['need' <.ws>]>
         <.start-element('NEED_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'need'
@@ -526,24 +536,27 @@ grammar MAIN {
             || <.version>
             || <.module_name>
             ]
-            <.ws>
             [
-                <.start-token('INFIX')>
-                ','
-                <.end-token('INFIX')>
                 <.ws>
                 [
-                || <.version>
-                || <.module_name>
-                ]?
-                <.ws>
-            ]*
+                    <.start-token('INFIX')>
+                    ','
+                    <.end-token('INFIX')>
+                    <.ws>
+                    [
+                    || <.version>
+                    || <.module_name>
+                    ]?
+                    <.ws>?
+                ]*
+            ]?
         ]?
         <.end-element('NEED_STATEMENT')>
     }
 
     token statement_control_import {
         :my $*IN_DECL = 'import';
+        <?before ['import' <.ws>]>
         <.start-element('IMPORT_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'import'
@@ -552,13 +565,14 @@ grammar MAIN {
         [
             <.module_name>
             [ <.spacey> <.arglist> ]?
-            <.ws>
+            <.ws>?
         ]?
         <.end-element('IMPORT_STATEMENT')>
     }
 
     token statement_control_no {
         :my $*IN_DECL = 'no';
+        <?before ['no' <.ws>]>
         <.start-element('NO_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'no'
@@ -567,12 +581,13 @@ grammar MAIN {
         [
             <.module_name>
             [ <.spacey> <.arglist> ]?
-            <.ws>
+            <.ws>?
         ]?
         <.end-element('NO_STATEMENT')>
     }
 
     token statement_control_use {
+        <?before ['use' <.ws>]>
         :my $*IN_DECL = 'use';
         <.start-element('USE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
@@ -583,11 +598,12 @@ grammar MAIN {
         || <.version>
         || <.module_name> [ <.spacey> <.arglist> ]?
         ]?
-        <.ws>
+        <.ws>?
         <.end-element('USE_STATEMENT')>
     }
 
     token statement_control_require {
+        <?before ['require' <.ws>]>
         <.start-element('REQUIRE_STATEMENT')>
         <.start-token('STATEMENT_CONTROL')>
         'require'
@@ -599,8 +615,7 @@ grammar MAIN {
             || <.variable>
             || <!sigil> <.term>
             ]
-            <.ws>
-            <.EXPR('')>?
+            [ <.ws> <.EXPR('')>? ]?
         ]?
         <.end-element('REQUIRE_STATEMENT')>
     }
@@ -1197,7 +1212,7 @@ grammar MAIN {
     # XXX Cheat
     token semiarglist {
         <.arglist>
-        <.ws>
+        <.ws>?
     }
 
     token arglist {
@@ -1354,11 +1369,11 @@ grammar MAIN {
            '\\'
            <.end-token('TERM_DECLARATION_BACKSLASH')>
            <.defterm>
-           <.ws> <.initializer>?
+           [ <.ws> <.initializer>? ]?
            <.end-element('VARIABLE_DECLARATION')>
         || <.start-element('VARIABLE_DECLARATION')>
            <.variable_declarator>
-           <.ws> <.initializer>?
+           [ <.ws> <.initializer>? ]?
            <.end-element('VARIABLE_DECLARATION')>
         || <.start-element('VARIABLE_DECLARATION')>
            <.start-token('PARENTHESES')>
@@ -1372,7 +1387,7 @@ grammar MAIN {
                ')'
                <.end-token('PARENTHESES')>
                <.ws> <.trait>*
-               <.ws> <.initializer>?
+               [ <.ws> <.initializer>? ]?
            ]?
            <.end-element('VARIABLE_DECLARATION')>
         || <.routine_declarator>
@@ -1422,8 +1437,7 @@ grammar MAIN {
         ]?
         <.ws>
         <.trait>*
-        <.ws>
-        <.post_constraint>*
+        [ <.ws> <.post_constraint>* ]?
     }
 
     token routine_declarator {
@@ -1582,7 +1596,7 @@ grammar MAIN {
             <.end-token('RETURN_ARROW')>
             <.ws>
             [
-            || [ <.typename> || <.value> ] <.ws>
+            || [ <.typename> || <.value> ] <.ws>?
             || <.start-token('MISSING_RETURN_CONSTRAINT')>
                <?>
                <.end-token('MISSING_RETURN_CONSTRAINT')>
@@ -1709,11 +1723,13 @@ grammar MAIN {
                <.ws>
                [
                    [ <.named_param> || <.param_var> ]
-                   <.ws>
                    [
-                       <.start-token('NAMED_PARAMETER_SYNTAX')>
-                       ')'
-                       <.end-token('NAMED_PARAMETER_SYNTAX')>
+                       <.ws>
+                       [
+                           <.start-token('NAMED_PARAMETER_SYNTAX')>
+                           ')'
+                           <.end-token('NAMED_PARAMETER_SYNTAX')>
+                       ]?
                    ]?
                ]?
            ]?
@@ -1729,7 +1745,7 @@ grammar MAIN {
         '='
         <.end-token('INFIX')>
         <.ws>
-        [ <.EXPR('i=')> <.ws> ]?
+        [ <.EXPR('i=')> <.ws>? ]?
         <.end-element('PARAMETER_DEFAULT')>
     }
 
@@ -1754,7 +1770,7 @@ grammar MAIN {
            <.end-element('VALUE_CONSTRAINT')>
         || <.typename>
         ]
-        <.ws>
+        <.ws>?
     }
 
     token post_constraint {
@@ -1791,7 +1807,7 @@ grammar MAIN {
            <.EXPR('i=')>?
            <.end-element('WHERE_CONSTRAINT')>
         ]
-        <.ws>
+        <.ws>?
     }
 
     token initializer {
@@ -1945,7 +1961,7 @@ grammar MAIN {
             ]?
             <.end-element('SIGNATURE')>
         ]?
-        <.ws>
+        <.ws>?
         <.trait>*
         { $*IN_DECL = '' }
         [
@@ -1985,12 +2001,14 @@ grammar MAIN {
                { $*IN_DECL = '' }
                <.ws>
                <.trait>*
-               <.ws>
                [
-               || <![<(«]> <.start-token('ENUM_INCOMPLETE')> <?> <.end-token('ENUM_INCOMPLETE')>
-               || <.term>
-               ]
-               <.ws>
+                   <.ws>
+                   [
+                   || <![<(«]> <.start-token('ENUM_INCOMPLETE')> <?> <.end-token('ENUM_INCOMPLETE')>
+                   || <.term>
+                   ]
+               ]?
+               <.ws>?
            ]?
            <.end-element('ENUM')>
         || <?before ['subset' <.kok>]>
@@ -2008,19 +2026,21 @@ grammar MAIN {
                { $*IN_DECL = '' }
                <.ws>
                <.trait>*
-               <.ws>
                [
-                   <?before ['where' <.ws>]>
-                   <.start-token('WHERE_CONSTRAINT')>
-                   'where'
-                   <.end-token('WHERE_CONSTRAINT')>
                    <.ws>
                    [
-                   || <.EXPR('e=')>
-                   || <.start-token('SUBSET_INCOMPLETE')> <?> <.end-token('SUBSET_INCOMPLETE')>
-                   ]
+                       <?before ['where' <.ws>]>
+                       <.start-token('WHERE_CONSTRAINT')>
+                       'where'
+                       <.end-token('WHERE_CONSTRAINT')>
+                       <.ws>
+                       [
+                       || <.EXPR('e=')>
+                       || <.start-token('SUBSET_INCOMPLETE')> <?> <.end-token('SUBSET_INCOMPLETE')>
+                       ]
+                   ]?
                ]?
-               <.ws>
+               <.ws>?
            ]?
            <.end-element('SUBSET')>
         || <?before ['constant' <.kok>]>
@@ -3720,8 +3740,7 @@ grammar MAIN {
            <.ws>
            [
                <.quantified_atom>
-               <.ws>
-               <.quantified_atom>?
+               [ <.ws> <.quantified_atom>? ]
            ]?
            <.end-element('REGEX_GOAL')>
         || <.mod_internal>
