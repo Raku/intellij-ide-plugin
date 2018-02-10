@@ -127,9 +127,9 @@ grammar MAIN {
     }
 
     token unsp {
-        <.start-token('WHITE_SPACE')>
+        <.start-token('UNSP_WHITE_SPACE')>
         '\\' <?before \s || '#'>
-        <.end-token('WHITE_SPACE')>
+        <.end-token('UNSP_WHITE_SPACE')>
         [
         || <.vws>
         || <.unv>
@@ -138,15 +138,16 @@ grammar MAIN {
     }
 
     token vws {
-        <.start-token('WHITE_SPACE')>
+        <.start-token('VERTICAL_WHITE_SPACE')>
         \v+
-        <.end-token('WHITE_SPACE')>
+        <.end-token('VERTICAL_WHITE_SPACE')>
     }
 
     token unv {
         [
         || <.comment>
-        || <.start-token('WHITE_SPACE')> \h+ <.end-token('WHITE_SPACE')> <.comment>?
+        || <.start-token('UNV_WHITE_SPACE')> \h+ <.end-token('UNV_WHITE_SPACE')>
+           <.comment>?
         ]
     }
 
@@ -172,8 +173,8 @@ grammar MAIN {
     ## Top-level structure
 
     token statementlist {
-        [<.ws> || $]
         <.start-element('STATEMENT_LIST')>
+        [<.ws> || $]
         [
             <!before $ || <[\)\]\}]> >
             <.start-element('STATEMENT')>
@@ -284,6 +285,13 @@ grammar MAIN {
         <.start-token('BLOCK_CURLY_BRACKET')>
         '{'
         <.end-token('BLOCK_CURLY_BRACKET')>
+        [
+            <?before [ <.unv>? [\r\n || \v] ]>
+            <.unv>?
+            <.start-token('WHITE_SPACE')>
+            [\r\n || \v]
+            <.end-token('WHITE_SPACE')>
+        ]?
         <.statementlist>
         [
         <.start-token('BLOCK_CURLY_BRACKET')>

@@ -125,9 +125,12 @@ public interface Perl6TokenTypes {
     IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");
     IElementType TYPE_DECLARATOR = new Perl6ElementType("TYPE_DECLARATOR");
     IElementType TYPE_PARAMETER_BRACKET = new Perl6ElementType("TYPE_PARAMETER_BRACKET");
+    IElementType UNSP_WHITE_SPACE = new Perl6ElementType("UNSP_WHITE_SPACE");
+    IElementType UNV_WHITE_SPACE = new Perl6ElementType("UNV_WHITE_SPACE");
     IElementType VARIABLE = new Perl6ElementType("VARIABLE");
     IElementType VARIABLE_REGEX_NAMED_CAPTURE = new Perl6ElementType("VARIABLE_REGEX_NAMED_CAPTURE");
     IElementType VERSION = new Perl6ElementType("VERSION");
+    IElementType VERTICAL_WHITE_SPACE = new Perl6ElementType("VERTICAL_WHITE_SPACE");
     IElementType WHATEVER = new Perl6ElementType("WHATEVER");
     IElementType WHERE_CONSTRAINT = new Perl6ElementType("WHERE_CONSTRAINT");
     IElementType WHITE_SPACE = TokenType.WHITE_SPACE;
