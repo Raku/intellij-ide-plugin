@@ -62,9 +62,6 @@ class Perl6Block extends AbstractBlock implements BlockWithParent {
     public Indent getIndent() {
         if (myNode.getElementType() == STATEMENT_LIST &&
                 myNode.getTreeParent().getElementType() == BLOCK) {
-            if (myNode.getText().length() < 3) {
-                return Indent.getNoneIndent();
-            }
             return Indent.getNormalIndent();
         }
         return Indent.getNoneIndent();
