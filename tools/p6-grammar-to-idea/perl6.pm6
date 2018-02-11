@@ -2998,6 +2998,16 @@ grammar MAIN {
     }
 
     token postfixish {
+        <!stdstopper>
+        [
+            <!{ $*QSIGIL }>
+            <?before [[<.unsp> || '\\'] [['»' || '>>'] || <.postfixish_nometa>]]>
+            [
+            || <.unsp>
+            || <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')>
+            ]
+        ]?
+        [
         || <?before [ ['»' || '>>'] [ <!{ $*QSIGIL }> || <![(]> ] ]>
            <.start-element('HYPER_METAOP')>
            <.start-token('METAOP')>
@@ -3009,6 +3019,7 @@ grammar MAIN {
            ]
            <.end-element('HYPER_METAOP')>
         || <.postfixish_nometa>
+        ]
     }
 
     token postfixish_nometa {
