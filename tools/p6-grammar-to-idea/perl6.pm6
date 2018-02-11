@@ -3008,8 +3008,13 @@ grammar MAIN {
             ]
         ]?
         [
-        || <?before [ ['»' || '>>'] [ <!{ $*QSIGIL }> || <![(]> ] ]>
+        || <?before [ ['.' <.unsp>?]? ['»' || '>>'] [ <!{ $*QSIGIL }> || <![(]> ] ]>
            <.start-element('HYPER_METAOP')>
+           [
+               <?before ['.' <.unsp>?]>
+               <.start-token('METAOP')> '.' <.end-token('METAOP')>
+               <.unsp>?
+           ]?
            <.start-token('METAOP')>
            ['»' || '>>']
            <.end-token('METAOP')>
@@ -3026,7 +3031,19 @@ grammar MAIN {
         || <.start-element('POSTFIX')>
            <.postfix>
            <.end-element('POSTFIX')>
+        || <?before ['.' \W]> <?before ['.' <.postfix>]>
+           <.start-element('POSTFIX')>
+           <.start-token('POSTFIX')> '.' <.end-token('POSTFIX')>
+           <.postfix>
+           <.end-element('POSTFIX')>
         || <.postcircumfix> { $*PREC = 'y=' }
+        || <?before ['.' <?[ [ { < ]>]>
+           <.start-element('METHOD_CALL')>
+           <.start-token('METHOD_CALL_OPERATOR')>
+           '.'
+           <.end-token('METHOD_CALL_OPERATOR')>
+           <.postcircumfix> { $*PREC = 'y=' }
+           <.end-element('METHOD_CALL')>
         || <.dotty> { $*PREC = 'y=' }
         || <.privop> { $*PREC = 'y=' }
     }
