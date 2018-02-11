@@ -6,6 +6,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.FormatterUtil;
 import com.intellij.psi.formatter.common.AbstractBlock;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,11 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edument.perl6idea.parsing.Perl6ElementTypes.BLOCK;
-import static edument.perl6idea.parsing.Perl6TokenTypes.BLOCK_CURLY_BRACKET;
+import static edument.perl6idea.parsing.Perl6ElementTypes.STATEMENT_LIST;
+import static edument.perl6idea.parsing.Perl6TokenTypes.*;
 
 class Perl6Block extends AbstractBlock implements BlockWithParent {
     private BlockWithParent myParent;
     private CodeStyleSettings mySettings;
+
+    private TokenSet WHITESPACES = TokenSet.create(
+            UNV_WHITE_SPACE, WHITE_SPACE,
+            VERTICAL_WHITE_SPACE, UNSP_WHITE_SPACE
+    );
 
     Perl6Block(ASTNode node, Wrap wrap, Alignment align, CodeStyleSettings settings) {
         super(node, wrap, align);
@@ -30,7 +37,8 @@ class Perl6Block extends AbstractBlock implements BlockWithParent {
             return EMPTY;
         final ArrayList<Block> children = new ArrayList<>();
         for (ASTNode child = getNode().getFirstChildNode(); child != null; child = child.getTreeNext()) {
-            if (FormatterUtil.containsWhiteSpacesOnly(child)) continue;
+            if (FormatterUtil.containsWhiteSpacesOnly(child) ||
+                    WHITESPACES.contains(child.getElementType())) continue;
             final Perl6Block childBlock = new Perl6Block(child, null,
                     null, mySettings);
             childBlock.setParent(this);
@@ -52,24 +60,24 @@ class Perl6Block extends AbstractBlock implements BlockWithParent {
 
     @Override
     public Indent getIndent() {
-        if (myNode.getText().trim().length() == 0) {
-            return null;
-        }
-
-        Indent indent = Indent.getNoneIndent();
-        if (myNode.getElementType() != BLOCK_CURLY_BRACKET &&
-                myNode.getTreeParent() != null &&
+        if (myNode.getElementType() == STATEMENT_LIST &&
                 myNode.getTreeParent().getElementType() == BLOCK) {
-            indent = Indent.getNormalIndent();
+            if (myNode.getText().length() < 3) {
+                return Indent.getNoneIndent();
+            }
+            return Indent.getNormalIndent();
         }
-
-        return indent;
+        return Indent.getNoneIndent();
     }
 
     @NotNull
     @Override
     public ChildAttributes getChildAttributes(final int newIndex) {
-        return new ChildAttributes(getIndent(), null);
+        Block block = getSubBlocks().get(newIndex - 1);
+        if (((Perl6Block) block).getNode().getText().equals("{")) {
+            return new ChildAttributes(Indent.getNormalIndent(), null);
+        }
+        return new ChildAttributes(Indent.getNoneIndent(), null);
     }
 
     @Override
