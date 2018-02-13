@@ -236,8 +236,14 @@ my class GrammarCompiler {
             when 'start-element' | 'end-element' {
                 # These aren't relevant for lexer generation
             }
+            when 'opp-push-prefix' | 'opp-push-postfix' | 'opp-end-infix' {
+                my $next = self!new-state();
+                $append-to.push: this-call('precInfoToken');
+                $append-to.push: assign(field('state', 'int'), int-lit($next));
+                $append-to.push: ret(int-lit(END-TOKEN));
+            }
             when /^ 'opp-'/ {
-                # These are only important to the parser
+                # Other OPP calls are only important to the parser
             }
             when 'alpha' {
                 $append-to.push: unless(this-call('alphaChar'), [backtrack()]);

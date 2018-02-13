@@ -30,7 +30,9 @@ sub production-method($meth-name, $implementation) {
         ])),
         :return-type<boolean>, :statements[
             decl($opp),
-            assign($opp, $*NEED-OPP ?? new('OPP') !! NullLiteral.new),
+            assign($opp, $*NEED-OPP
+                ?? new('OPP', local('builder', 'PsiBuilder'))
+                !! NullLiteral.new),
             |@impl,
             ret(true-lit())
         ]

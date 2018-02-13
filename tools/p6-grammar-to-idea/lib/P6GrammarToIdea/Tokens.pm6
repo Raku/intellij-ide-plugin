@@ -18,9 +18,8 @@ my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha', 'ww',
                                 'MARKER', 'MARKED', 'peek-delimiters', 'bracket-ending',
                                 'start-queue-heredoc', 'end-queue-heredoc',
                                 'dequeue-heredoc', 'opp-start-expr', 'opp-start-infix',
-                                'opp-end-infix', 'opp-end-expr', 'opp-start-prefixes',
-                                'opp-push-prefix', 'opp-end-prefixes', 'opp-start-postfixes',
-                                'opp-push-postfix', 'opp-end-postfixes';
+                                'opp-end-expr', 'opp-start-prefixes', 'opp-end-prefixes',
+                                'opp-start-postfixes', 'opp-end-postfixes';
 
 class X::P6GrammarToIdea::UncoveredByToken is Exception {
     has $.production-name;
@@ -136,6 +135,16 @@ multi sub walk(Subrule $call) {
         when 'end-token' {
             $*CURRENT-TOKEN = Nil;
             $*CURRENT-TOKEN-START-PRODUCTION = Nil;
+        }
+        when 'opp-push-prefix' | 'opp-push-postfix' | 'opp-end-infix' {
+            # These emit a fake token to convey precedence info to the parser,
+            # so we must not already be in one.
+            with $*CURRENT-TOKEN {
+                die X::P6GrammarToIdea::OverlappingToken.new:
+                    existing => $_,
+                    conflicting => $call.name,
+                    production-name => $*CURRENT-PRODUCTION.name
+            }
         }
         when %IGNORE-NAMES{$_}:exists {
             # Not significant for the tokenizer

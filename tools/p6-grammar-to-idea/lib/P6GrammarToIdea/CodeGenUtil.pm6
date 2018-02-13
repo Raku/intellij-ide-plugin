@@ -60,6 +60,6 @@ sub break() is export {
 sub continue() is export {
     Java::Generate::Statement::Continue.new
 }
-sub new($name) is export {
-    Java::Generate::Expression::ConstructorCall.new(:$name)
+sub new($name, *@arguments) is export {
+    Java::Generate::Expression::ConstructorCall.new(:$name, :@arguments)
 }

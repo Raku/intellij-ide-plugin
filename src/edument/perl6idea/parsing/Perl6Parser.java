@@ -978,7 +978,7 @@ public class Perl6Parser implements PsiParser {
 
     private boolean EXPR_17(PsiBuilder builder) {
         OPP opp;
-        opp = new OPP();
+        opp = new OPP(builder);
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
         opp.startExpr();
@@ -8917,7 +8917,7 @@ public class Perl6Parser implements PsiParser {
 
     private boolean termish_107(PsiBuilder builder) {
         OPP opp;
-        opp = new OPP();
+        opp = new OPP(builder);
         opp.startPrefixes();
         PsiBuilder.Marker altMarker5;
         altMarker5 = builder.mark();

@@ -620,5 +620,12 @@ public abstract class Cursor<TCursor extends Cursor> {
         return true;
     }
 
+    public void precInfoToken() {
+        stack.tokenStart = pos;
+        stack.token = PrecInfoToken.tokenFor(
+                getDynamicVariable("$*PREC").toString(),
+                getDynamicVariable("$*ASSOC").toString());
+    }
+
     public abstract int runRule();
 }
