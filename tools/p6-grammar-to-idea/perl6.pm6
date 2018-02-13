@@ -2991,22 +2991,22 @@ grammar MAIN {
     token prefix {
         <.start-token('PREFIX')>
         [
-        || '++⚛' { $*PREC = 'x=' }
-        || '--⚛' { $*PREC = 'x=' }
-        || '++' { $*PREC = 'x=' }
-        || '--' { $*PREC = 'x=' }
-        || '+^' { $*PREC = 'v=' }
-        || '~^' { $*PREC = 'v=' }
-        || '?^' { $*PREC = 'v=' }
-        || '+' { $*PREC = 'v=' }
-        || '~' { $*PREC = 'v=' }
-        || '-' <![>]> { $*PREC = 'v=' }
-        || '−' { $*PREC = 'v=' }
-        || '?' <!before '??'> { $*PREC = 'v=' }
-        || '!' <!before '!!'> { $*PREC = 'v=' }
-        || '|' { $*PREC = 'v=' }
-        || '^' { $*PREC = 'v=' }
-        || '⚛' { $*PREC = 'v=' }
+        || '++⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '--⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '++' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '--' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '+^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '~^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '?^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '+' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '~' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '-' <![>]> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '−' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '?' <!before '??'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '!' <!before '!!'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '|' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+        || '⚛' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
         ]
         <.end-token('PREFIX')>
     }
@@ -3065,12 +3065,12 @@ grammar MAIN {
     token postfix {
         <.start-token('POSTFIX')>
         [
-        || 'i' { $*PREC = 'y=' }
-        || '⚛++' { $*PREC = 'x=' }
-        || '⚛--' { $*PREC = 'x=' }
-        || '++' { $*PREC = 'x=' }
-        || '--' { $*PREC = 'x=' }
-        || <[⁻⁺¯]>? <[⁰¹²³⁴⁵⁶⁷⁸⁹]>+ { $*PREC = 'x=' }
+        || 'i' { $*PREC = 'y=' } { $*ASSOC = 'unary' }
+        || '⚛++' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '⚛--' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '++' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || '--' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+        || <[⁻⁺¯]>? <[⁰¹²³⁴⁵⁶⁷⁸⁹]>+ { $*PREC = 'x=' } { $*ASSOC = 'unary' }
         ]
         <.end-token('POSTFIX')>
     }
@@ -3272,150 +3272,150 @@ grammar MAIN {
     token infix {
         <.start-token('INFIX')>
         [
-        || 'notandthen' { $*PREC = 'd=' }
-        || 'andthen' { $*PREC = 'd=' }
-        || '(elem)' { $*PREC = 'm=' }
-        || '(cont)' { $*PREC = 'm=' }
-        || 'orelse' { $*PREC = 'c=' }
-        || 'unicmp' { $*PREC = 'n=' }
-        || 'minmax' { $*PREC = 'f=' }
-        || 'before' { $*PREC = 'm=' }
-        || 'after' { $*PREC = 'm=' }
-        || '^fff^' { $*PREC = 'j=' }
-        || '...^' { $*PREC = 'f=' }
-        || '^ff^' { $*PREC = 'j=' }
-        || '^fff' { $*PREC = 'j=' }
-        || 'fff^' { $*PREC = 'j=' }
-        || '<<==' { $*PREC = 'b=' }
-        || '==>>' { $*PREC = 'b=' }
-        || '^..^' { $*PREC = 'n=' }
-        || 'coll' { $*PREC = 'n=' }
-        || 'does' { $*PREC = 'n=' }
-        || 'div' { $*PREC = 'u=' }
-        || 'gcd' { $*PREC = 'u=' }
-        || 'lcm' { $*PREC = 'u=' }
-        || 'mod' { $*PREC = 'u=' }
-        || '(&)' { $*PREC = 'q=' }
-        || '(.)' { $*PREC = 'q=' }
-        || '(|)' { $*PREC = 'p=' }
-        || '(^)' { $*PREC = 'p=' }
-        || '(+)' { $*PREC = 'p=' }
-        || '(-)' { $*PREC = 'p=' }
-        || '=~=' { $*PREC = 'm=' }
-        || '=:=' { $*PREC = 'm=' }
-        || '===' { $*PREC = 'm=' }
-        || 'eqv' { $*PREC = 'm=' }
-        || '!~~' { $*PREC = 'm=' }
-        || '(<)' { $*PREC = 'm=' }
-        || '(>)' { $*PREC = 'm=' }
-        || '(<=)' { $*PREC = 'm=' }
-        || '(>=)' { $*PREC = 'm=' }
-        || '(<+)' { $*PREC = 'm=' }
-        || '(>+)' { $*PREC = 'm=' }
-        || 'min' { $*PREC = 'k=' }
-        || 'max' { $*PREC = 'k=' }
-        || '::=' { $*PREC = 'i=' }
-        || '...' { $*PREC = 'f=' }
-        || '^ff' { $*PREC = 'j=' }
-        || 'ff^' { $*PREC = 'j=' }
-        || 'fff' { $*PREC = 'j=' }
-        || '⚛+=' { $*PREC = 'i=' }
-        || '⚛-=' { $*PREC = 'i=' }
-        || '⚛−=' { $*PREC = 'i=' }
-        || 'and' { $*PREC = 'd=' }
-        || 'xor' { $*PREC = 'c=' }
-        || '<==' { $*PREC = 'b=' }
-        || '==>' { $*PREC = 'b=' }
-        || '^..' { $*PREC = 'n=' }
-        || '..^' { $*PREC = 'n=' }
-        || 'leg' { $*PREC = 'n=' }
-        || 'cmp' { $*PREC = 'n=' }
-        || '<=>' { $*PREC = 'n=' }
-        || 'but' { $*PREC = 'n=' }
-        || '**' { $*PREC = 'w=' }
-        || '%%' { $*PREC = 'u=' }
-        || '+&' { $*PREC = 'u=' }
-        || '~&' { $*PREC = 'u=' }
-        || '?&' { $*PREC = 'u=' }
-        || '+<' { $*PREC = 'u=' }
-        || '+>' { $*PREC = 'u=' }
-        || '~<' { $*PREC = 'u=' }
-        || '~>' { $*PREC = 'u=' }
-        || '+|' { $*PREC = 't=' }
-        || '+^' { $*PREC = 't=' }
-        || '~|' { $*PREC = 't=' }
-        || '~^' { $*PREC = 't=' }
-        || '?|' { $*PREC = 't=' }
-        || '?^' { $*PREC = 't=' }
-        || 'xx' { $*PREC = 's=' }
-        || '==' { $*PREC = 'm=' }
-        || '!=' { $*PREC = 'm=' }
-        || '<=' { $*PREC = 'm=' }
-        || '>=' { $*PREC = 'm=' }
-        || 'eq' { $*PREC = 'm=' }
-        || 'ne' { $*PREC = 'm=' }
-        || 'le' { $*PREC = 'm=' }
-        || 'ge' { $*PREC = 'm=' }
-        || 'lt' { $*PREC = 'm=' }
-        || 'gt' { $*PREC = 'm=' }
-        || '~~' { $*PREC = 'm=' }
-        || '&&' { $*PREC = 'l=' }
-        || '||' { $*PREC = 'k=' }
-        || '^^' { $*PREC = 'k=' }
-        || '//' { $*PREC = 'k=' }
-        || ':=' { $*PREC = 'i=' }
-        || '.=' { $*PREC = 'v=' }
-        || '…^' { $*PREC = 'f=' }
-        || 'ff' { $*PREC = 'j=' }
-        || '⚛=' { $*PREC = 'i=' }
-        || 'or' { $*PREC = 'c=' }
-        || '..' { $*PREC = 'n=' }
-        || '*' { $*PREC = 'u=' }
-        || '×' { $*PREC = 'u=' }
-        || '/' { $*PREC = 'u=' }
-        || '÷' { $*PREC = 'u=' }
-        || '%' { $*PREC = 'u=' }
-        || '+' { $*PREC = 't=' }
-        || '-' [<?before '>>'> || <![>]>] { $*PREC = 't=' }
-        || '−' { $*PREC = 't=' }
-        || 'x' { $*PREC = 's=' }
-        || '~' { $*PREC = 'r=' }
-        || '∘' { $*PREC = 'r=' }
-        || 'o' { $*PREC = 'r=' }
-        || '&' { $*PREC = 'q=' }
-        || '∩' { $*PREC = 'q=' }
-        || '⊍' { $*PREC = 'q=' }
-        || '|' { $*PREC = 'p=' }
-        || '^' { $*PREC = 'p=' }
-        || '∪' { $*PREC = 'p=' }
-        || '⊖' { $*PREC = 'p=' }
-        || '⊎' { $*PREC = 'p=' }
-        || '∖' { $*PREC = 'p=' }
-        || '≅' { $*PREC = 'm=' }
-        || '≠' { $*PREC = 'm=' }
-        || '≤' { $*PREC = 'm=' }
-        || '≥' { $*PREC = 'm=' }
-        || '<' { $*PREC = 'm=' }
-        || '>' { $*PREC = 'm=' }
-        || '∈' { $*PREC = 'm=' }
-        || '∉' { $*PREC = 'm=' }
-        || '∋' { $*PREC = 'm=' }
-        || '∌' { $*PREC = 'm=' }
-        || '⊂' { $*PREC = 'm=' }
-        || '⊄' { $*PREC = 'm=' }
-        || '⊃' { $*PREC = 'm=' }
-        || '⊅' { $*PREC = 'm=' }
-        || '⊆' { $*PREC = 'm=' }
-        || '⊈' { $*PREC = 'm=' }
-        || '⊇' { $*PREC = 'm=' }
-        || '⊉' { $*PREC = 'm=' }
-        || '≼' { $*PREC = 'm=' }
-        || '≽' { $*PREC = 'm=' }
-        || ',' { $*PREC = 'g=' }
-        || 'Z' { $*PREC = 'f=' }
-        || 'X' { $*PREC = 'f=' }
-        || '…' { $*PREC = 'f=' }
-        || '=' { $*PREC = 'i=' }
+        || 'notandthen' { $*PREC = 'd=' } { $*ASSOC = 'list' }
+        || 'andthen' { $*PREC = 'd=' } { $*ASSOC = 'list' }
+        || '(elem)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(cont)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'orelse' { $*PREC = 'c=' } { $*ASSOC = 'list' }
+        || 'unicmp' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'minmax' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || 'before' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'after' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '^fff^' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || '...^' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || '^ff^' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || '^fff' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || 'fff^' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || '<<==' { $*PREC = 'b=' } { $*ASSOC = 'list' }
+        || '==>>' { $*PREC = 'b=' } { $*ASSOC = 'list' }
+        || '^..^' { $*PREC = 'n=' } { $*ASSOC = 'left' }
+        || 'coll' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'does' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'div' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || 'gcd' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || 'lcm' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || 'mod' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '(&)' { $*PREC = 'q=' } { $*ASSOC = 'list' }
+        || '(.)' { $*PREC = 'q=' } { $*ASSOC = 'list' }
+        || '(|)' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '(^)' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '(+)' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '(-)' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '=~=' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '=:=' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '===' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'eqv' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '!~~' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(<)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(>)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(<=)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(>=)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(<+)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '(>+)' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'min' { $*PREC = 'k=' } { $*ASSOC = 'list' }
+        || 'max' { $*PREC = 'k=' } { $*ASSOC = 'list' }
+        || '::=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || '...' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || '^ff' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || 'ff^' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || 'fff' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || '⚛+=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || '⚛-=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || '⚛−=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || 'and' { $*PREC = 'd=' } { $*ASSOC = 'left' }
+        || 'xor' { $*PREC = 'c=' } { $*ASSOC = 'list' }
+        || '<==' { $*PREC = 'b=' } { $*ASSOC = 'list' }
+        || '==>' { $*PREC = 'b=' } { $*ASSOC = 'list' }
+        || '^..' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || '..^' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'leg' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'cmp' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || '<=>' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || 'but' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || '**' { $*PREC = 'w=' } { $*ASSOC = 'right' }
+        || '%%' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '~&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '?&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+<' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+>' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '~<' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '~>' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+|' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '+^' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '~|' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '~^' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '?|' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '?^' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || 'xx' { $*PREC = 's=' } { $*ASSOC = 'left' }
+        || '==' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '!=' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '<=' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '>=' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'eq' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'ne' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'le' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'ge' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'lt' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || 'gt' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '~~' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '&&' { $*PREC = 'l=' } { $*ASSOC = 'left' }
+        || '||' { $*PREC = 'k=' } { $*ASSOC = 'left' }
+        || '^^' { $*PREC = 'k=' } { $*ASSOC = 'list' }
+        || '//' { $*PREC = 'k=' } { $*ASSOC = 'left' }
+        || ':=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || '.=' { $*PREC = 'v=' } { $*ASSOC = 'left' }
+        || '…^' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || 'ff' { $*PREC = 'j=' } { $*ASSOC = 'right' }
+        || '⚛=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+        || 'or' { $*PREC = 'c=' } { $*ASSOC = 'left' }
+        || '..' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+        || '*' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '×' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '/' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '÷' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '%' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '-' [<?before '>>'> || <![>]>] { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || '−' { $*PREC = 't=' } { $*ASSOC = 'left' }
+        || 'x' { $*PREC = 's=' } { $*ASSOC = 'left' }
+        || '~' { $*PREC = 'r=' } { $*ASSOC = 'left' }
+        || '∘' { $*PREC = 'r=' } { $*ASSOC = 'left' }
+        || 'o' { $*PREC = 'r=' } { $*ASSOC = 'left' }
+        || '&' { $*PREC = 'q=' } { $*ASSOC = 'list' }
+        || '∩' { $*PREC = 'q=' } { $*ASSOC = 'list' }
+        || '⊍' { $*PREC = 'q=' } { $*ASSOC = 'list' }
+        || '|' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '^' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '∪' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '⊖' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '⊎' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '∖' { $*PREC = 'p=' } { $*ASSOC = 'list' }
+        || '≅' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '≠' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '≤' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '≥' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '<' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '>' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '∈' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '∉' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '∋' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '∌' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊂' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊄' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊃' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊅' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊆' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊈' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊇' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '⊉' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '≼' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || '≽' { $*PREC = 'm=' } { $*ASSOC = 'left' }
+        || ',' { $*PREC = 'g=' } { $*ASSOC = 'list' }
+        || 'Z' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || 'X' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || '…' { $*PREC = 'f=' } { $*ASSOC = 'list' }
+        || '=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
         ]
         <!{ $*PREC le $*PRECLIM }>
         <.end-token('INFIX')>
