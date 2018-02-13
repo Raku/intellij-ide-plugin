@@ -7,6 +7,7 @@ use Java::Generate::Interface;
 use Java::Generate::JavaMethod;
 use Java::Generate::JavaParameter;
 use Java::Generate::JavaSignature;
+use Java::Generate::Literal;
 use Java::Generate::Variable;
 
 # * Generate a method per rule and call those methods recursively as is needed
@@ -20,12 +21,16 @@ sub production-method($meth-name, $implementation) {
     my $*METHOD-ID = 0;
     my @*METHODS;
     my $*NAME = %*MANGLED{$meth-name};
+    my $*NEED-OPP;
     my @impl = compile($implementation);
+    my $opp = local('opp', 'OPP');
     flat @*METHODS, ClassMethod.new:
         :access<private>, :name($*NAME), :signature(JavaSignature.new(parameters => [
             JavaParameter.new('builder', 'PsiBuilder')
         ])),
         :return-type<boolean>, :statements[
+            decl($opp),
+            assign($opp, $*NEED-OPP ?? new('OPP') !! NullLiteral.new),
             |@impl,
             ret(true-lit())
         ]
@@ -83,7 +88,8 @@ multi sub compile(QuantNode $quant) {
     my $name = $*NAME ~ "_quant_" ~ ++$*METHOD-ID;
     push @*METHODS, ClassMethod.new:
         :access<private>, :$name, :signature(JavaSignature.new(parameters => [
-            JavaParameter.new('builder', 'PsiBuilder')
+            JavaParameter.new('builder', 'PsiBuilder'),
+            JavaParameter.new('opp', 'OPP'),
         ])),
         :return-type<boolean>, :statements[
             |@quant-impl,
@@ -92,12 +98,13 @@ multi sub compile(QuantNode $quant) {
 
     my @impl;
     my $builder = local('builder', 'PsiBuilder');
+    my $opp = local('opp', 'OPP');
     for ^$quant.min {
         my $marker = local('quantMarker' ~ ++$*MARKER-ID, 'PsiBuilder.Marker');
         push @impl,
             decl($marker),
             assign($marker, call($builder, 'mark')),
-            if(this-call($name, $builder),
+            if(this-call($name, $builder, $opp),
                 [
                     call($marker, 'drop')
                 ],
@@ -116,7 +123,7 @@ multi sub compile(QuantNode $quant) {
     my @min-to-max =
         decl($marker),
         assign($marker, call($builder, 'mark')),
-        if(this-call($name, $builder),
+        if(this-call($name, $builder, $opp),
             [
                 call($marker, 'drop')
             ],
@@ -142,13 +149,15 @@ multi sub compile(QuantNode $quant) {
 # it's easier to compile in reverse order).
 multi sub compile(AltNode $alt) {
     my $builder = local('builder', 'PsiBuilder');
+    my $opp = local('opp', 'OPP');
     my @last-else = ret(false-lit());
     for reverse $alt.alternatives {
         my @alt-impl = compile($_);
         my $name = $*NAME ~ "_alt_" ~ ++$*METHOD-ID;
         push @*METHODS, ClassMethod.new:
             :access<private>, :$name, :signature(JavaSignature.new(parameters => [
-                JavaParameter.new('builder', 'PsiBuilder')
+                JavaParameter.new('builder', 'PsiBuilder'),
+                JavaParameter.new('opp', 'OPP')
             ])),
             :return-type<boolean>, :statements[
                 |@alt-impl,
@@ -159,7 +168,7 @@ multi sub compile(AltNode $alt) {
         @last-else =
             decl($marker),
             assign($marker, call($builder, 'mark')),
-            if(this-call($name, $builder),
+            if(this-call($name, $builder, $opp),
                 [
                     call($marker, 'drop')
                 ],
@@ -171,9 +180,10 @@ multi sub compile(AltNode $alt) {
     return @last-else;
 }
 
-multi sub compile(OPPNode) {
-    # TODO
-    ()
+multi sub compile(OPPNode $o) {
+    $*NEED-OPP = 1;
+    my $name = $o.method-name.subst('opp-', '').subst(/'-'(\w)/, { $0.uc }, :g);
+    call(local('opp', 'OPP'), $name)
 }
 
 multi sub compile(PassNode) {
