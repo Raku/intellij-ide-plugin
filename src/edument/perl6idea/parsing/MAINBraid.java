@@ -25095,50 +25095,17 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.declareDynamicVariable("$*PRECLIM", this.getArg(0));
                 this.declareDynamicVariable("$*PREC", "");
                 this.declareDynamicVariable("$*ASSOC", "");
-                this.setArgs();
+                this.bsFailMark(10);
+                this.bsMark(8);
+                this.bsFailMark(4);
                 this.state = 1;
-                return 197;
-
-            case 1:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.bsMark(10);
-                this.state = 2;
                 break;
+            case 1:
+                this.setArgs();
+                this.state = 2;
+                return 181;
+
             case 2:
-                if (!(this.lookahead(429))) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                }
-                this.setArgs();
-                this.state = 3;
-                return 15;
-
-            case 3:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.setArgs();
-                this.state = 4;
-                return 191;
-
-            case 4:
                 if (this.lastResult.isFailed()) {
                     if (this.backtrack()) {
                         continue;
@@ -25149,13 +25116,25 @@ public class MAINBraid extends Cursor<MAINBraid> {
                     this.pos = this.lastResult.getPos();
                 }
                 this.precInfoToken();
-                this.state = 5;
+                this.state = 3;
                 return -3;
 
+            case 3:
+                rep = this.peekRep(4);
+                ++rep;
+                this.bsCommit(4);
+                this.bsMark(4, rep);
+                this.state = 1;
+                continue;
+
+            case 4:
+                this.bsMark(7);
+                this.state = 5;
+                break;
             case 5:
                 this.setArgs();
                 this.state = 6;
-                return 15;
+                return 78;
 
             case 6:
                 if (this.lastResult.isFailed()) {
@@ -25167,15 +25146,21 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.bsMark(9);
+                this.bsCommit(7);
                 this.state = 7;
-                break;
+                continue;
+
             case 7:
-                this.setArgs();
-                this.state = 8;
-                return 197;
+                this.bsCommit(10);
+                this.state = 10;
+                continue;
 
             case 8:
+                this.setArgs();
+                this.state = 9;
+                return 78;
+
+            case 9:
                 if (this.lastResult.isFailed()) {
                     if (this.backtrack()) {
                         continue;
@@ -25185,24 +25170,231 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.bsCommit(9);
-                this.state = 9;
-                continue;
-
-            case 9:
-                rep = this.peekRep(10);
-                ++rep;
-                this.bsCommit(10);
-                this.bsMark(10, rep);
-                this.state = 2;
+                this.state = 10;
                 continue;
 
             case 10:
-                this.startToken(Perl6TokenTypes.END_OF_EXPR);
+                this.bsMark(14);
                 this.state = 11;
+                break;
+            case 11:
+                this.setArgs();
+                this.state = 12;
+                return 183;
+
+            case 12:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.precInfoToken();
+                this.state = 13;
                 return -3;
 
-            case 11:
+            case 13:
+                rep = this.peekRep(14);
+                ++rep;
+                this.bsCommit(14);
+                this.bsMark(14, rep);
+                this.state = 11;
+                continue;
+
+            case 14:
+                this.bsMark(36);
+                this.state = 15;
+                break;
+            case 15:
+                if (!(this.lookahead(429))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
+                this.setArgs();
+                this.state = 16;
+                return 15;
+
+            case 16:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.setArgs();
+                this.state = 17;
+                return 191;
+
+            case 17:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.precInfoToken();
+                this.state = 18;
+                return -3;
+
+            case 18:
+                this.setArgs();
+                this.state = 19;
+                return 15;
+
+            case 19:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsMark(35);
+                this.state = 20;
+                break;
+            case 20:
+                this.bsFailMark(30);
+                this.bsMark(28);
+                this.bsFailMark(24);
+                this.state = 21;
+                break;
+            case 21:
+                this.setArgs();
+                this.state = 22;
+                return 181;
+
+            case 22:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.precInfoToken();
+                this.state = 23;
+                return -3;
+
+            case 23:
+                rep = this.peekRep(24);
+                ++rep;
+                this.bsCommit(24);
+                this.bsMark(24, rep);
+                this.state = 21;
+                continue;
+
+            case 24:
+                this.bsMark(27);
+                this.state = 25;
+                break;
+            case 25:
+                this.setArgs();
+                this.state = 26;
+                return 78;
+
+            case 26:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(27);
+                this.state = 27;
+                continue;
+
+            case 27:
+                this.bsCommit(30);
+                this.state = 30;
+                continue;
+
+            case 28:
+                this.setArgs();
+                this.state = 29;
+                return 78;
+
+            case 29:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.state = 30;
+                continue;
+
+            case 30:
+                this.bsMark(34);
+                this.state = 31;
+                break;
+            case 31:
+                this.setArgs();
+                this.state = 32;
+                return 183;
+
+            case 32:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.precInfoToken();
+                this.state = 33;
+                return -3;
+
+            case 33:
+                rep = this.peekRep(34);
+                ++rep;
+                this.bsCommit(34);
+                this.bsMark(34, rep);
+                this.state = 31;
+                continue;
+
+            case 34:
+                this.bsCommit(35);
+                this.state = 35;
+                continue;
+
+            case 35:
+                rep = this.peekRep(36);
+                ++rep;
+                this.bsCommit(36);
+                this.bsMark(36, rep);
+                this.state = 15;
+                continue;
+
+            case 36:
+                this.startToken(Perl6TokenTypes.END_OF_EXPR);
+                this.state = 37;
+                return -3;
+
+            case 37:
                 return -1;
 
             }
@@ -29701,24 +29893,15 @@ public class MAINBraid extends Cursor<MAINBraid> {
     }
 
     private int _197_termish() {
-        int rep;
         while (true) {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
-                this.declareDynamicVariable("$*PREC", "");
-                this.declareDynamicVariable("$*ASSOC", "");
-                this.bsFailMark(10);
-                this.bsMark(8);
-                this.bsFailMark(4);
+                this.setArgs();
                 this.state = 1;
-                break;
+                return 78;
+
             case 1:
-                this.setArgs();
-                this.state = 2;
-                return 181;
-
-            case 2:
                 if (this.lastResult.isFailed()) {
                     if (this.backtrack()) {
                         continue;
@@ -29728,96 +29911,6 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 } else {
                     this.pos = this.lastResult.getPos();
                 }
-                this.precInfoToken();
-                this.state = 3;
-                return -3;
-
-            case 3:
-                rep = this.peekRep(4);
-                ++rep;
-                this.bsCommit(4);
-                this.bsMark(4, rep);
-                this.state = 1;
-                continue;
-
-            case 4:
-                this.bsMark(7);
-                this.state = 5;
-                break;
-            case 5:
-                this.setArgs();
-                this.state = 6;
-                return 78;
-
-            case 6:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.bsCommit(7);
-                this.state = 7;
-                continue;
-
-            case 7:
-                this.bsCommit(10);
-                this.state = 10;
-                continue;
-
-            case 8:
-                this.setArgs();
-                this.state = 9;
-                return 78;
-
-            case 9:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.state = 10;
-                continue;
-
-            case 10:
-                this.bsMark(14);
-                this.state = 11;
-                break;
-            case 11:
-                this.setArgs();
-                this.state = 12;
-                return 183;
-
-            case 12:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.precInfoToken();
-                this.state = 13;
-                return -3;
-
-            case 13:
-                rep = this.peekRep(14);
-                ++rep;
-                this.bsCommit(14);
-                this.bsMark(14, rep);
-                this.state = 11;
-                continue;
-
-            case 14:
                 return -1;
 
             }

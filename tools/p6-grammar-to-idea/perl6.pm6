@@ -2936,7 +2936,16 @@ grammar MAIN {
         <.start-element('EXPR')>
 
         <.opp-start-expr>
-        <.termish>
+
+        <.opp-start-prefixes>
+        [
+        || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes> <.term>?
+        || <.opp-end-prefixes> <.term>
+        ]
+        <.opp-start-postfixes>
+        [<.postfixish> <.opp-push-postfix>]*
+        <.opp-end-postfixes>
+
         [
             <?before <.ws> <.infixish> <.ws>>
             <.ws>
@@ -2944,7 +2953,17 @@ grammar MAIN {
             <.infixish>
             <.opp-end-infix>
             <.ws>
-            <.termish>?
+
+            [
+                <.opp-start-prefixes>
+                [
+                || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes> <.term>?
+                || <.opp-end-prefixes> <.term>
+                ]
+                <.opp-start-postfixes>
+                [<.postfixish> <.opp-push-postfix>]*
+                <.opp-end-postfixes>
+            ]?
         ]*
         <.opp-end-expr>
 
@@ -3471,16 +3490,7 @@ grammar MAIN {
     }
 
     token termish {
-        :my $*PREC = '';
-        :my $*ASSOC = '';
-        <.opp-start-prefixes>
-        [
-        || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes> <.term>?
-        || <.opp-end-prefixes> <.term>
-        ]
-        <.opp-start-postfixes>
-        [<.postfixish> <.opp-push-postfix>]*
-        <.opp-end-postfixes>
+        <.term>
     }
 
     token term_reduce {
