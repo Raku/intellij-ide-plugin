@@ -2933,24 +2933,13 @@ grammar MAIN {
         :my $*PREC = '';
         <.start-element('EXPR')>
 
-        [
-        || <.prefixish>+ <.termish>?
-        || <.termish>
-        ]
-        <.postfixish>*
-
+        <.termish>
         [
             <?before <.ws> <.infixish> <.ws>>
             <.ws>
             <.infixish>
             <.ws>
-            [
-                [
-                || <.prefixish>+ <.termish>?
-                || <.termish>
-                ]
-                <.postfixish>*
-            ]?
+            <.termish>?
         ]*
 
         # Zero-width marker token to get nesting correct.
@@ -3476,7 +3465,11 @@ grammar MAIN {
     }
 
     token termish {
-        <.term>
+        [
+        || <.prefixish>+ <.term>?
+        || <.term>
+        ]
+        <.postfixish>*
     }
 
     token term_reduce {
