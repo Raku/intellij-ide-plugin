@@ -30,6 +30,7 @@ public class OPP {
     private List<Op> postfixes = new ArrayList<>();
     private List<Op> opStack = new ArrayList<>();
     private List<Term> termStack = new ArrayList<>();
+    private String opPrec = "";
 
     public OPP(PsiBuilder builder) {
         this.builder = builder;
@@ -116,6 +117,24 @@ public class OPP {
 
     public void endInfix() {
         PrecInfoToken precInfo = getPrecInfoToken();
+        String inPrec = precInfo.prec();
+
+        // Reduce anything tighter than the infix.
+        while (opStack.size() > 0) {
+            opPrec = opStack.get(opStack.size() - 1).prec;
+            if (!gt(opPrec, inPrec))
+                break;
+            reduce();
+        }
+
+        // If eqaul precedence...
+        if (opPrec.contentEquals(inPrec)) {
+            // Reduce immediately if left associative.
+            if (precInfo.assoc().contentEquals("left"))
+                reduce();
+        }
+
+        // Push infix onto opstack.
         Op op = new Op();
         op.prec = precInfo.prec();
         op.assoc = precInfo.assoc();
@@ -123,17 +142,67 @@ public class OPP {
     }
 
     public void endExpr() {
-        // XXX For now, just clear away all markers at the end (since we aren't
-        // actually reducing the stack yet).
-        for (Op op : opStack) {
-            if (op.startMarker != null)
-                op.startMarker.drop();
-            if (op.endMarker != null)
-                op.endMarker.drop();
-        }
-        for (Term term : termStack) {
+        // Reduce everything on the stack.
+        while (opStack.size() > 0)
+            reduce();
+
+        // Should be left with only a single term that has a start and end marker.
+        // These were only for position, so drop them, meaning we should have either
+        // used or dropped all the markers.
+        Term term = termStack.get(0);
+        term.startMarker.drop();
+        term.endMarker.drop();
+    }
+
+    private void reduce() {
+        Op op = opStack.remove(opStack.size() - 1);
+        if (op.startMarker != null) {
+            // Prefix operator. We drop the term's start marker, since we will no longer
+            // need to refer to that point. The prefix's own start marker is taken and
+            // used, terminated before the term end marker. The resulting composite term
+            // has a new start marker that precedes the prefix marker, and carries the
+            // term end marker.
+            Term term = termStack.remove(termStack.size() - 1);
             term.startMarker.drop();
+            PsiBuilder.Marker prefixMarker = op.startMarker;
+            prefixMarker.doneBefore(Perl6OPPElementTypes.PREFIX_APPLICATION, term.endMarker);
+            Term composite = new Term();
+            composite.startMarker = prefixMarker.precede();
+            composite.endMarker = term.endMarker;
+            termStack.add(composite);
+        }
+        else if (op.endMarker != null) {
+            // Postfix operator. We drop the term's end marker, since we will no longer
+            // need to refer to that point. The term's start marker is taken and used,
+            // and terminated before the postfix end marker. The resulting composite term
+            // has a new start marker that precedes the term's start marker, and carries
+            // the postfix end marker.
+            Term term = termStack.remove(termStack.size() - 1);
             term.endMarker.drop();
+            PsiBuilder.Marker postfixMarker = term.startMarker;
+            postfixMarker.doneBefore(Perl6OPPElementTypes.POSTFIX_APPLICATION, op.endMarker);
+            Term composite = new Term();
+            composite.startMarker = postfixMarker.precede();
+            composite.endMarker = op.endMarker;
+            termStack.add(composite);
+        }
+        // TODO List associativity
+        else {
+            // Infix operator. The end marker of the left term and the start marker of the
+            // right marker are inner and so dropped. The term's start marker is taken and
+            // used, and terminated before the right term's end marker. The composite term
+            // has a new start marker that precedes the left term's start marker, and carries
+            // the second term's end marker.
+            Term right = termStack.remove(termStack.size() - 1);
+            Term left = termStack.remove(termStack.size() - 1);
+            left.endMarker.drop();
+            right.startMarker.drop();
+            PsiBuilder.Marker infixMarker = left.startMarker;
+            infixMarker.doneBefore(Perl6OPPElementTypes.INFIX_APPLICATION, right.endMarker);
+            Term composite = new Term();
+            composite.startMarker = infixMarker.precede();
+            composite.endMarker = right.endMarker;
+            termStack.add(composite);
         }
     }
 
