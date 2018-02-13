@@ -5,6 +5,7 @@ grammar MAIN {
         :my $*IN_REGEX_ASSERTION = 0;
         :my $*QSIGIL = '';
         :my $*DELIM = '';
+        :my $*LEFTSIGIL = '';
         <.statementlist>
         [
         || $
@@ -1245,6 +1246,15 @@ grammar MAIN {
         :my $*Q_HASHES = 0;
         :my $*Q_FUNCTIONS = 0;
         [
+            <?{ $*LEFTSIGIL }>
+            [
+            || <?[$]> { $*LEFTSIGIL = '$' }
+            || <?[@]> { $*LEFTSIGIL = '@' }
+            || <?[%]> { $*LEFTSIGIL = '%' }
+            || <?[&]> { $*LEFTSIGIL = '&' }
+            ]
+        ]?
+        [
         || <.start-element('VARIABLE')>
            <.start-token('VARIABLE')>
            '&['
@@ -1371,6 +1381,8 @@ grammar MAIN {
     }
 
     token declarator {
+        :my $*LEFTSIGIL = '';
+        [
         || <?before '\\' <.defterm>>
            <.start-element('VARIABLE_DECLARATION')>
            <.start-token('TERM_DECLARATION_BACKSLASH')>
@@ -1401,6 +1413,7 @@ grammar MAIN {
         || <.routine_declarator>
         || <.regex_declarator>
         || <.type_declarator>
+        ]
     }
 
     token multi_declarator {
@@ -1611,6 +1624,7 @@ grammar MAIN {
             ]
             <.end-element('RETURN_CONSTRAINT')>
         ]?
+        { $*LEFTSIGIL = '@' }
     }
 
     token parameter {
@@ -2930,6 +2944,7 @@ grammar MAIN {
     }
 
     token EXPR($*PRECLIM) {
+        :my $*LEFTSIGIL = '';
         :my $*PREC = '';
         :my $*ASSOC = '';
 
@@ -3039,6 +3054,7 @@ grammar MAIN {
            <.end-element('HYPER_METAOP')>
         || <.postfixish_nometa>
         ]
+        { $*LEFTSIGIL = '@' }
     }
 
     token postfixish_nometa {
