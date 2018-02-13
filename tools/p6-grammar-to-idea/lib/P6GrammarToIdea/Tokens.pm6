@@ -17,7 +17,10 @@ use P6GrammarToIdea::AST;
 my constant %IGNORE-NAMES = set 'start-element', 'end-element', 'alpha', 'ww',
                                 'MARKER', 'MARKED', 'peek-delimiters', 'bracket-ending',
                                 'start-queue-heredoc', 'end-queue-heredoc',
-                                'dequeue-heredoc';
+                                'dequeue-heredoc', 'opp-start-expr', 'opp-start-infix',
+                                'opp-end-infix', 'opp-end-expr', 'opp-start-prefixes',
+                                'opp-push-prefix', 'opp-end-prefixes', 'opp-start-postfixes',
+                                'opp-push-postfix', 'opp-end-postfixes';
 
 class X::P6GrammarToIdea::UncoveredByToken is Exception {
     has $.production-name;

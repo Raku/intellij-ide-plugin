@@ -25094,6 +25094,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.checkArgs(1);
                 this.declareDynamicVariable("$*PRECLIM", this.getArg(0));
                 this.declareDynamicVariable("$*PREC", "");
+                this.declareDynamicVariable("$*ASSOC", "");
                 this.setArgs();
                 this.state = 1;
                 return 197;
@@ -29700,6 +29701,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
+                this.declareDynamicVariable("$*PREC", "");
+                this.declareDynamicVariable("$*ASSOC", "");
                 this.bsFailMark(9);
                 this.bsMark(7);
                 this.bsFailMark(3);

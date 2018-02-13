@@ -2931,16 +2931,22 @@ grammar MAIN {
 
     token EXPR($*PRECLIM) {
         :my $*PREC = '';
+        :my $*ASSOC = '';
+
         <.start-element('EXPR')>
 
+        <.opp-start-expr>
         <.termish>
         [
             <?before <.ws> <.infixish> <.ws>>
             <.ws>
+            <.opp-start-infix>
             <.infixish>
+            <.opp-end-infix>
             <.ws>
             <.termish>?
         ]*
+        <.opp-end-expr>
 
         # Zero-width marker token to get nesting correct.
         <.start-token('END_OF_EXPR')>
@@ -3465,11 +3471,16 @@ grammar MAIN {
     }
 
     token termish {
+        :my $*PREC = '';
+        :my $*ASSOC = '';
+        <.opp-start-prefixes>
         [
-        || <.prefixish>+ <.term>?
-        || <.term>
+        || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes> <.term>?
+        || <.opp-end-prefixes> <.term>
         ]
-        <.postfixish>*
+        <.opp-start-postfixes>
+        [<.postfixish> <.opp-push-postfix>]*
+        <.opp-end-postfixes>
     }
 
     token term_reduce {

@@ -236,6 +236,9 @@ my class GrammarCompiler {
             when 'start-element' | 'end-element' {
                 # These aren't relevant for lexer generation
             }
+            when /^ 'opp-'/ {
+                # These are only important to the parser
+            }
             when 'alpha' {
                 $append-to.push: unless(this-call('alphaChar'), [backtrack()]);
             }

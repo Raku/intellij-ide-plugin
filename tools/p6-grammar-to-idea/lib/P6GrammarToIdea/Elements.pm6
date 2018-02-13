@@ -46,6 +46,10 @@ class QuantNode does ParseNode is export {
     has ParseNode $.target;
 }
 
+class OPPNode does ParseNode is export {
+    has $.method-name;
+}
+
 class PassNode does ParseNode is export { }
 
 class FailNode does ParseNode is export { }
@@ -208,6 +212,9 @@ class BraidModel {
             }
             when %IGNORE-NAMES{$_}:exists {
                 PassNode.new
+            }
+            when /^ 'opp-'/ {
+                OPPNode.new: method-name => $_
             }
             default {
                 CallNode.new: production-name => $_

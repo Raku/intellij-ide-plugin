@@ -171,6 +171,11 @@ multi sub compile(AltNode $alt) {
     return @last-else;
 }
 
+multi sub compile(OPPNode) {
+    # TODO
+    ()
+}
+
 multi sub compile(PassNode) {
     ()
 }
