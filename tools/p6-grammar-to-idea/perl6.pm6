@@ -1246,7 +1246,7 @@ grammar MAIN {
         :my $*Q_HASHES = 0;
         :my $*Q_FUNCTIONS = 0;
         [
-            <?{ $*LEFTSIGIL }>
+            <!{ $*LEFTSIGIL }>
             [
             || <?[$]> { $*LEFTSIGIL = '$' }
             || <?[@]> { $*LEFTSIGIL = '@' }
@@ -1833,17 +1833,19 @@ grammar MAIN {
     }
 
     token initializer {
+        :my $*EXPR_PREC = 'e=';
         <?before ['=' || ':=' || '::='] <.ws>>
         <.start-element('INFIX')>
         [
         || <.start-token('INFIX')> '=' <.end-token('INFIX')>
+           [ <?{ $*LEFTSIGIL eq '$' }> { $*EXPR_PREC = 'i<=' } ]?
         || <.start-token('INFIX')> ':=' <.end-token('INFIX')>
         || <.start-token('INFIX')> '::=' <.end-token('INFIX')>
         ]
         <.end-element('INFIX')>
         <.ws>
         [
-        || <.EXPR('e=')>
+        || <.EXPR($*EXPR_PREC)>
         || <.start-token('INITIALIZER_MISSING')> <?> <.end-token('INITIALIZER_MISSING')>
         ]
     }

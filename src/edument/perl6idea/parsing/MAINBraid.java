@@ -11142,7 +11142,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.state = 1;
                 break;
             case 1:
-                if (!(this.isValueTruthy(this.findDynamicVariable("$*LEFTSIGIL")))) {
+                if (this.isValueTruthy(this.findDynamicVariable("$*LEFTSIGIL"))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -15632,6 +15632,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
             switch (this.state) {
             case 0:
                 this.checkArgs(0);
+                this.declareDynamicVariable("$*EXPR_PREC", "e=");
                 if (!(this.lookahead(346))) {
                     if (this.backtrack()) {
                         continue;
@@ -15639,8 +15640,8 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
-                this.bsFailMark(6);
-                this.bsMark(2);
+                this.bsFailMark(8);
+                this.bsMark(4);
                 this.startToken(Perl6TokenTypes.INFIX);
                 if (!(this.literal("="))) {
                     if (this.backtrack()) {
@@ -15653,31 +15654,31 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 1:
-                this.bsCommit(6);
-                this.state = 6;
-                continue;
-
+                this.bsMark(3);
+                this.state = 2;
+                break;
             case 2:
-                this.bsMark(4);
-                this.startToken(Perl6TokenTypes.INFIX);
-                if (!(this.literal(":="))) {
+                if (!(this.isValueTruthy(this.testStrEQ(this.findDynamicVariable("$*LEFTSIGIL"), "$")))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
                         return -2;
                     }
                 }
+                this.assignDynamicVariable("$*EXPR_PREC", "i<=");
+                this.bsCommit(3);
                 this.state = 3;
-                return -3;
+                continue;
 
             case 3:
-                this.bsCommit(6);
-                this.state = 6;
+                this.bsCommit(8);
+                this.state = 8;
                 continue;
 
             case 4:
+                this.bsMark(6);
                 this.startToken(Perl6TokenTypes.INFIX);
-                if (!(this.literal("::="))) {
+                if (!(this.literal(":="))) {
                     if (this.backtrack()) {
                         continue;
                     } else {
@@ -15688,54 +15689,71 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 5:
-                this.state = 6;
+                this.bsCommit(8);
+                this.state = 8;
                 continue;
 
             case 6:
-                this.setArgs();
+                this.startToken(Perl6TokenTypes.INFIX);
+                if (!(this.literal("::="))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 this.state = 7;
-                return 15;
-
-            case 7:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.bsFailMark(11);
-                this.bsMark(9);
-                this.setArgs("e=");
-                this.state = 8;
-                return 180;
-
-            case 8:
-                if (this.lastResult.isFailed()) {
-                    if (this.backtrack()) {
-                        continue;
-                    } else {
-                        return -2;
-                    }
-                } else {
-                    this.pos = this.lastResult.getPos();
-                }
-                this.bsCommit(11);
-                this.state = 11;
-                continue;
-
-            case 9:
-                this.startToken(Perl6TokenTypes.INITIALIZER_MISSING);
-                this.state = 10;
                 return -3;
 
+            case 7:
+                this.state = 8;
+                continue;
+
+            case 8:
+                this.setArgs();
+                this.state = 9;
+                return 15;
+
+            case 9:
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsFailMark(13);
+                this.bsMark(11);
+                this.setArgs(this.findDynamicVariable("$*EXPR_PREC"));
+                this.state = 10;
+                return 180;
+
             case 10:
-                this.state = 11;
+                if (this.lastResult.isFailed()) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                } else {
+                    this.pos = this.lastResult.getPos();
+                }
+                this.bsCommit(13);
+                this.state = 13;
                 continue;
 
             case 11:
+                this.startToken(Perl6TokenTypes.INITIALIZER_MISSING);
+                this.state = 12;
+                return -3;
+
+            case 12:
+                this.state = 13;
+                continue;
+
+            case 13:
                 return -1;
 
             }
