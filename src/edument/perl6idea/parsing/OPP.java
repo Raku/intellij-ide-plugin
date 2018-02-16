@@ -11,6 +11,7 @@ import java.util.List;
 public class OPP {
     private class Op {
         public String prec;
+        public String subPrec;
         public String assoc;
         public PsiBuilder.Marker startMarker; // For prefixes
         public PsiBuilder.Marker endMarker;   // For postfixes
@@ -48,6 +49,7 @@ public class OPP {
         PrecInfoToken precInfo = getPrecInfoToken();
         Op prefix = new Op();
         prefix.prec = precInfo.prec();
+        prefix.subPrec = precInfo.subPrec();
         prefix.assoc = precInfo.assoc();
         prefix.startMarker = curPrefixStartMarker;
         prefixes.add(prefix);
@@ -67,6 +69,7 @@ public class OPP {
         PrecInfoToken precInfo = getPrecInfoToken();
         Op postfix = new Op();
         postfix.prec = precInfo.prec();
+        postfix.subPrec = precInfo.subPrec();
         postfix.assoc = precInfo.assoc();
         postfix.endMarker = builder.mark();
         postfixes.add(postfix);
@@ -77,8 +80,8 @@ public class OPP {
         while (prefixes.size() > 0 && postfixes.size() > 0) {
             Op preO = prefixes.get(0);
             Op postO = postfixes.get(postfixes.size() - 1);
-            String prePrec = preO.prec;
-            String postPrec = postO.prec;
+            String prePrec = preO.subPrec.length() > 0 ? preO.subPrec : preO.prec;
+            String postPrec = postO.subPrec.length() > 0 ? postO.subPrec : postO.prec;
 
             if (gt(postPrec, prePrec)) {
                 opStack.add(prefixes.remove(0));
@@ -121,7 +124,8 @@ public class OPP {
 
         // Reduce anything tighter than the infix.
         while (opStack.size() > 0) {
-            opPrec = opStack.get(opStack.size() - 1).prec;
+            Op opO = opStack.get(opStack.size() - 1);
+            opPrec = opO.subPrec.length() > 0 ? opO.subPrec : opO.prec;
             if (!gt(opPrec, inPrec))
                 break;
             reduce();
@@ -137,6 +141,7 @@ public class OPP {
         // Push infix onto opstack.
         Op op = new Op();
         op.prec = precInfo.prec();
+        op.subPrec = precInfo.subPrec();
         op.assoc = precInfo.assoc();
         opStack.add(op);
     }

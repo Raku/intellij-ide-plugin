@@ -2948,6 +2948,7 @@ grammar MAIN {
     token EXPR($*PRECLIM) {
         :my $*LEFTSIGIL = '';
         :my $*PREC = '';
+        :my $*SUB_PREC = '';
         :my $*ASSOC = '';
 
         <.start-element('EXPR')>
@@ -3288,6 +3289,7 @@ grammar MAIN {
     }
 
     token infix {
+        { $*SUB_PREC = '' }
         <.start-token('INFIX')>
         [
         || 'notandthen' { $*PREC = 'd=' } { $*ASSOC = 'list' }
@@ -3434,6 +3436,7 @@ grammar MAIN {
         || 'X' { $*PREC = 'f=' } { $*ASSOC = 'list' }
         || '…' { $*PREC = 'f=' } { $*ASSOC = 'list' }
         || '=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
+           [ <?{ $*LEFTSIGIL ne '$' }> { $*SUB_PREC = 'e=' } ]?
         ]
         <!{ $*PREC le $*PRECLIM }>
         <.end-token('INFIX')>
