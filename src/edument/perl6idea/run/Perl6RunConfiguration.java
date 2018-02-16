@@ -24,15 +24,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Perl6RunConfiguration extends LocatableConfigurationBase implements CommonProgramRunConfigurationParameters {
-    private static final String SCRIPT_PATH = "Script_path";
-    private static final String SCRIPT_ARGS = "Script_args";
+    private static final String SCRIPT_PATH = "SCRIPT_PATH";
+    private static final String SCRIPT_ARGS = "SCRIPT_ARGS";
+    private static final String WORKING_DIRECTORY = "WORKING_DIRECTORY";
+    private static final String ENV_VARS = "ENV_VARS";
+    private static final String PASS_ENVIRONMENT = "PASS_ENVIRONMENT";
+    private static final String PERL6_PARAMS = "PERL6_PARAMS";
+    private static final String DEBUG_PORT = "DEBUG_PORT";
+    private static final String START_SUSPENDED = "START_SUSPENDED";
 
-    private String myScriptPath;
-    private String myScriptArgs;
-    private String myWorkingDirectory;
-    private Map<String, String> myEnvs = new HashMap<>();
-    private boolean myPassParentEnvs;
-    private String myInterpreterParameters;
+    private String scriptPath;
+    private String scriptArgs;
+    private String workingDirectory;
+    private Map<String, String> envVars = new HashMap<>();
+    private boolean passParentEnvs;
+    private String interpreterParameters;
 
     private int debugPort;
     private boolean startSuspended;
@@ -63,40 +69,61 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
     }
 
     String getScriptPath() {
-        return myScriptPath;
+        return scriptPath;
     }
 
     void setScriptPath(String myScriptPath) {
-        this.myScriptPath = myScriptPath;
+        this.scriptPath = myScriptPath;
     }
 
     @Override
     public void readExternal(Element element) throws InvalidDataException {
+        System.out.println("Read");
         super.readExternal(element);
-        Element path = element.getChild(SCRIPT_PATH);
-        Element args = element.getChild(SCRIPT_ARGS);
-        if (path == null || args == null) {
+        Element scriptPathElem = element.getChild(SCRIPT_PATH);
+        Element scriptArgsElem = element.getChild(SCRIPT_ARGS);
+        Element workDirectoryElem = element.getChild(WORKING_DIRECTORY);
+        Element envVarsElem = element.getChild(ENV_VARS);
+        Element passEnvElem = element.getChild(PASS_ENVIRONMENT);
+        Element perl6ParamsElem = element.getChild(PERL6_PARAMS);
+        Element debugPortElem = element.getChild(DEBUG_PORT);
+        Element startSuspendedElem = element.getChild(START_SUSPENDED);
+        if (scriptPathElem == null || scriptArgsElem == null ||
+                workDirectoryElem == null || envVarsElem == null ||
+                passEnvElem == null || perl6ParamsElem == null ||
+                debugPortElem == null || startSuspendedElem == null) {
             throw new InvalidDataException();
         } else {
-            myScriptPath = path.getText();
-            myScriptArgs = args.getText();
+            scriptPath = scriptPathElem.getText();
+            scriptArgs = scriptArgsElem.getText();
+            workingDirectory = workDirectoryElem.getText();
+            Map<String, String> env = new HashMap<>();
+            envVarsElem.getChildren().forEach(c -> env.put(c.getName(), c.getValue()));
+            envVars = env;
+            passParentEnvs = Boolean.valueOf(passEnvElem.getText());
+            interpreterParameters = perl6ParamsElem.getText();
+            debugPort = Integer.valueOf(debugPortElem.getText());
+            startSuspended = Boolean.valueOf(startSuspendedElem.getText());
         }
     }
 
     @Override
     public void writeExternal(Element element) throws WriteExternalException {
-        super.writeExternal(element);
-        Element path = new Element(SCRIPT_PATH);
-        path.setText(myScriptPath);
-        Element args = new Element(SCRIPT_ARGS);
-        args.setText(myScriptArgs);
-        element.addContent(path);
-        element.addContent(args);
+        element.addContent(new Element(SCRIPT_PATH).setText(scriptPath));
+        element.addContent(new Element(SCRIPT_ARGS).setText(scriptArgs));
+        element.addContent(new Element(WORKING_DIRECTORY).setText(workingDirectory));
+        Element envVarsElement = new Element(ENV_VARS);
+        envVars.keySet().forEach(key -> envVarsElement.addContent(new Element(key).setText(envVars.get(key))));
+        element.addContent(envVarsElement);
+        element.addContent(new Element(PASS_ENVIRONMENT).setText(String.valueOf(passParentEnvs)));
+        element.addContent(new Element(PERL6_PARAMS).setText(interpreterParameters));
+        element.addContent(new Element(DEBUG_PORT).setText(String.valueOf(debugPort)));
+        element.addContent(new Element(START_SUSPENDED).setText(String.valueOf(startSuspended)));
     }
 
     @Override
     public void checkConfiguration() throws RuntimeConfigurationException {
-        Path path = Paths.get(myScriptPath);
+        Path path = Paths.get(scriptPath);
         if (!(Files.exists(path))) {
             throw new RuntimeConfigurationError("Path to main script must be specified");
         }
@@ -104,45 +131,45 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
 
     @Override
     public void setProgramParameters(@Nullable String value) {
-        myScriptArgs = value;
+        scriptArgs = value;
     }
 
     @Nullable
     @Override
     public String getProgramParameters() {
-        return myScriptArgs;
+        return scriptArgs;
     }
 
     @Override
     public void setWorkingDirectory(@Nullable String value) {
-        myWorkingDirectory = value;
+        workingDirectory = value;
     }
 
     @Nullable
     @Override
     public String getWorkingDirectory() {
-        return myWorkingDirectory;
+        return workingDirectory;
     }
 
     @Override
     public void setEnvs(@NotNull Map<String, String> envs) {
-        myEnvs = envs;
+        envVars = envs;
     }
 
     @NotNull
     @Override
     public Map<String, String> getEnvs() {
-        return myEnvs;
+        return envVars;
     }
 
     @Override
     public void setPassParentEnvs(boolean passParentEnvs) {
-        myPassParentEnvs = passParentEnvs;
+        this.passParentEnvs = passParentEnvs;
     }
 
     @Override
     public boolean isPassParentEnvs() {
-        return myPassParentEnvs;
+        return passParentEnvs;
     }
 
     public int getDebugPort() {
@@ -162,10 +189,10 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
     }
 
     public String getInterpreterParameters() {
-        return myInterpreterParameters;
+        return interpreterParameters;
     }
 
     public void setInterpreterParameters(String interpreterParameters) {
-        this.myInterpreterParameters = interpreterParameters;
+        this.interpreterParameters = interpreterParameters;
     }
 }
