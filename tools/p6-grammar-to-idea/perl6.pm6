@@ -3069,16 +3069,16 @@ grammar MAIN {
            <.start-token('POSTFIX')> '.' <.end-token('POSTFIX')>
            <.postfix>
            <.end-element('POSTFIX')>
-        || <.postcircumfix> { $*PREC = 'y=' }
+        || <.postcircumfix> { $*PREC = 'y=' } { $*ASSOC = 'unary' }
         || <?before ['.' <?[ [ { < ]>]>
            <.start-element('METHOD_CALL')>
            <.start-token('METHOD_CALL_OPERATOR')>
            '.'
            <.end-token('METHOD_CALL_OPERATOR')>
-           <.postcircumfix> { $*PREC = 'y=' }
+           <.postcircumfix> { $*PREC = 'y=' } { $*ASSOC = 'unary' }
            <.end-element('METHOD_CALL')>
-        || <.dotty> { $*PREC = 'y=' }
-        || <.privop> { $*PREC = 'y=' }
+        || <.dotty> { $*PREC = 'y=' } { $*ASSOC = 'unary' }
+        || <.privop> { $*PREC = 'y=' } { $*ASSOC = 'unary' }
     }
 
     token postfix {
@@ -3239,6 +3239,8 @@ grammar MAIN {
            '='
            <.end-token('METAOP')>
            <.end-element('ASSIGN_METAOP')>
+           [ <?{ $*PREC le 'g=' }> { $*SUB_PREC = 'e=' } ]?
+           { $*PREC = 'i=' } { $*ASSOC = 'right' }
         || <.infixish_non_assignment_meta>
         ]
     }
@@ -3260,6 +3262,7 @@ grammar MAIN {
                  <?>
                  <.end-token('BRACKETED_INFIX_INCOMPLETE')>
               ]
+              { $*PREC = 't=' } { $*ASSOC = 'left' }
            || <.infixish>
               [
               || <.start-token('INFIX')>
@@ -3458,6 +3461,11 @@ grammar MAIN {
            <.end-token('METAOP')>
            <.infixish>
            <.end-element('REVERSE_METAOP')>
+           [
+           || <?{ $*ASSOC eq 'left' }> { $*ASSOC = 'right' }
+           || <?{ $*ASSOC eq 'right' }> { $*ASSOC = 'left' }
+           || <?>
+           ]
         || <?before ['S' <.infixish>]>
            <.start-element('SEQUENTIAL_METAOP')>
            <.start-token('METAOP')>
@@ -3472,6 +3480,7 @@ grammar MAIN {
            <.end-token('METAOP')>
            <.infixish>
            <.end-element('CROSS_METAOP')>
+           { $*PREC = 'f=' } { $*ASSOC = 'list' }
         || <?before ['Z' <.infixish>]>
            <.start-element('ZIP_METAOP')>
            <.start-token('METAOP')>
@@ -3479,6 +3488,7 @@ grammar MAIN {
            <.end-token('METAOP')>
            <.infixish>
            <.end-element('ZIP_METAOP')>
+           { $*PREC = 'f=' } { $*ASSOC = 'list' }
     }
 
     token infix_circumfix_meta_operator {

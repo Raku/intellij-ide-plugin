@@ -12347,7 +12347,11 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean infixish_147_alt_2(PsiBuilder builder, OPP opp) {
+    private boolean infixish_147_quant_2(PsiBuilder builder, OPP opp) {
+        return true;
+    }
+
+    private boolean infixish_147_alt_3(PsiBuilder builder, OPP opp) {
         PsiBuilder.Marker marker2;
         marker2 = builder.mark();
         if ((builder.getTokenType()) == Perl6TokenTypes.ASSIGN_METAOP) {
@@ -12366,18 +12370,25 @@ public class Perl6Parser implements PsiParser {
             return false;
         }
         marker2.done(Perl6ElementTypes.ASSIGN_METAOP);
+        PsiBuilder.Marker quantMarker3;
+        quantMarker3 = builder.mark();
+        if (this.infixish_147_quant_2(builder, opp)) {
+            quantMarker3.drop();
+        } else {
+            quantMarker3.rollbackTo();
+        }
         return true;
     }
 
     private boolean infixish_147(PsiBuilder builder) {
         OPP opp;
         opp = null;
-        PsiBuilder.Marker altMarker3;
-        altMarker3 = builder.mark();
-        if (this.infixish_147_alt_2(builder, opp)) {
-            altMarker3.drop();
+        PsiBuilder.Marker altMarker4;
+        altMarker4 = builder.mark();
+        if (this.infixish_147_alt_3(builder, opp)) {
+            altMarker4.drop();
         } else {
-            altMarker3.rollbackTo();
+            altMarker4.rollbackTo();
             PsiBuilder.Marker altMarker1;;
             altMarker1 = builder.mark();
             if (this.infixish_147_alt_1(builder, opp)) {
@@ -12932,6 +12943,18 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean infix_prefix_meta_operator_161_alt_4(PsiBuilder builder, OPP opp) {
+        return true;
+    }
+
+    private boolean infix_prefix_meta_operator_161_alt_5(PsiBuilder builder, OPP opp) {
+        return true;
+    }
+
+    private boolean infix_prefix_meta_operator_161_alt_6(PsiBuilder builder, OPP opp) {
+        return true;
+    }
+
+    private boolean infix_prefix_meta_operator_161_alt_7(PsiBuilder builder, OPP opp) {
         PsiBuilder.Marker marker7;
         marker7 = builder.mark();
         String tt4;
@@ -12945,12 +12968,34 @@ public class Perl6Parser implements PsiParser {
             return false;
         }
         marker7.done(Perl6ElementTypes.REVERSE_METAOP);
+        PsiBuilder.Marker altMarker10;
+        altMarker10 = builder.mark();
+        if (this.infix_prefix_meta_operator_161_alt_6(builder, opp)) {
+            altMarker10.drop();
+        } else {
+            altMarker10.rollbackTo();
+            PsiBuilder.Marker altMarker9;;
+            altMarker9 = builder.mark();
+            if (this.infix_prefix_meta_operator_161_alt_5(builder, opp)) {
+                altMarker9.drop();
+            } else {
+                altMarker9.rollbackTo();
+                PsiBuilder.Marker altMarker8;;
+                altMarker8 = builder.mark();
+                if (this.infix_prefix_meta_operator_161_alt_4(builder, opp)) {
+                    altMarker8.drop();
+                } else {
+                    altMarker8.rollbackTo();
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
-    private boolean infix_prefix_meta_operator_161_alt_5(PsiBuilder builder, OPP opp) {
-        PsiBuilder.Marker marker9;
-        marker9 = builder.mark();
+    private boolean infix_prefix_meta_operator_161_alt_8(PsiBuilder builder, OPP opp) {
+        PsiBuilder.Marker marker12;
+        marker12 = builder.mark();
         String tt5;
         tt5 = builder.getTokenText();
         if (((builder.getTokenType()) == Perl6TokenTypes.METAOP) && (tt5.equals("!"))) {
@@ -12961,25 +13006,25 @@ public class Perl6Parser implements PsiParser {
         if (!(this.infixish_147(builder))) {
             return false;
         }
-        marker9.done(Perl6ElementTypes.NEGATION_METAOP);
+        marker12.done(Perl6ElementTypes.NEGATION_METAOP);
         return true;
     }
 
     private boolean infix_prefix_meta_operator_161(PsiBuilder builder) {
         OPP opp;
         opp = null;
-        PsiBuilder.Marker altMarker10;
-        altMarker10 = builder.mark();
-        if (this.infix_prefix_meta_operator_161_alt_5(builder, opp)) {
-            altMarker10.drop();
+        PsiBuilder.Marker altMarker13;
+        altMarker13 = builder.mark();
+        if (this.infix_prefix_meta_operator_161_alt_8(builder, opp)) {
+            altMarker13.drop();
         } else {
-            altMarker10.rollbackTo();
-            PsiBuilder.Marker altMarker8;;
-            altMarker8 = builder.mark();
-            if (this.infix_prefix_meta_operator_161_alt_4(builder, opp)) {
-                altMarker8.drop();
+            altMarker13.rollbackTo();
+            PsiBuilder.Marker altMarker11;;
+            altMarker11 = builder.mark();
+            if (this.infix_prefix_meta_operator_161_alt_7(builder, opp)) {
+                altMarker11.drop();
             } else {
-                altMarker8.rollbackTo();
+                altMarker11.rollbackTo();
                 PsiBuilder.Marker altMarker6;;
                 altMarker6 = builder.mark();
                 if (this.infix_prefix_meta_operator_161_alt_3(builder, opp)) {
