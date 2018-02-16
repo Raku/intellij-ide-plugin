@@ -15,6 +15,8 @@ public class OPP {
         public String assoc;
         public PsiBuilder.Marker startMarker; // For prefixes
         public PsiBuilder.Marker endMarker;   // For postfixes
+        public int startOffset = -1;
+        public int endOffset = -1;
     }
 
     private static class Term {
@@ -25,6 +27,7 @@ public class OPP {
     private PsiBuilder builder;
 
     private PsiBuilder.Marker curPrefixStartMarker;
+    private int curInfixStartPosition;
     private PsiBuilder.Marker termStartMarker;
     private PsiBuilder.Marker termEndMarker;
     private List<Op> prefixes = new ArrayList<>();
@@ -116,6 +119,7 @@ public class OPP {
     }
 
     public void startInfix() {
+        curInfixStartPosition = builder.getCurrentOffset();
     }
 
     public void endInfix() {
@@ -143,6 +147,8 @@ public class OPP {
         op.prec = precInfo.prec();
         op.subPrec = precInfo.subPrec();
         op.assoc = precInfo.assoc();
+        op.startOffset = curInfixStartPosition;
+        op.endOffset = builder.getCurrentOffset();
         opStack.add(op);
     }
 
@@ -191,7 +197,36 @@ public class OPP {
             composite.endMarker = op.endMarker;
             termStack.add(composite);
         }
-        // TODO List associativity
+        else if (op.assoc.contentEquals("list")) {
+            // List-associative infix operator. For these, we want to reduce all of the
+            // terms sharing the operator into a single node. We work down the op stack.
+            // Any terms that we determine to be completely inner to the expression have
+            // their start and end markers dropped. Ditto for the end marker of the
+            // leftmost and start marker of the rightmost term. Make the leftmost term's
+            // start marker be done before the rightmost term's end marker, thus
+            // building a single tree node for all in the list. The composite term has a
+            // new start marker that precedes the leftmost term's start marker, and carries
+            // the rightmost term's end marker.
+            String sym = sym(op);
+            Term right = termStack.remove(termStack.size() - 1);
+            while (opStack.size() > 0) {
+                if (!sym.contentEquals(sym(opStack.get(opStack.size() - 1))))
+                    break;
+                Term inner = termStack.remove(termStack.size() - 1);
+                inner.startMarker.drop();
+                inner.endMarker.drop();
+                opStack.remove(opStack.size() - 1);
+            }
+            Term left = termStack.remove(termStack.size() - 1);
+            right.startMarker.drop();
+            left.endMarker.drop();
+            PsiBuilder.Marker infixMarker = left.startMarker;
+            infixMarker.doneBefore(Perl6OPPElementTypes.INFIX_APPLICATION, right.endMarker);
+            Term composite = new Term();
+            composite.startMarker = infixMarker.precede();
+            composite.endMarker = right.endMarker;
+            termStack.add(composite);
+        }
         else {
             // Infix operator. The end marker of the left term and the start marker of the
             // right marker are inner and so dropped. The term's start marker is taken and
@@ -226,7 +261,13 @@ public class OPP {
         return a.compareTo(b) < 0;
     }
 
-    public static boolean gt(String a, String b) {
+    private static boolean gt(String a, String b) {
         return a.compareTo(b) > 0;
+    }
+
+    private String sym(Op op) {
+        return op.startOffset < 0 || op.endOffset < 0
+            ? ""
+            : builder.getOriginalText().subSequence(op.startOffset, op.endOffset).toString();
     }
 }
