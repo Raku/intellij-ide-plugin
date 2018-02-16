@@ -9,7 +9,7 @@ import java.util.List;
 /* Implementation of operator precedence parsing. A given instance of this tracks the
  * state needed to do the precedence parse. */
 public class OPP {
-    private class Op {
+    private static class Op {
         public String prec;
         public String subPrec;
         public String assoc;
@@ -17,7 +17,7 @@ public class OPP {
         public PsiBuilder.Marker endMarker;   // For postfixes
     }
 
-    private class Term {
+    private static class Term {
         public PsiBuilder.Marker startMarker;
         public PsiBuilder.Marker endMarker;
     }
@@ -223,10 +223,10 @@ public class OPP {
     }
 
     private static boolean lt(String a, String b) {
-        return a.compareTo(b) < 0 ? true : false;
+        return a.compareTo(b) < 0;
     }
 
     public static boolean gt(String a, String b) {
-        return a.compareTo(b) > 0 ? true : false;
+        return a.compareTo(b) > 0;
     }
 }
