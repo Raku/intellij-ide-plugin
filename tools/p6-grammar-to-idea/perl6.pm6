@@ -73,6 +73,10 @@ grammar MAIN {
         <!before <[ \( \\ ' \- ]> || \h* '=>'>
     }
 
+    token end_prefix {
+        <.end_keyword> <.start-token('WHITE_SPACE')> \s* <.end-token('WHITE_SPACE')>
+    }
+
     token spacey { <?[\s]> || <?[#]> }
 
     token kok {
@@ -3013,26 +3017,42 @@ grammar MAIN {
     }
 
     token prefix {
-        <.start-token('PREFIX')>
-        [
-        || '++⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
-        || '--⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
-        || '++' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
-        || '--' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
-        || '+^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '~^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '?^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '+' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '~' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '-' <![>]> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '−' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '?' <!before '??'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '!' <!before '!!'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '|' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        || '⚛' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
-        ]
-        <.end-token('PREFIX')>
+        || <?before ['let'<.kok>]>
+           <.start-token('PREFIX')> 'let' <.end-token('PREFIX')>
+           <.kok>
+           { $*PREC = 'o=' } { $*ASSOC = 'unary' }
+        || <?before ['temp'<.kok>]>
+           <.start-token('PREFIX')> 'temp' <.end-token('PREFIX')>
+           <.kok>
+           { $*PREC = 'o=' } { $*ASSOC = 'unary' }
+        || <?before ['so'<.end_prefix>]>
+           <.start-token('PREFIX')> 'so' <.end-token('PREFIX')>
+           <.end_prefix>
+           { $*PREC = 'h=' } { $*ASSOC = 'unary' }
+        || <?before ['not'<.end_prefix>]>
+           <.start-token('PREFIX')> 'not' <.end-token('PREFIX')>
+           <.end_prefix>
+           { $*PREC = 'h=' } { $*ASSOC = 'unary' }
+        || <.start-token('PREFIX')>
+           [
+           || '++⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+           || '--⚛' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+           || '++' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+           || '--' { $*PREC = 'x=' } { $*ASSOC = 'unary' }
+           || '+^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '~^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '?^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '+' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '~' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '-' <![>]> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '−' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '?' <!before '??'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '!' <!before '!!'> { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '|' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '^' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           || '⚛' { $*PREC = 'v=' } { $*ASSOC = 'unary' }
+           ]
+           <.end-token('PREFIX')>
     }
 
     token postfixish {
