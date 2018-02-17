@@ -2974,16 +2974,24 @@ grammar MAIN {
             <.opp-end-infix>
             <.ws>
 
+            <.opp-start-prefixes>
             [
-                <.opp-start-prefixes>
-                [
-                || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes> <.term>?
-                || <.opp-end-prefixes> <.term>
-                ]
-                <.opp-start-postfixes>
-                [<.postfixish> <.opp-push-postfix>]*
-                <.opp-end-postfixes>
-            ]?
+            || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes>
+               [
+               || <.term>
+                  <.opp-start-postfixes>
+                  [<.postfixish> <.opp-push-postfix>]*
+               || <.opp-start-postfixes>
+               ]
+            || <.opp-end-prefixes>
+               [
+               || <.term>
+                  <.opp-start-postfixes>
+                  [<.postfixish> <.opp-push-postfix>]*
+               || <.opp-start-postfixes>
+               ]
+            ]
+            <.opp-end-postfixes>
         ]*
         <.opp-end-expr>
 
