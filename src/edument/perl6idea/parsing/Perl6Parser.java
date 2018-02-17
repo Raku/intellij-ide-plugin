@@ -10508,13 +10508,6 @@ public class Perl6Parser implements PsiParser {
     private boolean postfixish_nometa_124_alt_5(PsiBuilder builder, OPP opp) {
         PsiBuilder.Marker marker6;
         marker6 = builder.mark();
-        String tt2;
-        tt2 = builder.getTokenText();
-        if (((builder.getTokenType()) == Perl6TokenTypes.POSTFIX) && (tt2.equals("."))) {
-            builder.advanceLexer();
-        } else {
-            return false;
-        }
         if (!(this.postfix_145(builder))) {
             return false;
         }
@@ -10525,6 +10518,13 @@ public class Perl6Parser implements PsiParser {
     private boolean postfixish_nometa_124_alt_6(PsiBuilder builder, OPP opp) {
         PsiBuilder.Marker marker8;
         marker8 = builder.mark();
+        String tt2;
+        tt2 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.POSTFIX) && (tt2.equals("."))) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
         if (!(this.postfix_145(builder))) {
             return false;
         }

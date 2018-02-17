@@ -1294,12 +1294,12 @@ grammar MAIN {
            <.end-element('METHOD_CALL')>
         || <.start-element('VARIABLE')>
            <.start-token('VARIABLE')>
-           '$' <[/_!¢]>
+           <.sigil> <.twigil>? <.desigilname>
            <.end-token('VARIABLE')>
            <.end-element('VARIABLE')>
         || <.start-element('VARIABLE')>
            <.start-token('VARIABLE')>
-           <.sigil> <.twigil>? <.desigilname>
+           '$' <[/_!¢]>
            <.end-token('VARIABLE')>
            <.end-element('VARIABLE')>
         || <?before [<.sigil> '<']>
@@ -3063,12 +3063,12 @@ grammar MAIN {
     }
 
     token postfixish_nometa {
-        || <.start-element('POSTFIX')>
-           <.postfix>
-           <.end-element('POSTFIX')>
         || <?before ['.' \W]> <?before ['.' <.postfix>]>
            <.start-element('POSTFIX')>
            <.start-token('POSTFIX')> '.' <.end-token('POSTFIX')>
+           <.postfix>
+           <.end-element('POSTFIX')>
+        || <.start-element('POSTFIX')>
            <.postfix>
            <.end-element('POSTFIX')>
         || <.postcircumfix> { $*PREC = 'y=' } { $*ASSOC = 'unary' }
