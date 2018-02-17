@@ -179,9 +179,6 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6HashIndexImpl(astNode);
         if (type == Perl6ElementTypes.CALL)
             return new Perl6CallImpl(astNode);
-        // TODO Kill this off once we have proper operator parsing
-        if (type == Perl6ElementTypes.EXPR)
-            return new Perl6ExpressionImpl(astNode);
         if (type == Perl6ElementTypes.VARIABLE)
             return new Perl6VariableImpl(astNode);
         if (type == Perl6ElementTypes.CONTEXTUALIZER)

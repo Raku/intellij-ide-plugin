@@ -2953,8 +2953,6 @@ grammar MAIN {
         :my $*SUB_PREC = '';
         :my $*ASSOC = '';
 
-        <.start-element('EXPR')>
-
         <.opp-start-expr>
 
         <.opp-start-prefixes>
@@ -2999,8 +2997,6 @@ grammar MAIN {
         <.start-token('END_OF_EXPR')>
         <?>
         <.end-token('END_OF_EXPR')>
-
-        <.end-element('EXPR')>
     }
 
     token prefixish {
