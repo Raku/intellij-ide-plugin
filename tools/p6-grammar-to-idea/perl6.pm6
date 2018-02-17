@@ -6,6 +6,7 @@ grammar MAIN {
         :my $*QSIGIL = '';
         :my $*DELIM = '';
         :my $*LEFTSIGIL = '';
+        :my $*IN_META = '';
         <.statementlist>
         [
         || $
@@ -1245,6 +1246,7 @@ grammar MAIN {
         :my $*Q_ARRAYS = 0;
         :my $*Q_HASHES = 0;
         :my $*Q_FUNCTIONS = 0;
+        :my $*IN_META = '';
         [
             <!{ $*LEFTSIGIL }>
             [
@@ -1260,7 +1262,7 @@ grammar MAIN {
            '&['
            <.end-token('VARIABLE')>
            [
-               <.infixish>
+               <.infixish('[]')>
                [
                    <.start-token('VARIABLE')>
                    ']'
@@ -2965,10 +2967,10 @@ grammar MAIN {
         <.opp-end-postfixes>
 
         [
-            <?before <.ws> <.infixish> <.ws>>
+            <?before <.ws> <.infixish('')> <.ws>>
             <.ws>
             <.opp-start-infix>
-            <.infixish>
+            <.infixish('')>
             <.opp-end-infix>
             <.ws>
 
@@ -3227,7 +3229,7 @@ grammar MAIN {
        ]
     }
 
-    token infixish {
+    token infixish($*IN_META) {
         <!stdstopper>
         <!infixstopper>
         [
@@ -3263,7 +3265,7 @@ grammar MAIN {
                  <.end-token('BRACKETED_INFIX_INCOMPLETE')>
               ]
               { $*PREC = 't=' } { $*ASSOC = 'left' }
-           || <.infixish>
+           || <.infixish('[]')>
               [
               || <.start-token('INFIX')>
                  ']'
@@ -3360,10 +3362,14 @@ grammar MAIN {
         || '+&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
         || '~&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
         || '?&' { $*PREC = 'u=' } { $*ASSOC = 'left' }
-        || '+<' { $*PREC = 'u=' } { $*ASSOC = 'left' }
-        || '+>' { $*PREC = 'u=' } { $*ASSOC = 'left' }
-        || '~<' { $*PREC = 'u=' } { $*ASSOC = 'left' }
-        || '~>' { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+<' [ <!{ $*IN_META }> || <?before '<<'> || <![<]> ]
+                { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '+>' [ <!{ $*IN_META }> || <?before '>>'> || <![>]> ]
+                { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '~<' [ <!{ $*IN_META }> || <?before '<<'> || <![<]> ]
+                { $*PREC = 'u=' } { $*ASSOC = 'left' }
+        || '~>' [ <!{ $*IN_META }> || <?before '>>'> || <![>]> ]
+                { $*PREC = 'u=' } { $*ASSOC = 'left' }
         || '+|' { $*PREC = 't=' } { $*ASSOC = 'left' }
         || '+^' { $*PREC = 't=' } { $*ASSOC = 'left' }
         || '~|' { $*PREC = 't=' } { $*ASSOC = 'left' }
@@ -3439,65 +3445,65 @@ grammar MAIN {
         || 'X' { $*PREC = 'f=' } { $*ASSOC = 'list' }
         || '…' { $*PREC = 'f=' } { $*ASSOC = 'list' }
         || '=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
-           [ <?{ $*LEFTSIGIL ne '$' }> { $*SUB_PREC = 'e=' } ]?
+           [ <?{ $*LEFTSIGIL ne '$' }> <!{ $*IN_META }> { $*SUB_PREC = 'e=' } ]?
         ]
         <!{ $*PREC le $*PRECLIM }>
         <.end-token('INFIX')>
     }
 
     token infix_prefix_meta_operator {
-        || <?before ['!' <![!]> <.infixish>]>
+        || <?before ['!' <![!]> <.infixish('neg')>]>
            <!before ['!=' <![=]>]>
            <.start-element('NEGATION_METAOP')>
            <.start-token('METAOP')>
            '!'
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('neg')>
            <.end-element('NEGATION_METAOP')>
-        || <?before ['R' <.infixish>]>
+        || <?before ['R' <.infixish('R')>]>
            <.start-element('REVERSE_METAOP')>
            <.start-token('METAOP')>
            'R'
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('R')>
            <.end-element('REVERSE_METAOP')>
            [
            || <?{ $*ASSOC eq 'left' }> { $*ASSOC = 'right' }
            || <?{ $*ASSOC eq 'right' }> { $*ASSOC = 'left' }
            || <?>
            ]
-        || <?before ['S' <.infixish>]>
+        || <?before ['S' <.infixish('S')>]>
            <.start-element('SEQUENTIAL_METAOP')>
            <.start-token('METAOP')>
            'S'
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('S')>
            <.end-element('SEQUENTIAL_METAOP')>
-        || <?before ['X' <.infixish>]>
+        || <?before ['X' <.infixish('X')>]>
            <.start-element('CROSS_METAOP')>
            <.start-token('METAOP')>
            'X'
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('X')>
            <.end-element('CROSS_METAOP')>
            { $*PREC = 'f=' } { $*ASSOC = 'list' }
-        || <?before ['Z' <.infixish>]>
+        || <?before ['Z' <.infixish('Z')>]>
            <.start-element('ZIP_METAOP')>
            <.start-token('METAOP')>
            'Z'
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('Z')>
            <.end-element('ZIP_METAOP')>
            { $*PREC = 'f=' } { $*ASSOC = 'list' }
     }
 
     token infix_circumfix_meta_operator {
-        || <?before [<[«»]> <.infixish>]>
+        || <?before [<[«»]> <.infixish('hyper')>]>
            <.start-element('HYPER_METAOP')>
            <.start-token('METAOP')>
            <[«»]>
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('hyper')>
            [
            || <.start-token('METAOP')>
               <[«»]>
@@ -3505,12 +3511,12 @@ grammar MAIN {
            || <.start-token('HYPER_METAOP_MISSING')> <?> <.end-token('HYPER_METAOP_MISSING')>
            ]
            <.end-element('HYPER_METAOP')>
-        || <?before [[ '<<' || '>>' ] <.infixish>]>
+        || <?before [[ '<<' || '>>' ] <.infixish('hyper')>]>
            <.start-element('HYPER_METAOP')>
            <.start-token('METAOP')>
            [ '<<' || '>>' ]
            <.end-token('METAOP')>
-           <.infixish>
+           <.infixish('hyper')>
            [
            || <.start-token('METAOP')>
               [ '<<' || '>>' ]
@@ -3526,15 +3532,15 @@ grammar MAIN {
 
     token term_reduce {
         <!before [ '[' <[ - + ? ~ ^ ]> [\w || <[$@]>] ]>
-        <?before [ '[' [ <.infixish> || '\\' <.infixish> ] ']' ]>
+        <?before [ '[' [ <.infixish('red')> || '\\' <.infixish('tri')> ] ']' ]>
 
         <.start-element('REDUCE_METAOP')>
         <.start-token('METAOP')>
         '['
         <.end-token('METAOP')>
         [
-        || <.start-token('METAOP')> '\\' <.end-token('METAOP')> <.infixish>
-        || <.infixish>
+        || <.start-token('METAOP')> '\\' <.end-token('METAOP')> <.infixish('tri')>
+        || <.infixish('red')>
         ]
         <.start-token('METAOP')>
         ']'
