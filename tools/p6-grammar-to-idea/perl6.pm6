@@ -2956,6 +2956,7 @@ grammar MAIN {
         :my $*PREC = '';
         :my $*SUB_PREC = '';
         :my $*ASSOC = '';
+        :my $*NEXT_TERM = '';
 
         <.opp-start-expr>
 
@@ -2972,6 +2973,7 @@ grammar MAIN {
             <?before <.ws> <.infixish('')> <.ws>>
             <.ws>
             <.opp-start-infix>
+            { $*NEXT_TERM = '' }
             <.infixish('')>
             <.opp-end-infix>
             <.ws>
@@ -2980,14 +2982,14 @@ grammar MAIN {
             [
             || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes>
                [
-               || <.term>
+               || <.nextterm>
                   <.opp-start-postfixes>
                   [<.postfixish> <.opp-push-postfix>]*
                || <.opp-start-postfixes>
                ]
             || <.opp-end-prefixes>
                [
-               || <.term>
+               || <.nextterm>
                   <.opp-start-postfixes>
                   [<.postfixish> <.opp-push-postfix>]*
                || <.opp-start-postfixes>
@@ -3001,6 +3003,19 @@ grammar MAIN {
         <.start-token('END_OF_EXPR')>
         <?>
         <.end-token('END_OF_EXPR')>
+    }
+
+    token nextterm {
+        || <?{ $*NEXT_TERM eq 'nulltermish' }>
+           [
+           || <!terminator> <.term>
+           || <.start-element('NULL_TERM')>
+              <.start-token('NULL_TERM')>
+              <?>
+              <.end-token('NULL_TERM')>
+              <.end-element('NULL_TERM')>
+           ]
+        || <.term>
     }
 
     token prefixish {
@@ -3478,7 +3493,7 @@ grammar MAIN {
            || '⊉' { $*PREC = 'm=' } { $*ASSOC = 'left' }
            || '≼' { $*PREC = 'm=' } { $*ASSOC = 'left' }
            || '≽' { $*PREC = 'm=' } { $*ASSOC = 'left' }
-           || ',' { $*PREC = 'g=' } { $*ASSOC = 'list' }
+           || ',' { $*PREC = 'g=' } { $*ASSOC = 'list' } { $*NEXT_TERM = 'nulltermish' }
            || 'Z' { $*PREC = 'f=' } { $*ASSOC = 'list' }
            || 'X' { $*PREC = 'f=' } { $*ASSOC = 'list' }
            || '…' { $*PREC = 'f=' } { $*ASSOC = 'list' }

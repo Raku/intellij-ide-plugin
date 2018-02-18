@@ -56,6 +56,7 @@ public interface Perl6TokenTypes {
     IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
     IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");
     IElementType NO_ARGS = new Perl6ElementType("NO_ARGS");
+    IElementType NULL_TERM = new Perl6ElementType("NULL_TERM");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
     IElementType PACKAGE_DECLARATOR = new Perl6ElementType("PACKAGE_DECLARATOR");

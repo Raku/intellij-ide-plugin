@@ -45,6 +45,7 @@ public interface Perl6ElementTypes {
     IElementType NEED_STATEMENT = new Perl6ElementType("NEED_STATEMENT");
     IElementType NEGATION_METAOP = new Perl6ElementType("NEGATION_METAOP");
     IElementType NO_STATEMENT = new Perl6ElementType("NO_STATEMENT");
+    IElementType NULL_TERM = new Perl6ElementType("NULL_TERM");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType ONCE = new Perl6ElementType("ONCE");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
