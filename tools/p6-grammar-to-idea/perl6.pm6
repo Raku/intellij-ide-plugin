@@ -1840,18 +1840,25 @@ grammar MAIN {
 
     token initializer {
         :my $*EXPR_PREC = 'e=';
-        <?before ['=' || ':=' || '::='] <.ws>>
+        :my $*DOTTY = 0;
+        <?before ['=' || ':=' || '::=' || '.='] <.ws>>
         <.start-element('INFIX')>
         [
         || <.start-token('INFIX')> '=' <.end-token('INFIX')>
            [ <?{ $*LEFTSIGIL eq '$' }> { $*EXPR_PREC = 'i<=' } ]?
         || <.start-token('INFIX')> ':=' <.end-token('INFIX')>
         || <.start-token('INFIX')> '::=' <.end-token('INFIX')>
+        || <.start-token('INFIX')> '.=' <.end-token('INFIX')> { $*DOTTY = 1 }
         ]
         <.end-element('INFIX')>
         <.ws>
         [
-        || <.EXPR($*EXPR_PREC)>
+        || <?{ $*DOTTY }>
+           <.start-token('IS_DOTTY')> <?> <.end-token('IS_DOTTY')>
+           <.dottyop>
+        || <!{ $*DOTTY }>
+           <.start-token('NOT_DOTTY')> <?> <.end-token('NOT_DOTTY')>
+           <.EXPR($*EXPR_PREC)>
         || <.start-token('INITIALIZER_MISSING')> <?> <.end-token('INITIALIZER_MISSING')>
         ]
     }
@@ -3015,6 +3022,10 @@ grammar MAIN {
               <.end-token('NULL_TERM')>
               <.end-element('NULL_TERM')>
            ]
+        || <?{ $*NEXT_TERM eq 'dotty' }>
+           <.start-element('METHOD_CALL')>
+           <.dottyop>
+           <.end-element('METHOD_CALL')>
         || <.term>
     }
 
@@ -3447,11 +3458,15 @@ grammar MAIN {
            || '//' { $*PREC = 'k=' } { $*ASSOC = 'left' }
            || ':=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
            || '.=' { $*PREC = 'v=' } { $*ASSOC = 'left' }
+                   { $*SUB_PREC = 'z=' } { $*NEXT_TERM = 'dotty' }
            || '…^' { $*PREC = 'f=' } { $*ASSOC = 'list' }
            || 'ff' { $*PREC = 'j=' } { $*ASSOC = 'right' }
            || '⚛=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
            || 'or' { $*PREC = 'c=' } { $*ASSOC = 'left' }
            || '..' { $*PREC = 'n=' } { $*ASSOC = 'non' }
+           || '.' <?before [<.ws> <.alpha>]>
+                  { $*PREC = 'v=' } { $*ASSOC = 'left' }
+                  { $*SUB_PREC = 'z=' } { $*NEXT_TERM = 'dotty' }
            || '*' { $*PREC = 'u=' } { $*ASSOC = 'left' }
            || '×' { $*PREC = 'u=' } { $*ASSOC = 'left' }
            || '/' { $*PREC = 'u=' } { $*ASSOC = 'left' }

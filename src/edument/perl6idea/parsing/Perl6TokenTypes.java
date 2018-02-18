@@ -43,6 +43,7 @@ public interface Perl6TokenTypes {
     IElementType INITIALIZER_MISSING = new Perl6ElementType("INITIALIZER_MISSING");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType INVOCANT_MARKER = new Perl6ElementType("INVOCANT_MARKER");
+    IElementType IS_DOTTY = new Perl6ElementType("IS_DOTTY");
     IElementType LAMBDA = new Perl6ElementType("LAMBDA");
     IElementType METAOP = new Perl6ElementType("METAOP");
     IElementType METHOD_CALL_NAME = new Perl6ElementType("METHOD_CALL_NAME");
@@ -55,6 +56,7 @@ public interface Perl6TokenTypes {
     IElementType NAME = new Perl6ElementType("NAME");
     IElementType NAMED_PARAMETER_NAME_ALIAS = new Perl6ElementType("NAMED_PARAMETER_NAME_ALIAS");
     IElementType NAMED_PARAMETER_SYNTAX = new Perl6ElementType("NAMED_PARAMETER_SYNTAX");
+    IElementType NOT_DOTTY = new Perl6ElementType("NOT_DOTTY");
     IElementType NO_ARGS = new Perl6ElementType("NO_ARGS");
     IElementType NULL_TERM = new Perl6ElementType("NULL_TERM");
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
