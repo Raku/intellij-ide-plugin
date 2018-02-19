@@ -977,8 +977,8 @@ grammar MAIN {
         || <.value>
         || <.fatarrow>
         || <.colonpair>
-        || <.variable>
         || <.term_self>
+        || <.variable>
         || <.term_ident>
         || <.scope_declarator>
         || <.routine_declarator>
@@ -1040,11 +1040,13 @@ grammar MAIN {
     }
 
     token term_self {
+        <?before ['self' <.end_keyword>]>
         <.start-element('SELF')>
         <.start-token('SELF')>
-        'self' <.end_keyword>
+        'self'
         <.end-token('SELF')>
         <.end-element('SELF')>
+        <.end_keyword>
     }
 
     token term_whatever {

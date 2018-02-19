@@ -3480,14 +3480,14 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean term_49_alt_24(PsiBuilder builder, OPP opp) {
-        if (!(this.term_self_89(builder))) {
+        if (!(this.variable_91(builder))) {
             return false;
         }
         return true;
     }
 
     private boolean term_49_alt_25(PsiBuilder builder, OPP opp) {
-        if (!(this.variable_91(builder))) {
+        if (!(this.term_self_89(builder))) {
             return false;
         }
         return true;
@@ -7592,12 +7592,17 @@ public class Perl6Parser implements PsiParser {
         opp = null;
         PsiBuilder.Marker marker1;
         marker1 = builder.mark();
-        if ((builder.getTokenType()) == Perl6TokenTypes.SELF) {
+        String tt1;
+        tt1 = builder.getTokenText();
+        if (((builder.getTokenType()) == Perl6TokenTypes.SELF) && (tt1.equals("self"))) {
             builder.advanceLexer();
         } else {
             return false;
         }
         marker1.done(Perl6ElementTypes.SELF);
+        if (!(this.end_keyword_149(builder))) {
+            return false;
+        }
         return true;
     }
 
