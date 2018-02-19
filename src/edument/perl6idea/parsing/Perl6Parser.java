@@ -7929,6 +7929,26 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
+    private boolean variable_91_alt_21(PsiBuilder builder, OPP opp) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.SIMPLE_CONTEXTUALIZER) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        PsiBuilder.Marker marker28;
+        marker28 = builder.mark();
+        if ((builder.getTokenType()) == Perl6TokenTypes.CONTEXTUALIZER) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        if (!(this.variable_91(builder))) {
+            return false;
+        }
+        marker28.done(Perl6ElementTypes.CONTEXTUALIZER);
+        return true;
+    }
+
     private boolean variable_91(PsiBuilder builder) {
         OPP opp;
         opp = null;
@@ -7939,55 +7959,62 @@ public class Perl6Parser implements PsiParser {
         } else {
             quantMarker5.rollbackTo();
         }
-        PsiBuilder.Marker altMarker27;
-        altMarker27 = builder.mark();
-        if (this.variable_91_alt_20(builder, opp)) {
-            altMarker27.drop();
+        PsiBuilder.Marker altMarker29;
+        altMarker29 = builder.mark();
+        if (this.variable_91_alt_21(builder, opp)) {
+            altMarker29.drop();
         } else {
-            altMarker27.rollbackTo();
-            PsiBuilder.Marker altMarker23;;
-            altMarker23 = builder.mark();
-            if (this.variable_91_alt_17(builder, opp)) {
-                altMarker23.drop();
+            altMarker29.rollbackTo();
+            PsiBuilder.Marker altMarker27;;
+            altMarker27 = builder.mark();
+            if (this.variable_91_alt_20(builder, opp)) {
+                altMarker27.drop();
             } else {
-                altMarker23.rollbackTo();
-                PsiBuilder.Marker altMarker17;;
-                altMarker17 = builder.mark();
-                if (this.variable_91_alt_12(builder, opp)) {
-                    altMarker17.drop();
+                altMarker27.rollbackTo();
+                PsiBuilder.Marker altMarker23;;
+                altMarker23 = builder.mark();
+                if (this.variable_91_alt_17(builder, opp)) {
+                    altMarker23.drop();
                 } else {
-                    altMarker17.rollbackTo();
-                    PsiBuilder.Marker altMarker15;;
-                    altMarker15 = builder.mark();
-                    if (this.variable_91_alt_11(builder, opp)) {
-                        altMarker15.drop();
+                    altMarker23.rollbackTo();
+                    PsiBuilder.Marker altMarker17;;
+                    altMarker17 = builder.mark();
+                    if (this.variable_91_alt_12(builder, opp)) {
+                        altMarker17.drop();
                     } else {
-                        altMarker15.rollbackTo();
-                        PsiBuilder.Marker altMarker13;;
-                        altMarker13 = builder.mark();
-                        if (this.variable_91_alt_10(builder, opp)) {
-                            altMarker13.drop();
+                        altMarker17.rollbackTo();
+                        PsiBuilder.Marker altMarker15;;
+                        altMarker15 = builder.mark();
+                        if (this.variable_91_alt_11(builder, opp)) {
+                            altMarker15.drop();
                         } else {
-                            altMarker13.rollbackTo();
-                            PsiBuilder.Marker altMarker10;;
-                            altMarker10 = builder.mark();
-                            if (this.variable_91_alt_8(builder, opp)) {
-                                altMarker10.drop();
+                            altMarker15.rollbackTo();
+                            PsiBuilder.Marker altMarker13;;
+                            altMarker13 = builder.mark();
+                            if (this.variable_91_alt_10(builder, opp)) {
+                                altMarker13.drop();
                             } else {
-                                altMarker10.rollbackTo();
-                                PsiBuilder.Marker altMarker8;;
-                                altMarker8 = builder.mark();
-                                if (this.variable_91_alt_7(builder, opp)) {
-                                    altMarker8.drop();
+                                altMarker13.rollbackTo();
+                                PsiBuilder.Marker altMarker10;;
+                                altMarker10 = builder.mark();
+                                if (this.variable_91_alt_8(builder, opp)) {
+                                    altMarker10.drop();
                                 } else {
-                                    altMarker8.rollbackTo();
-                                    PsiBuilder.Marker altMarker7;;
-                                    altMarker7 = builder.mark();
-                                    if (this.variable_91_alt_6(builder, opp)) {
-                                        altMarker7.drop();
+                                    altMarker10.rollbackTo();
+                                    PsiBuilder.Marker altMarker8;;
+                                    altMarker8 = builder.mark();
+                                    if (this.variable_91_alt_7(builder, opp)) {
+                                        altMarker8.drop();
                                     } else {
-                                        altMarker7.rollbackTo();
-                                        return false;
+                                        altMarker8.rollbackTo();
+                                        PsiBuilder.Marker altMarker7;;
+                                        altMarker7 = builder.mark();
+                                        if (this.variable_91_alt_6(builder, opp)) {
+                                            altMarker7.drop();
+                                        } else {
+                                            altMarker7.rollbackTo();
+                                            return false;
+                                        }
                                     }
                                 }
                             }

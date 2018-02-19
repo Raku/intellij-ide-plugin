@@ -1311,6 +1311,14 @@ grammar MAIN {
             ]
         ]?
         [
+        || <?before [<.sigil> <?sigil> <.variable>]>
+           <.start-token('SIMPLE_CONTEXTUALIZER')> <?> <.end-token('SIMPLE_CONTEXTUALIZER')>
+           <.start-element('CONTEXTUALIZER')>
+           <.start-token('CONTEXTUALIZER')>
+           <.sigil>
+           <.end-token('CONTEXTUALIZER')>
+           <.variable>
+           <.end-element('CONTEXTUALIZER')>
         || <.start-element('VARIABLE')>
            <.start-token('VARIABLE')>
            '&['
