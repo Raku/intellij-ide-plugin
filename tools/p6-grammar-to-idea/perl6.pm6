@@ -7,6 +7,7 @@ grammar MAIN {
         :my $*DELIM = '';
         :my $*LEFTSIGIL = '';
         :my $*IN_META = '';
+        :my $*IN_REDUCE = 0;
         <.statementlist>
         [
         || $
@@ -3464,7 +3465,7 @@ grammar MAIN {
            || '⚛=' { $*PREC = 'i=' } { $*ASSOC = 'right' }
            || 'or' { $*PREC = 'c=' } { $*ASSOC = 'left' }
            || '..' { $*PREC = 'n=' } { $*ASSOC = 'non' }
-           || '.' <?before [<.ws> <.alpha>]>
+           || '.' <!{ $*IN_REDUCE }> <?before [<.ws> <.alpha>]>
                   { $*PREC = 'v=' } { $*ASSOC = 'left' }
                   { $*SUB_PREC = 'z=' } { $*NEXT_TERM = 'dotty' }
            || '*' { $*PREC = 'u=' } { $*ASSOC = 'left' }
@@ -3602,6 +3603,7 @@ grammar MAIN {
     token term_reduce {
         <!before [ '[' <[ - + ? ~ ^ ]> [\w || <[$@]>] ]>
         <?before [ '[' [ <.infixish('red')> || '\\' <.infixish('tri')> ] ']' ]>
+        :my $*IN_REDUCE = 1;
 
         <.start-element('REDUCE_METAOP')>
         <.start-token('METAOP')>
@@ -3614,6 +3616,7 @@ grammar MAIN {
         <.start-token('METAOP')>
         ']'
         <.end-token('METAOP')>
+        { $*IN_REDUCE = 0 }
         <.args>
         <.end-element('REDUCE_METAOP')>
     }

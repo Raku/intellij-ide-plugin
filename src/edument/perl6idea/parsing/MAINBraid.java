@@ -1623,6 +1623,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.declareDynamicVariable("$*DELIM", "");
                 this.declareDynamicVariable("$*LEFTSIGIL", "");
                 this.declareDynamicVariable("$*IN_META", "");
+                this.declareDynamicVariable("$*IN_REDUCE", 0);
                 this.setArgs();
                 this.state = 1;
                 return 24;
@@ -29827,6 +29828,13 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                if (this.isValueTruthy(this.findDynamicVariable("$*IN_REDUCE"))) {
+                    if (this.backtrack()) {
+                        continue;
+                    } else {
+                        return -2;
+                    }
+                }
                 if (!(this.lookahead(476))) {
                     if (this.backtrack()) {
                         continue;
@@ -31075,6 +31083,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                         return -2;
                     }
                 }
+                this.declareDynamicVariable("$*IN_REDUCE", 1);
                 this.startToken(Perl6TokenTypes.METAOP);
                 if (!(this.literal("["))) {
                     if (this.backtrack()) {
@@ -31150,6 +31159,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 return -3;
 
             case 7:
+                this.assignDynamicVariable("$*IN_REDUCE", 0);
                 this.setArgs();
                 this.state = 8;
                 return 93;
