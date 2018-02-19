@@ -326,6 +326,9 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean statement_control_if_4_quant_9(PsiBuilder builder, OPP opp) {
+        if (!(this.ws_230(builder))) {
+            return false;
+        }
         String tt5;
         tt5 = builder.getTokenText();
         if (((builder.getTokenType()) == Perl6TokenTypes.STATEMENT_CONTROL) && (tt5.equals("else"))) {

@@ -390,6 +390,7 @@ grammar MAIN {
                 ]*
                 [
                     <?before <.ws> 'else' <.ws>>
+                    <.ws>
                     <.start-token('STATEMENT_CONTROL')>
                     'else'
                     <.end-token('STATEMENT_CONTROL')>
