@@ -3799,7 +3799,14 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean TOP_52_alt_2(PsiBuilder builder, OPP opp) {
+    private boolean TOP_52_quant_2(PsiBuilder builder, OPP opp) {
+        if (!(this.bogus_end_126(builder))) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean TOP_52_alt_3(PsiBuilder builder, OPP opp) {
         while (true) {
             PsiBuilder.Marker quantMarker1;;
             quantMarker1 = builder.mark();
@@ -3810,13 +3817,17 @@ public class Perl6Parser implements PsiParser {
                 break;
             }
         }
-        if (!(this.bogus_end_126(builder))) {
-            return false;
+        PsiBuilder.Marker quantMarker2;
+        quantMarker2 = builder.mark();
+        if (this.TOP_52_quant_2(builder, opp)) {
+            quantMarker2.drop();
+        } else {
+            quantMarker2.rollbackTo();
         }
         return true;
     }
 
-    private boolean TOP_52_alt_3(PsiBuilder builder, OPP opp) {
+    private boolean TOP_52_alt_4(PsiBuilder builder, OPP opp) {
         return true;
     }
 
@@ -3826,18 +3837,18 @@ public class Perl6Parser implements PsiParser {
         if (!(this.statementlist_123(builder))) {
             return false;
         }
-        PsiBuilder.Marker altMarker3;
-        altMarker3 = builder.mark();
-        if (this.TOP_52_alt_3(builder, opp)) {
-            altMarker3.drop();
+        PsiBuilder.Marker altMarker4;
+        altMarker4 = builder.mark();
+        if (this.TOP_52_alt_4(builder, opp)) {
+            altMarker4.drop();
         } else {
-            altMarker3.rollbackTo();
-            PsiBuilder.Marker altMarker2;;
-            altMarker2 = builder.mark();
-            if (this.TOP_52_alt_2(builder, opp)) {
-                altMarker2.drop();
+            altMarker4.rollbackTo();
+            PsiBuilder.Marker altMarker3;;
+            altMarker3 = builder.mark();
+            if (this.TOP_52_alt_3(builder, opp)) {
+                altMarker3.drop();
             } else {
-                altMarker2.rollbackTo();
+                altMarker3.rollbackTo();
                 return false;
             }
         }

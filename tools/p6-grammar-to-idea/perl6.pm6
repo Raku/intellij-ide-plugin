@@ -17,7 +17,7 @@ grammar MAIN {
                <.ws>
                <.statementlist>
            ]*
-           <.bogus_end>
+           <.bogus_end>?
         ]
     }
 
