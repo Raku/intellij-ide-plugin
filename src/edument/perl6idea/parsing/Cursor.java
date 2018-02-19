@@ -625,7 +625,8 @@ public abstract class Cursor<TCursor extends Cursor> {
         stack.token = PrecInfoToken.tokenFor(
                 getDynamicVariable("$*PREC").toString(),
                 getDynamicVariable("$*SUB_PREC").toString(),
-                getDynamicVariable("$*ASSOC").toString());
+                getDynamicVariable("$*ASSOC").toString(),
+                isValueTruthy(getDynamicVariable("$*FAKE")));
     }
 
     public abstract int runRule();

@@ -2965,6 +2965,7 @@ grammar MAIN {
         :my $*SUB_PREC = '';
         :my $*ASSOC = '';
         :my $*NEXT_TERM = '';
+        :my $*FAKE = 0;
 
         <.opp-start-expr>
 

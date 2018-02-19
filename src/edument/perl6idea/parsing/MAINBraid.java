@@ -25370,6 +25370,7 @@ public class MAINBraid extends Cursor<MAINBraid> {
                 this.declareDynamicVariable("$*SUB_PREC", "");
                 this.declareDynamicVariable("$*ASSOC", "");
                 this.declareDynamicVariable("$*NEXT_TERM", "");
+                this.declareDynamicVariable("$*FAKE", 0);
                 this.bsFailMark(10);
                 this.bsMark(8);
                 this.bsFailMark(4);
