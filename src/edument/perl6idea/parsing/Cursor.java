@@ -217,7 +217,8 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     public boolean wordChar() {
         if (pos < stack.target.length()) {
-            if (Character.isLetterOrDigit(stack.target.charAt(pos))) {
+            char test = stack.target.charAt(pos);
+            if (Character.isLetterOrDigit(test) || test == '_') {
                 pos++;
                 return true;
             }
@@ -227,7 +228,8 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     public boolean notWordChar() {
         if (pos < stack.target.length()) {
-            if (!Character.isLetterOrDigit(stack.target.charAt(pos))) {
+            char test = stack.target.charAt(pos);
+            if (!(Character.isLetterOrDigit(test) || test == '_')) {
                 pos++;
                 return true;
             }
@@ -304,7 +306,8 @@ public abstract class Cursor<TCursor extends Cursor> {
 
     public boolean alphaChar() {
         if (pos < stack.target.length()) {
-            if (Character.isLetter(stack.target.charAt(pos))) {
+            char test = stack.target.charAt(pos);
+            if (Character.isLetter(test) || test == '_') {
                 pos++;
                 return true;
             }
