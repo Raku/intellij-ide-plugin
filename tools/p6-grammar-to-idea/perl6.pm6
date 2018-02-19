@@ -11,7 +11,13 @@ grammar MAIN {
         <.statementlist>
         [
         || $
-        || <.bogus_end>
+        || [
+               # Try to recover from excess closing }
+               <.start-token('BAD_CHARACTER')> '}' <.end-token('BAD_CHARACTER')>
+               <.ws>
+               <.statementlist>
+           ]*
+           <.bogus_end>
         ]
     }
 
@@ -187,6 +193,7 @@ grammar MAIN {
             <.start-element('STATEMENT')>
             <.statement>
             <.eat_terminator>
+            <.ws>
             <.end-element('STATEMENT')>
         ]*
         <.end-element('STATEMENT_LIST')>
@@ -202,6 +209,7 @@ grammar MAIN {
                <.start-element('STATEMENT')>
                <.statement>
                <.eat_terminator>
+               <.ws>
                <.end-element('STATEMENT')>
            ]*
         ]
@@ -229,13 +237,15 @@ grammar MAIN {
                    <.ws>
                    <.statement_mod_loop>
             ]?
+        || [ <?[;]> || <?stopper> ]
+           <.start-token('EMPTY_STATEMENT')> <?> <.end-token('EMPTY_STATEMENT')>
         || <.bogus_statement>
         ]
     }
 
     token bogus_statement {
         <.start-token('BAD_CHARACTER')>
-        <-[;]>+
+        <-[;}]>+
         <.end-token('BAD_CHARACTER')>
     }
 
@@ -244,11 +254,18 @@ grammar MAIN {
         || <.start-token('STATEMENT_TERMINATOR')>
            ';'
            <.end-token('STATEMENT_TERMINATOR')>
-           <.ws>
         || <?MARKED('endstmt')>
-           <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+           <.start-token('END_OF_STATEMENT_MARK')> <?> <.end-token('END_OF_STATEMENT_MARK')>
            <.ws>
-        || <.ws>
+        || [$ || <?before ')' || ']' || '}' > || <?stopper>]
+           <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+        || <.bogus_statement>
+           [
+           || <.start-token('STATEMENT_TERMINATOR')>
+              ';'
+              <.end-token('STATEMENT_TERMINATOR')>
+           || <.start-token('END_OF_STATEMENT')> <?> <.end-token('END_OF_STATEMENT')>
+           ]
         ]?
     }
 
@@ -355,9 +372,9 @@ grammar MAIN {
         [
             <.xblock>
             [
-                <.ws>
                 [
-                    <?before ['elsif' || 'orwith'] <.ws>>
+                    <?before [ <.ws> 'elsif' || 'orwith'] <.ws>>
+                    <.ws>
                     [
                     || <.start-token('STATEMENT_CONTROL')>
                        'elsif'
@@ -367,18 +384,15 @@ grammar MAIN {
                        <.end-token('STATEMENT_CONTROL')>
                     ]
                     <.ws>
-                    [ <.xblock>  <.ws>? ]?
+                    [ <.xblock> <.ws>? ]?
                 ]*
                 [
+                    <?before <.ws> 'else' <.ws>>
+                    <.start-token('STATEMENT_CONTROL')>
+                    'else'
+                    <.end-token('STATEMENT_CONTROL')>
                     <.ws>
-                    [
-                        <?before 'else' <.ws>>
-                        <.start-token('STATEMENT_CONTROL')>
-                        'else'
-                        <.end-token('STATEMENT_CONTROL')>
-                        <.ws>
-                        <.pblock>?
-                    ]?
+                    <.pblock>?
                 ]?
             ]?
         ]?

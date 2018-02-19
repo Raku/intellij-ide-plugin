@@ -23,9 +23,11 @@ public interface Perl6TokenTypes {
     IElementType CONSTANT_ANON = new Perl6ElementType("CONSTANT_ANON");
     IElementType CONSTANT_MISSING_INITIALIZER = new Perl6ElementType("CONSTANT_MISSING_INITIALIZER");
     IElementType CONTEXTUALIZER = new Perl6ElementType("CONTEXTUALIZER");
+    IElementType EMPTY_STATEMENT = new Perl6ElementType("EMPTY_STATEMENT");
     IElementType END_OF_EXPR = new Perl6ElementType("END_OF_EXPR");
     IElementType END_OF_PARAMETERS = new Perl6ElementType("END_OF_PARAMETERS");
     IElementType END_OF_STATEMENT = new Perl6ElementType("END_OF_STATEMENT");
+    IElementType END_OF_STATEMENT_MARK = new Perl6ElementType("END_OF_STATEMENT_MARK");
     IElementType ENUM_ANON = new Perl6ElementType("ENUM_ANON");
     IElementType ENUM_INCOMPLETE = new Perl6ElementType("ENUM_INCOMPLETE");
     IElementType ESCAPE_ARRAY = new Perl6ElementType("ESCAPE_ARRAY");
