@@ -1025,9 +1025,10 @@ grammar MAIN {
     # the future while lexing, but even then we'll be going on incomplete info.
     # For now, we assume anything that starts with A..Z is a type name, and
     # anything else is a listop sub name, with the exception of known name
-    # types.
+    # types and known EVAL subroutine.
     token term_name {
         || <?before <[A..Z]> || '::' || 'u'?'int'\d+ >> || 'num'\d+ >> || 'str' >> || 'array' >> >
+           <!before 'EVAL'>
            <.start-element('TYPE_NAME')>
            <.start-token('NAME')>
            <.longname>
