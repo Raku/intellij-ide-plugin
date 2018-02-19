@@ -395,11 +395,10 @@ grammar MAIN {
         <.kok>
         <.ws>
         [
-            <.xblock>
+            [<.xblock> <.ws>?]
             [
                 [
-                    <?before [ <.ws> 'elsif' || 'orwith'] <.ws>>
-                    <.ws>
+                    <?before [ 'elsif' || 'orwith'] <.ws>>
                     [
                     || <.start-token('STATEMENT_CONTROL')>
                        'elsif'
@@ -412,13 +411,12 @@ grammar MAIN {
                     [ <.xblock> <.ws>? ]?
                 ]*
                 [
-                    <?before <.ws> 'else' <.ws>>
-                    <.ws>
+                    <?before 'else' <.ws>>
                     <.start-token('STATEMENT_CONTROL')>
                     'else'
                     <.end-token('STATEMENT_CONTROL')>
                     <.ws>
-                    <.pblock>?
+                    [ <.pblock> <.ws>? ]?
                 ]?
             ]?
         ]?
@@ -433,7 +431,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('UNLESS_STATEMENT')>
     }
 
@@ -445,7 +443,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('WITHOUT_STATEMENT')>
     }
 
@@ -457,7 +455,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('WHILE_STATEMENT')>
     }
 
@@ -469,7 +467,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('UNTIL_STATEMENT')>
     }
 
@@ -492,7 +490,7 @@ grammar MAIN {
                <.end-token('STATEMENT_CONTROL')>
            ]
            <.kok>
-           [ <.ws> <.xblock>? ]?
+           [ <.ws> [ <.xblock> <.ws> ]? ]?
         || <.pblock>
            [
                <.ws>
@@ -507,7 +505,7 @@ grammar MAIN {
                        <.end-token('STATEMENT_CONTROL')>
                    ]
                    <.ws>
-                   <.EXPR('')>?
+                   [ <.EXPR('')> <.ws>? ]?
                ]?
            ]?
         || <?>
@@ -523,7 +521,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('FOR_STATEMENT')>
     }
 
@@ -535,7 +533,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('WHENEVER_STATEMENT')>
     }
 
@@ -575,7 +573,7 @@ grammar MAIN {
                 <.ws>
             ]?
         ]?
-        <.block>?
+        [ <.block> <.ws>? ]?
         <.end-element('LOOP_STATEMENT')>
     }
 
@@ -671,6 +669,7 @@ grammar MAIN {
             || <!sigil> <.term>
             ]
             [ <.ws> <.EXPR('')>? ]?
+            <.ws>?
         ]?
         <.end-element('REQUIRE_STATEMENT')>
     }
@@ -683,7 +682,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('GIVEN_STATEMENT')>
     }
 
@@ -695,7 +694,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.xblock>?
+        [ <.xblock> <.ws>? ]?
         <.end-element('WHEN_STATEMENT')>
     }
 
@@ -707,7 +706,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.block>?
+        [ <.block> <.ws>? ]?
         <.end-element('DEFAULT_STATEMENT')>
     }
 
@@ -719,7 +718,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.block>?
+        [ <.block> <.ws>? ]?
         <.end-element('CATCH_STATEMENT')>
     }
 
@@ -731,7 +730,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.block>?
+        [ <.block> <.ws>? ]?
         <.end-element('CONTROL_STATEMENT')>
     }
 
@@ -743,7 +742,7 @@ grammar MAIN {
         <.end-token('STATEMENT_CONTROL')>
         <.kok>
         <.ws>
-        <.block>?
+        [ <.block> <.ws>? ]?
         <.end-element('QUIT_STATEMENT')>
     }
 
@@ -1566,8 +1565,8 @@ grammar MAIN {
         <.trait>*
         { $*IN_DECL = '' }
         [
-        || <.onlystar>
-        || <.blockoid>
+        || <.onlystar> <.ws>?
+        || <.blockoid> <.ws>?
         # Allow for body not written yet
         || <?>
         ]
@@ -1595,8 +1594,8 @@ grammar MAIN {
         <.trait>*
         { $*IN_DECL = '' }
         [
-        || <.onlystar>
-        || <.blockoid>
+        || <.onlystar> <.ws>?
+        || <.blockoid> <.ws>?
         # Allow for body not written yet
         || <?>
         ]
@@ -2063,6 +2062,7 @@ grammar MAIN {
                 '}'
                 <.end-token('BLOCK_CURLY_BRACKET')>
                 <?ENDSTMT>
+                <.ws>?
             ]?
         ]?
     }
@@ -2194,6 +2194,7 @@ grammar MAIN {
            <.statementlist>?
         || <?>
         ]
+        <.ws>?
     }
 
     # XXX Hack
