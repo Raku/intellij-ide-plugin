@@ -97,8 +97,8 @@ grammar MAIN {
 
     token ENDSTMT {
         [
-        || <?before \h* $$ <.ws> > <?MARKER('endstmt')>
-        || <?before <.unv>? $$ <.ws> > <?MARKER('endstmt')>
+        || <?before [\h* $$ <.ws> <?MARKER('endstmt')>]>
+        || <?before [<.unv>? $$ <.ws> <?MARKER('endstmt')>]>
         ]?
     }
 
@@ -192,8 +192,9 @@ grammar MAIN {
             <!before $ || <[\)\]\}]> >
             <.start-element('STATEMENT')>
             <.statement>
+            <.ws>?
             <.eat_terminator>
-            <.ws>
+            <.ws>?
             <.end-element('STATEMENT')>
         ]*
         <.end-element('STATEMENT_LIST')>
@@ -327,6 +328,7 @@ grammar MAIN {
     }
 
     token stdstopper {
+        || <?MARKED('endstmt')>
         || <?terminator>
         || $
     }
