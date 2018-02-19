@@ -1136,18 +1136,7 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
-    private boolean EXPR_17_quant_15(PsiBuilder builder, OPP opp) {
-        if (!(this.ws_230(builder))) {
-            return false;
-        }
-        opp.startInfix();
-        if (!(this.infixish_148(builder))) {
-            return false;
-        }
-        opp.endInfix();
-        if (!(this.ws_230(builder))) {
-            return false;
-        }
+    private boolean EXPR_17_alt_15(PsiBuilder builder, OPP opp) {
         opp.startPrefixes();
         PsiBuilder.Marker altMarker16;
         altMarker16 = builder.mark();
@@ -1165,6 +1154,45 @@ public class Perl6Parser implements PsiParser {
             }
         }
         opp.endPostfixes();
+        return true;
+    }
+
+    private boolean EXPR_17_alt_16(PsiBuilder builder, OPP opp) {
+        if ((builder.getTokenType()) == Perl6TokenTypes.FAKE_INFIX) {
+            builder.advanceLexer();
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean EXPR_17_quant_17(PsiBuilder builder, OPP opp) {
+        if (!(this.ws_230(builder))) {
+            return false;
+        }
+        opp.startInfix();
+        if (!(this.infixish_148(builder))) {
+            return false;
+        }
+        opp.endInfix();
+        if (!(this.ws_230(builder))) {
+            return false;
+        }
+        PsiBuilder.Marker altMarker18;
+        altMarker18 = builder.mark();
+        if (this.EXPR_17_alt_16(builder, opp)) {
+            altMarker18.drop();
+        } else {
+            altMarker18.rollbackTo();
+            PsiBuilder.Marker altMarker17;;
+            altMarker17 = builder.mark();
+            if (this.EXPR_17_alt_15(builder, opp)) {
+                altMarker17.drop();
+            } else {
+                altMarker17.rollbackTo();
+                return false;
+            }
+        }
         return true;
     }
 
@@ -1201,12 +1229,12 @@ public class Perl6Parser implements PsiParser {
         }
         opp.endPostfixes();
         while (true) {
-            PsiBuilder.Marker quantMarker17;;
-            quantMarker17 = builder.mark();
-            if (this.EXPR_17_quant_15(builder, opp)) {
-                quantMarker17.drop();
+            PsiBuilder.Marker quantMarker19;;
+            quantMarker19 = builder.mark();
+            if (this.EXPR_17_quant_17(builder, opp)) {
+                quantMarker19.drop();
             } else {
-                quantMarker17.rollbackTo();
+                quantMarker19.rollbackTo();
                 break;
             }
         }
@@ -12649,22 +12677,39 @@ public class Perl6Parser implements PsiParser {
         return true;
     }
 
+    private boolean infixish_148_alt_4(PsiBuilder builder, OPP opp) {
+        PsiBuilder.Marker marker5;
+        marker5 = builder.mark();
+        if (!(this.colonpair_231(builder))) {
+            return false;
+        }
+        marker5.done(Perl6ElementTypes.OPERATOR_ADVERB);
+        return true;
+    }
+
     private boolean infixish_148(PsiBuilder builder) {
         OPP opp;
         opp = null;
-        PsiBuilder.Marker altMarker4;
-        altMarker4 = builder.mark();
-        if (this.infixish_148_alt_3(builder, opp)) {
-            altMarker4.drop();
+        PsiBuilder.Marker altMarker6;
+        altMarker6 = builder.mark();
+        if (this.infixish_148_alt_4(builder, opp)) {
+            altMarker6.drop();
         } else {
-            altMarker4.rollbackTo();
-            PsiBuilder.Marker altMarker1;;
-            altMarker1 = builder.mark();
-            if (this.infixish_148_alt_1(builder, opp)) {
-                altMarker1.drop();
+            altMarker6.rollbackTo();
+            PsiBuilder.Marker altMarker4;;
+            altMarker4 = builder.mark();
+            if (this.infixish_148_alt_3(builder, opp)) {
+                altMarker4.drop();
             } else {
-                altMarker1.rollbackTo();
-                return false;
+                altMarker4.rollbackTo();
+                PsiBuilder.Marker altMarker1;;
+                altMarker1 = builder.mark();
+                if (this.infixish_148_alt_1(builder, opp)) {
+                    altMarker1.drop();
+                } else {
+                    altMarker1.rollbackTo();
+                    return false;
+                }
             }
         }
         return true;

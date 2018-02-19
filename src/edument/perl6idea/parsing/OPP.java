@@ -13,6 +13,7 @@ public class OPP {
         public String prec;
         public String subPrec;
         public String assoc;
+        public boolean fake;
         public PsiBuilder.Marker startMarker; // For prefixes
         public PsiBuilder.Marker endMarker;   // For postfixes
         public int startOffset = -1;
@@ -135,21 +136,36 @@ public class OPP {
             reduce();
         }
 
-        // If eqaul precedence...
-        if (opPrec.contentEquals(inPrec)) {
-            // Reduce immediately if left associative.
-            if (precInfo.assoc().contentEquals("left"))
-                reduce();
+        // If it's marked fake, that means it's an operator adverb. These we will
+        // reduce immediately.
+        if (precInfo.fake()) {
+            opStack.add(createInfixOp(precInfo));
+            reduce();
         }
 
-        // Push infix onto opstack.
+        // Otherwise, it's a real infix.
+        else {
+            // If equal precedence...
+            if (opPrec.contentEquals(inPrec)) {
+                // Reduce immediately if left associative.
+                if (precInfo.assoc().contentEquals("left"))
+                    reduce();
+            }
+
+            // Push infix onto opstack.
+            opStack.add(createInfixOp(precInfo));
+        }
+    }
+
+    private Op createInfixOp(PrecInfoToken precInfo) {
         Op op = new Op();
         op.prec = precInfo.prec();
         op.subPrec = precInfo.subPrec();
         op.assoc = precInfo.assoc();
+        op.fake = precInfo.fake();
         op.startOffset = curInfixStartPosition;
         op.endOffset = builder.getCurrentOffset();
-        opStack.add(op);
+        return op;
     }
 
     public void endExpr() {
@@ -167,7 +183,22 @@ public class OPP {
 
     private void reduce() {
         Op op = opStack.remove(opStack.size() - 1);
-        if (op.startMarker != null) {
+        if (op.fake) {
+            // Fake infix, which means an operator adverb. We build an adverb application
+            // node here, which starts at the start marker of the term and ends just before
+            // a marker M taken at the current location. The resultant composite term has
+            // a start preceding the current term's start marker and the marker M as its end.
+            Term term = termStack.remove(termStack.size() - 1);
+            PsiBuilder.Marker adverbMarker = term.startMarker;
+            term.endMarker.drop();
+            PsiBuilder.Marker here = builder.mark();
+            adverbMarker.doneBefore(Perl6OPPElementTypes.ADVERB_APPLICATION, here);
+            Term composite = new Term();
+            composite.startMarker = adverbMarker.precede();
+            composite.endMarker = here;
+            termStack.add(composite);
+        }
+        else if (op.startMarker != null) {
             // Prefix operator. We drop the term's start marker, since we will no longer
             // need to refer to that point. The prefix's own start marker is taken and
             // used, terminated before the term end marker. The resulting composite term

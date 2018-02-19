@@ -49,6 +49,7 @@ public interface Perl6ElementTypes {
     IElementType NUMBER_LITERAL = new Perl6ElementType("NUMBER_LITERAL");
     IElementType ONCE = new Perl6ElementType("ONCE");
     IElementType ONLY_STAR = new Perl6ElementType("ONLY_STAR");
+    IElementType OPERATOR_ADVERB = new Perl6ElementType("OPERATOR_ADVERB");
     IElementType PACKAGE_DECLARATION = new Perl6ElementType("PACKAGE_DECLARATION");
     IElementType PARAMETER = new Perl6ElementType("PARAMETER");
     IElementType PARAMETER_DEFAULT = new Perl6ElementType("PARAMETER_DEFAULT");

@@ -2982,29 +2982,32 @@ grammar MAIN {
             <?before <.ws> <.infixish('')> <.ws>>
             <.ws>
             <.opp-start-infix>
-            { $*NEXT_TERM = '' }
+            { $*NEXT_TERM = '' } { $*FAKE = 0 }
             <.infixish('')>
             <.opp-end-infix>
             <.ws>
 
-            <.opp-start-prefixes>
             [
-            || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes>
+            || <?{ $*FAKE }> <.start-token('FAKE_INFIX')> <?> <.end-token('FAKE_INFIX')>
+            || <.opp-start-prefixes>
                [
-               || <.nextterm>
-                  <.opp-start-postfixes>
-                  [<.postfixish> <.opp-push-postfix>]*
-               || <.opp-start-postfixes>
+               || [<.prefixish> <.opp-push-prefix>]+ <.opp-end-prefixes>
+                  [
+                  || <.nextterm>
+                     <.opp-start-postfixes>
+                     [<.postfixish> <.opp-push-postfix>]*
+                  || <.opp-start-postfixes>
+                  ]
+               || <.opp-end-prefixes>
+                  [
+                  || <.nextterm>
+                     <.opp-start-postfixes>
+                     [<.postfixish> <.opp-push-postfix>]*
+                  || <.opp-start-postfixes>
+                  ]
                ]
-            || <.opp-end-prefixes>
-               [
-               || <.nextterm>
-                  <.opp-start-postfixes>
-                  [<.postfixish> <.opp-push-postfix>]*
-               || <.opp-start-postfixes>
-               ]
+               <.opp-end-postfixes>
             ]
-            <.opp-end-postfixes>
         ]*
         <.opp-end-expr>
 
@@ -3285,6 +3288,11 @@ grammar MAIN {
         <!stdstopper>
         <!infixstopper>
         [
+        || <!{ $*IN_REDUCE }>
+           <.start-element('OPERATOR_ADVERB')>
+           <.colonpair>
+           <.end-element('OPERATOR_ADVERB')>
+           { $*PREC = 'i=' } { $*ASSOC = 'unary' } { $*FAKE = 1 }
         || <?before [<![!]> <.infixish_non_assignment_meta> '=']>
            <.start-element('ASSIGN_METAOP')>
            <.start-token('ASSIGN_METAOP')> <?> <.end-token('ASSIGN_METAOP')>
