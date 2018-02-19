@@ -64,15 +64,38 @@ grammar MAIN {
         <.end-element('TERM_DEFINITION')>
     }
 
-    # XXX Missing its colonpairs
-    token longname {
+    token longname_colonpairs {
+        [ <?before [':' [<.alpha> || <[<[«]>]]> <.colonpair> ]*
+    }
+
+    token routine_name {
+        <.start-element('LONG_NAME')>
+        <.start-token('ROUTINE_NAME')>
         <.name>
+        <.end-token('ROUTINE_NAME')>
+        <.longname_colonpairs>
+        <.end-element('LONG_NAME')>
+    }
+
+    token method_name {
+        <.start-element('LONG_NAME')>
+        <.start-token('ROUTINE_NAME')>
+        [
+        || <[ ! ^ ]> <.name>?
+        || <.name>
+        ]
+        <.end-token('ROUTINE_NAME')>
+        <.longname_colonpairs>
+        <.end-element('LONG_NAME')>
     }
 
     token module_name {
+        <.start-element('LONG_NAME')>
         <.start-token('NAME')>
-        <.longname>
+        <.name>
         <.end-token('NAME')>
+        <.longname_colonpairs>
+        <.end-element('LONG_NAME')>
     }
 
     token end_keyword {
@@ -1030,14 +1053,20 @@ grammar MAIN {
         || <?before <[A..Z]> || '::' || 'u'?'int'\d+ >> || 'num'\d+ >> || 'str' >> || 'array' >> >
            <!before 'EVAL'>
            <.start-element('TYPE_NAME')>
+           <.start-element('LONG_NAME')>
            <.start-token('NAME')>
-           <.longname>
+           <.name>
            <.end-token('NAME')>
+           <.longname_colonpairs>
+           <.end-element('LONG_NAME')>
            <.end-element('TYPE_NAME')>
         || <.start-element('SUB_CALL')>
+           <.start-element('LONG_NAME')>
            <.start-token('SUB_CALL_NAME')>
-           <.longname>
+           <.name>
            <.end-token('SUB_CALL_NAME')>
+           <.longname_colonpairs>
+           <.end-element('LONG_NAME')>
            [ <?before '\\('> <.start-token('WHITE_SPACE')> '\\' <.end-token('WHITE_SPACE')> ]?
            <.args>
            <.end-element('SUB_CALL')>
@@ -1510,11 +1539,7 @@ grammar MAIN {
     token routine_def {
         :my $*IN_DECL = 'sub';
         <.ws>
-        [
-            <.start-token('ROUTINE_NAME')>
-            <.longname>
-            <.end-token('ROUTINE_NAME')>
-        ]?
+        <.routine_name>?
         <.ws>
         [
             <.start-element('SIGNATURE')>
@@ -1543,14 +1568,7 @@ grammar MAIN {
     token method_def {
         :my $*IN_DECL = 'method';
         <.ws>
-        [
-            <.start-token('ROUTINE_NAME')>
-            [
-            || <[ ! ^ ]>? <.longname>?
-            || <.longname>
-            ]
-            <.end-token('ROUTINE_NAME')>
-        ]?
+        <.method_name>?
         <.ws>
         [
             <.start-element('SIGNATURE')>
@@ -1897,9 +1915,12 @@ grammar MAIN {
            <.end-token('TRAIT')>
            <.ws>
            [
-           || <.start-token('NAME')>
-              <.longname>
+           || <.start-element('LONG_NAME')>
+              <.start-token('NAME')>
+              <.name>
               <.end-token('NAME')>
+              <.longname_colonpairs>
+              <.end-element('LONG_NAME')>
            || <.start-token('TRAIT_INCOMPLETE')> <?> <.end-token('TRAIT_INCOMPLETE')>
            ]
         || <?before 'hides' <.ws>>
@@ -2000,11 +2021,7 @@ grammar MAIN {
 
     token regex_def {
         <.ws>
-        [
-            <.start-token('ROUTINE_NAME')>
-            <.longname>
-            <.end-token('ROUTINE_NAME')>
-        ]?
+        <.routine_name>?
         <.ws>
         [
             <.start-element('SIGNATURE')>
@@ -2052,7 +2069,7 @@ grammar MAIN {
            :my $*IN_DECL = 'enum';
            [
                [
-               || <.start-token('NAME')> <.longname> <.end-token('NAME')>
+               || <.start-token('NAME')> <.name> <.end-token('NAME')>
                || <.variable>
                || <.start-token('ENUM_ANON')> <?> <.end-token('ENUM_ANON')>
                ]
@@ -2078,7 +2095,7 @@ grammar MAIN {
            :my $*IN_DECL = 'subset';
            [
                [
-               || <.start-token('NAME')> <.longname> <.end-token('NAME')>
+               || <.start-token('NAME')> <.name> <.end-token('NAME')>
                || <.start-token('SUBSET_ANON')> <?> <.end-token('SUBSET_ANON')>
                ]
                { $*IN_DECL = '' }
@@ -2153,7 +2170,7 @@ grammar MAIN {
         <.ws>
         [
             <.start-token('NAME')>
-            <.longname>
+            <.name>
             <.end-token('NAME')>
             <.ws>
         ]?
@@ -2172,7 +2189,7 @@ grammar MAIN {
     }
 
     # XXX Hack
-    token desigilname { <.longname> }
+    token desigilname { <.name> }
 
     token value {
         || <.number>
@@ -2388,16 +2405,18 @@ grammar MAIN {
 
     token typename {
         <.start-element('TYPE_NAME')>
+        <.start-element('LONG_NAME')>
         [
         || <.start-token('NAME')>
            '::?' <.identifier>
            <.end-token('NAME')>
-           # XXX
-           # <.colonpair>*
+           <.longname_colonpairs>
         || <.start-token('NAME')>
-           <.longname>
+           <.name>
            <.end-token('NAME')>
+           <.longname_colonpairs>
         ]
+        <.end-element('LONG_NAME')>
         <.unsp>?
         [
             <.start-token('TYPE_PARAMETER_BRACKET')>
@@ -2912,7 +2931,7 @@ grammar MAIN {
     # they are not closed later anyway.
     token interpolation_opener {
         || <?[([{<]>
-        || '.' <[^&*+?$@&]>? [ <.longname> || <?["']> <.quote> ] '('
+        || '.' <[^&*+?$@&]>? [ <.name> <.longname_colonpairs> || <?["']> <.quote> ] '('
     }
 
     token circumfix {
@@ -3198,9 +3217,12 @@ grammar MAIN {
 
     token methodop {
         [
-        || <.start-token('METHOD_CALL_NAME')>
-           <.longname>
+        || <.start-element('LONG_NAME')>
+           <.start-token('METHOD_CALL_NAME')>
+           <.name>
            <.end-token('METHOD_CALL_NAME')>
+           <.longname_colonpairs>
+           <.end-element('LONG_NAME')>
         || <?[$@&]> <.variable>
         || <?['"]>
            [ <!{$*QSIGIL}> || <!before ['"' [<!["]>\S]* [\s||$] ]> ]
@@ -4043,14 +4065,14 @@ grammar MAIN {
            '!'
            <.end-token('REGEX_LOOKAROUND')>
            <.assertion(1)>
-        || <?before <.longname>>
+        || <?before <.name>>
            [
            || <?{ $*METHOD_CALL }>
               <.start-token('METHOD_CALL_NAME')>
-              <.longname>
+              <.name>
               <.end-token('METHOD_CALL_NAME')>
            || <.start-token('REGEX_CAPTURE_NAME')>
-              <.longname>
+              <.name>
               <.end-token('REGEX_CAPTURE_NAME')>
            ]
            [

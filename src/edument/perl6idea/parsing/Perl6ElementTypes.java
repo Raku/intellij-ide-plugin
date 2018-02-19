@@ -38,6 +38,7 @@ public interface Perl6ElementTypes {
     IElementType INFIX = new Perl6ElementType("INFIX");
     IElementType INTEGER_LITERAL = new Perl6ElementType("INTEGER_LITERAL");
     IElementType LAZY = new Perl6ElementType("LAZY");
+    IElementType LONG_NAME = new Perl6ElementType("LONG_NAME");
     IElementType LOOP_STATEMENT = new Perl6ElementType("LOOP_STATEMENT");
     IElementType METHOD_CALL = new Perl6ElementType("METHOD_CALL");
     IElementType MULTI_DECLARATION = new Perl6ElementType("MULTI_DECLARATION");
