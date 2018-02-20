@@ -2469,7 +2469,7 @@ grammar MAIN {
     }
 
     token quote {
-         <.quote_rxlang> || <.quote_qlang>
+         <.quote_rxlang> || <.quote_tr> || <.quote_qlang>
     }
 
     token quote_qlang {
@@ -2587,6 +2587,20 @@ grammar MAIN {
            ]
         ]
         <.end-element('QUOTE_REGEX')>
+    }
+
+    token quote_tr {
+        <?before [['tr'||'TR'] [<.has-delimiter> || <.quotepair>]]>
+        <.start-element('TRANSLITERATION')>
+        [
+        || <.start-token('QUOTE_REGEX')> 'tr' <.end-token('QUOTE_REGEX')>
+        || <.start-token('QUOTE_REGEX')> 'TR' <.end-token('QUOTE_REGEX')>
+        ]
+        [
+        || [ <.quotepair_rx> <.ws> ]+ <.tribble>
+        || <.tribble>
+        ]
+        <.end-element('TRANSLITERATION')>
     }
 
     token quote_Q($*STARTER, $*STOPPER, $*ALT_STOPPER) {
@@ -2733,6 +2747,85 @@ grammar MAIN {
                ]?
             ]?
         ]?
+    }
+
+    token tribble {
+        :my $*STARTER = '';
+        :my $*STOPPER = '';
+        :my $*ALT_STOPPER = '';
+        <.peek-delimiters>
+        <.start-token('QUOTE_REGEX')>
+        $*STARTER
+        <.end-token('QUOTE_REGEX')>
+        <.tribbler>
+        [
+            <.start-token('QUOTE_REGEX')>
+            $*STOPPER
+            <.end-token('QUOTE_REGEX')>
+            [
+            || <?{ $*STARTER ne $*STOPPER }>
+               <?before $*STARTER>
+               <.start-token('TR_DISTINCT_START_STOP')> <?> <.end-token('TR_DISTINCT_START_STOP')>
+               <.start-token('QUOTE_REGEX')>
+               $*STARTER
+               <.end-token('QUOTE_REGEX')>
+               <.tribbler>
+               [
+                   <.start-token('QUOTE_REGEX')>
+                   $*STOPPER
+                   <.end-token('QUOTE_REGEX')>
+               ]?
+            || <.tribbler>
+               [
+                   <.start-token('QUOTE_REGEX')>
+                   $*STOPPER
+                   <.end-token('QUOTE_REGEX')>
+               ]?
+            ]?
+        ]?
+    }
+
+    # The tr nibbler doesn't really use anything of the standard nibbler, so
+    # we just write the stop logic inline here.
+    token tribbler {
+        :my $*CCSTATE = '';
+        [
+            <!stopper>
+            [
+            || <.start-token('WHITE_SPACE')> \s+ <.end-token('WHITE_SPACE')>
+               [ <?[#]> <.ws> ]?
+            || <.start-token('TRANS_ESCAPE')>
+               '\\'
+               [
+               || $*STARTER
+               || $*STOPPER
+               || <[\\aAbBeEfFnNrRtT0]>
+               || <[dDhHsSvVwW]> { $*CCSTATE = '' }
+               || <[oO]> [ <.octint> || '[' <.octints> ']' ]
+               || <[xX]> [ <.hexint> || '[' <.hexints> ']' ]
+               || <[cC]> <.charspec>
+               || \W
+               ]
+               <.end-token('TRANS_ESCAPE')>
+               <.ccstate>
+            || <.start-token('TRANS_BAD')>
+               '\\' .
+               <.end-token('TRANS_BAD')>
+            || <?before '..'>
+               [
+               || <?{ $*CCSTATE }> <?{ $*CCSTATE ne '..' }>
+                  <.start-token('TRANS_RANGE')> '..' <.end-token('TRANS_RANGE')>
+                  { $*CCSTATE = '..' }
+               || <.start-token('TRANS_BAD')> '..' <.end-token('TRANS_BAD')>
+               ]
+            || <.start-token('TRANS_CHAR')> \S <.end-token('TRANS_CHAR')> <.ccstate>
+            ]
+        ]*
+    }
+
+    token ccstate {
+        || <?{ $*CCSTATE eq '..' }> { $*CCSTATE = '' }
+        || { $*CCSTATE = 'ok' }
     }
 
     # This delegates to quote_mod to actually lex/parse, but looks ahead

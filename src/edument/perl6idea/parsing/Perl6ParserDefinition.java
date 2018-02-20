@@ -303,6 +303,8 @@ public class Perl6ParserDefinition implements ParserDefinition {
             return new Perl6RegexModInternalImpl(astNode);
         if (type == Perl6ElementTypes.REGEX_VARIABLE)
             return new Perl6RegexVariableImpl(astNode);
+        if (type == Perl6ElementTypes.TRANSLITERATION)
+            return new Perl6TransliterationImpl(astNode);
         return null;
     }
 

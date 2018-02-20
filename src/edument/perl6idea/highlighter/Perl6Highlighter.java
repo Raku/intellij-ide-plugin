@@ -393,4 +393,28 @@ public final class Perl6Highlighter {
             REGEX_MOD_ID,
             DefaultLanguageHighlighterColors.IDENTIFIER
     );
+
+    static final String TRANS_RANGE_ID = "PERL6_TRANS_RANGE";
+    public static final TextAttributesKey TRANS_RANGE = TextAttributesKey.createTextAttributesKey(
+            TRANS_RANGE_ID,
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+    );
+
+    static final String TRANS_CHAR_ID = "PERL6_TRANS_CHAR";
+    public static final TextAttributesKey TRANS_CHAR = TextAttributesKey.createTextAttributesKey(
+            TRANS_CHAR_ID,
+            DefaultLanguageHighlighterColors.STRING
+    );
+
+    static final String TRANS_ESCAPE_ID = "PERL6_TRANS_ESCAPE";
+    public static final TextAttributesKey TRANS_ESCAPE = TextAttributesKey.createTextAttributesKey(
+            TRANS_ESCAPE_ID,
+            DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+    );
+
+    static final String TRANS_BAD_ID = "PERL6_TRANS_BAD";
+    public static final TextAttributesKey TRANS_BAD = TextAttributesKey.createTextAttributesKey(
+            TRANS_BAD_ID,
+            DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
+    );
 }

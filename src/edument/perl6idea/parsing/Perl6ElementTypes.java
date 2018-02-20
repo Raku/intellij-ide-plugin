@@ -110,6 +110,7 @@ public interface Perl6ElementTypes {
     IElementType TERM = new Perl6ElementType("TERM");
     IElementType TERM_DEFINITION = new Perl6ElementType("TERM_DEFINITION");
     IElementType TRAIT = new Perl6ElementType("TRAIT");
+    IElementType TRANSLITERATION = new Perl6ElementType("TRANSLITERATION");
     IElementType TRY = new Perl6ElementType("TRY");
     IElementType TYPE_NAME = new Perl6ElementType("TYPE_NAME");
     IElementType UNLESS_STATEMENT = new Perl6ElementType("UNLESS_STATEMENT");

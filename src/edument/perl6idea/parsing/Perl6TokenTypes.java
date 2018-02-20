@@ -130,6 +130,11 @@ public interface Perl6TokenTypes {
     IElementType TERM_IS_MULTI = new Perl6ElementType("TERM_IS_MULTI");
     IElementType TRAIT = new Perl6ElementType("TRAIT");
     IElementType TRAIT_INCOMPLETE = new Perl6ElementType("TRAIT_INCOMPLETE");
+    IElementType TRANS_BAD = new Perl6ElementType("TRANS_BAD");
+    IElementType TRANS_CHAR = new Perl6ElementType("TRANS_CHAR");
+    IElementType TRANS_ESCAPE = new Perl6ElementType("TRANS_ESCAPE");
+    IElementType TRANS_RANGE = new Perl6ElementType("TRANS_RANGE");
+    IElementType TR_DISTINCT_START_STOP = new Perl6ElementType("TR_DISTINCT_START_STOP");
     IElementType TYPE_COERCION_PARENTHESES = new Perl6ElementType("TYPE_COERCION_PARENTHESES");
     IElementType TYPE_DECLARATOR = new Perl6ElementType("TYPE_DECLARATOR");
     IElementType TYPE_PARAMETER_BRACKET = new Perl6ElementType("TYPE_PARAMETER_BRACKET");
