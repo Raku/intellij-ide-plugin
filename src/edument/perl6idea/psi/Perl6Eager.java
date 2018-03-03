@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6Eager {
+public interface Perl6Eager extends Perl6PsiElement {
 }

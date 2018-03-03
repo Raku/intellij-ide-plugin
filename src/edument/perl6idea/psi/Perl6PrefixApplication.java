@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6PrefixApplication {
+public interface Perl6PrefixApplication extends Perl6PsiElement {
 }

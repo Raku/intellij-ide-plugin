@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6UnlessStatement {
+public interface Perl6UnlessStatement extends Perl6PsiElement {
 }

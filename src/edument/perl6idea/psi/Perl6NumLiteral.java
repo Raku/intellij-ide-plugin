@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6NumLiteral {
+public interface Perl6NumLiteral extends Perl6PsiElement {
 }

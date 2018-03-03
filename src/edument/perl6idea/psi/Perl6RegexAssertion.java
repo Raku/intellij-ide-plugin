@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6RegexAssertion {
+public interface Perl6RegexAssertion extends Perl6PsiElement {
 }

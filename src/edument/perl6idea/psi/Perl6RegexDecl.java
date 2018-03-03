@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6RegexDecl {
+public interface Perl6RegexDecl extends Perl6PsiElement {
 }

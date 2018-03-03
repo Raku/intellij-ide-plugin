@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6PointyBlock {
+public interface Perl6PointyBlock extends Perl6PsiElement {
 }
