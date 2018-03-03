@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import edument.perl6idea.psi.Perl6PackageDecl;
 import edument.perl6idea.psi.Perl6PsiElement;
+import edument.perl6idea.psi.Perl6RegexDecl;
 import edument.perl6idea.psi.Perl6Statement;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +23,8 @@ public class Perl6StatementImpl extends ASTWrapperPsiElement implements Perl6Sta
         Perl6PsiElement consider = findChildByClass(Perl6PsiElement.class);
         if (consider != null) {
             if (consider instanceof Perl6PackageDecl)
+                decls.add(consider);
+            else if (consider instanceof Perl6RegexDecl)
                 decls.add(consider);
         }
         return decls;

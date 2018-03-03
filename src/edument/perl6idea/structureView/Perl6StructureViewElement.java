@@ -1,15 +1,13 @@
 package edument.perl6idea.structureView;
 
+import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.PlatformIcons;
 import edument.perl6idea.Perl6Icons;
-import edument.perl6idea.psi.Perl6File;
-import edument.perl6idea.psi.Perl6PackageDecl;
-import edument.perl6idea.psi.Perl6PsiDeclarationHolder;
-import edument.perl6idea.psi.Perl6PsiElement;
+import edument.perl6idea.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,11 +26,9 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
     @Override
     public TreeElement[] getChildren() {
         List<StructureViewTreeElement> structureElements = new ArrayList<>();
-        if (element instanceof Perl6PsiDeclarationHolder) {
-            for (Perl6PsiElement child : ((Perl6PsiDeclarationHolder)element).getDeclarations()) {
+        if (element instanceof Perl6PsiDeclarationHolder)
+            for (Perl6PsiElement child : ((Perl6PsiDeclarationHolder)element).getDeclarations())
                 structureElements.add(new Perl6StructureViewElement(child));
-            }
-        }
         return structureElements.toArray(StructureViewTreeElement.EMPTY_ARRAY);
     }
 
@@ -79,6 +75,27 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
                 @Override
                 public Icon getIcon(boolean b) {
                     return PlatformIcons.CLASS_ICON;
+                }
+            };
+        if (element instanceof Perl6RegexDecl)
+            return new ItemPresentation() {
+                @Nullable
+                @Override
+                public String getPresentableText() {
+                    Perl6RegexDecl rx = (Perl6RegexDecl)element;
+                    return rx.getRegexName() + " (" + rx.getRegexKind() + ")";
+                }
+
+                @Nullable
+                @Override
+                public String getLocationString() {
+                    return null;
+                }
+
+                @Nullable
+                @Override
+                public Icon getIcon(boolean b) {
+                    return PlatformIcons.METHOD_ICON;
                 }
             };
         return null;
