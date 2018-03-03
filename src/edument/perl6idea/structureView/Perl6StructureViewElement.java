@@ -4,13 +4,18 @@ import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
+import com.intellij.util.PlatformIcons;
 import edument.perl6idea.Perl6Icons;
 import edument.perl6idea.psi.Perl6File;
+import edument.perl6idea.psi.Perl6PackageDecl;
+import edument.perl6idea.psi.Perl6PsiDeclarationHolder;
 import edument.perl6idea.psi.Perl6PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Perl6StructureViewElement implements StructureViewTreeElement {
     private final Perl6PsiElement element;
@@ -22,7 +27,13 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
     @NotNull
     @Override
     public TreeElement[] getChildren() {
-        return new TreeElement[0];
+        List<StructureViewTreeElement> structureElements = new ArrayList<>();
+        if (element instanceof Perl6PsiDeclarationHolder) {
+            for (Perl6PsiElement child : ((Perl6PsiDeclarationHolder)element).getDeclarations()) {
+                structureElements.add(new Perl6StructureViewElement(child));
+            }
+        }
+        return structureElements.toArray(StructureViewTreeElement.EMPTY_ARRAY);
     }
 
     @NotNull
@@ -49,6 +60,27 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
                 }
             };
         }
+        if (element instanceof Perl6PackageDecl)
+            return new ItemPresentation() {
+                @Nullable
+                @Override
+                public String getPresentableText() {
+                    Perl6PackageDecl pkg = (Perl6PackageDecl)element;
+                    return pkg.getPackageName() + " (" + pkg.getPackageKind() + ")";
+                }
+
+                @Nullable
+                @Override
+                public String getLocationString() {
+                    return null;
+                }
+
+                @Nullable
+                @Override
+                public Icon getIcon(boolean b) {
+                    return PlatformIcons.CLASS_ICON;
+                }
+            };
         return null;
     }
 

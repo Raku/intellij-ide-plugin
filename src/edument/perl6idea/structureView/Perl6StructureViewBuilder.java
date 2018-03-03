@@ -7,6 +7,7 @@ import com.intellij.ide.util.treeView.smartTree.Sorter;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
 import edument.perl6idea.psi.Perl6File;
+import edument.perl6idea.psi.Perl6PackageDecl;
 import edument.perl6idea.psi.Perl6PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,6 @@ public class Perl6StructureViewBuilder extends TreeBasedStructureViewBuilder {
         return new StructureViewModelBase(psiFile, editor,
                     new Perl6StructureViewElement((Perl6PsiElement)psiFile))
                 .withSorters(Sorter.ALPHA_SORTER)
-                .withSuitableClasses(Perl6File.class);
+                .withSuitableClasses(Perl6File.class, Perl6PackageDecl.class);
     }
 }
