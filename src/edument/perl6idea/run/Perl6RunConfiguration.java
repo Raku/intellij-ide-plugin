@@ -78,7 +78,6 @@ public class Perl6RunConfiguration extends LocatableConfigurationBase implements
 
     @Override
     public void readExternal(Element element) throws InvalidDataException {
-        System.out.println("Read");
         super.readExternal(element);
         Element scriptPathElem = element.getChild(SCRIPT_PATH);
         Element scriptArgsElem = element.getChild(SCRIPT_ARGS);
