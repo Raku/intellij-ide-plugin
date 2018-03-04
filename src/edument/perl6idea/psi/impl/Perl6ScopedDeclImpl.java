@@ -6,7 +6,7 @@ import edument.perl6idea.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Perl6ScopedDeclImpl extends ASTWrapperPsiElement implements Perl6ScopedDecl {
@@ -17,9 +17,9 @@ public class Perl6ScopedDeclImpl extends ASTWrapperPsiElement implements Perl6Sc
     @Override
     public List<Perl6PsiElement> getDeclarations() {
         ArrayList<Perl6PsiElement> decls = new ArrayList<>();
-        decls.addAll(Arrays.asList(findChildrenByClass(Perl6RegexDecl.class)));
-        decls.addAll(Arrays.asList(findChildrenByClass(Perl6RoutineDecl.class)));
-        decls.addAll(Arrays.asList(findChildrenByClass(Perl6PackageDecl.class)));
+        Collections.addAll(decls, findChildrenByClass(Perl6RegexDecl.class));
+        Collections.addAll(decls, findChildrenByClass(Perl6RoutineDecl.class));
+        Collections.addAll(decls, findChildrenByClass(Perl6PackageDecl.class));
         return decls;
     }
 }
