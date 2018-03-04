@@ -1,10 +1,8 @@
 package edument.perl6idea.structureView;
 
-import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
-import com.intellij.psi.PsiElement;
 import com.intellij.util.PlatformIcons;
 import edument.perl6idea.Perl6Icons;
 import edument.perl6idea.psi.*;
@@ -37,7 +35,6 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
     public ItemPresentation getPresentation() {
         if (element instanceof Perl6File) {
             return new ItemPresentation() {
-                @Nullable
                 @Override
                 public String getPresentableText() {
                     return element.getContainingFile().getName();
@@ -49,7 +46,6 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
                     return null;
                 }
 
-                @Nullable
                 @Override
                 public Icon getIcon(boolean b) {
                     return Perl6Icons.CAMELIA;
@@ -58,7 +54,6 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
         }
         if (element instanceof Perl6PackageDecl)
             return new ItemPresentation() {
-                @Nullable
                 @Override
                 public String getPresentableText() {
                     Perl6PackageDecl pkg = (Perl6PackageDecl)element;
@@ -79,11 +74,30 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
             };
         if (element instanceof Perl6RegexDecl)
             return new ItemPresentation() {
-                @Nullable
                 @Override
                 public String getPresentableText() {
                     Perl6RegexDecl rx = (Perl6RegexDecl)element;
                     return rx.getRegexName() + " (" + rx.getRegexKind() + ")";
+                }
+
+                @Nullable
+                @Override
+                public String getLocationString() {
+                    return null;
+                }
+
+                @Nullable
+                @Override
+                public Icon getIcon(boolean b) {
+                    return PlatformIcons.METHOD_ICON;
+                }
+            };
+        if (element instanceof Perl6RoutineDecl)
+            return new ItemPresentation() {
+                @Override
+                public String getPresentableText() {
+                    Perl6RoutineDecl r = (Perl6RoutineDecl)element;
+                    return r.getRoutineName() + " (" + r.getRoutineKind() + ")";
                 }
 
                 @Nullable

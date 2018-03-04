@@ -10,6 +10,7 @@ import edument.perl6idea.psi.Perl6File;
 import edument.perl6idea.psi.Perl6PackageDecl;
 import edument.perl6idea.psi.Perl6PsiElement;
 import edument.perl6idea.psi.impl.Perl6RegexDeclImpl;
+import edument.perl6idea.psi.impl.Perl6RoutineDeclImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +28,6 @@ public class Perl6StructureViewBuilder extends TreeBasedStructureViewBuilder {
                     new Perl6StructureViewElement((Perl6PsiElement)psiFile))
                 .withSorters(Sorter.ALPHA_SORTER)
                 .withSuitableClasses(Perl6File.class, Perl6PackageDecl.class,
-                        Perl6RegexDeclImpl.class);
+                        Perl6RegexDeclImpl.class, Perl6RoutineDeclImpl.class);
     }
 }

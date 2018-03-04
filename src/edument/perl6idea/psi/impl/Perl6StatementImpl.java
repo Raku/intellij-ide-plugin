@@ -2,11 +2,7 @@ package edument.perl6idea.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import edument.perl6idea.psi.Perl6PackageDecl;
-import edument.perl6idea.psi.Perl6PsiElement;
-import edument.perl6idea.psi.Perl6RegexDecl;
-import edument.perl6idea.psi.Perl6Statement;
+import edument.perl6idea.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,6 +21,8 @@ public class Perl6StatementImpl extends ASTWrapperPsiElement implements Perl6Sta
             if (consider instanceof Perl6PackageDecl)
                 decls.add(consider);
             else if (consider instanceof Perl6RegexDecl)
+                decls.add(consider);
+            else if (consider instanceof Perl6RoutineDecl)
                 decls.add(consider);
         }
         return decls;
