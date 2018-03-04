@@ -2,9 +2,7 @@ package edument.perl6idea.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import edument.perl6idea.psi.Perl6PackageDecl;
-import edument.perl6idea.psi.Perl6PsiElement;
-import edument.perl6idea.psi.Perl6ScopedDecl;
+import edument.perl6idea.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -18,6 +16,10 @@ public class Perl6ScopedDeclImpl extends ASTWrapperPsiElement implements Perl6Sc
 
     @Override
     public List<Perl6PsiElement> getDeclarations() {
-        return new ArrayList<>(Arrays.asList(findChildrenByClass(Perl6PackageDecl.class)));
+        ArrayList<Perl6PsiElement> decls = new ArrayList<>();
+        decls.addAll(Arrays.asList(findChildrenByClass(Perl6RegexDecl.class)));
+        decls.addAll(Arrays.asList(findChildrenByClass(Perl6RoutineDecl.class)));
+        decls.addAll(Arrays.asList(findChildrenByClass(Perl6PackageDecl.class)));
+        return decls;
     }
 }
