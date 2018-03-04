@@ -2,8 +2,6 @@ package edument.perl6idea.psi.impl;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import edument.perl6idea.parsing.Perl6ElementTypes;
 import edument.perl6idea.psi.Perl6PsiElement;
 import edument.perl6idea.psi.Perl6Statement;
 import edument.perl6idea.psi.Perl6StatementList;
