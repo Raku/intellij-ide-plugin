@@ -4,6 +4,7 @@ import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBTextField;
+import com.intellij.util.ui.JBUI;
 import edument.perl6idea.utils.GUIHelpers;
 import edument.perl6idea.utils.Patterns;
 import edument.perl6idea.utils.Perl6ProjectType;
@@ -11,7 +12,6 @@ import edument.perl6idea.utils.Perl6ProjectType;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ class Perl6ModuleWizardStep extends ModuleWizardStep {
     private void updateInputs() {
         myMainPanel = new JBPanel<>();
         Border border = myMainPanel.getBorder();
-        Border margin = new EmptyBorder(10, 10, 10, 10);
+        Border margin = JBUI.Borders.empty(10);
         myMainPanel.setBorder(new CompoundBorder(border, margin));
         GridBagLayout layout = new GridBagLayout();
         layout.columnWidths = new int[]{80, 80, 0};
