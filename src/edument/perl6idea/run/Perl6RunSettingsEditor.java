@@ -108,15 +108,12 @@ public class Perl6RunSettingsEditor extends SettingsEditor<Perl6RunConfiguration
         myParams = new CommonProgramParametersPanel() {
             @Override
             protected void addComponents() {
-                LabeledComponent<?> file = LabeledComponent.create(fileField, "Script");
-                file.setLabelLocation(BorderLayout.WEST);
+                LabeledComponent<?> file = LabeledComponent.create(fileField, "Script", BorderLayout.WEST);
                 add(file);
                 super.addComponents();
                 myPerl6ParametersPanel = new RawCommandLineEditor();
                 LabeledComponent<RawCommandLineEditor> perl6ParametersPanel =
-                        LabeledComponent.create(myPerl6ParametersPanel, "Perl 6 parameters");
-                perl6ParametersPanel.setLabelLocation(BorderLayout.WEST);
-
+                        LabeledComponent.create(myPerl6ParametersPanel, "Perl 6 parameters", BorderLayout.WEST);
                 add(perl6ParametersPanel);
             }
         };
@@ -148,8 +145,7 @@ public class Perl6RunSettingsEditor extends SettingsEditor<Perl6RunConfiguration
                 };
             }
         };
-        LabeledComponent<JTextField> debugPort = LabeledComponent.create(myDebugPort, "Debug port");
-        debugPort.setLabelLocation(BorderLayout.WEST);
+        LabeledComponent<JTextField> debugPort = LabeledComponent.create(myDebugPort, "Debug port", BorderLayout.WEST);
         panel.add(debugPort);
         toStartSuspended = new JCheckBox("Start suspended");
         panel.add(toStartSuspended);

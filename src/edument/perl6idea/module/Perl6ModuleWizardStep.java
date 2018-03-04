@@ -2,10 +2,10 @@ package edument.perl6idea.module;
 
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
 import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.components.JBPanel;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.JBUI;
-import edument.perl6idea.utils.GUIHelpers;
 import edument.perl6idea.utils.Patterns;
 import edument.perl6idea.utils.Perl6ProjectType;
 
@@ -42,15 +42,22 @@ class Perl6ModuleWizardStep extends ModuleWizardStep {
         myMainPanel.setLayout(layout);
         if (Objects.equals(builder.getType(), Perl6ProjectType.PERL6_SCRIPT)) {
             myScriptName = new JBTextField(40);
-            GUIHelpers.addLabelAndTextFIeld(myMainPanel, "Script name", 0, myScriptName);
+            LabeledComponent<JTextField> scriptName = LabeledComponent.create(myScriptName, "Script name", BorderLayout.WEST);
+            myMainPanel.add(scriptName);
         } else if (Objects.equals(builder.getType(), Perl6ProjectType.PERL6_MODULE)) {
             myModuleName = new JBTextField(40);
-            GUIHelpers.addLabelAndTextFIeld(myMainPanel, "Module name", 0, myModuleName);
+            LabeledComponent<JTextField> moduleName = LabeledComponent.create(myModuleName, "Module name", BorderLayout.WEST);
+            myMainPanel.add(moduleName);
         } else {
+            GridBagConstraints fieldConstraints = new GridBagConstraints();
+            fieldConstraints.gridy = 0;
             myModuleName = new JBTextField(40);
-            GUIHelpers.addLabelAndTextFIeld(myMainPanel,"Module name", 0, myModuleName);
+            LabeledComponent<JTextField> moduleName = LabeledComponent.create(myModuleName, "Module name", BorderLayout.WEST);
+            myMainPanel.add(moduleName, fieldConstraints);
+            fieldConstraints.gridy = 1;
             myEntryName = new JBTextField(40);
-            GUIHelpers.addLabelAndTextFIeld(myMainPanel,"Entry point name", 1, myEntryName);
+            LabeledComponent<JTextField> entryPointName = LabeledComponent.create(myEntryName, "Entry point name", BorderLayout.WEST);
+            myMainPanel.add(entryPointName, fieldConstraints);
         }
     }
 
