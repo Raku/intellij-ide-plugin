@@ -1,4 +1,4 @@
 package edument.perl6idea.psi;
 
-public interface Perl6MultiDecl extends Perl6PsiElement {
+public interface Perl6MultiDecl extends Perl6PsiElement, Perl6PsiDeclarationHolder {
 }

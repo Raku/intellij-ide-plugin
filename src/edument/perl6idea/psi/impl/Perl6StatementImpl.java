@@ -26,6 +26,8 @@ public class Perl6StatementImpl extends ASTWrapperPsiElement implements Perl6Sta
                 decls.add(consider);
             else if (consider instanceof Perl6ScopedDecl)
                 decls.addAll(((Perl6ScopedDecl)consider).getDeclarations());
+            else if (consider instanceof Perl6MultiDecl)
+                decls.addAll(((Perl6MultiDecl)consider).getDeclarations());
         }
         return decls;
     }

@@ -3,10 +3,20 @@ package edument.perl6idea.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import edument.perl6idea.psi.Perl6MultiDecl;
+import edument.perl6idea.psi.Perl6PsiElement;
+import edument.perl6idea.psi.Perl6RoutineDecl;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Perl6MultiDeclImpl extends ASTWrapperPsiElement implements Perl6MultiDecl {
     public Perl6MultiDeclImpl(@NotNull ASTNode node) {
         super(node);
+    }
+
+    @Override
+    public List<Perl6PsiElement> getDeclarations() {
+        return Arrays.asList(findChildrenByClass(Perl6RoutineDecl.class));
     }
 }
