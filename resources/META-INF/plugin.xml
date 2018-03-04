@@ -33,6 +33,7 @@
     <lang.formatter language="Perl6" implementationClass="edument.perl6idea.formatter.Perl6FormattingModelBuilder"/>
     <lang.braceMatcher language="Perl6" implementationClass="edument.perl6idea.editor.Perl6BraceMatcher"/>
     <lang.psiStructureViewFactory language="Perl6" implementationClass="edument.perl6idea.structureView.Perl6StructureViewFactory"/>
+    <lang.commenter language="Perl6" implementationClass="edument.perl6idea.editor.Perl6Commenter"/>
   </extensions>
 
   <actions>
