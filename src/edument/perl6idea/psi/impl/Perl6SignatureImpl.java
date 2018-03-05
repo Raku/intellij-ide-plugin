@@ -9,4 +9,8 @@ public class Perl6SignatureImpl extends ASTWrapperPsiElement implements Perl6Sig
     public Perl6SignatureImpl(@NotNull ASTNode node) {
         super(node);
     }
+
+    public String summary(String type) {
+        return "(--> " + type + ")";
+    }
 }
