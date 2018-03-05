@@ -112,6 +112,26 @@ public class Perl6StructureViewElement implements StructureViewTreeElement {
                     return PlatformIcons.METHOD_ICON;
                 }
             };
+        if (element instanceof Perl6LongName)
+            return new ItemPresentation() {
+                @Nullable
+                @Override
+                public String getPresentableText() {
+                    return element.getText();
+                }
+
+                @Nullable
+                @Override
+                public String getLocationString() {
+                    return null;
+                }
+
+                @Nullable
+                @Override
+                public Icon getIcon(boolean unused) {
+                    return PlatformIcons.METHOD_ICON;
+                }
+            };
         return null;
     }
 
