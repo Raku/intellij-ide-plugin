@@ -7,6 +7,7 @@ import edument.perl6idea.parsing.Perl6ElementTypes;
 import edument.perl6idea.parsing.Perl6TokenTypes;
 import edument.perl6idea.psi.Perl6RoutineDecl;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static edument.perl6idea.parsing.Perl6ElementTypes.*;
 
@@ -32,29 +33,42 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
         String retTrait = null;
         String retConstraint = null;
 
-        if (signature == null)
+        if (signature == null) {
+            retTrait = getReturnsTrait(this);
+            if (retTrait != null) return "(--> " + retTrait + ")";
             return "()";
+        }
 
         ASTNode constr = signature.getNode().findChildByType(RETURN_CONSTRAINT);
         if (constr != null) {
             retTrait = constr.getPsi().getNode().findChildByType(TYPE_NAME).getText();
         } else {
-            ASTNode current = null;
-            for (PsiElement x : signature.getChildren()) {
-                if (x.getNode().getElementType() == PARAMETER) {
-                    ASTNode trait = x.getNode().findChildByType(TRAIT);
-                    if (trait != null && trait.getFirstChildNode().getText().equals("returns")) {
-                        current = trait;
-                    }
-                }
-            }
-            if (current != null)
-                retConstraint = current.getPsi().getNode().findChildByType(TYPE_NAME).getText();
+            retConstraint = checkReturnTraitInSignature(signature);
         }
 
         return retTrait != null ?
                 signature.summary(retTrait) :
                 retConstraint != null ?
-                signature.summary(retConstraint) : "";
+                        signature.summary(retConstraint) : "";
+    }
+
+    private String checkReturnTraitInSignature(Perl6SignatureImpl signature) {
+        for (PsiElement child : signature.getChildren()) {
+            if (child.getNode().getElementType() == PARAMETER) {
+                String trait = getReturnsTrait(child);
+                if (trait != null) return trait;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    private String getReturnsTrait(PsiElement child) {
+        ASTNode trait = child.getNode().findChildByType(TRAIT);
+        if (trait != null && trait.getFirstChildNode().getText().equals("returns")) {
+            ASTNode type = trait.getPsi().getNode().findChildByType(TYPE_NAME);
+            if (type != null) return type.getText();
+        }
+        return null;
     }
 }
