@@ -9,4 +9,9 @@ public class Perl6ParameterImpl extends ASTWrapperPsiElement implements Perl6Par
     public Perl6ParameterImpl(@NotNull ASTNode node) {
         super(node);
     }
+
+    @Override
+    public String summary() {
+        return "Arg";
+    }
 }

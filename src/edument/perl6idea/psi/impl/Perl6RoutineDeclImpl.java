@@ -50,12 +50,13 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
         return retTrait != null ?
                 signature.summary(retTrait) :
                 retConstraint != null ?
-                        signature.summary(retConstraint) : "";
+                        signature.summary(retConstraint) :
+                        signature.summary("");
     }
 
     private String checkReturnTraitInSignature(Perl6SignatureImpl signature) {
         for (PsiElement child : signature.getChildren()) {
-            if (child.getNode().getElementType() == PARAMETER) {
+            if (child.getNode().getElementType() == PARAMETER || child.getNode().getElementType() == TRAIT) {
                 String trait = getReturnsTrait(child);
                 if (trait != null) return trait;
             }
