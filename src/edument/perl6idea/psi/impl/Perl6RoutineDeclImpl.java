@@ -19,7 +19,7 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
     @Override
     public String getRoutineKind() {
         PsiElement declarator = findChildByType(Perl6TokenTypes.ROUTINE_DECLARATOR);
-        return declarator == null ? "routine" : declarator.getText();
+        return declarator == null ? "sub" : declarator.getText();
     }
 
     @Override

@@ -20,12 +20,8 @@ public class Perl6MultiDeclImpl extends ASTWrapperPsiElement implements Perl6Mul
     @Override
     public List<Perl6PsiElement> getDeclarations() {
         Perl6RoutineDecl r = findChildByClass(Perl6RoutineDecl.class);
-        Perl6LongName name = null;
-        if (r == null)
-            name = findChildByClass(Perl6LongName.class);
         return r != null
                 ? Collections.singletonList(r)
-                : name != null ? Collections.singletonList(name)
                 : new ArrayList<>();
     }
 }

@@ -10406,9 +10406,12 @@ public class Perl6Parser implements PsiParser {
     }
 
     private boolean multi_declarator_118_alt_3(PsiBuilder builder, OPP opp) {
+        PsiBuilder.Marker marker4;
+        marker4 = builder.mark();
         if (!(this.routine_def_140(builder))) {
             return false;
         }
+        marker4.done(Perl6ElementTypes.ROUTINE_DECLARATION);
         return true;
     }
 
@@ -10430,18 +10433,18 @@ public class Perl6Parser implements PsiParser {
         if (!(this.kok_212(builder))) {
             return false;
         }
-        PsiBuilder.Marker altMarker5;
-        altMarker5 = builder.mark();
+        PsiBuilder.Marker altMarker6;
+        altMarker6 = builder.mark();
         if (this.multi_declarator_118_alt_4(builder, opp)) {
-            altMarker5.drop();
+            altMarker6.drop();
         } else {
-            altMarker5.rollbackTo();
-            PsiBuilder.Marker altMarker4;;
-            altMarker4 = builder.mark();
+            altMarker6.rollbackTo();
+            PsiBuilder.Marker altMarker5;;
+            altMarker5 = builder.mark();
             if (this.multi_declarator_118_alt_3(builder, opp)) {
-                altMarker4.drop();
+                altMarker5.drop();
             } else {
-                altMarker4.rollbackTo();
+                altMarker5.rollbackTo();
                 PsiBuilder.Marker altMarker3;;
                 altMarker3 = builder.mark();
                 if (this.multi_declarator_118_alt_2(builder, opp)) {
@@ -10459,12 +10462,12 @@ public class Perl6Parser implements PsiParser {
     private boolean multi_declarator_118(PsiBuilder builder) {
         OPP opp;
         opp = null;
-        PsiBuilder.Marker altMarker6;
-        altMarker6 = builder.mark();
+        PsiBuilder.Marker altMarker7;
+        altMarker7 = builder.mark();
         if (this.multi_declarator_118_alt_5(builder, opp)) {
-            altMarker6.drop();
+            altMarker7.drop();
         } else {
-            altMarker6.rollbackTo();
+            altMarker7.rollbackTo();
             PsiBuilder.Marker altMarker1;;
             altMarker1 = builder.mark();
             if (this.multi_declarator_118_alt_1(builder, opp)) {

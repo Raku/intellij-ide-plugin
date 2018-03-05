@@ -1486,7 +1486,13 @@ grammar MAIN {
            ['multi' || 'proto' || 'only']
            <.end-token('MULTI_DECLARATOR')>
            <.kok>
-           [ <.declarator> || <.routine_def> || <?> ]
+           [
+           || <.declarator>
+           || <.start-element('ROUTINE_DECLARATION')>
+              <.routine_def>
+              <.end-element('ROUTINE_DECLARATION')>
+           || <?>
+           ]
            <.end-element('MULTI_DECLARATION')>
         || <.declarator>
     }
