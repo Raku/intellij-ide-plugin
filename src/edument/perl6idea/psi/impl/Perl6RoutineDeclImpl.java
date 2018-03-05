@@ -41,7 +41,8 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
 
         ASTNode constr = signature.getNode().findChildByType(RETURN_CONSTRAINT);
         if (constr != null) {
-            retTrait = constr.getPsi().getNode().findChildByType(TYPE_NAME).getText();
+            ASTNode type = constr.getPsi().getNode().findChildByType(TYPE_NAME);
+            if (type != null) retTrait = type.getText();
         } else {
             retConstraint = checkReturnTraitInSignature(signature);
         }
