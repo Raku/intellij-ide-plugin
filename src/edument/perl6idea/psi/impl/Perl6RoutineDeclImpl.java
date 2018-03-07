@@ -34,7 +34,7 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
         String retConstraint = null;
 
         if (signature == null) {
-            retTrait = getReturnsTrait(this);
+            retTrait = getReturnsTrait(this.getNode());
             if (retTrait != null) return "(--> " + retTrait + ")";
             return "()";
         }
@@ -42,10 +42,10 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
         ASTNode constr = signature.getNode().findChildByType(RETURN_CONSTRAINT);
         if (constr != null) {
             ASTNode type = constr.getPsi().getNode().findChildByType(TYPE_NAME);
-            if (type != null) retTrait = type.getText();
-        } else {
-            retConstraint = checkReturnTraitInSignature(signature);
-        }
+            if (type != null)
+                retConstraint = type.getText();
+        } else
+            retTrait = getReturnsTrait(this.getNode());
 
         return retTrait != null ?
                 signature.summary(retTrait) :
@@ -54,21 +54,11 @@ public class Perl6RoutineDeclImpl extends ASTWrapperPsiElement implements Perl6R
                         signature.summary("");
     }
 
-    private String checkReturnTraitInSignature(Perl6SignatureImpl signature) {
-        for (PsiElement child : signature.getChildren()) {
-            if (child.getNode().getElementType() == PARAMETER || child.getNode().getElementType() == TRAIT) {
-                String trait = getReturnsTrait(child);
-                if (trait != null) return trait;
-            }
-        }
-        return null;
-    }
-
     @Nullable
-    private String getReturnsTrait(PsiElement child) {
-        ASTNode trait = child.getNode().findChildByType(TRAIT);
+    private String getReturnsTrait(ASTNode child) {
+        ASTNode trait = child.findChildByType(TRAIT);
         if (trait != null && trait.getFirstChildNode().getText().equals("returns")) {
-            ASTNode type = trait.getPsi().getNode().findChildByType(TYPE_NAME);
+            ASTNode type = trait.findChildByType(TYPE_NAME);
             if (type != null) return type.getText();
         }
         return null;
