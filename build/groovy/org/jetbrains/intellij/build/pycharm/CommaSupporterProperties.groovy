@@ -30,7 +30,7 @@ class CommaSupporterProperties extends CommaPropertiesBase {
     productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
     productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
       "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui", "intellij.perl6.community.impl",
-      "edument.comma.supporter", "intellij.platform.main", "intellij.java.psi", "intellij.platform.lang", "perl6.community.plugin.main"
+      "edument.comma.supporter", "intellij.platform.main", "intellij.java.psi", "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "perl6.community.plugin.main"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
     productLayout.mainModules = ["intellij.comma.supporter.main", "intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "perl6.community.plugin.main"]
@@ -60,7 +60,7 @@ class CommaSupporterProperties extends CommaPropertiesBase {
     return new CommaWindowsDistributionCustomizer() {
       {
         installerImagesPath = "$projectHome/comma-build/build/resources"
-        fileAssociations = [".p6", ".pm6", ".pl6"]
+        fileAssociations = [".p6", ".pm6", ".pl6", ".pod6"]
       }
 
       @Override
