@@ -20,9 +20,9 @@ import org.jetbrains.intellij.build.*
 /**
  * @author nik
  */
-class CommaSupporterProperties extends CommaPropertiesBase {
-  CommaSupporterProperties(String communityHome) {
-    productCode = "CO"
+class CommaCompleteProperties extends CommaPropertiesBase {
+  CommaCompleteProperties(String communityHome) {
+    productCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "intellij.perl6.community.impl"
     brandingResourcePaths = ["$communityHome/comma-build/resources"]
@@ -47,7 +47,7 @@ class CommaSupporterProperties extends CommaPropertiesBase {
 
   @Override
   String getSystemSelector(ApplicationInfoProperties applicationInfo) {
-    "CommaSE${applicationInfo.majorVersion}.${applicationInfo.minorVersionMainPart}"
+    "CommaCP${applicationInfo.majorVersion}.${applicationInfo.minorVersionMainPart}"
   }
 
   @Override
@@ -65,7 +65,7 @@ class CommaSupporterProperties extends CommaPropertiesBase {
 
       @Override
       String getFullNameIncludingEdition(ApplicationInfoProperties applicationInfo) {
-        "Comma Supporter Edition"
+        "Comma Complete Edition"
       }
 
       @Override
@@ -78,15 +78,15 @@ class CommaSupporterProperties extends CommaPropertiesBase {
     return new LinuxDistributionCustomizer() {
       {
         iconPngPath = "$projectHome/comma-build/resources/CommaCore128.png"
-        snapName = "comma-supporter"
+        snapName = "comma-complete"
         snapDescription =
-          "The Integrated Development Environment for Perl 6."
+          "The Integrated Development Environment for Perl 6: Complete edition."
           "From your friends at Edument!"
       }
 
       @Override
       String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
-        "comma-supporter-${applicationInfo.isEAP ? buildNumber : applicationInfo.fullVersion}"
+        "comma-complete-${applicationInfo.isEAP ? buildNumber : applicationInfo.fullVersion}"
       }
     }
   }
@@ -103,13 +103,13 @@ class CommaSupporterProperties extends CommaPropertiesBase {
       @Override
       String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
         String suffix = applicationInfo.isEAP ? " ${applicationInfo.majorVersion}.${applicationInfo.minorVersion} EAP" : ""
-        "Comma SE${suffix}.app"
+        "Comma CP${suffix}.app"
       }
     }
   }
 
   @Override
   String getOutputDirectoryName(ApplicationInfoProperties applicationInfo) {
-    "comma-se"
+    "comma-cp"
   }
 }
