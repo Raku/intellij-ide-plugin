@@ -13,23 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jetbrains.intellij.build.pycharm
+package org.jetbrains.intellij.build.comma
 
+import org.jetbrains.intellij.build.ApplicationInfoProperties
 import org.jetbrains.intellij.build.BuildContext
-import org.jetbrains.intellij.build.WindowsDistributionCustomizer
+import org.jetbrains.intellij.build.MacDistributionCustomizer
 
 /**
  * @author nik
  */
-class CommaWindowsDistributionCustomizer extends WindowsDistributionCustomizer {
+class CommaMacDistributionCustomizer extends MacDistributionCustomizer {
   @Override
   void copyAdditionalFiles(BuildContext context, String targetDirectory) {
     def underTeamCity = System.getProperty("teamcity.buildType.id") != null
 
     context.ant.copy(todir: "$targetDirectory/skeletons", failonerror: underTeamCity) {
       fileset(dir: "$context.paths.projectHome/skeletons", erroronmissingdir: underTeamCity) {
-        include(name: "skeletons-win*.zip")
+        include(name: "skeletons-mac*.zip")
       }
     }
+  }
+
+  @Override
+  Map<String, String> getCustomIdeaProperties(ApplicationInfoProperties applicationInfo) {
+    ["ide.mac.useNativeClipboard": "false"]
   }
 }

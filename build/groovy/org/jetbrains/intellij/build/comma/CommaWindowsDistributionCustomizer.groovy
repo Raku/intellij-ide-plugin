@@ -13,26 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jetbrains.intellij.build.pycharm
+package org.jetbrains.intellij.build.comma
 
-import org.jetbrains.intellij.build.*
+import org.jetbrains.intellij.build.BuildContext
+import org.jetbrains.intellij.build.WindowsDistributionCustomizer
 
 /**
  * @author nik
  */
-abstract class CommaPropertiesBase extends ProductProperties {
-  CommaPropertiesBase() {
-    baseFileName = "comma"
-    reassignAltClickToMultipleCarets = true
-    productLayout.mainJarName = "comma.jar"
-  }
-
+class CommaWindowsDistributionCustomizer extends WindowsDistributionCustomizer {
   @Override
   void copyAdditionalFiles(BuildContext context, String targetDirectory) {
-  }
+    def underTeamCity = System.getProperty("teamcity.buildType.id") != null
 
-  @Override
-  String getEnvironmentVariableBaseName(ApplicationInfoProperties applicationInfo) {
-    "COMMA"
+    context.ant.copy(todir: "$targetDirectory/skeletons", failonerror: underTeamCity) {
+      fileset(dir: "$context.paths.projectHome/skeletons", erroronmissingdir: underTeamCity) {
+        include(name: "skeletons-win*.zip")
+      }
+    }
   }
 }

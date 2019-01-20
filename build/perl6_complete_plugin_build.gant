@@ -5,5 +5,5 @@ target("default": "Default") {
   String home = new File(IdeaProjectLoader.guessHome(this)).absolutePath
   BuildUtils.addToClassPath("$home/build/groovy", ant)
   BuildUtils.addToClassPath("$home/comma-build/build/groovy", ant)
-  Class.forName("org.jetbrains.intellij.build.pycharm.Perl6SupporterPluginBuilder").constructors[0].newInstance(home).build()
+  Class.forName("org.jetbrains.intellij.build.comma.Perl6SupporterPluginBuilder").constructors[0].newInstance(home).build()
 }

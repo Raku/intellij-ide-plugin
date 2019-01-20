@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jetbrains.intellij.build.pycharm
+package org.jetbrains.intellij.build.comma
 
 import org.jetbrains.intellij.build.CommunityRepositoryModules
 import org.jetbrains.intellij.build.python.Perl6CommunityPluginModules
