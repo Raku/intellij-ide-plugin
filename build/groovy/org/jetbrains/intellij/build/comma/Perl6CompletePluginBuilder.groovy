@@ -23,20 +23,20 @@ import org.jetbrains.intellij.build.ProprietaryBuildTools
 /**
  * @author vlan
  */
-class Perl6SupporterPluginBuilder {
+class Perl6CompletePluginBuilder {
   private final String home
 
-  Perl6SupporterPluginBuilder(String home) {
+  Perl6CompletePluginBuilder(String home) {
     this.home = home
   }
 
   def build() {
     def pluginBuildNumber = System.getProperty("build.number", "SNAPSHOT")
-    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/pycharmCE")
-    def buildContext = BuildContext.createContext(home, home, new Perl6SupporterPluginProperties(), ProprietaryBuildTools.DUMMY, options)
+    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP")
+    def buildContext = BuildContext.createContext(home, home, new Perl6CompletePluginProperties(), ProprietaryBuildTools.DUMMY, options)
     def buildTasks = BuildTasks.create(buildContext)
     buildTasks.buildDistributions()
-    
+
     def builtPlugins = new File("$buildContext.paths.artifacts/${buildContext.productProperties.productCode}-plugins").listFiles()
     if (builtPlugins == null || builtPlugins.length == 0) {
       buildContext.messages.warning("No plugins were built")
