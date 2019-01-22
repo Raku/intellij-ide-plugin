@@ -1,19 +1,5 @@
-/*
- * Copyright 2000-2017 JetBrains s.r.o.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package org.jetbrains.intellij.build.comma
+// Copyright 2000-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+package edument.perl6idea.build.community
 
 import org.jetbrains.intellij.build.BuildContext
 import org.jetbrains.intellij.build.BuildOptions
@@ -23,26 +9,26 @@ import org.jetbrains.intellij.build.ProprietaryBuildTools
 /**
  * @author vlan
  */
-class Perl6CompletePluginBuilder {
+class Perl6CommunityPluginBuilder {
   private final String home
 
-  Perl6CompletePluginBuilder(String home) {
+  Perl6CommunityPluginBuilder(String home) {
     this.home = home
   }
 
   def build() {
     def pluginBuildNumber = System.getProperty("build.number", "SNAPSHOT")
     def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP")
-    def buildContext = BuildContext.createContext(home, home, new Perl6CompletePluginProperties(), ProprietaryBuildTools.DUMMY, options)
+    def buildContext = BuildContext.createContext(home, home, new Perl6CommunityPluginProperties(), ProprietaryBuildTools.DUMMY, options)
     def buildTasks = BuildTasks.create(buildContext)
     buildTasks.buildDistributions()
 
     def builtPlugins = new File("$buildContext.paths.artifacts/${buildContext.productProperties.productCode}-plugins").listFiles()
     if (builtPlugins == null || builtPlugins.length == 0) {
       buildContext.messages.warning("No plugins were built")
-      return 
+      return
     }
-    
+
     def pluginsPaths = new File("$buildContext.paths.buildOutputRoot/plugins-paths.txt")
     pluginsPaths.text = builtPlugins.collect { it.toString() }.join("\n") }
 }

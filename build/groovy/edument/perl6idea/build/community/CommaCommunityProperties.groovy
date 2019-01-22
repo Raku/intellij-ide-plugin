@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jetbrains.intellij.build.comma
+package edument.perl6idea.build.community
 
 import org.jetbrains.intellij.build.*
+import edument.perl6idea.build.CommaPropertiesBase
+import edument.perl6idea.build.CommaMacDistributionCustomizer
+import edument.perl6idea.build.CommaWindowsDistributionCustomizer
 
 /**
  * @author nik
