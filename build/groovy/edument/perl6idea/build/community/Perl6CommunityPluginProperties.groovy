@@ -13,7 +13,7 @@ class Perl6CommunityPluginProperties extends Perl6PluginPropertiesBase {
     super()
     productCode = "CO"
     platformPrefix = "CommaCore"
-    applicationInfoModule = "intellij.perl6.community.impl"
+    applicationInfoModule = "edument.comma.supporter.main"
     productLayout.pluginModulesToPublish = [Perl6CommunityPluginModules.COMMA_COMPLETE_PLUGIN_MODULE]
     productLayout.allNonTrivialPlugins = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS //+ [
 //      Perl6CompletePluginModules.pythonCommunityPluginLayout()

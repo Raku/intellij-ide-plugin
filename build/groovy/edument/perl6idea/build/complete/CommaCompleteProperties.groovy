@@ -13,12 +13,12 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(String communityHome) {
     productCode = "CP"
     platformPrefix = "CommaCore"
-    applicationInfoModule = "intellij.perl6.community.impl"
+    applicationInfoModule = "edument.comma.supporter.main"
     brandingResourcePaths = ["$communityHome/comma-build/resources"]
 
     productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
     productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
-      "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui", "intellij.perl6.community.impl",
+      "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui",
       "intellij.platform.main", "intellij.java.psi", "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "perl6.community.plugin.main"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
