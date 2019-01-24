@@ -18,7 +18,7 @@ class Perl6CommunityPluginBuilder {
 
   def build() {
     def pluginBuildNumber = System.getProperty("build.number", "SNAPSHOT")
-    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP")
+    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCT")
     def buildContext = BuildContext.createContext(home, home, new Perl6CommunityPluginProperties(), ProprietaryBuildTools.DUMMY, options)
     def buildTasks = BuildTasks.create(buildContext)
     buildTasks.buildDistributions()
