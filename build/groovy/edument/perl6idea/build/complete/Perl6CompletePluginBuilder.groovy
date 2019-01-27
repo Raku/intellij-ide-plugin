@@ -17,8 +17,11 @@ class Perl6CompletePluginBuilder {
   }
 
   def build() {
-    def pluginBuildNumber = System.getProperty("build.number", "SNAPSHOT")
-    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP")
+    //String pluginMetaFile = new File("$home/comma-build/perl6-idea-plugin/resources/META-INF/plugin.xml").getText('UTF-8')
+    //def XML = new XmlParser().parseText(pluginMetaFile)
+    //def pluginBuildNumber = XML.get("version")[0].value()[0]
+
+    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, outputRootPath: "$home/out/commaCP")
     def buildContext = BuildContext.createContext(home, home, new Perl6CompletePluginProperties(), ProprietaryBuildTools.DUMMY, options)
     def buildTasks = BuildTasks.create(buildContext)
     buildTasks.buildDistributions()

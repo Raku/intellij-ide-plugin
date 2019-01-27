@@ -10,10 +10,10 @@ import edument.perl6idea.build.Perl6PluginPropertiesBase
 class Perl6CompletePluginProperties extends Perl6PluginPropertiesBase {
   Perl6CompletePluginProperties() {
     super()
-    productCode = "CO"
+    productCode = "CP"
     platformPrefix = "CommaCore"
-    applicationInfoModule = "perl6.community.plugin.main"
-    productLayout.pluginModulesToPublish = ["perl6.community.plugin.main"]
+    applicationInfoModule = "edument.perl6.plugin"
+    productLayout.pluginModulesToPublish = ["edument.perl6.plugin"]
     productLayout.allNonTrivialPlugins = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS
   }
 }

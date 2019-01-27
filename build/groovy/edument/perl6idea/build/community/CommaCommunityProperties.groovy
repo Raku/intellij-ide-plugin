@@ -27,17 +27,17 @@ class CommaCommunityProperties extends CommaPropertiesBase {
   CommaCommunityProperties(String communityHome) {
     productCode = "CT"
     platformPrefix = "CommaCore"
-    applicationInfoModule = "perl6.community.plugin.main"
+    applicationInfoModule = "edument.perl6.plugin"
     brandingResourcePaths = ["$communityHome/comma-build/resources"]
 
     productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
     productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
       "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui",
       "intellij.platform.main", "intellij.java.psi",
-      "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "perl6.community.plugin.main"
+      "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "edument.perl6.plugin"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
-    productLayout.mainModules = ["intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "perl6.community.plugin.main"]
+    productLayout.mainModules = ["intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "edument.perl6.plugin"]
   }
 
   @Override
@@ -114,6 +114,6 @@ class CommaCommunityProperties extends CommaPropertiesBase {
 
   @Override
   String getOutputDirectoryName(ApplicationInfoProperties applicationInfo) {
-    "comma-ct"
+    "commaCT"
   }
 }
