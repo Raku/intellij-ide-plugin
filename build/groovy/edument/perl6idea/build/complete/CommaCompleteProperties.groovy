@@ -14,7 +14,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
     productCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.plugin"
-    brandingResourcePaths = ["$communityHome/comma-build/resources"]
+    brandingResourcePaths = ["$communityHome/comma-build/resources/complete"]
 
     productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
     productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
@@ -66,7 +66,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   LinuxDistributionCustomizer createLinuxCustomizer(String projectHome) {
     return new LinuxDistributionCustomizer() {
       {
-        iconPngPath = "$projectHome/comma-build/resources/CommaCore128.png"
+        iconPngPath = "$projectHome/comma-build/resources/complete/CommaCore128.png"
         snapName = "comma-complete"
         snapDescription =
           "The Integrated Development Environment for Perl 6: Complete edition."
@@ -84,7 +84,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   MacDistributionCustomizer createMacCustomizer(String projectHome) {
     return new CommaMacDistributionCustomizer() {
       {
-        icnsPath = "$projectHome/comma-build/resources/CommaCore.icns"
+        icnsPath = "$projectHome/comma-build/resources/complete/CommaCore.icns"
         bundleIdentifier = "com.edument.comma"
         dmgImagePath = "$projectHome/comma-build/build/dmg_background.tiff"
       }
