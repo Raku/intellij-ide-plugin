@@ -13,16 +13,17 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(String communityHome) {
     productCode = "CP"
     platformPrefix = "CommaCore"
-    applicationInfoModule = "edument.perl6.plugin"
-    brandingResourcePaths = ["$communityHome/comma-build/resources/complete"]
+    applicationInfoModule = "edument.perl6.comma.complete"
+    brandingResourcePaths = ["$communityHome/comma-build/complete/resources"]
 
     productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
     productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
       "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui",
-      "intellij.platform.main", "intellij.java.psi", "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "edument.perl6.plugin"
+      "intellij.platform.main", "intellij.java.psi", "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "edument.perl6.comma.complete",
+      "edument.perl6.plugin"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
-    productLayout.mainModules = ["intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "edument.perl6.plugin"]
+    productLayout.mainModules = ["intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "edument.perl6.comma.complete", "edument.perl6.plugin"]
   }
 
   @Override
@@ -41,7 +42,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
 
   @Override
   String getBaseArtifactName(ApplicationInfoProperties applicationInfo, String buildNumber) {
-    "commaCO-$buildNumber"
+    "commaCP-$buildNumber"
   }
 
   @Override
@@ -66,7 +67,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   LinuxDistributionCustomizer createLinuxCustomizer(String projectHome) {
     return new LinuxDistributionCustomizer() {
       {
-        iconPngPath = "$projectHome/comma-build/resources/complete/CommaCore128.png"
+        iconPngPath = "$projectHome/comma-build/complete/resources/CommaCore128.png"
         snapName = "comma-complete"
         snapDescription =
           "The Integrated Development Environment for Perl 6: Complete edition."
@@ -84,7 +85,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
   MacDistributionCustomizer createMacCustomizer(String projectHome) {
     return new CommaMacDistributionCustomizer() {
       {
-        icnsPath = "$projectHome/comma-build/resources/complete/CommaCore.icns"
+        icnsPath = "$projectHome/comma-build/complete/resources/CommaCore.icns"
         bundleIdentifier = "com.edument.comma"
         dmgImagePath = "$projectHome/comma-build/build/dmg_background.tiff"
       }
