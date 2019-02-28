@@ -1,0 +1,19 @@
+import org.jetbrains.intellij.build.TestingOptions
+import org.jetbrains.intellij.build.TestingTasks
+import org.jetbrains.intellij.build.impl.CompilationContextImpl
+import org.jetbrains.jps.idea.IdeaProjectLoader
+
+/**
+ * Compiles the sources and runs tests from 'community' project. Look at org.jetbrains.intellij.build.TestingOptions to see which options are
+ * supported.
+ */
+target("default": "Run tests") {
+  String home = IdeaProjectLoader.guessHome(this)
+  String outputDir = "$home/out/tests"
+  def context = CompilationContextImpl.create(home, home, outputDir)
+  TestingOptions options = new TestingOptions()
+  options.testGroups = "COMMA_COMPLETE_TESTS"
+  options.platformPrefix = "CommaCore"
+  options.mainModule = "edument.perl6.comma.complete"
+  TestingTasks.create(context, options).runTests([], "edument.perl6.comma.complete", null)
+}
