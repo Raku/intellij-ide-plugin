@@ -85,8 +85,8 @@ class CommaCommunityProperties extends CommaPropertiesBase {
         iconPngPath = "$projectHome/comma-build/community/resources/CommaCore128.png"
         snapName = "comma-community"
         snapDescription =
-          "The Integrated Development Environment for Perl 6: Community edition."
-          "From your friends at Edument!"
+          "Community edition of the Comma Perl 6 Integrated Development Environment."
+          "Developed by Edument."
       }
 
       @Override
