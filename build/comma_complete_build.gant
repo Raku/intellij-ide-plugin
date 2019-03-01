@@ -1,0 +1,5 @@
+import org.jetbrains.intellij.build.BuildTasks
+
+target("default": "Default") {
+  BuildTasks.buildProduct("edument.perl6idea.build.complete.CommaCompleteProperties", ["comma-build/build/groovy"], "", this)
+}
