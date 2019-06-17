@@ -1,5 +1,6 @@
 import org.jetbrains.intellij.build.BuildTasks
 
 target("default": "Default") {
+  System.setProperty("intellij.build.incremental.compilation", "true")
   BuildTasks.buildProduct("edument.perl6idea.build.community.CommaCommunityProperties", ["comma-build/build/groovy"], "", this)
 }

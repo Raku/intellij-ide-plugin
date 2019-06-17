@@ -100,6 +100,6 @@ class CommaCompleteProperties extends CommaPropertiesBase {
 
   @Override
   String getOutputDirectoryName(ApplicationInfoProperties applicationInfo) {
-    "commaCP"
+    "comma"
   }
 }

@@ -115,6 +115,6 @@ class CommaCommunityProperties extends CommaPropertiesBase {
 
   @Override
   String getOutputDirectoryName(ApplicationInfoProperties applicationInfo) {
-    "commaCT"
+    "comma"
   }
 }
