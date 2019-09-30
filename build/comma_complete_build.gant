@@ -11,7 +11,7 @@ static MacHostProperties getMacHost() {
     && (signid = System.getenv("COMMA_DMG_SIGNID"))) {
     new MacHostProperties(host, username, password, signid)
   } else {
-    return new MacHostProperties()
+    return null
   }
 }
 
