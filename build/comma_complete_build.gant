@@ -17,7 +17,6 @@ static MacHostProperties getMacHost() {
 
 target("default": "Default") {
   System.setProperty("intellij.build.incremental.compilation", "true")
-  BuildTasks.buildProduct("edument.perl6idea.build.complete.CommaCompleteProperties", ["comma-build/build/groovy"], "", this, new ProprietaryBuildTools(
-    null, null, getMacHost(), null
-  ))
+  BuildTasks.buildProduct("edument.perl6idea.build.complete.CommaCompleteProperties", ["comma-build/build/groovy"], "", this,
+                          new ProprietaryBuildTools(null, null, getMacHost(), null))
 }
