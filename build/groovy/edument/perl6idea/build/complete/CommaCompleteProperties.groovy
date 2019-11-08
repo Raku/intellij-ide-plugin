@@ -50,7 +50,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
     return new CommaWindowsDistributionCustomizer() {
       {
         installerImagesPath = "$projectHome/comma-build/build/resources"
-        fileAssociations = [".p6", ".pm6", ".pl6", ".pod6", "raku", "rakumod", "rakutest", "rakudoc"]
+        fileAssociations = [".p6", ".pm6", ".pl6", ".pod6", ".raku", ".rakumod", ".rakutest", ".rakudoc"]
       }
 
       @Override
