@@ -1,13 +1,11 @@
 intellij.vcs.cvs
 intellij.vcs.svn
 intellij.vcs.git
-intellij.platform.remoteServers.git
 intellij.vcs.hg
 intellij.tasks.core
 intellij.vcs.github
 intellij.terminal
 intellij.platform.langInjection
-intellij.xml.langInjection
 intellij.editorconfig
 intellij.settingsRepository
 intellij.yaml
