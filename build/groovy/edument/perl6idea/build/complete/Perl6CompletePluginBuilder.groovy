@@ -1,6 +1,7 @@
 // Copyright 2000-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package edument.perl6idea.build.complete
 
+import groovy.io.FileType
 import org.jetbrains.intellij.build.*
 
 /**
@@ -15,7 +16,7 @@ class Perl6CompletePluginBuilder {
   }
 
   def build() {
-    def pluginBuildNumber = System.getProperty("build.number", "SNAPSHOT")
+    def pluginBuildNumber = System.getProperty("build.number", "145.0.0")
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.complete"
     ]
