@@ -23,7 +23,7 @@ class Perl6CompletePluginBuilder {
     def options = new BuildOptions(buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP", incrementalCompilation: true)
     def buildContext = BuildContext.createContext(home,
                                                   home,
-                                                  new IdeaCommunityProperties(home),
+                                                  new Perl6CompletePluginProperties(),
                                                   ProprietaryBuildTools.DUMMY,
                                                   options)
     BuildTasks.create(buildContext).buildNonBundledPlugins(pluginsForIdeaCommunity)
