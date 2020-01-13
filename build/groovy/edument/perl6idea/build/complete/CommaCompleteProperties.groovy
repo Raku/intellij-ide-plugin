@@ -70,7 +70,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
         iconPngPath = "$projectHome/comma-build/complete/resources/CommaCore128.png"
         snapName = "comma-complete"
         snapDescription =
-          "Complete edition of the Comma Perl 6 Integrated Development Environment."
+          "Complete edition of the Comma Raku Integrated Development Environment."
           "Developed by Edument."
       }
 
