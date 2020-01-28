@@ -10,3 +10,4 @@ intellij.editorconfig
 intellij.settingsRepository
 intellij.yaml
 intellij.properties
+intellij.markdown
