@@ -30,12 +30,11 @@ class CommaCommunityProperties extends CommaPropertiesBase {
     applicationInfoModule = "edument.perl6.comma.community"
     brandingResourcePaths = ["$communityHome/comma-build/community/resources"]
 
-    productLayout.platformApiModules = CommunityRepositoryModules.PLATFORM_API_MODULES + ["intellij.xml.dom", "intellij.java"]
-    productLayout.platformImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
+    productLayout.productImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
       "intellij.xml.dom.impl", "intellij.java.impl", "intellij.java.ui",
       "intellij.platform.main", "intellij.java.psi",
-      "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl", "edument.perl6.comma.community",
-      "edument.perl6.plugin"
+      "intellij.platform.lang", "intellij.java.compiler", "intellij.java.compiler.impl",
+      "edument.perl6.comma.community", "edument.perl6.plugin"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
     productLayout.mainModules = ["intellij.java", "intellij.java.impl", "intellij.java.ui", "intellij.java.psi", "intellij.platform.lang", "edument.perl6.comma.community", "edument.perl6.plugin"]
@@ -72,9 +71,6 @@ class CommaCommunityProperties extends CommaPropertiesBase {
       String getFullNameIncludingEdition(ApplicationInfoProperties applicationInfo) {
         "Comma Community Edition"
       }
-
-      @Override
-      String getBaseDownloadUrlForJre() { "https://download.jetbrains.com/python" }
     }
   }
 
@@ -98,19 +94,7 @@ class CommaCommunityProperties extends CommaPropertiesBase {
 
   @Override
   MacDistributionCustomizer createMacCustomizer(String projectHome) {
-    return new CommaMacDistributionCustomizer() {
-      {
-        icnsPath = "$projectHome/comma-build/community/resources/CommaCore.icns"
-        bundleIdentifier = "com.edument.comma"
-        dmgImagePath = "$projectHome/comma-build/build/dmg_background.tiff"
-      }
-
-      @Override
-      String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
-        String suffix = applicationInfo.isEAP ? " ${applicationInfo.majorVersion}.${applicationInfo.minorVersion} EAP" : ""
-        "Comma CT${suffix}.app"
-      }
-    }
+    return null
   }
 
   @Override
