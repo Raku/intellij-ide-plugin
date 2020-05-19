@@ -16,7 +16,7 @@ class Perl6CompletePluginBuilder {
   }
 
   def build() {
-    def pluginBuildNumber = System.getProperty("build.number", "145.0.0")
+    def pluginBuildNumber = System.getProperty("build.number", "201.1.0")
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.complete"
     ]
