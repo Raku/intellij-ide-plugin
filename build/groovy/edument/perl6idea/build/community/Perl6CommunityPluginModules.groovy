@@ -30,16 +30,9 @@ class Perl6CommunityPluginModules {
       modules.each { module ->
         withModule(module, mainJarName, null)
       }
-      withCustomVersion { BuildContext context ->
-        "$context.applicationInfo.majorVersion.$context.applicationInfo.minorVersion.$context.applicationInfo.microVersion"
-      }
       doNotCreateSeparateJarForLocalizableResources()
       body.delegate = delegate
       body()
     }
-  }
-
-  static String getPluginBuildNumber() {
-    System.getProperty("build.number", "SNAPSHOT")
   }
 }
