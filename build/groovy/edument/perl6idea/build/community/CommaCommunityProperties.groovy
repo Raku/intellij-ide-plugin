@@ -94,7 +94,19 @@ class CommaCommunityProperties extends CommaPropertiesBase {
 
   @Override
   MacDistributionCustomizer createMacCustomizer(String projectHome) {
-    return null
+    return new CommaMacDistributionCustomizer() {
+      {
+        icnsPath = "$projectHome/comma-build/community/resources/CommaCore.icns"
+        bundleIdentifier = "com.edument.comma"
+        dmgImagePath = "$projectHome/comma-build/build/dmg_background.tiff"
+      }
+
+      @Override
+      String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
+        String suffix = applicationInfo.isEAP ? " ${applicationInfo.majorVersion}.${applicationInfo.minorVersion} EAP" : ""
+        "Comma CT${suffix}.app"
+      }
+    }
   }
 
   @Override
