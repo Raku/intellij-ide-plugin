@@ -46,7 +46,6 @@ class CommaCommunityProperties extends CommaPropertiesBase {
     }
   }
 
-  @Override
   String getSystemSelector(ApplicationInfoProperties applicationInfo) {
     "CommaCT${applicationInfo.majorVersion}.${applicationInfo.minorVersionMainPart}"
   }
