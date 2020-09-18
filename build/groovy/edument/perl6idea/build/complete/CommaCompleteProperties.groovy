@@ -32,7 +32,6 @@ class CommaCompleteProperties extends CommaPropertiesBase {
     }
   }
 
-  @Override
   String getSystemSelector(ApplicationInfoProperties applicationInfo) {
     "CommaCP${applicationInfo.majorVersion}.${applicationInfo.minorVersionMainPart}"
   }
