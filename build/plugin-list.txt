@@ -1,4 +1,3 @@
-intellij.vcs.cvs
 intellij.vcs.svn
 intellij.vcs.git
 intellij.vcs.hg
@@ -11,3 +10,4 @@ intellij.settingsRepository
 intellij.yaml
 intellij.properties
 intellij.markdown
+intellij.platform.images
