@@ -1,7 +1,6 @@
 import org.jetbrains.intellij.build.BuildTasks
 import org.jetbrains.intellij.build.MacHostProperties
 import org.jetbrains.intellij.build.ProprietaryBuildTools
-import org.jetbrains.intellij.build.SignTool
 
 static MacHostProperties getMacHost() {
   String host, username, password, signid
@@ -17,6 +16,7 @@ static MacHostProperties getMacHost() {
 
 target("default": "Default") {
   System.setProperty("intellij.build.incremental.compilation", "true")
+  System.setProperty("intellij.build.dmg.with.bundled.jre", "true")
   BuildTasks.buildProduct("edument.perl6idea.build.complete.CommaCompleteProperties", ["comma-build/build/groovy"], "", this,
                           new ProprietaryBuildTools(null, null, getMacHost(), null))
 }

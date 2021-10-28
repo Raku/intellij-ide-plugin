@@ -1,6 +1,22 @@
 import org.jetbrains.intellij.build.BuildTasks
+import org.jetbrains.intellij.build.MacHostProperties
+import org.jetbrains.intellij.build.ProprietaryBuildTools
+
+static MacHostProperties getMacHost() {
+  String host, username, password, signid
+  if ((host = System.getenv("COMMA_DMG_HOST"))
+    && (username = System.getenv("COMMA_DMG_USERNAME"))
+    && (password = System.getenv("COMMA_DMG_PASSWORD"))
+    && (signid = System.getenv("COMMA_DMG_SIGNID"))) {
+    new MacHostProperties(host, username, password, signid)
+  } else {
+    return null
+  }
+}
 
 target("default": "Default") {
   System.setProperty("intellij.build.incremental.compilation", "true")
-  BuildTasks.buildProduct("edument.perl6idea.build.community.CommaCommunityProperties", ["comma-build/build/groovy"], "", this)
+  System.setProperty("intellij.build.dmg.with.bundled.jre", "true")
+  BuildTasks.buildProduct("edument.perl6idea.build.community.CommaCommunityProperties", ["comma-build/build/groovy"], "", this,
+                          new ProprietaryBuildTools(null, null, getMacHost(), null))
 }
