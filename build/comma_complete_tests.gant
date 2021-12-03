@@ -24,5 +24,6 @@ target("default": "Run tests") {
   options.testGroups = "COMMA_COMPLETE_TESTS"
   options.platformPrefix = "CommaCore"
   options.mainModule = "edument.perl6.comma.complete"
+  options.preferAntRunner = true
   TestingTasks.create(context, options).runTests([], "edument.perl6.comma.complete", null)
 }
