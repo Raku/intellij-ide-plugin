@@ -17,11 +17,11 @@ class CommaCompleteProperties extends CommaPropertiesBase {
     applicationInfoModule = "edument.perl6.comma.complete"
     brandingResourcePaths = ["$communityHome/comma-build/complete/resources"]
 
-    productLayout.productImplementationModules = PlatformModules.PLATFORM_IMPLEMENTATION_MODULES + [
-      "intellij.xml.dom", "intellij.xml.dom.impl", "intellij.platform.main", "intellij.platform.lang", "edument.perl6.comma.complete", "edument.perl6.plugin"
+    productLayout.productImplementationModules = [
+      "intellij.xml.dom", "intellij.xml.dom.impl", "intellij.platform.main",
+      "edument.perl6.comma.complete", "edument.perl6.plugin"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
-    productLayout.mainModules = ["intellij.platform.lang", "edument.perl6.comma.complete", "edument.perl6.plugin"]
   }
 
   @Override
