@@ -19,6 +19,7 @@ import org.jetbrains.intellij.build.*
 import edument.perl6idea.build.CommaPropertiesBase
 import edument.perl6idea.build.CommaMacDistributionCustomizer
 import edument.perl6idea.build.CommaWindowsDistributionCustomizer
+import org.jetbrains.intellij.build.impl.PlatformModules
 
 /**
  * @author nik
@@ -30,11 +31,11 @@ class CommaCommunityProperties extends CommaPropertiesBase {
     applicationInfoModule = "edument.perl6.comma.community"
     brandingResourcePaths = ["$communityHome/comma-build/community/resources"]
 
-    productLayout.productImplementationModules = CommunityRepositoryModules.PLATFORM_IMPLEMENTATION_MODULES + [
-      "intellij.xml.dom", "intellij.xml.dom.impl", "intellij.platform.main", "intellij.platform.lang", "edument.perl6.comma.community", "edument.perl6.plugin"
+    productLayout.productImplementationModules = [
+      "intellij.xml.dom", "intellij.xml.dom.impl", "intellij.platform.main",
+      "edument.perl6.comma.community", "edument.perl6.plugin"
     ]
     productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
-    productLayout.mainModules = ["intellij.platform.lang", "edument.perl6.comma.community", "edument.perl6.plugin"]
   }
 
   @Override
