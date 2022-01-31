@@ -5,23 +5,24 @@ import org.jetbrains.intellij.build.*
 import edument.perl6idea.build.CommaPropertiesBase
 import edument.perl6idea.build.CommaMacDistributionCustomizer
 import edument.perl6idea.build.CommaWindowsDistributionCustomizer
-import org.jetbrains.intellij.build.impl.PlatformModules
 
 /**
  * @author nik
  */
 class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(String communityHome) {
-    productCode = "CP"
+    customProductCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.complete"
     brandingResourcePaths = ["$communityHome/comma-build/complete/resources"]
 
+    productLayout.productApiModules = ["intellij.xml.dom", "edument.perl6.comma.complete"]
     productLayout.productImplementationModules = [
-      "intellij.xml.dom", "intellij.xml.dom.impl", "intellij.platform.main",
-      "edument.perl6.comma.complete", "edument.perl6.plugin"
+      "intellij.xml.dom.impl",
+      "intellij.platform.main",
+      "edument.perl6.plugin"
     ]
-    productLayout.bundledPluginModules = new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
+    productLayout.bundledPluginModules += new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
   }
 
   @Override
