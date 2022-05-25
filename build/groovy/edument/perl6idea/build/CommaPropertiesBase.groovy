@@ -11,6 +11,7 @@ abstract class CommaPropertiesBase extends ProductProperties {
     baseFileName = "comma"
     reassignAltClickToMultipleCarets = true
     productLayout.mainJarName = "comma.jar"
+    additionalIdeJvmArguments = ["-Didea.force.use.core.classloader=true"]
   }
 
   @Override
