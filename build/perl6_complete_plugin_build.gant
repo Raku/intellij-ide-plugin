@@ -1,9 +1,0 @@
-import org.jetbrains.intellij.build.impl.BuildUtils
-import org.jetbrains.jps.idea.IdeaProjectLoader
-
-target("default": "Default") {
-  String home = new File(IdeaProjectLoader.guessHome(this)).absolutePath
-  BuildUtils.addToClassPath("$home/build/groovy", ant)
-  BuildUtils.addToClassPath("$home/comma-build/build/groovy", ant)
-  Class.forName("edument.perl6idea.build.complete.Perl6CompletePluginBuilder").constructors[0].newInstance(home).build()
-}
