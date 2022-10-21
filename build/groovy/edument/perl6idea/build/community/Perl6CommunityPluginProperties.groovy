@@ -19,4 +19,9 @@ class Perl6CommunityPluginProperties extends Perl6PluginPropertiesBase {
       Perl6CommunityPluginModules.perl6CommunityPluginLayout()
     ]
   }
+
+  @Override
+  String getBaseFileName() {
+    return "comma"
+  }
 }

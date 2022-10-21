@@ -19,4 +19,9 @@ class Perl6CompletePluginProperties extends Perl6PluginPropertiesBase {
       Perl6CompletePluginModules.perl6CompletePluginLayout()
     ]
   }
+
+  @Override
+  String getBaseFileName() {
+    return "comma"
+  }
 }

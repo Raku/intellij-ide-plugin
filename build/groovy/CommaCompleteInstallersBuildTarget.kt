@@ -1,5 +1,8 @@
 import edument.perl6idea.build.complete.CommaCompleteProperties
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.intellij.build.*
+import org.jetbrains.intellij.build.impl.BuildContextImpl
 
 object CommaCompleteInstallersBuildTarget {
   private fun getMacHost(): MacHostProperties? {
@@ -9,21 +12,24 @@ object CommaCompleteInstallersBuildTarget {
       val password = System.getenv("COMMA_DMG_PASSWORD")
       val signid = System.getenv("COMMA_DMG_SIGNID")
       return MacHostProperties(host, username, password, signid)
-    } else {
+    }
+    else {
       return null
     }
   }
 
   @JvmStatic
   fun main(args: Array<String>) {
-    val completeHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass).toString()
-    val context = BuildContext.createContext(
-      completeHome,
-      completeHome,
-      CommaCompleteProperties(completeHome),
-      ProprietaryBuildTools(null, null, getMacHost(), null),
-      BuildOptions()
-    )
-    BuildTasks.create(context).buildDistributions()
+    runBlocking(Dispatchers.Default) {
+      val completeHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
+      val context = BuildContextImpl.createContext(
+        completeHome,
+        completeHome.communityRoot,
+        CommaCompleteProperties(completeHome),
+        ProprietaryBuildTools(null, null, getMacHost(), null, null, null),
+        BuildOptions()
+      )
+      BuildTasks.create(context).buildDistributions()
+    }
   }
 }
