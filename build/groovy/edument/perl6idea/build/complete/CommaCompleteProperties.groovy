@@ -15,6 +15,7 @@ import java.nio.file.Path
  */
 class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(BuildDependenciesCommunityRoot communityHome) {
+    productLayout.mainJarName = "comma.jar"
     customProductCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.complete"

@@ -29,6 +29,9 @@ import java.nio.file.Path
  */
 class CommaCommunityProperties extends CommaPropertiesBase {
   CommaCommunityProperties(BuildDependenciesCommunityRoot communityHome) {
+    useSplash = true
+    buildCrossPlatformDistribution = true
+    productLayout.mainJarName = "comma.jar"
     productCode = "CT"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.community"
@@ -119,5 +122,10 @@ class CommaCommunityProperties extends CommaPropertiesBase {
   @Override
   String getOutputDirectoryName(ApplicationInfoProperties applicationInfo) {
     "comma"
+  }
+
+  @Override
+  String getEnvironmentVariableBaseName(ApplicationInfoProperties applicationInfo) {
+    return "COMMA"
   }
 }
