@@ -24,9 +24,9 @@ object CommaCommunityInstallersBuildTarget {
       val context = BuildContextImpl.createContext(
         communityHome = communityHome,
         projectHome = communityHome.communityRoot,
-        CommaCommunityProperties(communityHome),
-        ProprietaryBuildTools(null, null, getMacHost(), null, null, null),
-        BuildOptions()
+        productProperties = CommaCommunityProperties(communityHome),
+        //ProprietaryBuildTools(null, null, getMacHost(), null, null, null),
+        //BuildOptions()
       )
       BuildTasks.create(context).buildDistributions()
     }

@@ -23,11 +23,11 @@ object CommaCompleteInstallersBuildTarget {
     runBlocking(Dispatchers.Default) {
       val completeHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
       val context = BuildContextImpl.createContext(
-        completeHome,
-        completeHome.communityRoot,
-        CommaCompleteProperties(completeHome),
-        ProprietaryBuildTools(null, null, getMacHost(), null, null, null),
-        BuildOptions()
+        communityHome = completeHome,
+        projectHome = completeHome.communityRoot,
+        productProperties = CommaCompleteProperties(completeHome),
+        //ProprietaryBuildTools(macHostProperties =  getMacHost()),
+        //BuildOptions()
       )
       BuildTasks.create(context).buildDistributions()
     }

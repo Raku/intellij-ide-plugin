@@ -3,15 +3,18 @@ package edument.perl6idea.build.complete
 
 import groovy.io.FileType
 import org.jetbrains.intellij.build.*
+import org.jetbrains.intellij.build.dependencies.BuildDependenciesCommunityRoot
+import org.jetbrains.intellij.build.impl.BuildContextImpl
+import java.nio.file.Path
 
 /**
  * @author vlan
  */
 @SuppressWarnings("unused")
 class Perl6CompletePluginBuilder {
-  private final String home
+  private final Path home
 
-  Perl6CompletePluginBuilder(String home) {
+  Perl6CompletePluginBuilder(Path home) {
     this.home = home
   }
 
@@ -20,13 +23,17 @@ class Perl6CompletePluginBuilder {
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.complete"
     ]
-    def options = new BuildOptions(buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCP", incrementalCompilation: true)
-    def buildContext = BuildContext.createContext(home,
-                                                  home,
+    def options = new BuildOptions()
+    options.buildNumber = pluginBuildNumber
+    options.outputRootPath = this.home.resolve("out/commaCP")
+    options.incrementalCompilation = true
+    def communityRoot = new BuildDependenciesCommunityRoot(this.home)
+    def buildContext = BuildContextImpl.createContextBlocking(communityRoot,
+                                                  this.home,
                                                   new Perl6CompletePluginProperties(),
                                                   ProprietaryBuildTools.DUMMY,
                                                   options)
-    BuildTasks.create(buildContext).buildNonBundledPlugins(pluginsForIdeaCommunity)
+    BuildTasks.create(buildContext).blockingBuildNonBundledPlugins(pluginsForIdeaCommunity)
 
     List<File> builtPlugins = []
     new File(buildContext.paths.artifacts, "${buildContext.applicationInfo.productCode}-plugins").eachFileRecurse(FileType.FILES) {

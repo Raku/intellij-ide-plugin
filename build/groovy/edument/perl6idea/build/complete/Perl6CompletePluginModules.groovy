@@ -25,12 +25,12 @@ class Perl6CompletePluginModules {
   static PluginLayout perl6Plugin(String mainModuleName, String name, List<String> modules,
                                    @DelegatesTo(PluginLayout.PluginLayoutSpec) Closure body = {}) {
     PluginLayout.plugin(mainModuleName) {
-      directoryName = name
-      mainJarName = "${name}.jar"
+      it.directoryName = name
+      it.mainJarName = "${name}.jar"
       modules.each { module ->
-        withModule(module, mainJarName, null)
+        it.withModule(module)
       }
-      doNotCreateSeparateJarForLocalizableResources()
+      // it.doNotCopyModuleLibrariesAutomatically()
       body.delegate = delegate
       body()
     }

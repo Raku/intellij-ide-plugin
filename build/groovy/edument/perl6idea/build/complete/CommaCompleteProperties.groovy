@@ -16,24 +16,27 @@ import java.nio.file.Path
 class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(BuildDependenciesCommunityRoot communityHome) {
     productLayout.mainJarName = "comma.jar"
-    customProductCode = "CP"
+    //customProductCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.complete"
     brandingResourcePaths = List.of(communityHome.communityRoot.resolve("comma-build/complete/resources"))
 
-    productLayout.productApiModules = ["intellij.xml.dom", "edument.perl6.comma.complete"]
+    productLayout.mainModules = List.of("edument.perl6.comma.complete")
+    productLayout.productApiModules = ["intellij.xml.dom"]
     productLayout.productImplementationModules = [
       "intellij.xml.dom.impl",
       "intellij.platform.main",
       "edument.perl6.plugin"
     ]
+    productLayout.bundledPluginModules.add("edument.perl6.comma.complete")
     productLayout.bundledPluginModules.addAll(Files.readAllLines(communityHome.communityRoot.resolve("comma-build/build/plugin-list.txt")))
+    productLayout.pluginModulesToPublish = List.of("edument.perl6.comma.complete")
   }
 
   @Override
   void copyAdditionalFilesBlocking(BuildContext context, String targetDirectory) {
     super.copyAdditionalFilesBlocking(context, targetDirectory)
-    new FileSet(context.paths.communityHomeDir.communityRoot)
+    new FileSet(context.paths.communityHomeDir)
     .include("LICENSE.txt")
     .include("NOTICE.txt")
       .copyToDir(Path.of(targetDirectory, "license"))
