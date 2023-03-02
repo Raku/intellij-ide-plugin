@@ -10,6 +10,8 @@ import org.jetbrains.intellij.build.dependencies.BuildDependenciesCommunityRoot
 import java.nio.file.Files
 import java.nio.file.Path
 
+import static org.jetbrains.intellij.build.impl.PluginLayoutGroovy.plugin
+
 /**
  * @author nik
  */
@@ -28,15 +30,23 @@ class CommaCompleteProperties extends CommaPropertiesBase {
       "intellij.platform.main",
       "edument.perl6.plugin"
     ]
+    //productLayout.bundledPluginModules.add("edument.perl6.plugin")
     productLayout.bundledPluginModules.add("edument.perl6.comma.complete")
     productLayout.bundledPluginModules.addAll(Files.readAllLines(communityHome.communityRoot.resolve("comma-build/build/plugin-list.txt")))
+
+    productLayout.pluginLayouts = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS.add(
+      plugin("edument.perl6.comma.complete") {
+        directoryName = "comma"
+        mainJarName = "comma.jar"
+        withModule("edument.perl6.plugin")
+      })
     productLayout.pluginModulesToPublish = List.of("edument.perl6.comma.complete")
   }
 
   @Override
   void copyAdditionalFilesBlocking(BuildContext context, String targetDirectory) {
     super.copyAdditionalFilesBlocking(context, targetDirectory)
-    new FileSet(context.paths.communityHomeDir)
+    new FileSet(context.paths.communityHomeDir.communityRoot)
     .include("LICENSE.txt")
     .include("NOTICE.txt")
       .copyToDir(Path.of(targetDirectory, "license"))

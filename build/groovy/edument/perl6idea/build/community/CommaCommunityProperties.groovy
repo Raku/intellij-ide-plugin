@@ -32,7 +32,7 @@ class CommaCommunityProperties extends CommaPropertiesBase {
     useSplash = true
     buildCrossPlatformDistribution = true
     productLayout.mainJarName = "comma.jar"
-    productCode = "CT"
+    //productCode = "CT"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.community"
     brandingResourcePaths = List.of(communityHome.communityRoot.resolve("comma-build/complete/resources"))

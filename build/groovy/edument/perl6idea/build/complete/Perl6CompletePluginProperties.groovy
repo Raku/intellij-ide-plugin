@@ -15,9 +15,9 @@ class Perl6CompletePluginProperties extends Perl6PluginPropertiesBase {
     applicationInfoModule = "edument.perl6.comma.complete"
     productLayout.pluginModulesToPublish = [Perl6CompletePluginModules.PERL6_COMPLETE_PLUGIN_MODULE]
 
-    //productLayout.allNonTrivialPlugins = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS + [
-    //  Perl6CompletePluginModules.perl6CompletePluginLayout()
-    //]
+    productLayout.allNonTrivialPlugins = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS + [
+      Perl6CompletePluginModules.perl6CompletePluginLayout()
+    ]
   }
 
   @Override

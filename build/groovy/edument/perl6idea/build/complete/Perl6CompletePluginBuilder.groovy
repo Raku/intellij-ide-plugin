@@ -19,7 +19,7 @@ class Perl6CompletePluginBuilder {
   }
 
   def build() {
-    def pluginBuildNumber = System.getProperty("build.number", "221.0.0")
+    def pluginBuildNumber = System.getProperty("build.number", "223.0.0")
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.complete"
     ]
@@ -30,7 +30,7 @@ class Perl6CompletePluginBuilder {
     def communityRoot = new BuildDependenciesCommunityRoot(this.home)
     def buildContext = BuildContextImpl.createContextBlocking(communityRoot,
                                                   this.home,
-                                                  new Perl6CompletePluginProperties(),
+                                                  new CommaCompleteProperties(communityRoot),
                                                   ProprietaryBuildTools.DUMMY,
                                                   options)
     BuildTasks.create(buildContext).blockingBuildNonBundledPlugins(pluginsForIdeaCommunity)
