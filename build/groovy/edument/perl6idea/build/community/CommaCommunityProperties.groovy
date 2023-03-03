@@ -24,26 +24,35 @@ import org.jetbrains.intellij.build.dependencies.BuildDependenciesCommunityRoot
 import java.nio.file.Files
 import java.nio.file.Path
 
+import static org.jetbrains.intellij.build.impl.PluginLayoutGroovy.plugin
+
 /**
  * @author nik
  */
 class CommaCommunityProperties extends CommaPropertiesBase {
   CommaCommunityProperties(BuildDependenciesCommunityRoot communityHome) {
-    useSplash = true
-    buildCrossPlatformDistribution = true
     productLayout.mainJarName = "comma.jar"
-    //productCode = "CT"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.community"
     brandingResourcePaths = List.of(communityHome.communityRoot.resolve("comma-build/complete/resources"))
 
+    productLayout.mainModules = List.of("edument.perl6.comma.community")
     productLayout.productApiModules = ["intellij.xml.dom", "edument.perl6.comma.community"]
     productLayout.productImplementationModules = [
       "intellij.xml.dom.impl",
       "intellij.platform.main",
       "edument.perl6.plugin"
     ]
+    productLayout.bundledPluginModules.add("edument.perl6.comma.community")
     productLayout.bundledPluginModules.addAll(Files.readAllLines(communityHome.communityRoot.resolve("comma-build/build/plugin-list.txt")))
+
+    productLayout.pluginLayouts = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS.add(
+      plugin("edument.perl6.comma.community") {
+        directoryName = "comma"
+        mainJarName = "comma.jar"
+        withModule("edument.perl6.plugin")
+      })
+    productLayout.pluginModulesToPublish = List.of("edument.perl6.comma.community")
   }
 
   @Override

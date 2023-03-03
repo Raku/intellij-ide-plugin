@@ -5,7 +5,7 @@ import kotlin.io.path.Path
 object CommaCompletePluginBuildTarget {
   @JvmStatic
   fun main(args: Array<String>) {
-    val communityHome = Path("/home/koto/Work/comma-production/intellij-community")//IdeaProjectLoaderUtil.guessCommunityHome(javaClass).toString()
+    val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass).communityRoot.toString()
     Perl6CompletePluginBuilder(communityHome).build()
   }
 }

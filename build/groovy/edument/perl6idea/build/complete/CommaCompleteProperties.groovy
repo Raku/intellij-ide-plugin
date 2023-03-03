@@ -18,19 +18,17 @@ import static org.jetbrains.intellij.build.impl.PluginLayoutGroovy.plugin
 class CommaCompleteProperties extends CommaPropertiesBase {
   CommaCompleteProperties(BuildDependenciesCommunityRoot communityHome) {
     productLayout.mainJarName = "comma.jar"
-    //customProductCode = "CP"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.complete"
     brandingResourcePaths = List.of(communityHome.communityRoot.resolve("comma-build/complete/resources"))
 
     productLayout.mainModules = List.of("edument.perl6.comma.complete")
-    productLayout.productApiModules = ["intellij.xml.dom"]
+    productLayout.productApiModules = ["intellij.xml.dom", "edument.perl6.comma.complete"]
     productLayout.productImplementationModules = [
       "intellij.xml.dom.impl",
       "intellij.platform.main",
       "edument.perl6.plugin"
     ]
-    //productLayout.bundledPluginModules.add("edument.perl6.plugin")
     productLayout.bundledPluginModules.add("edument.perl6.comma.complete")
     productLayout.bundledPluginModules.addAll(Files.readAllLines(communityHome.communityRoot.resolve("comma-build/build/plugin-list.txt")))
 

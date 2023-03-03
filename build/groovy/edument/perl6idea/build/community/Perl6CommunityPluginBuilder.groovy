@@ -3,6 +3,11 @@ package edument.perl6idea.build.community
 
 import groovy.io.FileType
 import org.jetbrains.intellij.build.*
+import org.jetbrains.intellij.build.dependencies.BuildDependenciesCommunityRoot
+import org.jetbrains.intellij.build.impl.BuildContextImpl
+
+import java.nio.file.Path
+
 /**
  * @author vlan
  */
@@ -15,17 +20,23 @@ class Perl6CommunityPluginBuilder {
   }
 
   def build() {
-    def pluginBuildNumber = System.getProperty("build.number", "221.0.0")
+    def pluginBuildNumber = System.getProperty("build.number", "223.0.0")
+    Path homeDir = Path.of(home)
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.community"
     ]
-    def options = new BuildOptions(targetOS: BuildOptions.OS_NONE, buildNumber: pluginBuildNumber, outputRootPath: "$home/out/commaCT", incrementalCompilation: true)
-    def buildContext = BuildContext.createContext(home,
-                                                  home,
-                                                  new Perl6CommunityPluginProperties(),
-                                                  ProprietaryBuildTools.DUMMY,
-                                                  options)
-    BuildTasks.create(buildContext).buildNonBundledPlugins(pluginsForIdeaCommunity)
+    def options = new BuildOptions()
+    options.targetOs = BuildOptions.OS_NONE
+    options.buildNumber = pluginBuildNumber
+    options.outputRootPath = homeDir.resolve("out/commaCT")
+    options.incrementalCompilation = true
+    def communityRoot = new BuildDependenciesCommunityRoot(homeDir)
+    def buildContext = BuildContextImpl.createContextBlocking(communityRoot,
+                                                              homeDir,
+                                                              new CommaCommunityProperties(communityRoot),
+                                                              ProprietaryBuildTools.DUMMY,
+                                                              options)
+    BuildTasks.create(buildContext).blockingBuildNonBundledPlugins(pluginsForIdeaCommunity)
 
     List<File> builtPlugins = []
     new File(buildContext.paths.artifacts, "${buildContext.applicationInfo.productCode}-plugins").eachFileRecurse(FileType.FILES) {

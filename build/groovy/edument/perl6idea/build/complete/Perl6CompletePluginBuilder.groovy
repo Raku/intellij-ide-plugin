@@ -12,24 +12,26 @@ import java.nio.file.Path
  */
 @SuppressWarnings("unused")
 class Perl6CompletePluginBuilder {
-  private final Path home
+  private final String home
 
-  Perl6CompletePluginBuilder(Path home) {
+  Perl6CompletePluginBuilder(String home) {
     this.home = home
   }
 
   def build() {
     def pluginBuildNumber = System.getProperty("build.number", "223.0.0")
+    Path homeDir = Path.of(home)
     def pluginsForIdeaCommunity = [
       "edument.perl6.comma.complete"
     ]
     def options = new BuildOptions()
+    options.targetOs = BuildOptions.OS_NONE
     options.buildNumber = pluginBuildNumber
-    options.outputRootPath = this.home.resolve("out/commaCP")
+    options.outputRootPath = homeDir.resolve("out/commaCP")
     options.incrementalCompilation = true
-    def communityRoot = new BuildDependenciesCommunityRoot(this.home)
+    def communityRoot = new BuildDependenciesCommunityRoot(homeDir)
     def buildContext = BuildContextImpl.createContextBlocking(communityRoot,
-                                                  this.home,
+                                                  homeDir,
                                                   new CommaCompleteProperties(communityRoot),
                                                   ProprietaryBuildTools.DUMMY,
                                                   options)
