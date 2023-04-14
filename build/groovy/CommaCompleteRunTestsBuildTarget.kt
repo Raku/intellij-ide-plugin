@@ -2,6 +2,8 @@ import org.jetbrains.intellij.build.IdeaProjectLoaderUtil
 import org.jetbrains.intellij.build.TestingOptions
 import org.jetbrains.intellij.build.TestingTasks
 import org.jetbrains.intellij.build.impl.CompilationContextImpl
+import org.jetbrains.intellij.build.impl.createCompilationContext
+import org.jetbrains.intellij.build.impl.createCompilationContextBlocking
 
 /**
  * Compiles the sources and runs tests from 'community' project. Look at [org.jetbrains.intellij.build.TestingOptions] to see which
@@ -17,12 +19,15 @@ object CommaCompleteRunTestsBuildTarget {
   fun main(args: Array<String>) {
     val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
     val outputDir = "$communityHome/out/tests"
-    val context = CompilationContextImpl.create(communityHome.toString(), communityHome.toString(), outputDir)
+    val context = createCompilationContextBlocking(
+      communityHome = communityHome,
+      projectHome = communityHome.communityRoot,
+      defaultOutputRoot = communityHome.communityRoot.resolve("out/tests"))
     val options = TestingOptions()
     options.testGroups = "COMMA_COMPLETE_TESTS"
     options.platformPrefix = "CommaCore"
     options.mainModule = "edument.perl6.comma.complete"
-    options.preferAntRunner = true
+    // options.preferAntRunner = true
     TestingTasks.create(context, options).runTests(emptyList(), "edument.perl6.comma.complete", null)
   }
 }

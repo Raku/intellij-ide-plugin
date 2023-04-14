@@ -1,5 +1,8 @@
 import edument.perl6idea.build.community.CommaCommunityProperties
 import org.jetbrains.intellij.build.*
+import org.jetbrains.intellij.build.impl.BuildContextImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 object CommaCommunityInstallersBuildTarget {
   private fun getMacHost(): MacHostProperties? {
@@ -16,14 +19,16 @@ object CommaCommunityInstallersBuildTarget {
 
   @JvmStatic
   fun main(args: Array<String>) {
-    val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass).toString()
-    val context = BuildContext.createContext(
-      communityHome,
-      communityHome,
-      CommaCommunityProperties(communityHome),
-      ProprietaryBuildTools(null, null, getMacHost(), null),
-      BuildOptions()
-    )
-    BuildTasks.create(context).buildDistributions()
+    runBlocking(Dispatchers.Default) {
+      val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
+      val context = BuildContextImpl.createContext(
+        communityHome = communityHome,
+        projectHome = communityHome.communityRoot,
+        productProperties = CommaCommunityProperties(communityHome),
+        //ProprietaryBuildTools(null, null, getMacHost(), null, null, null),
+        //BuildOptions()
+      )
+      BuildTasks.create(context).buildDistributions()
+    }
   }
 }

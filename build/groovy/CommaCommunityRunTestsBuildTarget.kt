@@ -1,7 +1,10 @@
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.intellij.build.IdeaProjectLoaderUtil
 import org.jetbrains.intellij.build.TestingOptions
 import org.jetbrains.intellij.build.TestingTasks
 import org.jetbrains.intellij.build.impl.CompilationContextImpl
+import org.jetbrains.intellij.build.impl.createCompilationContext
 
 /**
  * Compiles the sources and runs tests from 'community' project. Look at [org.jetbrains.intellij.build.TestingOptions] to see which
@@ -15,14 +18,18 @@ import org.jetbrains.intellij.build.impl.CompilationContextImpl
 object CommaCommunityRunTestsBuildTarget {
   @JvmStatic
   fun main(args: Array<String>) {
-    val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
-    val outputDir = "$communityHome/out/tests"
-    val context = CompilationContextImpl.create(communityHome.toString(), communityHome.toString(), outputDir)
-    val options = TestingOptions()
-    options.testGroups = "COMMA_COMMUNITY_TESTS"
-    options.platformPrefix = "CommaCore"
-    options.mainModule = "edument.perl6.comma.community"
-    options.preferAntRunner = true
-    TestingTasks.create(context, options).runTests(emptyList(), "edument.perl6.comma.community", null)
+    runBlocking(Dispatchers.Default) {
+      val communityHome = IdeaProjectLoaderUtil.guessCommunityHome(javaClass)
+      val outputDir = "$communityHome/out/tests"
+      val context = createCompilationContext(communityHome = communityHome,
+                                             projectHome = communityHome.communityRoot,
+                                             defaultOutputRoot = communityHome.communityRoot.resolve("out/tests"))
+      val options = TestingOptions()
+      options.testGroups = "COMMA_COMMUNITY_TESTS"
+      options.platformPrefix = "CommaCore"
+      options.mainModule = "edument.perl6.comma.community"
+      // options.preferAntRunner = true
+      TestingTasks.create(context, options).runTests(emptyList(), "edument.perl6.comma.community", null)
+    }
   }
 }

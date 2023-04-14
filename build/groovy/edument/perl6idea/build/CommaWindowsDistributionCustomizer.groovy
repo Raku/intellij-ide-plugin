@@ -4,18 +4,13 @@ package edument.perl6idea.build
 import org.jetbrains.intellij.build.BuildContext
 import org.jetbrains.intellij.build.WindowsDistributionCustomizer
 
+import java.nio.file.Path
+
 /**
  * @author nik
  */
 class CommaWindowsDistributionCustomizer extends WindowsDistributionCustomizer {
   @Override
-  void copyAdditionalFiles(BuildContext context, String targetDirectory) {
-    def underTeamCity = System.getProperty("teamcity.buildType.id") != null
-
-    context.ant.copy(todir: "$targetDirectory/skeletons", failonerror: underTeamCity) {
-      fileset(dir: "$context.paths.projectHome/skeletons", erroronmissingdir: underTeamCity) {
-        include(name: "skeletons-win*.zip")
-      }
-    }
+  void copyAdditionalFilesBlocking(BuildContext context, String targetDirectory) {
   }
 }

@@ -5,37 +5,58 @@ import org.jetbrains.intellij.build.*
 import edument.perl6idea.build.CommaPropertiesBase
 import edument.perl6idea.build.CommaMacDistributionCustomizer
 import edument.perl6idea.build.CommaWindowsDistributionCustomizer
+import org.jetbrains.intellij.build.dependencies.BuildDependenciesCommunityRoot
+
+import java.nio.file.Files
+import java.nio.file.Path
+
+import static org.jetbrains.intellij.build.impl.PluginLayoutGroovy.plugin
 
 /**
  * @author nik
  */
 class CommaCompleteProperties extends CommaPropertiesBase {
-  CommaCompleteProperties(String communityHome) {
-    customProductCode = "CP"
+  CommaCompleteProperties(BuildDependenciesCommunityRoot communityHome) {
+    productLayout.mainJarName = "comma.jar"
     platformPrefix = "CommaCore"
     applicationInfoModule = "edument.perl6.comma.complete"
-    brandingResourcePaths = ["$communityHome/comma-build/complete/resources"]
+    brandingResourcePaths = List.of(communityHome.communityRoot.resolve("comma-build/complete/resources"))
 
+    productLayout.mainModules = List.of("edument.perl6.comma.complete")
     productLayout.productApiModules = ["intellij.xml.dom", "edument.perl6.comma.complete"]
     productLayout.productImplementationModules = [
       "intellij.xml.dom.impl",
       "intellij.platform.main",
       "edument.perl6.plugin"
     ]
-    productLayout.bundledPluginModules += new File("$communityHome/comma-build/build/plugin-list.txt").readLines()
+    productLayout.bundledPluginModules.add("edument.perl6.comma.complete")
+    productLayout.bundledPluginModules.addAll(Files.readAllLines(communityHome.communityRoot.resolve("comma-build/build/plugin-list.txt")))
+
+    productLayout.pluginLayouts = CommunityRepositoryModules.COMMUNITY_REPOSITORY_PLUGINS.add(
+      plugin("edument.perl6.comma.complete") {
+        directoryName = "comma"
+        mainJarName = "comma.jar"
+        withModule("edument.perl6.plugin")
+      })
+    productLayout.pluginModulesToPublish = List.of("edument.perl6.comma.complete")
   }
 
   @Override
-  void copyAdditionalFiles(BuildContext context, String targetDirectory) {
-    super.copyAdditionalFiles(context, targetDirectory)
-    context.ant.copy(todir: "$targetDirectory/license") {
-      fileset(file: "$context.paths.communityHome/LICENSE.txt")
-      fileset(file: "$context.paths.communityHome/NOTICE.txt")
-    }
+  void copyAdditionalFilesBlocking(BuildContext context, String targetDirectory) {
+    super.copyAdditionalFilesBlocking(context, targetDirectory)
+    new FileSet(context.paths.communityHomeDir.communityRoot)
+    .include("LICENSE.txt")
+    .include("NOTICE.txt")
+      .copyToDir(Path.of(targetDirectory, "license"))
   }
 
-  String getSystemSelector(ApplicationInfoProperties applicationInfo) {
+  String getSystemSelector(ApplicationInfoProperties applicationInfo, String buildNumber) {
     "CommaCP${applicationInfo.majorVersion}.${applicationInfo.minorVersionMainPart}"
+  }
+
+  @Override
+  String getBaseFileName() {
+    return "comma"
   }
 
   @Override
@@ -71,7 +92,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
 
       @Override
       String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
-        "comma-complete-${applicationInfo.isEAP ? buildNumber : applicationInfo.fullVersion}"
+        "comma-complete-${applicationInfo.isEAP() ? buildNumber : applicationInfo.fullVersion}"
       }
     }
   }
@@ -87,7 +108,7 @@ class CommaCompleteProperties extends CommaPropertiesBase {
 
       @Override
       String getRootDirectoryName(ApplicationInfoProperties applicationInfo, String buildNumber) {
-        String suffix = applicationInfo.isEAP ? " ${applicationInfo.majorVersion}.${applicationInfo.minorVersion} EAP" : ""
+        String suffix = applicationInfo.isEAP() ? " ${applicationInfo.majorVersion}.${applicationInfo.minorVersion} EAP" : ""
         "Comma CP${suffix}.app"
       }
     }
