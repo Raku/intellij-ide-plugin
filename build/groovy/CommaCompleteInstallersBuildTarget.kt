@@ -26,8 +26,9 @@ object CommaCompleteInstallersBuildTarget {
         communityHome = completeHome,
         projectHome = completeHome.communityRoot,
         productProperties = CommaCompleteProperties(completeHome),
-        //ProprietaryBuildTools(macHostProperties =  getMacHost()),
-        //BuildOptions()
+        proprietaryBuildTools = ProprietaryBuildTools(macHostProperties = getMacHost(),
+          signTool = null, scrambleTool = null, artifactsServer = null, featureUsageStatisticsProperties = null, licenseServerHost = null),
+        options = BuildOptions()
       )
       BuildTasks.create(context).buildDistributions()
     }
