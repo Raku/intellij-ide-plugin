@@ -20,3 +20,5 @@ for some pointers.
 
 Note that this repository is basically a source dump that can serve as a seed for an open source Raku plugin
 for IntelliJ platform IDEs. We wish anybody attempting that the best of luck!
+
+This repository is Copyright © [The Raku Foundation](https://raku.foundation).
